@@ -22,6 +22,14 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<AppDbContext>();
 
+    builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder.WithOrigins("http://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod());
+});
+
 // Konfiguration der JWT-Authentifizierung
 builder.Services.AddAuthentication(options =>
 {
@@ -56,8 +64,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
-
+// app.UseHttpsRedirection();
+app.UseCors("AllowSpecificOrigin");
 // Die Middleware für Authentifizierung und Autorisierung in der richtigen Reihenfolge
 // Authentication muss vor Authorization kommen!
 app.UseAuthentication();
