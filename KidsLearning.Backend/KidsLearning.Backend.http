@@ -1,0 +1,6 @@
+@KidsLearning.Backend_HostAddress = http://localhost:5207
+
+GET {{KidsLearning.Backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
