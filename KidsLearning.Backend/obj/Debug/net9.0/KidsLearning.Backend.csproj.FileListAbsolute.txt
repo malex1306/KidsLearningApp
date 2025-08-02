@@ -232,3 +232,4 @@ C:\Users\alexa\source\repos\KidsLearningApp\KidsLearning.Backend\obj\Debug\net9.
 C:\Users\alexa\source\repos\KidsLearningApp\KidsLearning.Backend\obj\Debug\net9.0\compressed\nezrqnk58p-muycvpuwrr.gz
 C:\Users\alexa\source\repos\KidsLearningApp\KidsLearning.Backend\obj\Debug\net9.0\compressed\v0zgfp0y55-87fc7y1x7t.gz
 C:\Users\alexa\source\repos\KidsLearningApp\KidsLearning.Backend\obj\Debug\net9.0\compressed\yfc7ypekbg-mlv21k5csn.gz
+C:\Users\alexa\source\repos\KidsLearningApp\KidsLearning.Backend\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
