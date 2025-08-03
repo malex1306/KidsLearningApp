@@ -8,7 +8,7 @@ public class Child
     public string Name { get; set; } = string.Empty;
     public string AvatarUrl { get; set; } = string.Empty;
     public string ParentId { get; set; } = string.Empty;
-    public IdentityUser Parent { get; set; } = new IdentityUser();
+    public IdentityUser? Parent { get; set; } 
 
     public ICollection<SubjectProgress> Progress { get; set; } = new List<SubjectProgress>();
 }

@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using KidsLearning.Backend.Data;
 using KidsLearning.Backend.DTOs;
+using KidsLearning.Backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,7 @@ public class ParentDashboardController : ControllerBase
         }
 
         var parent = await _userManager.FindByIdAsync(parentId);
+         Console.WriteLine("Claimed ParentId: " + parentId);
         var userEmail = parent?.Email ?? "";
 
         var children = await _context.Children
@@ -47,10 +49,12 @@ public class ParentDashboardController : ControllerBase
                 LastActivity = "Heute",
                 Progress = c.Progress.Select(p => new SubjectProgressDto
                 {
-                    SubjetName = p.SubjectName,
+                    SubjectName = p.SubjectName,
                     ProgressPercentage = p.ProgressPercentage
                 }).ToList()
             }).ToListAsync();
+
+             Console.WriteLine($"Children count: {children.Count}");
 
         var dashboardData = new ParentDashboardDto
         {
@@ -58,7 +62,32 @@ public class ParentDashboardController : ControllerBase
             Children = children,
             RecentActivities = new List<string> { "Kind 1 hat Mathe abgeschlossen", "Kind 2 hat ein neues Profilbild hochgeladen" }
         };
-       
+
         return Ok(dashboardData);
+    }
+    
+      [HttpPost("add-child")]
+    public async Task<IActionResult> AddChild([FromBody] AddChildDto addChildDto)
+    {
+        var parentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (parentId == null)
+        {
+            return Unauthorized(new { Message = "Parent ID claim missing." });
+        }
+
+        Console.WriteLine($"AddChild: ParentId = {parentId}, ChildName = {addChildDto.Name}");
+        
+        var newChild = new Child
+        {
+            Name = addChildDto.Name,
+            AvatarUrl = addChildDto.AvatarUrl ?? "https://via.placeholder.com/40",
+            ParentId = parentId
+        };
+
+        _context.Children.Add(newChild);
+        await _context.SaveChangesAsync();
+        Console.WriteLine($"Neues Kind gespeichert: Id={newChild.Id}, Name={newChild.Name}, ParentId={newChild.ParentId}");
+        
+        return Ok(new { Message = $"Kind '{newChild.Name}' wurde erfolgreich hinzugefügt." });
     }
 }

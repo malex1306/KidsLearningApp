@@ -3,7 +3,7 @@ namespace KidsLearning.Backend.DTOs;
 
 public class SubjectProgressDto
 {
-    public string SubjetName { get; set; } = string.Empty;
+    public string SubjectName { get; set; } = string.Empty;
     public int ProgressPercentage { get; set; }
     
 }

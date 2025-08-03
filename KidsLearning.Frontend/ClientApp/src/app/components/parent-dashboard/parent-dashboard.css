@@ -1,0 +1,182 @@
+.dashboard-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    min-height: 100vh;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.profile-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    margin-left: 15px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.add-child-form {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.child-cards-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.child-card, .dashboard-section {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 1;
+    min-width: 300px;
+}
+
+.child-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.child-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.progress-section h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.progress-bar-container {
+    background-color: #e9ecef;
+    border-radius: 10px;
+    height: 25px;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #007bff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    transition: width 0.3s ease-in-out;
+}
+
+.progress-text {
+    position: absolute;
+    left: 10px;
+    color: #343a40;
+    font-weight: bold;
+}
+
+.card-footer {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+.activity-feed {
+    list-style: none;
+    padding: 0;
+}
+
+.activity-feed li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.activity-feed li:last-child {
+    border-bottom: none;
+}
+
+.no-children-message {
+    text-align: center;
+    font-style: italic;
+    color: #6c757d;
+    padding: 20px;
+}
+
+.info-message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
