@@ -1,0 +1,35 @@
+<div class="register-container d-flex justify-content-center align-items-center">
+  <div class="card p-4 shadow-lg">
+    <div class="card-body">
+      <h2 class="card-title text-center mb-4">Registrieren</h2>
+      
+      <div *ngIf="errorMessage()" class="alert alert-danger" role="alert">
+        {{ errorMessage() }}
+      </div>
+
+      <form (ngSubmit)="onRegister()">
+        <div class="mb-3">
+          <label for="email" class="form-label">E-Mail</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Passwort</label>
+          <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Passwort bestätigen</label>
+          <input type="password" class="form-control" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+        </div>
+
+        <div class="d-grid gap-2 mt-4">
+          <button type="submit" class="btn btn-primary btn-custom">Registrieren</button>
+        </div>
+      </form>
+    </div>
+    <p class="text-center mt-3">
+      Schon registriert? <a [routerLink]="['/login']">Hier anmelden</a>
+    </p>
+  </div>
+</div>

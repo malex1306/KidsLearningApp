@@ -26,12 +26,21 @@ export class Auth {
     );
 }
 
-
     logout() : void {
       localStorage.removeItem('jwt_token');
     }
 
     isLoggedIn() : boolean {
       return !!localStorage.getItem('jwt_token');
+    }
+
+    register(user: { email: string; password: string, confirmedPassword: string, userName: string }): Observable<any> {
+      return this.http.post(this.apiUrl + 'register', user)
+        .pipe(
+          catchError(error => {
+            console.error('Registration failed', error);
+            return throwError(() => new Error(error?.error?.message || 'Registration failed.'));
+          })
+        );
     }
 }
