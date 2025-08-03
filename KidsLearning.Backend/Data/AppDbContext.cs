@@ -7,8 +7,10 @@ namespace KidsLearning.Backend.Data;
 public class AppDbContext : IdentityDbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-        {
-        }
-    
+    {
+    }
+
     public DbSet<LearningQuest> LearningQuests { get; set; } = null!;
+    public DbSet<Child> Children { get; set; }
+    public DbSet<SubjectProgress> SubjectProgresses { get; set; } 
 }
