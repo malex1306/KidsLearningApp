@@ -16,7 +16,7 @@ export class RegisterComponent {
   email = '';
   password = '';
   confirmPassword = '';
-  userName = ''; // <-- NEUES FELD HINZUGEFÜGT
+  userName = ''; 
   errorMessage: WritableSignal<string> = signal('');
 
   constructor(private auth: Auth, private router: Router) { }
