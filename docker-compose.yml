@@ -1,0 +1,29 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  # Der Service für dein .NET Backend
+  backend:
+    build:
+      context: ./KidsLearning.Backend # Pfad zu deinem Backend-Projektordner
+      dockerfile: Dockerfile
+    container_name: kidslearning-backend
+    ports:
+      - "5207:5207" # Exponiert den Port deines Backends
+    environment:
+      # Hier definieren wir die Datenbank-Verbindungszeichenfolge
+      # WICHTIG: Verwende den Servicenamen 'db' statt 'localhost'
+      - ConnectionStrings:DefaultConnection=Server=db;Database=KidsLearningDB;User Id=sa;Password=your_strong_password;TrustServerCertificate=True
+    depends_on:
+      - db # Stellt sicher, dass die Datenbank zuerst startet
+
+  # Der Service für die Datenbank (SQL Server in diesem Beispiel)
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest # Verwendet ein offizielles SQL Server Image
+    container_name: kidslearning-db
+    ports:
+      - "1433:1433" # Exponiert den Standardport für SQL Server
+    environment:
+      # Wichtige Umgebungsvariablen für SQL Server
+      - SA_PASSWORD=your_strong_password
+      - ACCEPT_EULA=Y

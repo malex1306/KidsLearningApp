@@ -1,0 +1,17 @@
+# KidsLearning.Backend/Dockerfile
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+WORKDIR /app
+
+# Kopiere die CSPROJ-Datei und stelle die Abhängigkeiten wieder her
+COPY *.csproj ./
+RUN dotnet restore
+
+# Kopiere den Rest des Codes und erstelle die App
+COPY . ./
+RUN dotnet publish -c Release -o out
+
+# Baue ein finales Image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /app
+COPY --from=build-env /app/out .
+ENTRYPOINT ["dotnet", "KidsLearning.Backend.dll"]
