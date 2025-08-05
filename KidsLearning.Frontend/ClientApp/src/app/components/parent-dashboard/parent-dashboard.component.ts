@@ -5,13 +5,14 @@ import { FormsModule } from '@angular/forms'; // <-- HIER FÜGEN WIR FormsModule
 import { CommonModule } from '@angular/common'; // Für *ngIf und *ngFor
 import { ParentDashboardService } from '../../services/parent-dashboard.service';
 import { ParentDashboardDto, ChildDto, AddChildDto, RemoveChildDto, EditChildDto } from '../../dtos/parent-dashboard.dto';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-parent-dashboard',
-  standalone: true, // <-- STELL SICHER, DASS DIESE ZEILE VORHANDEN IST
+  standalone: true, 
   imports: [
-    CommonModule,  // Wird für *ngIf und *ngFor benötigt
-    FormsModule    // Wird für [(ngModel)] benötigt
+    CommonModule,  
+    FormsModule   
   ],
   templateUrl: './parent-dashboard.html', 
   styleUrls: ['./parent-dashboard.css']

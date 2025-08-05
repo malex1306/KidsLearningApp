@@ -25,7 +25,7 @@ public class ParentDashboardController : ControllerBase
         _context = context;
     }
 
-    [HttpGet]
+     [HttpGet]
     public async Task<IActionResult> GetDashboardData()
     {
         var parentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -35,34 +35,64 @@ public class ParentDashboardController : ControllerBase
         }
 
         var parent = await _userManager.FindByIdAsync(parentId);
-        Console.WriteLine("Claimed ParentId: " + parentId);
         var userEmail = parent?.Email ?? "";
 
-        var children = await _context.Children
+        
+        var childrenWithProgress = await _context.Children
             .Where(c => c.ParentId == parentId)
             .Include(c => c.Progress)
-            .Select(c => new ChildDto
-            {
-                ChildId = c.Id,
-                Name = c.Name,
-                AvatarUrl = c.AvatarUrl,
-                LastActivity = "Heute",
-                Age = DateTime.Now.Year - c.DateOfBirth.Year,
-                DateOfBirth = c.DateOfBirth,
-                Progress = c.Progress.Select(p => new SubjectProgressDto
-                {
-                    SubjectName = p.SubjectName,
-                    ProgressPercentage = p.ProgressPercentage
-                }).ToList()
-            }).ToListAsync();
+            .ToListAsync();
 
-        Console.WriteLine($"Children count: {children.Count}");
+        
+        var recentActivities = new List<string>();
+
+       
+        foreach (var child in childrenWithProgress)
+        {
+            if (!child.Progress.Any())
+            {
+                recentActivities.Add($"{child.Name} hat noch nicht mit dem Lernen begonnen.");
+            }
+        }
+        
+        
+        var latestProgress = childrenWithProgress
+            .SelectMany(c => c.Progress)
+            .OrderByDescending(p => p.LastUpdated)
+            .Take(5)
+            .ToList();
+
+        foreach (var progress in latestProgress)
+        {
+            var childName = childrenWithProgress.FirstOrDefault(c => c.Id == progress.ChildId)?.Name;
+            if (childName != null)
+            {
+                recentActivities.Add($"{childName} hat {progress.SubjectName} auf {progress.ProgressPercentage}% abgeschlossen.");
+            }
+        }
+
+        var childrenDtos = childrenWithProgress.Select(c => new ChildDto
+        {
+            ChildId = c.Id,
+            Name = c.Name,
+            AvatarUrl = c.AvatarUrl,
+            LastActivity = c.Progress.Any()
+            ? c.Progress.Max(p => p.LastUpdated).ToString("dd.MM.yyyy HH:mm")
+            : "Keine Aktivitäten",
+            Age = DateTime.Now.Year - c.DateOfBirth.Year,
+            DateOfBirth = c.DateOfBirth,
+            Progress = c.Progress.Select(p => new SubjectProgressDto
+            {
+                SubjectName = p.SubjectName,
+                ProgressPercentage = p.ProgressPercentage
+            }).ToList()
+        }).ToList();
 
         var dashboardData = new ParentDashboardDto
         {
-            WelcomeMessage = $"Welcome to the Parent Dashboard, {parent?.UserName ?? "dear User"}!",
-            Children = children,
-            RecentActivities = new List<string> { "Kind 1 hat Mathe abgeschlossen", "Kind 2 hat ein neues Profilbild hochgeladen" }
+            WelcomeMessage = $"Willkommen im Eltern-Dashboard, {parent?.UserName ?? "lieber Benutzer"}!",
+            Children = childrenDtos,
+            RecentActivities = recentActivities // Die dynamisch erstellte Liste
         };
 
         return Ok(dashboardData);

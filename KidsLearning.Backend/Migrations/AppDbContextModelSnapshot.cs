@@ -91,6 +91,9 @@ namespace KidsLearning.Backend.Migrations
                     b.Property<int>("ChildId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("LastUpdated")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("ProgressPercentage")
                         .HasColumnType("int");
 
