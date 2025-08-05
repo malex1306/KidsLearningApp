@@ -35,7 +35,7 @@ public class ParentDashboardController : ControllerBase
         }
 
         var parent = await _userManager.FindByIdAsync(parentId);
-         Console.WriteLine("Claimed ParentId: " + parentId);
+        Console.WriteLine("Claimed ParentId: " + parentId);
         var userEmail = parent?.Email ?? "";
 
         var children = await _context.Children
@@ -47,6 +47,8 @@ public class ParentDashboardController : ControllerBase
                 Name = c.Name,
                 AvatarUrl = c.AvatarUrl,
                 LastActivity = "Heute",
+                Age = DateTime.Now.Year - c.DateOfBirth.Year,
+                DateOfBirth = c.DateOfBirth,
                 Progress = c.Progress.Select(p => new SubjectProgressDto
                 {
                     SubjectName = p.SubjectName,
@@ -54,7 +56,7 @@ public class ParentDashboardController : ControllerBase
                 }).ToList()
             }).ToListAsync();
 
-             Console.WriteLine($"Children count: {children.Count}");
+        Console.WriteLine($"Children count: {children.Count}");
 
         var dashboardData = new ParentDashboardDto
         {
@@ -65,8 +67,8 @@ public class ParentDashboardController : ControllerBase
 
         return Ok(dashboardData);
     }
-    
-      [HttpPost("add-child")]
+
+    [HttpPost("add-child")]
     public async Task<IActionResult> AddChild([FromBody] AddChildDto addChildDto)
     {
         var parentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -76,18 +78,65 @@ public class ParentDashboardController : ControllerBase
         }
 
         Console.WriteLine($"AddChild: ParentId = {parentId}, ChildName = {addChildDto.Name}");
-        
+
         var newChild = new Child
         {
             Name = addChildDto.Name,
             AvatarUrl = addChildDto.AvatarUrl ?? "https://via.placeholder.com/40",
-            ParentId = parentId
+            ParentId = parentId,
+            DateOfBirth = addChildDto.DateOfBirth,
         };
 
         _context.Children.Add(newChild);
         await _context.SaveChangesAsync();
         Console.WriteLine($"Neues Kind gespeichert: Id={newChild.Id}, Name={newChild.Name}, ParentId={newChild.ParentId}");
-        
+
         return Ok(new { Message = $"Kind '{newChild.Name}' wurde erfolgreich hinzugefügt." });
     }
+
+    [HttpDelete("remove-child/{childId}")]
+    public async Task<IActionResult> RemoveChild(int childId)
+    {
+        var parentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (parentId == null)
+        {
+            return Unauthorized(new { Message = "Parent ID claim missing." });
+        }
+
+        var child = await _context.Children.FirstOrDefaultAsync(c => c.Id == childId && c.ParentId == parentId);
+        if (child == null)
+        {
+            return NotFound(new { Message = "Kind nicht gefunden oder nicht zugeordnet." });
+        }
+
+        _context.Children.Remove(child);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { Message = $"Kind '{child.Name}' wurde erfolgreich entfernt." });
+    }
+    [HttpPut("edit-child/{childId}")]
+    public async Task<IActionResult> EditChild(int childId, [FromBody] EditChildDto editChildDto)
+    {
+        var parentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (parentId == null)
+        {
+            return Unauthorized(new { Message = "Parent ID claim missing." });
+        }
+
+        var child = await _context.Children.FirstOrDefaultAsync(c => c.Id == childId && c.ParentId == parentId);
+        if (child == null)
+        {
+            return NotFound(new { Message = "Kind nicht gefunden oder nicht zugeordnet." });
+        }
+
+        child.Name = editChildDto.Name;
+        child.DateOfBirth = editChildDto.DateOfBirth;
+        child.AvatarUrl = editChildDto.AvatarUrl ?? "https://via.placeholder.com/40";
+
+        _context.Children.Update(child);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { Message = $"Kind '{child.Name}' wurde erfolgreich aktualisiert." });
+    }
+    
 }

@@ -22,6 +22,10 @@
         <input type="text" id="childName" [(ngModel)]="newChild.name" name="childName" required>
       </div>
       <div class="form-group">
+        <label for="childBirthday">Geburtstag</label>
+        <input type="date" id="childBirthday" [(ngModel)]="newChild.dateOfBirth" name="childBirthday" required>
+      </div>
+      <div class="form-group">
         <label for="avatarUrl">Avatar-URL (optional)</label>
         <input type="text" id="avatarUrl" [(ngModel)]="newChild.avatarUrl" name="avatarUrl">
       </div>
@@ -29,11 +33,34 @@
     </form>
   </div>
 
+  <div *ngIf="showEditChildForm" class="add-child-form">
+    <h3>Kind bearbeiten</h3>
+    <form (ngSubmit)="onEditChildSubmit()">
+      <div class="form-group">
+        <label for="editChildName">Name des Kindes</label>
+        <input type="text" id="editChildName" [(ngModel)]="editingChild!.name" name="editChildName" required>
+      </div>
+      <div class="form-group">
+        <label for="editChildBirthday">Geburtstag</label>
+        <input type="date" id="editChildBirthday" [(ngModel)]="editingChild!.dateOfBirth" name="editChildBirthday" required>
+      </div>
+      <div class="form-group">
+        <label for="editAvatarUrl">Avatar-URL (optional)</label>
+        <input type="text" id="editAvatarUrl" [(ngModel)]="editingChild!.avatarUrl" name="editAvatarUrl">
+      </div>
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-secondary">Änderungen speichern</button>
+        <button type="button" class="btn btn-light" (click)="showEditChildForm = false">Abbrechen</button>
+      </div>
+    </form>
+  </div>
+  
   <div *ngIf="dashboardData.children.length > 0" class="child-cards-container">
     <div class="child-card" *ngFor="let child of dashboardData.children">
       <div class="child-header">
         <img [src]="child.avatarUrl" alt="Kinder-Profilbild" class="child-picture">
         <h3>{{ child.name }}</h3>
+        <p>Alter: {{ child.age }} Jahre</p>
       </div>
       <div class="progress-section">
         <h4>Lernfortschritt</h4>
@@ -42,13 +69,15 @@
           <span class="progress-text">{{ progress.subjectName }}: {{ progress.progressPercentage }}%</span>
         </div>
       </div>
-      <div class="card-footer">
+      <div class="card-footer d-flex gap-2">
         <p>Letzte Aktivität: {{ child.lastActivity }}</p>
+        <button class="btn btn-danger" (click)="onDeleteChild(child.childId)">Entfernen</button>
+        <button class="btn btn-secondary" (click)="onEditChild(child)">Bearbeiten</button>
       </div>
     </div>
   </div>
   
-  <p *ngIf="dashboardData.children.length === 0 && !showAddChildForm" class="no-children-message">
+  <p *ngIf="dashboardData.children.length === 0 && !showAddChildForm && !showEditChildForm" class="no-children-message">
     Du hast noch keine Kinder hinzugefügt.
   </p>
 

@@ -11,6 +11,8 @@ public class ChildDto
 {
     public int ChildId { get; set; }
     public string Name { get; set; } = string.Empty;
+    public int Age { get; set; }
+    public DateTime DateOfBirth { get; set; }
     public string AvatarUrl { get; set; } = string.Empty;
     public string LastActivity { get; set; } = string.Empty;
     public List<SubjectProgressDto> Progress { get; set; } = [];

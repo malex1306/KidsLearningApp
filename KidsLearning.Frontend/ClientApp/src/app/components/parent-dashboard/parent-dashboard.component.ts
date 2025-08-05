@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- HIER FÜGEN WIR FormsModule HINZU
 import { CommonModule } from '@angular/common'; // Für *ngIf und *ngFor
 import { ParentDashboardService } from '../../services/parent-dashboard.service';
-import { ParentDashboardDto, ChildDto, AddChildDto } from '../../dtos/parent-dashboard.dto';
+import { ParentDashboardDto, ChildDto, AddChildDto, RemoveChildDto, EditChildDto } from '../../dtos/parent-dashboard.dto';
 
 @Component({
   selector: 'app-parent-dashboard',
@@ -17,7 +17,11 @@ import { ParentDashboardDto, ChildDto, AddChildDto } from '../../dtos/parent-das
   styleUrls: ['./parent-dashboard.css']
 })
 export class ParentDashboardComponent implements OnInit {
-  // ... der Rest deines Component-Codes bleibt wie besprochen
+ showAddChildForm = false;
+  showEditChildForm = false;
+  editingChild: ChildDto | null = null;
+  message = '';
+
   dashboardData: ParentDashboardDto = {
     welcomeMessage: '',
     children: [],
@@ -26,11 +30,9 @@ export class ParentDashboardComponent implements OnInit {
 
   newChild: AddChildDto = {
     name: '',
-    avatarUrl: ''
+    avatarUrl: '',
+    dateOfBirth: new Date()
   };
-
-  showAddChildForm = false;
-  message = '';
 
   constructor(private dashboardService: ParentDashboardService) { }
 
@@ -59,7 +61,7 @@ export class ParentDashboardComponent implements OnInit {
       this.dashboardService.addChild(this.newChild).subscribe({
         next: (response: any) => {
           this.message = response.message;
-          this.newChild = { name: '', avatarUrl: '' };
+          this.newChild = { name: '', avatarUrl: '', dateOfBirth: new Date() }; // Reset the form
           this.showAddChildForm = false;
           this.loadDashboardData();
         },
@@ -70,4 +72,42 @@ export class ParentDashboardComponent implements OnInit {
       });
     }
   }
+  onDeleteChild(childId: number): void {
+    this.dashboardService.removeChild( childId ).subscribe({
+      next: (response: any) => {
+        this.message = response.message;
+        this.loadDashboardData();
+      },
+      error: (err: any) => {
+        this.message = 'Fehler beim Entfernen des Kindes.';
+        console.error(err);
+      }
+    });
+  }
+  onEditChild(child: ChildDto): void {
+    this.editingChild = { ...child }; 
+    this.showEditChildForm = true;
+    this.showAddChildForm = false;
+    };
+
+  onEditChildSubmit(): void {
+  // Überprüfe, ob ein Kind zum Bearbeiten ausgewählt ist
+   if (this.editingChild && this.editingChild.name.trim()) {
+      // Rufe den Service auf, um die Änderungen zu speichern
+      this.dashboardService.editChild(this.editingChild.childId, this.editingChild as EditChildDto).subscribe({
+        next: (response: any) => {
+          this.message = response.message;
+          // Formular zurücksetzen und schließen
+          this.editingChild = null;
+          this.showEditChildForm = false;
+          this.loadDashboardData(); // Dashboard-Daten neu laden
+        },
+        error: (err: any) => {
+          this.message = 'Fehler beim Bearbeiten des Kindes.';
+          console.error(err);
+      }
+    });
+  }
+}
+  
 }

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ParentDashboardDto, AddChildDto, ChildDto } from '../dtos/parent-dashboard.dto';
+import { ParentDashboardDto, AddChildDto, ChildDto, EditChildDto } from '../dtos/parent-dashboard.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -25,4 +25,10 @@ export class ParentDashboardService {
   addChild(childData: AddChildDto): Observable<ChildDto> {
   return this.http.post<ChildDto>(`${this.apiUrl}/add-child`, childData, { headers: this.getAuthHeaders() });
 }
+  removeChild(childId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/remove-child/${childId}`, { headers: this.getAuthHeaders() });
+  }
+  editChild(childId: number, editChildDto: EditChildDto): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/edit-child/${childId}`, editChildDto);
+  }
 }

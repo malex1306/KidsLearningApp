@@ -4,6 +4,7 @@ export interface ChildInfo {
   id: string;
   name: string;
   avatarUrl: string;
+  age: number;
 }
 
 @Injectable({

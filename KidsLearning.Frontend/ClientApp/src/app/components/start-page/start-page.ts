@@ -45,8 +45,9 @@ export class StartPageComponent implements OnInit {
   // Korrigierte Methode: Der Parameter ist ChildDto
   selectChild(child: ChildDto): void {
     const childInfo: ChildInfo = {
-      id: child.childId.toString(), // childId wird zu id gemappt (und als String gespeichert)
+      id: child.childId.toString(), 
       name: child.name,
+      age: child.age, 
       avatarUrl: child.avatarUrl
     };
     this.activeChildService.setActiveChild(childInfo);
