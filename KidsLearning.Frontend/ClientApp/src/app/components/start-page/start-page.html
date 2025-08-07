@@ -1,92 +1,102 @@
-<div class="dashboard-container">
-  
-  <header class="dashboard-header" *ngIf="isLoggedIn">
-    <div class="user-info">
-      <h2 *ngIf="activeChild()">Hallo, {{ activeChild()?.name }}!</h2>
-      <h2 *ngIf="!activeChild()">Willkommen zurück!</h2>
-    </div>
-  </header>
-  
-  <header class="dashboard-header" *ngIf="!isLoggedIn">
-    <div class="user-info">
-      <h2>Willkommen bei der KidsLearningApp!</h2>
-    </div>
-  </header>
-  
-  <div class="main-content">
-    
-    <div *ngIf="!isLoggedIn" class="intro-section card p-4 mb-4">
-      <div class="card-body">
-        <p>Lernen mit Spaß für deine Kinder.</p>
-        <p>Erstelle ein kostenloses Konto, um loszulegen.</p>
-        <div class="header-actions mt-3">
-          <a class="btn btn-primary me-2" [routerLink]="['/register']" role="button">Jetzt registrieren</a>
-          <a class="btn btn-secondary" [routerLink]="['/login']" role="button">Anmelden</a>
-        </div>
-      </div>
-    </div>
+<div class="tasks-container">
+  @if (isLoggedIn) {
+    <header class="dashboard-header">
+      @if (activeChild()) {
+        <h2>Hallo, {{ activeChild()?.name }}!</h2>
+      } @else {
+        <h2>Willkommen zurück!</h2>
+      }
+    </header>
 
-    <div *ngIf="isLoggedIn">
-      
-      <div *ngIf="dashboardData">
-        
-        <div *ngIf="dashboardData.children.length > 0" class="child-selection-container">
-          <h3>Für welches Kind möchtest du Lektionen sehen?</h3>
-          <div class="child-cards-container">
-            <div class="child-card clickable" 
-                 *ngFor="let child of dashboardData.children" 
-                 [class.active-child]="child.childId"
-                 (click)="selectChild(child)">
-              <div class="child-header">
-                <img [src]="child.avatarUrl" alt="Profilbild" class="child-picture">
-                <h3>{{ child.name }}</h3><br>
-                <h4>Alter:{{ child.age}}</h4>
-              </div>
+    <div class="main-content">
+      @if (dashboardData) {
+        @if (dashboardData.children.length > 0) {
+          <div class="child-selection-container">
+            <h3>Für welches Kind möchtest du Lektionen sehen?</h3>
+            <div class="child-cards-container">
+              @for (child of dashboardData.children; track child.childId) {
+                <div class="child-card clickable"
+                     [class.active-child]="child.childId"
+                     (click)="selectChild(child)">
+                  <div class="child-header">
+                    <img [src]="child.avatarUrl" alt="Profilbild" class="child-picture">
+                    <h3>{{ child.name }}</h3><br>
+                    <h4>Alter:{{ child.age}}</h4>
+                  </div>
+                </div>
+              }
             </div>
           </div>
-        </div>
-
-        <div *ngIf="dashboardData.children.length === 0" class="no-children-message card p-4">
-          Du hast noch keine Kinder hinzugefügt.
-        </div>
-        
-      </div>
+        } @else {
+          <div class="no-children-message card p-4">
+            Du hast noch keine Kinder hinzugefügt.
+          </div>
+        }
+      }
       
       <div class="lessons-section mt-4">
         <div class="section-header">
-          <h3 *ngIf="activeChild()">Lektionen für {{ activeChild()?.name }}</h3>
-          <h3 *ngIf="!activeChild()">Bitte wähle ein Kind aus.</h3>
+          @if (activeChild()) {
+            <h3>Lektionen für {{ activeChild()?.name }}</h3>
+          } @else {
+            <h3>Bitte wähle ein Kind aus.</h3>
+          }
         </div>
         
-        <p *ngIf="activeChild()">Hier siehst du die verfügbaren Übungen für {{ activeChild()?.name }}.</p>
-        
-        <div class="lessons-list" *ngIf="activeChild()">
-          <div class="child-card mb-3">
-            <div class="child-header">
-              <img src="https://via.placeholder.com/50" alt="Lektion Bild" class="child-picture">
-              <h3>Mathe-Abenteuer</h3>
+        @if (activeChild()) {
+          <p>Hier siehst du die verfügbaren Übungen für {{ activeChild()?.name }}.</p>
+          
+          <div class="lessons-list">
+            <div class="child-card mb-3">
+              <div class="child-header">
+                <img src="https://via.placeholder.com/50" alt="Lektion Bild" class="child-picture">
+                <h3>Mathe-Abenteuer</h3>
+              </div>
+              <div class="progress-section">
+                <p>Grundlagen der Mathematik.</p>
+              </div>
+              <div class="card-footer">
+                <a [routerLink]="['/tasks', 'Mathe-Abenteuer']">
+                  <button class="fun-button">Starten</button>
+                </a>
+              </div>
             </div>
-            <div class="progress-section">
-              <p>Grundlagen der Mathematik.</p>
-            </div>
-            <div class="card-footer">
-              <button class="btn btn-primary">Starten</button>
+            
+            <div class="child-card mb-3">
+              <div class="child-header">
+                <img src="https://via.placeholder.com/50" alt="Lektion Bild" class="child-picture">
+                <h3>Buchstaben-Land</h3>
+              </div>
+              <div class="progress-section">
+                <p>Lerne, wie man liest und schreibt.</p>
+              </div>
+              <div class="card-footer">
+                <a [routerLink]="['/task', 'Buchstaben-land']">
+                  <button class="fun-button">Starten</button>
+                </a>
+              </div>
             </div>
           </div>
-          <div class="child-card mb-3">
-            <div class="child-header">
-              <img src="https://via.placeholder.com/50" alt="Lektion Bild" class="child-picture">
-              <h3>Buchstaben-Land</h3>
-            </div>
-            <div class="progress-section">
-              <p>Lerne, wie man liest und schreibt.</p>
-            </div>
-            <div class="card-footer">
-              <button class="btn btn-primary">Starten</button>
-            </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <header class="dashboard-header">
+      <div class="user-info">
+        <h2>Willkommen bei der KidsLearningApp!</h2>
+      </div>
+    </header>
+    <div class="main-content">
+      <div class="intro-section card p-4 mb-4">
+        <div class="card-body">
+          <p>Lernen mit Spaß für deine Kinder.</p>
+          <p>Erstelle ein kostenloses Konto, um loszulegen.</p>
+          <div class="header-actions mt-3">
+            <a class="btn btn-primary me-2" [routerLink]="['/register']" role="button">Jetzt registrieren</a>
+            <a class="btn btn-secondary" [routerLink]="['/login']" role="button">Anmelden</a>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  }
 </div>

@@ -1,5 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
-/* src/styles.css */
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Damit der Hintergrund die gesamte Höhe einnimmt */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  /* HIER der wichtige Teil: */
+  /* background: linear-gradient(135deg, #a1c4fd, #c2e9fb); */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}

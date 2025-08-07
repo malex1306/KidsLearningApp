@@ -3,16 +3,17 @@
     font-family: Arial, sans-serif;
     background-color: #f0f2f5;
     min-height: 100vh;
+    border-radius: 20px ;
 }
 
-.dashboard-header {
+/* .dashboard-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
     padding-bottom: 15px;
     border-bottom: 1px solid #ddd;
-}
+} */
 
 .user-info {
     display: flex;
@@ -182,7 +183,7 @@
 }
 .intro-section,
 .lessons-list {
-  background-color: white;
+  background-color: transparent;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -218,4 +219,30 @@
 .child-card.active-child {
   border-color: #007bff; /* Oder eine andere Farbe, die gut passt */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.fun-button {
+  margin-top: 1rem;
+  background-color: #ffb703;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.fun-button:hover {
+  background-color: #fb8500;
+  transform: scale(1.05);
+}
+.tasks-container {
+  padding: 2rem;
+  font-family: 'Comic Neue', 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+  min-height: 100vh;
+  color: #333;
+  text-align: center;
 }

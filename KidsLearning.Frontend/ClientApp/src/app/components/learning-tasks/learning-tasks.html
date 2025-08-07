@@ -1,0 +1,22 @@
+<div class="tasks-container">
+  <h1>{{ subject }} Aufgaben 👨‍🔬👩‍🔬</h1>
+
+  @if (tasks.length > 0) {
+    <div class="task-grid">
+      @for (task of tasks; track task.id) {
+        <div class="task-card glass-card">
+          <div class="card-icon">🧠</div>
+          <div class="card-content">
+            <h3>{{ task.title }}</h3>
+            <p>{{ task.description }}</p>
+          </div>
+          <div class="card-actions">
+            <button class="fun-button">Starten</button>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <p class="no-tasks-message">Keine Aufgaben für {{ subject }} gefunden. Schau später wieder vorbei! 😊</p>
+  }
+</div>
