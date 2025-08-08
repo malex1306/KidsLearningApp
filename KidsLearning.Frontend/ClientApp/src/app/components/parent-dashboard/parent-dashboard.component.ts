@@ -22,6 +22,13 @@ export class ParentDashboardComponent implements OnInit {
   showEditChildForm = false;
   editingChild: ChildDto | null = null;
   message = '';
+  availableAvatars: string[] = [
+    'assets/images/bat.png',
+    'assets/images/dog.png',
+    'assets/images/fairy.png',
+    'assets/images/pumpkin.png',
+    'assets/images/firefighter.png',
+  ];
 
   dashboardData: ParentDashboardDto = {
     welcomeMessage: '',
@@ -108,6 +115,16 @@ export class ParentDashboardComponent implements OnInit {
           console.error(err);
       }
     });
+  }
+}
+
+selectNewChildAvatar(avatarUrl:string): void{
+  this.newChild.avatarUrl = avatarUrl;
+}
+
+selectEditChildAvatar(avatarUrl: string): void {
+  if (this.editingChild) {
+    this.editingChild.avatarUrl = avatarUrl;
   }
 }
   

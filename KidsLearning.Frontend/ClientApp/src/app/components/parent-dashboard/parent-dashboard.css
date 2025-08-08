@@ -180,3 +180,21 @@
     color: #155724;
     border: 1px solid #c3e6cb;
 }
+.avatar-thumbnail {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.avatar-thumbnail:hover {
+  transform: scale(1.1);
+}
+
+.avatar-thumbnail.selected {
+  border-color: #4CAF50; /* grün als Auswahlindikator */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+

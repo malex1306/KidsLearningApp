@@ -1,248 +1,274 @@
+/* Grundlegende Container-Stile */
 .dashboard-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
-    min-height: 100vh;
-    border-radius: 20px ;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  border-radius: 2rem;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
 }
 
-/* .dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #ddd;
-} */
-
-.user-info {
-    display: flex;
-    align-items: center;
+/* Header-Bereich mit Avatar und Begrüßung */
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  width: 100%;
 }
 
-.profile-picture {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 15px;
+.header-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.header-actions {
-    display: flex;
-    align-items: center;
+.avatar-container {
+  width: 120px;
+  height: 120px;
+  background-color: #ffe6c7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
-.btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.avatar-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
-.btn-primary {
-    background-color: #007bff;
-    color: white;
-    margin-left: 15px;
+.welcome-message {
+  line-height: 1.2;
 }
 
-.btn-primary:hover {
-    background-color: #0056b3;
+.greeting-text {
+  font-size: 1.2rem;
+  color: #ff9900;
+  margin: 0;
 }
 
-.btn-secondary {
-    background-color: #6c757d;
-    color: white;
+.user-name {
+  font-size: 2.5rem;
+  font-family: 'Comic Sans MS', 'Arial', sans-serif;;
+  font-weight: bold;
+  color: #ff9900;
+  margin: 0;
 }
 
-.btn-secondary:hover {
-    background-color: #5a6268;
+/* Hauptinhaltsbereich */
+.main-content {
+  width: 100%;
+  max-width: 900px; /* Maximale Breite für Desktop-Ansicht */
 }
 
-.add-child-form {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+/* Responsive Grid für die Kinder-Auswahlkarten */
+.child-selection-container h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #ff9900;
 }
 
 .child-cards-container {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
 }
 
-.child-card, .dashboard-section {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    flex: 1;
-    min-width: 300px;
-}
-
-.child-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.child-picture {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.progress-section h4 {
-    margin-top: 0;
-    margin-bottom: 5px;
-}
-
-.progress-bar-container {
-    background-color: #e9ecef;
-    border-radius: 10px;
-    height: 25px;
-    position: relative;
-    margin-bottom: 10px;
-}
-
-.progress-bar {
-    height: 100%;
-    background-color: #007bff;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    transition: width 0.3s ease-in-out;
-}
-
-.progress-text {
-    position: absolute;
-    left: 10px;
-    color: #343a40;
-    font-weight: bold;
-}
-
-.card-footer {
-    margin-top: 15px;
-    font-size: 0.9em;
-    color: #6c757d;
-}
-
-.activity-feed {
-    list-style: none;
-    padding: 0;
-}
-
-.activity-feed li {
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.activity-feed li:last-child {
-    border-bottom: none;
-}
-
-.no-children-message {
-    text-align: center;
-    font-style: italic;
-    color: #6c757d;
-    padding: 20px;
-}
-
-.info-message {
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-.intro-section,
-.lessons-list {
-  background-color: transparent;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
-
-.lessons-list .child-card {
-  min-width: unset;
-  flex: 1;
-  margin-bottom: 15px; /* Abstand zwischen den Lektionskarten */
-}
-
-.lessons-list .child-card:last-child {
-    margin-bottom: 0;
-}
-
-.btn-primary.me-2 {
-  margin-right: 15px;
-}
-
-/* src/app/components/start-page/start-page.css */
-
-.child-card.clickable {
-  cursor: pointer;
+.child-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   transition: transform 0.2s, box-shadow 0.2s;
-  border: 2px solid transparent;
+  cursor: pointer;
 }
 
-.child-card.clickable:hover {
+/* Stil für die einzelnen Kinder-Karten */
+.child-card-one {
+  background: #98f5e1;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  color: #ff9900;
+}
+
+.child-card-two {
+  background: #fbf8cc;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  color: #ff9900;
+}
+
+.child-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.child-card-one:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.child-card-two:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .child-card.active-child {
-  border-color: #007bff; /* Oder eine andere Farbe, die gut passt */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-.fun-button {
-  margin-top: 1rem;
-  background-color: #ffb703;
-  color: white;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 4px solid #ffb703; /* Visuelle Kennzeichnung für das aktive Kind */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.fun-button:hover {
-  background-color: #fb8500;
-  transform: scale(1.05);
+.child-header {
+  margin-bottom: 0.5rem;
 }
-.tasks-container {
-  padding: 2rem;
-  font-family: 'Comic Neue', 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-  min-height: 100vh;
-  color: #333;
+
+.child-picture {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.child-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.card-lettering{
+    font-weight: bold;
+    
+}
+
+/* Responsive Grid für die Lektionskarten */
+.lessons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* Stil für die einzelnen Lektionskarten */
+.lesson-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.lesson-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.lesson-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1rem;
+}
+
+.lesson-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.lesson-description {
+  font-size: 0.9rem;
+  color: #999;
+  margin-top: 0.5rem;
+}
+
+.message-text, .no-children-message {
+  text-align: center;
+  color: #666;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
+
+/* Stil für die Intro-Sektion bei nicht angemeldeten Benutzern */
+.intro-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.intro-section p {
+  color: #ff9900;
+}
+
+.header-actions {
+  margin-top: 1rem;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background-color: #ffb703;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #fb8500;
+}
+
+.btn-secondary {
+  background-color: #f7f9fc;
+  color: #ff9900;
+  border: 2px solid #ff9900;
+}
+
+.btn-secondary:hover {
+  background-color: #ff9900;
+  color: #fff;
 }

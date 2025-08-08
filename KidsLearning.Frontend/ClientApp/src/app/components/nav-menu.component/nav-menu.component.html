@@ -18,19 +18,18 @@
             <a class="nav-link text-dark" [routerLink]="['/']" (click)="collapse()">Home</a>
           </li>
 
-          <li class="nav-item" *ngIf="!isLoggedIn" [routerLinkActive]="['link-active']">
+          <li class="nav-item" *ngIf="!(authService.isLoggedIn$ | async)" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/login']" (click)="collapse()">Login</a>
           </li>
-          <li class="nav-item" *ngIf="!isLoggedIn" [routerLinkActive]="['link-active']">
+          <li class="nav-item" *ngIf="!(authService.isLoggedIn$ | async)" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/register']" (click)="collapse()">Register</a>
           </li>
-          <li class="nav-item" *ngIf="isLoggedIn" [routerLinkActive]="['link-active']">
+          <li class="nav-item" *ngIf="authService.isLoggedIn$ | async" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/parent-dashboard']" (click)="collapse()">Dashboard</a>
           </li>
-          <li class="nav-item" *ngIf="isLoggedIn">
+          <li class="nav-item" *ngIf="authService.isLoggedIn$ | async">
             <a class="nav-link text-dark" (click)="logout()" style="cursor: pointer;">Logout</a>
           </li>
-
         </ul>
       </div>
     </div>

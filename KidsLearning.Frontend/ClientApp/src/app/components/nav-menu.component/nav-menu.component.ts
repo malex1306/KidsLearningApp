@@ -1,39 +1,32 @@
+// src/app/components/nav-menu/nav-menu.component.ts
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass, NgIf, AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { Auth } from '../../services/auth'; // Dein zentraler Auth Service
 
 @Component({
   selector: 'app-nav-menu',
   standalone: true,
-  imports: [RouterLink, NgIf, NgClass,RouterLinkActive],
+  imports: [RouterLink, NgIf, NgClass, RouterLinkActive, AsyncPipe],
   templateUrl: './nav-menu.component.html',
   styleUrl: './nav-menu.component.css'
 })
 export class NavMenuComponent implements OnInit, OnDestroy {
   isExpanded = false;
-  isLoggedIn = false;
-  private authStatusSubscription!: Subscription;
-
-  constructor(private router: Router) { }
+  
+  constructor(private router: Router, public authService: Auth) { }
 
   ngOnInit(): void {
-    this.checkLoginStatus();
-    
   }
 
   ngOnDestroy(): void {
-    
-  }
-
-  checkLoginStatus(): void {
-    this.isLoggedIn = !!localStorage.getItem('jwt_token');
   }
 
   logout(): void {
-    localStorage.removeItem('jwt_token');
-    this.isLoggedIn = false;
+   
+    this.authService.logout();
     this.router.navigate(['/']); 
   }
 
