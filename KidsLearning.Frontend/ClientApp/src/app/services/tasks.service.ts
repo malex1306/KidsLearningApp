@@ -4,14 +4,20 @@ import { Observable } from 'rxjs';
 import { LearningTask } from '../models/learning-task';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root'
 })
 export class TasksService {
-  private apiUrl = 'http://localhost:5207/api/tasks';
+  private apiUrl = 'http://localhost:5207/api/Tasks'; // Beachte die Großschreibung "Tasks"
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient){}
 
-  getTasksBySubject(subject: string) : Observable<LearningTask[]> {
-    return this.http.get<LearningTask[]>(`${this.apiUrl}/${subject}`)
-  }
+  getTasksBySubject(subject: string) : Observable<LearningTask[]> {
+    // Korrigiert: Ruft direkt den Endpunkt auf
+    return this.http.get<LearningTask[]>(`${this.apiUrl}/by-subject/${subject}`)
+  }
+
+  getTaskById(taskId: number): Observable<LearningTask> {
+    // Korrigiert: Ruft direkt den Endpunkt auf
+    return this.http.get<LearningTask>(`${this.apiUrl}/${taskId}`);
+  }
 }

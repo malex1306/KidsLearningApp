@@ -4,12 +4,12 @@ import { Component, OnInit } from '@angular/core';
 import { TasksService } from '../../services/tasks.service'; // <-- Korrigierter Service-Name
 import { LearningTask } from '../../models/learning-task';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-learning-tasks',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './learning-tasks.html',
   styleUrl: './learning-tasks.css'
 })

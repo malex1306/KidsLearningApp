@@ -12,10 +12,8 @@ namespace KidsLearning.Backend.Controllers;
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
-
 public class ParentDashboardController : ControllerBase
 {
-
     private readonly UserManager<IdentityUser> _userManager;
     private readonly AppDbContext _context;
 
@@ -25,7 +23,7 @@ public class ParentDashboardController : ControllerBase
         _context = context;
     }
 
-     [HttpGet]
+    [HttpGet]
     public async Task<IActionResult> GetDashboardData()
     {
         var parentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -35,64 +33,75 @@ public class ParentDashboardController : ControllerBase
         }
 
         var parent = await _userManager.FindByIdAsync(parentId);
-        var userEmail = parent?.Email ?? "";
 
-        
-        var childrenWithProgress = await _context.Children
+        var children = await _context.Children
             .Where(c => c.ParentId == parentId)
             .Include(c => c.Progress)
             .ToListAsync();
 
+        var allSubjects = await _context.LearningTasks.Select(t => t.Subject).Distinct().ToListAsync();
+
+        var childrenDtos = new List<ChildDto>();
+
+        foreach (var child in children)
+        {
+            var childProgressList = new List<SubjectProgressDto>();
+
+            // Fortschritt für jedes Fach berechnen
+            foreach (var subject in allSubjects)
+            {
+                var totalTasks = await _context.LearningTasks.CountAsync(t => t.Subject == subject);
+                
+                // Korrigierte Abfrage, um die Anzahl der gelösten Aufgaben zu ermitteln
+                var completedTasks = await _context.ChildCompletedTasks
+                    .CountAsync(ct => ct.ChildId == child.Id &&
+                                      _context.LearningTasks.Any(lt => lt.Id == ct.LearningTaskId && lt.Subject == subject));
+
+                int progressPercentage = (totalTasks > 0) ? (int)Math.Round((double)completedTasks * 100 / totalTasks) : 0;
+
+                childProgressList.Add(new SubjectProgressDto
+                {
+                    SubjectName = subject,
+                    ProgressPercentage = progressPercentage
+                });
+            }
+
+            childrenDtos.Add(new ChildDto
+            {
+                ChildId = child.Id,
+                Name = child.Name,
+                AvatarUrl = child.AvatarUrl,
+                DateOfBirth = child.DateOfBirth,
+                Age = (DateTime.Now - child.DateOfBirth).TotalDays > 0 ? (int)((DateTime.Now - child.DateOfBirth).TotalDays / 365.25) : 0,
+                LastActivity = child.Progress.Any()
+                    ? child.Progress.Max(p => p.LastUpdated).ToString("dd.MM.yyyy HH:mm")
+                    : "Keine Aktivitäten",
+                Progress = childProgressList
+            });
+        }
         
         var recentActivities = new List<string>();
-
-       
-        foreach (var child in childrenWithProgress)
+        foreach (var child in children)
         {
             if (!child.Progress.Any())
             {
                 recentActivities.Add($"{child.Name} hat noch nicht mit dem Lernen begonnen.");
             }
-        }
-        
-        
-        var latestProgress = childrenWithProgress
-            .SelectMany(c => c.Progress)
-            .OrderByDescending(p => p.LastUpdated)
-            .Take(5)
-            .ToList();
-
-        foreach (var progress in latestProgress)
-        {
-            var childName = childrenWithProgress.FirstOrDefault(c => c.Id == progress.ChildId)?.Name;
-            if (childName != null)
+            else
             {
-                recentActivities.Add($"{childName} hat {progress.SubjectName} auf {progress.ProgressPercentage}% abgeschlossen.");
+                var latestProgress = child.Progress.OrderByDescending(p => p.LastUpdated).FirstOrDefault();
+                if (latestProgress != null)
+                {
+                    recentActivities.Add($"{child.Name} hat {latestProgress.SubjectName} auf {latestProgress.ProgressPercentage}% abgeschlossen.");
+                }
             }
         }
-
-        var childrenDtos = childrenWithProgress.Select(c => new ChildDto
-        {
-            ChildId = c.Id,
-            Name = c.Name,
-            AvatarUrl = c.AvatarUrl,
-            LastActivity = c.Progress.Any()
-            ? c.Progress.Max(p => p.LastUpdated).ToString("dd.MM.yyyy HH:mm")
-            : "Keine Aktivitäten",
-            Age = DateTime.Now.Year - c.DateOfBirth.Year,
-            DateOfBirth = c.DateOfBirth,
-            Progress = c.Progress.Select(p => new SubjectProgressDto
-            {
-                SubjectName = p.SubjectName,
-                ProgressPercentage = p.ProgressPercentage
-            }).ToList()
-        }).ToList();
 
         var dashboardData = new ParentDashboardDto
         {
             WelcomeMessage = $"Willkommen im Eltern-Dashboard, {parent?.UserName ?? "lieber Benutzer"}!",
             Children = childrenDtos,
-            RecentActivities = recentActivities // Die dynamisch erstellte Liste
+            RecentActivities = recentActivities
         };
 
         return Ok(dashboardData);
@@ -144,6 +153,7 @@ public class ParentDashboardController : ControllerBase
 
         return Ok(new { Message = $"Kind '{child.Name}' wurde erfolgreich entfernt." });
     }
+    
     [HttpPut("edit-child/{childId}")]
     public async Task<IActionResult> EditChild(int childId, [FromBody] EditChildDto editChildDto)
     {
@@ -168,5 +178,4 @@ public class ParentDashboardController : ControllerBase
 
         return Ok(new { Message = $"Kind '{child.Name}' wurde erfolgreich aktualisiert." });
     }
-    
 }

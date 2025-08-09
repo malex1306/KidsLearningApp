@@ -5,6 +5,7 @@ import { authGuard } from './guards/auth-guard';
 import { StartPageComponent } from './components/start-page/start-page';
 import { RegisterComponent } from './components/account/register.component/register.component';
 import { LearningTasksComponent } from './components/learning-tasks/learning-tasks';
+import { LearningTaskDetail } from './components/learning-task-detail/learning-task-detail';
 
 
 export const routes: Routes = [
@@ -19,6 +20,10 @@ export const routes: Routes = [
   },
   { path: 'tasks/:subject',
     component: LearningTasksComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'task/:id', component: LearningTaskDetail,
     canActivate: [authGuard]
   }
 ];

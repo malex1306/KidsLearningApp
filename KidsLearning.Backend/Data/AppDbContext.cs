@@ -14,17 +14,17 @@ public class AppDbContext : IdentityDbContext
     {
         base.OnModelCreating(modelBuilder);
 
-       modelBuilder.Entity<Questions>()
-            .Property(q => q.Options)
-            .HasConversion(
-                v => string.Join(';', v), // In einen String umwandeln beim Speichern
-                v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList() // In eine Liste umwandeln beim Laden
-            );
+        modelBuilder.Entity<Questions>()
+             .Property(q => q.Options)
+             .HasConversion(
+                 v => string.Join(';', v), // In einen String umwandeln beim Speichern
+                 v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList() // In eine Liste umwandeln beim Laden
+             );
 
-             modelBuilder.Entity<LearningTask>()
-            .HasMany(lt => lt.Questions)
-            .WithOne(q => q.LearningTask)
-            .HasForeignKey(q => q.LearningTaskId);
+        modelBuilder.Entity<LearningTask>()
+       .HasMany(lt => lt.Questions)
+       .WithOne(q => q.LearningTask)
+       .HasForeignKey(q => q.LearningTaskId);
 
         modelBuilder.Entity<Child>()
             .HasOne<IdentityUser>(c => c.Parent)
@@ -39,4 +39,5 @@ public class AppDbContext : IdentityDbContext
     public DbSet<SubjectProgress> SubjectProgresses { get; set; } = null!;
     public DbSet<LearningTask> LearningTasks { get; set; } = null!;
     public DbSet<Questions> Questions { get; set; } = null!;
+    public DbSet<ChildCompletedTask> ChildCompletedTasks { get; set; } = null!;
 }

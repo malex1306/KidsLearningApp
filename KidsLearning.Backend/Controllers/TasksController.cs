@@ -18,7 +18,7 @@ public class TasksController : ControllerBase
         _context = context;
     }
 
-   [HttpGet("{subject}")]
+    [HttpGet("by-subject/{subject}")] // Route eindeutig machen
     public async Task<ActionResult<List<LearningTask>>> GetTasksBySubject(string subject)
     {
         if (string.IsNullOrWhiteSpace(subject))
@@ -26,10 +26,9 @@ public class TasksController : ControllerBase
             return BadRequest("Fachname muss angegeben werden.");
         }
 
-        
         var tasks = await _context.LearningTasks
-                                  .Where(t => t.Subject == subject)
-                                  .ToListAsync();
+            .Where(t => t.Subject == subject)
+            .ToListAsync();
 
         if (tasks == null || !tasks.Any())
         {
@@ -37,5 +36,20 @@ public class TasksController : ControllerBase
         }
 
         return Ok(tasks);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<LearningTask>> GetLearningTask(int id) 
+    {
+        var learningTask = await _context.LearningTasks
+            .Include(lt => lt.Questions) 
+            .FirstOrDefaultAsync(lt => lt.Id == id);
+
+        if (learningTask == null)
+        {
+            return NotFound();
+        }
+        
+        return Ok(learningTask); 
     }
 }
