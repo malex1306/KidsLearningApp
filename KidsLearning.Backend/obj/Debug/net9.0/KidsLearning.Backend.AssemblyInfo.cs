@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KidsLearning.Backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e011996056e923b5d5f33648037e531ea60c646b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+94e629436893cdde5abf6d56995c84bca2f2bb8b")]
 [assembly: System.Reflection.AssemblyProductAttribute("KidsLearning.Backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KidsLearning.Backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
