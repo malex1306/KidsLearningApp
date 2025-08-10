@@ -18,12 +18,9 @@ export const routes: Routes = [
     component: ParentDashboardComponent,
     canActivate: [authGuard]
   },
-  { path: 'tasks/:subject',
-    component: LearningTasksComponent,
-    canActivate: [authGuard]
-  },
+  { path: 'tasks/:subject/child/:childId', component: LearningTasksComponent, canActivate: [authGuard] },
   {
-    path: 'task/:id', component: LearningTaskDetail,
+    path: 'task/:id/child/:childId', component: LearningTaskDetail,
     canActivate: [authGuard]
   }
 ];

@@ -62,7 +62,7 @@
           <p style="color:#ff9900;">Hier siehst du die verfügbaren Übungen für {{ activeChild()?.name }}.</p>
           
           <div class="lessons-list">
-            <a class="child-card-two mb-3" [routerLink]="['tasks', 'Mathe-Abenteuer']">
+            <a class="child-card-two mb-3" [routerLink]="['tasks', 'Mathe-Abenteuer', 'child', activeChild()?.id]">
               <div class="child-header">
                 <img src="assets/images/math.png" alt="Lektion Bild" class="child-picture">
                 <h3 class="card-lettering">Mathe-Abenteuer</h3>
@@ -73,7 +73,7 @@
               
             </a>
             
-            <a class="child-card-one mb-3" [routerLink]="['tasks', 'Buchstaben-land']">
+            <a class="child-card-one mb-3" [routerLink]="['tasks', 'Buchstaben-land', 'child', activeChild()?.id]">
               <div class="child-header">
                 <img src="assets/images/boy.png" alt="Lektion Bild" class="child-picture">
                 <h3 class="card-lettering">Buchstaben-Land</h3>

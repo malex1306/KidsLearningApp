@@ -36,23 +36,20 @@ public class ParentDashboardController : ControllerBase
 
         var children = await _context.Children
             .Where(c => c.ParentId == parentId)
-            .Include(c => c.Progress)
             .ToListAsync();
 
         var allSubjects = await _context.LearningTasks.Select(t => t.Subject).Distinct().ToListAsync();
-
+        
         var childrenDtos = new List<ChildDto>();
+        var recentActivities = new List<string>();
 
         foreach (var child in children)
         {
             var childProgressList = new List<SubjectProgressDto>();
 
-            // Fortschritt für jedes Fach berechnen
             foreach (var subject in allSubjects)
             {
                 var totalTasks = await _context.LearningTasks.CountAsync(t => t.Subject == subject);
-                
-                // Korrigierte Abfrage, um die Anzahl der gelösten Aufgaben zu ermitteln
                 var completedTasks = await _context.ChildCompletedTasks
                     .CountAsync(ct => ct.ChildId == child.Id &&
                                       _context.LearningTasks.Any(lt => lt.Id == ct.LearningTaskId && lt.Subject == subject));
@@ -66,6 +63,23 @@ public class ParentDashboardController : ControllerBase
                 });
             }
 
+            var latestCompletion = await _context.ChildCompletedTasks
+                .Include(ct => ct.LearningTask)
+                .Where(ct => ct.ChildId == child.Id)
+                .OrderByDescending(ct => ct.CompletedAt)
+                .FirstOrDefaultAsync();
+
+            string lastActivityMessage = "Keine Aktivitäten";
+            if (latestCompletion != null)
+            {
+                lastActivityMessage = latestCompletion.CompletedAt.ToString("dd.MM.yyyy HH:mm");
+                recentActivities.Add($"{child.Name} hat '{latestCompletion.LearningTask.Title}' in {latestCompletion.LearningTask.Subject} abgeschlossen am {lastActivityMessage}.");
+            }
+            else
+            {
+                recentActivities.Add($"{child.Name} hat noch nicht mit dem Lernen begonnen.");
+            }
+
             childrenDtos.Add(new ChildDto
             {
                 ChildId = child.Id,
@@ -73,29 +87,12 @@ public class ParentDashboardController : ControllerBase
                 AvatarUrl = child.AvatarUrl,
                 DateOfBirth = child.DateOfBirth,
                 Age = (DateTime.Now - child.DateOfBirth).TotalDays > 0 ? (int)((DateTime.Now - child.DateOfBirth).TotalDays / 365.25) : 0,
-                LastActivity = child.Progress.Any()
-                    ? child.Progress.Max(p => p.LastUpdated).ToString("dd.MM.yyyy HH:mm")
-                    : "Keine Aktivitäten",
+                LastActivity = lastActivityMessage,
                 Progress = childProgressList
             });
         }
         
-        var recentActivities = new List<string>();
-        foreach (var child in children)
-        {
-            if (!child.Progress.Any())
-            {
-                recentActivities.Add($"{child.Name} hat noch nicht mit dem Lernen begonnen.");
-            }
-            else
-            {
-                var latestProgress = child.Progress.OrderByDescending(p => p.LastUpdated).FirstOrDefault();
-                if (latestProgress != null)
-                {
-                    recentActivities.Add($"{child.Name} hat {latestProgress.SubjectName} auf {latestProgress.ProgressPercentage}% abgeschlossen.");
-                }
-            }
-        }
+        recentActivities = recentActivities.OrderByDescending(a => a).ToList();
 
         var dashboardData = new ParentDashboardDto
         {

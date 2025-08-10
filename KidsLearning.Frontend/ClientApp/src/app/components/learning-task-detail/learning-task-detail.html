@@ -33,7 +33,7 @@
     <div class="card-content">
       <h2>Aufgabe abgeschlossen! 🎉</h2>
       <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>
-      <a [routerLink]="['/tasks', task.subject]" class="back-button">Zurück zu den Aufgaben</a>
+      <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">Zurück zu den Aufgaben</a>
     </div>
   </div>
 </div>

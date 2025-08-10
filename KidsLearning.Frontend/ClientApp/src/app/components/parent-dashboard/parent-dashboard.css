@@ -15,6 +15,10 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+.dashboard-section{
+    margin-top: 20px;
+}
+
 .user-info {
     display: flex;
     align-items: center;
@@ -130,9 +134,10 @@
 }
 
 .progress-section h4 {
-     display: flex;
+    display: flex;
     flex-direction: column;
     gap: 10px;
+    padding: 5px;
 }
 
 .progress-bar-container {
@@ -140,8 +145,9 @@
     background-color: #e0e0e0;
     border-radius: 15px;
     overflow: hidden;
-    height: 25px; /* Höhe des Containers erhöhen */
+    height: 30px; /* Höhe des Containers erhöhen */
     position: relative;
+    margin-top: 5px;
 }
 
 .progress-bar {
@@ -152,7 +158,7 @@
 }
 
 .progress-text {
-     position: absolute;
+    position: absolute;
     width: 100%;
     text-align: center;
     top: 50%;

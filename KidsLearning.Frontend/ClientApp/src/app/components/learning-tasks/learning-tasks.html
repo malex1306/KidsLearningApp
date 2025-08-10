@@ -11,7 +11,7 @@
             <p>{{ task.description }}</p>
           </div>
           <div class="card-actions">
-           <button class="fun-button" [routerLink]="['/task', task.id]">Starten</button>
+          <button class="fun-button" [routerLink]="['/task', task.id, 'child', childId]">Starten</button>
           </div>
         </div>
       }
