@@ -5,7 +5,7 @@
 namespace KidsLearning.Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedQuestions : Migration
+    public partial class AddLetterQuestions : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,25 +15,15 @@ namespace KidsLearning.Backend.Migrations
                 columns: new[] { "Id", "Text", "CorrectAnswer", "Options", "LearningTaskId" },
                 values: new object[,]
                 {
-                    // Fragen für "Zahlen finden" (LearningTask 1)
-                    { 1, "Welche Zahl fehlt in der Reihe: 1, 2, ?, 4, 5", "3", "1;2;3;4", 1 },
-                    { 2, "Welche Zahl fehlt in der Reihe: 5, ?, 7, 8, 9", "6", "5;6;7;8", 1 },
-                    // Fragen für "Addition bis 10" (LearningTask 2)
-                    { 3, "Was ist 3 + 4?", "7", "5;6;7;8", 2 },
-                    { 4, "Was ist 5 + 2?", "7", "6;7;8;9", 2 },
-                    // Fragen für "Formen erkennen" (LearningTask 3)
-                    { 5, "Welche Form hat vier gleich lange Seiten?", "Quadrat", "Dreieck;Kreis;Quadrat;Rechteck", 3 },
-                    { 6, "Welche Form hat drei Ecken?", "Dreieck", "Quadrat;Dreieck;Kreis;Stern", 3 },
-
-                    // Neue Fragen für "Alphabet lernen" (LearningTask 4)
+                    // Fragen für "Alphabet lernen" (LearningTask 4)
                     { 7, "Welcher Buchstabe kommt nach dem B?", "C", "A;B;C;D", 4 },
                     { 8, "Welcher Buchstabe kommt vor dem G?", "F", "D;E;F;H", 4 },
-                    
-                    // Neue Fragen für "Buchstaben verbinden" (LearningTask 5)
+
+                    // Fragen für "Buchstaben verbinden" (LearningTask 5)
                     { 9, "Welche Kombination ist richtig?", "A-a", "A-b;A-c;A-a;A-d", 5 },
                     { 10, "Welche Kombination ist richtig?", "E-e", "E-f;E-g;E-h;E-e", 5 },
 
-                    // Neue Fragen für "Wörter buchstabieren" (LearningTask 6)
+                    // Fragen für "Wörter buchstabieren" (LearningTask 6)
                     { 11, "Buchstabiere das Wort 'Katze'.", "K-A-T-Z-E", "K-A-Z-E;K-A-T-Z-E;K-A-Z-E-N;K-A-T-S-E", 6 },
                     { 12, "Buchstabiere das Wort 'Hund'.", "H-U-N-D", "H-U-N-D;H-U-N-S;H-O-N-D;H-U-N-T", 6 }
                 });
@@ -42,10 +32,10 @@ namespace KidsLearning.Backend.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-             migrationBuilder.DeleteData(
+            migrationBuilder.DeleteData(
                 table: "Questions",
                 keyColumn: "Id",
-                keyValues: new object[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 });
+                keyValues: new object[] { 7, 8, 9, 10, 11, 12 });
         }
     }
 }
