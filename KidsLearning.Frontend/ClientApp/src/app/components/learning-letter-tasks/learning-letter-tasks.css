@@ -1,0 +1,169 @@
+/* ========================================================================= */
+/* Basiskomponenten & Layout-Anpassungen */
+/* ========================================================================= */
+
+.task-detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    min-height: 100vh;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    color: #fff;
+    padding: 2rem;
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
+}
+
+.card-content {
+    h1, h2, h3, p {
+        margin: 0 0 1rem 0;
+    }
+}
+
+.quiz-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 800px;
+}
+
+.completion-message-card {
+    background: rgba(4, 255, 126, 0.2); /* Ein grünerer Farbton für Erfolg */
+    border: 1px solid rgba(4, 255, 126, 0.3);
+}
+
+.back-button {
+    background-color: #ff9100;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #ffb84d;
+}
+
+/* ========================================================================= */
+/* Spezifische Anpassungen für die Buchstabieraufgabe */
+/* ========================================================================= */
+
+.spelling-quiz .image-card {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 1.5rem;
+}
+
+.spelling-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+    margin-top: 1rem;
+    border: 2px solid #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.word-display-area {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.letter-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 60px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ff9100;
+    border-bottom: 3px solid #ff9100;
+    margin: 0 0.2rem;
+    text-transform: uppercase;
+}
+
+/* ========================================================================= */
+/* Buttons und Statusmeldungen */
+/* ========================================================================= */
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+    width: 100%;
+}
+
+.option-button {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    color: white;
+    font-size: 1.5rem;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.option-button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-3px);
+}
+
+.letter-button {
+    background-color: rgba(144, 202, 249, 0.3); /* Ein blauerer Ton für Buchstaben */
+}
+
+.letter-button:hover {
+    background-color: rgba(144, 202, 249, 0.5);
+}
+
+.status-message-container {
+    margin-top: 1rem;
+    height: 2rem; /* Höhe reservieren, damit das Layout nicht springt */
+}
+
+.correct-text {
+    color: #04ff7e; /* Leuchtendes Grün */
+    font-weight: bold;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.wrong-text {
+    color: #ff5252; /* Leuchtendes Rot */
+    font-weight: bold;
+    animation: shake 0.5s ease-in-out;
+}
+
+/* ========================================================================= */
+/* Animationen */
+/* ========================================================================= */
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}

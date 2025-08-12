@@ -1,26 +1,32 @@
 import { Routes } from '@angular/router';
 import { ParentLogin} from './components/login/parent-login/parent-login';
-import { ParentDashboardComponent } from  './components/parent-dashboard/parent-dashboard.component';
+import { ParentDashboardComponent } from  './components/parent-dashboard/parent-dashboard.component';
 import { authGuard } from './guards/auth-guard';
 import { StartPageComponent } from './components/start-page/start-page';
 import { RegisterComponent } from './components/account/register.component/register.component';
 import { LearningTasksComponent } from './components/learning-tasks/learning-tasks';
 import { LearningTaskDetail } from './components/learning-task-detail/learning-task-detail';
+import { LearningLetterTasks } from './components/learning-letter-tasks/learning-letter-tasks';
 
 
 export const routes: Routes = [
-   { path: '', component: StartPageComponent, pathMatch: 'full' },
-  { path: 'start', component: StartPageComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: ParentLogin },
-  {
-    path: 'parent-dashboard',
-    component: ParentDashboardComponent,
-    canActivate: [authGuard]
-  },
-  { path: 'tasks/:subject/child/:childId', component: LearningTasksComponent, canActivate: [authGuard] },
-  {
-    path: 'task/:id/child/:childId', component: LearningTaskDetail,
-    canActivate: [authGuard]
-  }
+   { path: '', component: StartPageComponent, pathMatch: 'full' },
+  { path: 'start', component: StartPageComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: ParentLogin },
+  {
+    path: 'parent-dashboard',
+    component: ParentDashboardComponent,
+    canActivate: [authGuard]
+  },
+  { path: 'tasks/:subject/child/:childId', component: LearningTasksComponent, canActivate: [authGuard] },
+  {
+    path: 'task/:id/child/:childId', component: LearningTaskDetail,
+    canActivate: [authGuard]
+  },
+  { path: 'learning-letter-tasks/:subject/:id/child/:childId', component: LearningLetterTasks,
+    canActivate: [authGuard]
+  },
+  // Korrigierte Route: Der Doppelpunkt vor childId fehlte
+  { path: 'tasks/:subject/:id/child/:childId', component: LearningTaskDetail}
 ];

@@ -1,0 +1,61 @@
+<div class="task-detail-container" *ngIf="task">
+    <div class="task-card glass-card">
+        <div class="card-content">
+            <h1>{{ task.title }}</h1>
+            <p>{{ task.description }}</p>
+        </div>
+    </div>
+
+    @if (isSpellingTask) {
+        <div class="quiz-area spelling-quiz">
+            <div class="task-card glass-card image-card">
+                <div class="card-content">
+                    <h2 class="question-title">Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}</h2>
+                    <img [src]="task.questions[currentQuestionIndex].imageUrl || 'https://via.placeholder.com/200'" alt="Bild zum Buchstabieren" class="spelling-image">
+                </div>
+            </div>
+
+            <div class="word-display-area">
+                @for (letter of task.questions[currentQuestionIndex].correctAnswer.split(''); track $index) {
+                    <span class="letter-placeholder">
+                        {{ spelledWord[$index] || '_' }}
+                    </span>
+                }
+            </div>
+
+            <div class="options-grid">
+                @for (option of task.questions[currentQuestionIndex].options; track $index) {
+                    <button class="option-button letter-button" (click)="selectLetter(option)">
+                        {{ option }}
+                    </button>
+                }
+            </div>
+        </div>
+    } @else {
+        <div class="quiz-area connecting-quiz">
+            <div class="task-card glass-card question-card">
+                <div class="card-content">
+                    <h2 class="question-title">Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}</h2>
+                    <p class="question-text">{{ task.questions[currentQuestionIndex].text }}</p>
+                </div>
+            </div>
+
+            <div class="options-grid" [class.disabled]="isWaitingForNext">
+                @for (option of task.questions[currentQuestionIndex].options; track option) {
+                    <button class="option-button" 
+                            (click)="selectAnswer(option)">
+                        {{ option }}
+                    </button>
+                }
+            </div>
+        </div>
+    }
+
+    <div class="completion-message-card glass-card" *ngIf="isCompleted">
+        <div class="card-content">
+            <h2>Aufgabe abgeschlossen! 🎉</h2>
+            <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>
+            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">Zurück zu den Aufgaben</a>
+        </div>
+    </div>
+</div>

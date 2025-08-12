@@ -15,6 +15,7 @@ public class Questions
 
     [Required]
     public string CorrectAnswer { get; set; } = string.Empty;
+    public string? ImageUrl { get; set; }
     public List<string> Options { get; set; } = new List<string>();
 
     [ForeignKey("LearningTask")]

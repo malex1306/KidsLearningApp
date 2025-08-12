@@ -47,11 +47,18 @@
   transform: scale(1.03);
 }
 
+.card-icon img {
+    width: 90px; /* Breite des Bildes festlegen */
+    height: auto; /* Höhe automatisch anpassen, um das Seitenverhältnis zu erhalten */
+    display: block; /* Zentrierung ermöglichen */
+    margin: 0 auto; /* Bild zentrieren */
+}
 /* Icon */
 .card-icon {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
 }
+
 
 /* Inhalt */
 .card-content h3 {
