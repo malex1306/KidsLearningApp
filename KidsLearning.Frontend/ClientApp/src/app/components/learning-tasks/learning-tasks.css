@@ -1,6 +1,7 @@
 /* Container */
 .tasks-container {
   padding: 2rem;
+  margin-top: 2rem;
   font-family: 'Comic Neue', 'Poppins', sans-serif;
  /* Bild als Hintergrund festlegen */
   background-image: url('/src/assets/images/10456302.jpg');
