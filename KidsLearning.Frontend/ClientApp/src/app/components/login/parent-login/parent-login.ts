@@ -15,6 +15,7 @@ export class ParentLogin {
   email: Signal<string> = signal('');
   password: Signal<string> = signal('');
   errorMessage: WritableSignal<string> = signal('');
+  showPassword: WritableSignal<boolean> = signal(false);
 
   constructor(private auth: Auth, private router: Router) {}
 
@@ -28,4 +29,8 @@ export class ParentLogin {
       }
     });
   } 
+
+  togglePasswordVisibility(): void {
+    this.showPassword.set(!this.showPassword())
+  }
 }

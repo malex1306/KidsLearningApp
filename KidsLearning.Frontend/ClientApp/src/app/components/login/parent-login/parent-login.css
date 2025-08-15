@@ -72,6 +72,20 @@
     color: rgba(255, 255, 255, 0.6);
 }
 
+.password-group {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    bottom: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #fff;
+}
 /* ========================================================================= */
 /* Button und Fehlermeldungen */
 /* ========================================================================= */
