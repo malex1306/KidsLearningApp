@@ -3,7 +3,7 @@
 import { Component, OnInit, OnDestroy, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs'; // Subscription importieren
+import { Subscription } from 'rxjs';
 import { Auth } from '../../services/auth'; 
 import { ParentDashboardService } from '../../services/parent-dashboard.service';
 import { ParentDashboardDto, ChildDto } from '../../dtos/parent-dashboard.dto';
@@ -16,11 +16,11 @@ import { ActiveChildService, ChildInfo } from '../../services/active-child.servi
   templateUrl: './start-page.html',
   styleUrl: './start-page.css'
 })
-export class StartPageComponent implements OnInit, OnDestroy { // OnDestroy hinzufügen
+export class StartPageComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   dashboardData: ParentDashboardDto | null = null;
   greetingText: string = '';
-  private authStatusSubscription!: Subscription; // Subscription-Variable
+  private authStatusSubscription!: Subscription;
 
   activeChild = computed(() => this.activeChildService.activeChild());
 
@@ -31,20 +31,19 @@ export class StartPageComponent implements OnInit, OnDestroy { // OnDestroy hinz
   ) { }
 
   ngOnInit(): void {
-    // Subscription auf das isLoggedIn$ Observable
     this.authStatusSubscription = this.authService.isLoggedIn$.subscribe(isLoggedInStatus => {
       this.isLoggedIn = isLoggedInStatus;
       if (this.isLoggedIn) {
         this.loadDashboardData();
       } else {
-        this.dashboardData = null; // Dashboard-Daten leeren, wenn man sich ausloggt
+        this.dashboardData = null;
+        this.activeChildService.clearActiveChild(); // Wichtig: Active Child beim Logout zurücksetzen
       }
     });
 
     this.setGreetingMessage();
   }
   
-  // Wichtig: Subscription beim Zerstören der Komponente beenden
   ngOnDestroy(): void {
     if (this.authStatusSubscription) {
       this.authStatusSubscription.unsubscribe();
@@ -55,6 +54,14 @@ export class StartPageComponent implements OnInit, OnDestroy { // OnDestroy hinz
     this.parentDashboardService.getDashboardData().subscribe({
       next: (data) => {
         this.dashboardData = data;
+        // HIER IST DIE KORREKTUR
+        if (data && data.children && data.children.length > 0) {
+          // Wählt das erste Kind als Standard aus
+          this.selectChild(data.children[0]); 
+        } else {
+          // Setzt das aktive Kind auf null, wenn keine Kinder vorhanden sind
+          this.activeChildService.clearActiveChild();
+        }
       },
       error: (err) => console.error('Fehler beim Laden der Dashboard-Daten', err)
     });
@@ -70,12 +77,11 @@ export class StartPageComponent implements OnInit, OnDestroy { // OnDestroy hinz
     this.activeChildService.setActiveChild(childInfo);
   }
 
-  setGreetingMessage(): void{
+  setGreetingMessage(): void {
     const currentHour = new Date().getHours();
-
-    if (currentHour < 12){
+    if (currentHour < 12) {
       this.greetingText = "Guten Morgen";
-    } else if (currentHour < 18){
+    } else if (currentHour < 18) {
       this.greetingText = "Guten Tag";
     } else {
       this.greetingText = "Guten Abend";
