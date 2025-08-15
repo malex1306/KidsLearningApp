@@ -1,1 +1,106 @@
 /* src/styles.css */
+/* ========================================================================= */
+/* Allgemeines Layout und Zentrierung */
+/* ========================================================================= */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    color: #fff;
+    text-align: center;
+}
+
+/* ========================================================================= */
+/* Glass-Card Stil */
+/* ========================================================================= */
+.glass-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    padding: 2.5rem;
+    max-width: 450px;
+    width: 100%;
+}
+
+.login-card .card-header {
+    margin-bottom: 2rem;
+}
+
+.login-card h4 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin: 0;
+}
+
+/* ========================================================================= */
+/* Formular-Elemente */
+/* ========================================================================= */
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    border-radius: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #ff9100;
+    box-shadow: 0 0 0 3px rgba(255, 145, 0, 0.3);
+}
+
+.form-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* ========================================================================= */
+/* Button und Fehlermeldungen */
+/* ========================================================================= */
+.fun-button {
+    background-color: #ff9100;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.fun-button:hover {
+    background-color: #ffb84d;
+    transform: translateY(-2px);
+}
+
+.alert-message {
+    background: rgba(255, 0, 0, 0.3);
+    color: #fff;
+    padding: 0.75rem 1.25rem;
+    margin-top: 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 0, 0, 0.5);
+    font-weight: 500;
+}

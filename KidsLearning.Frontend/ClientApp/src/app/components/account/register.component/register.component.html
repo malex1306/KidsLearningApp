@@ -1,36 +1,34 @@
-<div class="register-container d-flex justify-content-center align-items-center">
-  <div class="card p-4 shadow-lg">
+<div class="register-container">
+  <div class="glass-card register-card">
     <div class="card-body">
-      <h2 class="card-title text-center mb-4">Registrieren</h2>
+      <h2 class="card-title text-center">Registrieren</h2>
       
-      <div *ngIf="errorMessage()" class="alert alert-danger" role="alert">
+      <div *ngIf="errorMessage()" class="alert-message">
         {{ errorMessage() }}
       </div>
 
       <form (ngSubmit)="onRegister()">
-        <div class="mb-3">
+        <div class="form-group">
           <label for="email" class="form-label">E-Mail</label>
-          <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required>
+          <input type="email" class="form-input" id="email" [(ngModel)]="email" name="email" required>
         </div>
 
-         <div class="mb-3">
+         <div class="form-group">
           <label for="userName" class="form-label">Benutzername</label>
-          <input type="text" class="form-control" id="userName" [(ngModel)]="userName" name="userName" required>
+          <input type="text" class="form-input" id="userName" [(ngModel)]="userName" name="userName" required>
         </div>
 
-        <div class="mb-3">
+        <div class="form-group">
           <label for="password" class="form-label">Passwort</label>
-          <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
+          <input type="password" class="form-input" id="password" [(ngModel)]="password" name="password" required>
         </div>
 
-        <div class="mb-3">
+        <div class="form-group">
           <label for="confirmPassword" class="form-label">Passwort bestätigen</label>
-          <input type="password" class="form-control" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+          <input type="password" class="form-input" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" required>
         </div>
 
-        <div class="d-grid gap-2 mt-4">
-          <button type="submit" class="btn btn-primary btn-custom">Registrieren</button>
-        </div>
+        <button type="submit" class="fun-button">Registrieren</button>
       </form>
     </div>
     <p class="text-center mt-3">

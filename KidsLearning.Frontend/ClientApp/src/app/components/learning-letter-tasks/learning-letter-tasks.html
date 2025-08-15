@@ -1,17 +1,17 @@
 <div class="task-detail-container" *ngIf="task">
-    <div class="task-card glass-card">
-        <div class="card-content">
+    <!-- <div class="task-card glass-card"> -->
+        <!-- <div class="card-content">
             <h1>{{ task.title }}</h1>
             <p>{{ task.description }}</p>
-        </div>
-    </div>
+        </div> -->
+    <!-- </div> -->
 
-    @if (isSpellingTask) {
+    @if (isSpellingTask && !isCompleted) {
         <div class="quiz-area spelling-quiz">
             <div class="task-card glass-card image-card">
                 <div class="card-content">
                     <h2 class="question-title">Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}</h2>
-                    <img [src]="task.questions[currentQuestionIndex].imageUrl || 'https://via.placeholder.com/200'" alt="Bild zum Buchstabieren" class="spelling-image">
+                    <img [src]="task.questions[currentQuestionIndex].imageUrl || 'assets/images/bengal.png'" alt="Katze Bild" class="spelling-image">
                 </div>
             </div>
 
@@ -22,17 +22,23 @@
                     </span>
                 }
             </div>
+            
+            <div *ngIf="answerStatus" class="status-message-container">
+                <p [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">{{ statusMessage }}</p>
+            </div>
 
             <div class="options-grid">
                 @for (option of task.questions[currentQuestionIndex].options; track $index) {
-                    <button class="option-button letter-button" (click)="selectLetter(option)">
+                    <button class="option-button letter-button"
+                            [ngClass]="{'correct-letter-button': option === lastClickedLetter && lastClickedStatus === 'correct', 'wrong-letter-button': option === lastClickedLetter && lastClickedStatus === 'wrong'}"
+                            (click)="selectLetter(option)">
                         {{ option }}
                     </button>
                 }
             </div>
         </div>
-    } @else {
-        <div class="quiz-area connecting-quiz">
+    } @else if (!isCompleted) {
+        <div class="quiz-area default-quiz">
             <div class="task-card glass-card question-card">
                 <div class="card-content">
                     <h2 class="question-title">Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}</h2>
@@ -43,19 +49,25 @@
             <div class="options-grid" [class.disabled]="isWaitingForNext">
                 @for (option of task.questions[currentQuestionIndex].options; track option) {
                     <button class="option-button" 
+                            [ngClass]="{'correct-answer': answerStatus === 'correct' && option === task.questions[currentQuestionIndex].correctAnswer, 'wrong-answer': answerStatus === 'wrong' && option !== task.questions[currentQuestionIndex].correctAnswer}"
                             (click)="selectAnswer(option)">
                         {{ option }}
                     </button>
                 }
             </div>
+             <div *ngIf="answerStatus" class="status-message-container">
+                <p [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">{{ statusMessage }}</p>
+            </div>
         </div>
     }
 
-    <div class="completion-message-card glass-card" *ngIf="isCompleted">
-        <div class="card-content">
-            <h2>Aufgabe abgeschlossen! 🎉</h2>
-            <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>
-            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">Zurück zu den Aufgaben</a>
+    @if (isCompleted) {
+        <div class="completion-message-card glass-card">
+            <div class="card-content">
+                <h2>Aufgabe abgeschlossen! 🎉</h2>
+                <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>
+                <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">Zurück zu den Aufgaben</a>
+            </div>
         </div>
-    </div>
+    }
 </div>
