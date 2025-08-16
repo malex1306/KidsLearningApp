@@ -4,6 +4,7 @@ using KidsLearning.Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KidsLearning.Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250815194615_AddAvatarsAndUnlockedAvatars")]
+    partial class AddAvatarsAndUnlockedAvatars
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +51,7 @@ namespace KidsLearning.Backend.Migrations
 
                     b.HasIndex("ChildId");
 
-                    b.ToTable("Avatars");
+                    b.ToTable("Avatar");
                 });
 
             modelBuilder.Entity("KidsLearning.Backend.Models.Badge", b =>
@@ -78,7 +81,7 @@ namespace KidsLearning.Backend.Migrations
 
                     b.HasIndex("ChildId");
 
-                    b.ToTable("Badges");
+                    b.ToTable("Badge");
                 });
 
             modelBuilder.Entity("KidsLearning.Backend.Models.Child", b =>
