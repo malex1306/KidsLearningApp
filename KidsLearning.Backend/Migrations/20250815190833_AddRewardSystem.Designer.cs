@@ -4,6 +4,7 @@ using KidsLearning.Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KidsLearning.Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250815190833_AddRewardSystem")]
+    partial class AddRewardSystem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,35 +24,6 @@ namespace KidsLearning.Backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("KidsLearning.Backend.Models.Avatar", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("ChildId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UnlockStarRequirement")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ChildId");
-
-                    b.ToTable("Avatars");
-                });
 
             modelBuilder.Entity("KidsLearning.Backend.Models.Badge", b =>
                 {
@@ -78,7 +52,7 @@ namespace KidsLearning.Backend.Migrations
 
                     b.HasIndex("ChildId");
 
-                    b.ToTable("Badges");
+                    b.ToTable("Badge");
                 });
 
             modelBuilder.Entity("KidsLearning.Backend.Models.Child", b =>
@@ -461,13 +435,6 @@ namespace KidsLearning.Backend.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("KidsLearning.Backend.Models.Avatar", b =>
-                {
-                    b.HasOne("KidsLearning.Backend.Models.Child", null)
-                        .WithMany("UnlockedAvatars")
-                        .HasForeignKey("ChildId");
-                });
-
             modelBuilder.Entity("KidsLearning.Backend.Models.Badge", b =>
                 {
                     b.HasOne("KidsLearning.Backend.Models.Child", "Child")
@@ -587,8 +554,6 @@ namespace KidsLearning.Backend.Migrations
                     b.Navigation("Badges");
 
                     b.Navigation("Progress");
-
-                    b.Navigation("UnlockedAvatars");
                 });
 
             modelBuilder.Entity("KidsLearning.Backend.Models.LearningTask", b =>

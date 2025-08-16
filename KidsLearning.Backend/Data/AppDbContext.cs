@@ -40,4 +40,6 @@ public class AppDbContext : IdentityDbContext
     public DbSet<LearningTask> LearningTasks { get; set; } = null!;
     public DbSet<Questions> Questions { get; set; } = null!;
     public DbSet<ChildCompletedTask> ChildCompletedTasks { get; set; } = null!;
+    public DbSet<Avatar> Avatars { get; set; } = null!;
+    public DbSet<Badge> Badges { get; set; } = null!;
 }

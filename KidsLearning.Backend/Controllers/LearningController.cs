@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using KidsLearning.Backend.DTOs;
+using KidsLearning.Backend.Services;
 
 namespace KidsLearning.Backend.Controllers
 {
@@ -16,11 +17,13 @@ namespace KidsLearning.Backend.Controllers
     {
         private readonly AppDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RewardService _rewardService;
 
-        public LearningController(AppDbContext context, UserManager<IdentityUser> userManager)
+        public LearningController(AppDbContext context, UserManager<IdentityUser> userManager, RewardService rewardService)
         {
             _context = context;
             _userManager = userManager;
+            _rewardService = rewardService;
         }
 
         [HttpPost("complete-task")]
@@ -55,6 +58,7 @@ namespace KidsLearning.Backend.Controllers
 
                 _context.ChildCompletedTasks.Add(completedTask);
                 await _context.SaveChangesAsync();
+                await _rewardService.RewardChildForCompletedTask(child.Id);
             }
 
             return Ok(new { Message = "Aufgabe erfolgreich als erledigt markiert." });
