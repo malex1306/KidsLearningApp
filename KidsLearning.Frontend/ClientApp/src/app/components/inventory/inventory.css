@@ -4,22 +4,36 @@
     max-width: 900px;
     margin: 2rem auto;
     padding: 2rem;
-    background-color: #f9f9f9;
+    background-color: transparent;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: #333;
+    border-radius: 2rem;
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
 }
 
 .avatars-section, .badges-section {
-    background-color: #fff;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    /* Glassmorphism-Effekt hinzugefügt */
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h2, h3 {
     text-align: center;
-    color: #4CAF50;
+    color: #ffb703;
     margin-bottom: 1rem;
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;;
 }
 
 /* Avatare-Sektion */
@@ -78,4 +92,24 @@ h2, h3 {
     width: 80px;
     height: 80px;
     object-fit: contain;
+}
+
+.fun-button {
+    margin-top: 1rem;
+    background-color: #ffb703;
+    color: black;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+
+.fun-button:hover {
+    background-color: #fb8500;
+    transform: scale(1.05);
 }

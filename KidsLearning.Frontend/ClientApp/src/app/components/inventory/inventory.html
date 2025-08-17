@@ -3,24 +3,24 @@
     <h2>Inventar für {{ activeChild()?.name }}</h2>
 
     <div class="avatars-section card mb-4 p-4">
-      <h3>Deine Avatare</h3>
-      <div class="avatars-grid">
-        @for (avatar of unlockedAvatars; track avatar.id) {
-          <div 
-            class="avatar-item clickable" 
-            (click)="selectAvatar(avatar)"
-            [class.selected]="selectedAvatar?.id === avatar.id"
-          >
-            <img [src]="avatar.imageUrl" alt="Avatar" class="avatar-image">
-          </div>
-        }
+  <h3>Deine Avatare</h3>
+  <div class="avatars-grid">
+    @for (avatar of unlockedAvatars; track avatar.id) {
+      <div 
+        class="avatar-item clickable" 
+        (click)="selectAvatar(avatar)"
+        [class.selected]="selectedAvatar?.id === avatar.id"
+      >
+        <img [src]="avatar.imageUrl" alt="Avatar" class="avatar-image">
       </div>
-      @if (selectedAvatar) {
-        <a class="btn btn-primary mt-4" (click)="onConfirmSelection()">
-          Auswahl bestätigen
-        </a>
-      }
-    </div>
+    }
+  </div>
+  @if (selectedAvatar) {
+    <a class="fun-button mt-4" (click)="onConfirmSelection()">
+      Auswahl bestätigen
+    </a>
+  }
+</div>
     
     <div class="badges-section card p-4">
       <h3>Deine Abzeichen</h3>
