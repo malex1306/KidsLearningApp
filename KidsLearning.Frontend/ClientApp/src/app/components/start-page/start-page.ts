@@ -50,20 +50,21 @@ export class StartPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  loadDashboardData(): void {
-    this.parentDashboardService.getDashboardData().subscribe({
-      next: (data) => {
-        this.dashboardData = data;
-        if (data && data.children && data.children.length > 0) {
-          // Wählt das erste Kind als Standard aus
-          this.selectChild(data.children[0]); 
-        } else {
-          this.activeChildService.clearActiveChild();
+loadDashboardData(): void {
+  this.parentDashboardService.getDashboardData().subscribe({
+    next: (data) => {
+      this.dashboardData = data;
+      if (data && data.children && data.children.length > 0) {
+        if (!this.activeChild()) {
+          this.selectChild(data.children[0]);
         }
-      },
-      error: (err) => console.error('Fehler beim Laden der Dashboard-Daten', err)
-    });
-  }
+      } else {
+        this.activeChildService.clearActiveChild();
+      }
+    },
+    error: (err) => console.error('Fehler beim Laden der Dashboard-Daten', err)
+  });
+}
 
   // Korrigierte Methode, um ChildDto zu akzeptieren
   selectChild(child: ChildDto): void {

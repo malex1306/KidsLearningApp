@@ -37,7 +37,7 @@
             <div class="child-cards-container">
               @for (child of dashboardData.children; track child.childId) {
                 <div class="child-card clickable"
-                      [class.active-child]="child.childId"
+                     [class.active-child]="activeChild()?.id === child.childId"
                       (click)="selectChild(child)">
                   <div class="child-header">
                     <img [src]="child.avatarUrl" alt="Profilbild" class="child-picture">
