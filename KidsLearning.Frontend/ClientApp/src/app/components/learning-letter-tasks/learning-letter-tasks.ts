@@ -6,6 +6,7 @@ import { TasksService } from '../../services/tasks.service';
 import { LearningService } from '../../services/learning.service';
 import { LearningTask, } from '../../models/learning-task';
 import { Question } from '../../models/question';
+import { RewardService } from '../../services/reward.service'; // NEU: RewardService importieren
 
 @Component({
   selector: 'app-learning-letter-tasks',
@@ -33,7 +34,8 @@ export class LearningLetterTasks implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private tasksService: TasksService,
-    private learningService: LearningService
+    private learningService: LearningService,
+    private rewardService: RewardService 
   ) {}
 
   ngOnInit(): void {
@@ -121,7 +123,15 @@ export class LearningLetterTasks implements OnInit {
       this.isCompleted = true;
       if (this.childId && this.task) {
         this.learningService.completeTask(this.childId, this.task.id).subscribe({
-          next: () => console.log('Aufgabe erfolgreich als abgeschlossen markiert!'),
+          next: () => {
+            console.log('Aufgabe erfolgreich als abgeschlossen markiert!');
+            // Belohnungssystem-Endpunkt aufrufen
+            this.rewardService.rewardChild(this.childId!, this.task!.id)
+              .subscribe({
+                next: () => console.log('Belohnung erfolgreich vergeben!'),
+                error: (err) => console.error('Fehler beim Vergeben der Belohnung', err)
+              });
+          },
           error: (err) => console.error('Fehler beim Markieren der Aufgabe als abgeschlossen', err)
         });
       }

@@ -1,7 +1,18 @@
+// src/app/dtos/parent-dashboard.dto.ts
 
 export interface SubjectProgressDto {
   subjectName: string;
   progressPercentage: number;
+}
+
+export interface BadgeDto {
+  name: string;
+  iconUrl: string;
+}
+
+export interface AvatarDto {
+  id: number;
+  imageUrl: string;
 }
 
 export interface ChildDto {
@@ -12,6 +23,9 @@ export interface ChildDto {
   progress: SubjectProgressDto[];
   age: number; 
   dateOfBirth: Date;
+  starCount: number;
+  badges: BadgeDto[];
+  unlockedAvatars: AvatarDto[];
 }
 
 export interface ParentDashboardDto {
@@ -25,9 +39,11 @@ export interface AddChildDto {
   avatarUrl?: string;
   dateOfBirth: Date; 
 }
+
 export interface RemoveChildDto {
   childId: number;
 }
+
 export interface EditChildDto {
   childId: number;
   name: string;

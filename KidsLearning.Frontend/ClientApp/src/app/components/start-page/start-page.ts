@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Auth } from '../../services/auth'; 
 import { ParentDashboardService } from '../../services/parent-dashboard.service';
-import { ParentDashboardDto, ChildDto } from '../../dtos/parent-dashboard.dto';
+import { ParentDashboardDto, ChildDto } from '../../dtos/parent-dashboard.dto'; // ChildDto importieren
 import { ActiveChildService, ChildInfo } from '../../services/active-child.service';
 
 @Component({
@@ -37,7 +37,7 @@ export class StartPageComponent implements OnInit, OnDestroy {
         this.loadDashboardData();
       } else {
         this.dashboardData = null;
-        this.activeChildService.clearActiveChild(); // Wichtig: Active Child beim Logout zurücksetzen
+        this.activeChildService.clearActiveChild();
       }
     });
 
@@ -54,12 +54,10 @@ export class StartPageComponent implements OnInit, OnDestroy {
     this.parentDashboardService.getDashboardData().subscribe({
       next: (data) => {
         this.dashboardData = data;
-        // HIER IST DIE KORREKTUR
         if (data && data.children && data.children.length > 0) {
           // Wählt das erste Kind als Standard aus
           this.selectChild(data.children[0]); 
         } else {
-          // Setzt das aktive Kind auf null, wenn keine Kinder vorhanden sind
           this.activeChildService.clearActiveChild();
         }
       },
@@ -67,14 +65,9 @@ export class StartPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  // Korrigierte Methode, um ChildDto zu akzeptieren
   selectChild(child: ChildDto): void {
-    const childInfo: ChildInfo = {
-      id: child.childId.toString(), 
-      name: child.name,
-      age: child.age, 
-      avatarUrl: child.avatarUrl
-    };
-    this.activeChildService.setActiveChild(childInfo);
+    this.activeChildService.setActiveChild(child);
   }
 
   setGreetingMessage(): void {

@@ -1,10 +1,16 @@
+
+
 import { Injectable, signal, Signal } from '@angular/core';
+import { ChildDto } from '../dtos/parent-dashboard.dto';
 
 export interface ChildInfo {
   id: string;
   name: string;
   avatarUrl: string;
   age: number;
+  starCount: number;
+  badges: any[];
+  unlockedAvatars: any[];
 }
 
 @Injectable({
@@ -22,9 +28,25 @@ export class ActiveChildService {
     }
   }
 
-  setActiveChild(child: ChildInfo): void {
-    this.activeChildSignal.set(child);
-    localStorage.setItem('activeChild', JSON.stringify(child));
+ 
+  setActiveChild(childDto: ChildDto): void {
+    const childInfo: ChildInfo = {
+      id: childDto.childId.toString(),
+      name: childDto.name,
+      age: childDto.age,
+      avatarUrl: childDto.avatarUrl,
+      starCount: childDto.starCount,
+      badges: childDto.badges,
+      unlockedAvatars: childDto.unlockedAvatars
+    };
+    this.activeChildSignal.set(childInfo);
+    localStorage.setItem('activeChild', JSON.stringify(childInfo));
+  }
+
+  
+  updateAvatar(childInfo: ChildInfo): void {
+      this.activeChildSignal.set(childInfo);
+      localStorage.setItem('activeChild', JSON.stringify(childInfo));
   }
 
   clearActiveChild(): void {

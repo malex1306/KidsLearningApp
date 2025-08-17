@@ -7,6 +7,7 @@ import { RegisterComponent } from './components/account/register.component/regis
 import { LearningTasksComponent } from './components/learning-tasks/learning-tasks';
 import { LearningTaskDetail } from './components/learning-task-detail/learning-task-detail';
 import { LearningLetterTasks } from './components/learning-letter-tasks/learning-letter-tasks';
+import { InventoryComponent } from './components/inventory/inventory';
 
 
 export const routes: Routes = [
@@ -19,6 +20,7 @@ export const routes: Routes = [
     component: ParentDashboardComponent,
     canActivate: [authGuard]
   },
+{ path: 'inventory/:childId', component: InventoryComponent, canActivate: [authGuard] },
   { path: 'tasks/:subject/child/:childId', component: LearningTasksComponent, canActivate: [authGuard] },
   {
     path: 'task/:id/child/:childId', component: LearningTaskDetail,

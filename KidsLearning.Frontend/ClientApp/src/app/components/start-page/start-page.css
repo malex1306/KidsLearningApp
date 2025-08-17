@@ -1,289 +1,327 @@
 /* Grundlegende Container-Stile */
 .dashboard-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-  
-  min-height: 100vh;
-  font-family: 'Poppins', sans-serif;
-  color: #333;
-  border-radius: 2rem;
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  padding: 1.5rem;
-  transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    border-radius: 2rem;
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
 }
 
 /* Header-Bereich mit Avatar und Begrüßung */
 .dashboard-header {
-  text-align: center;
-  margin-bottom: 2rem;
-  width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    width: 100%;
 }
 
 .header-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1; 
 }
 
+
+.inventory-header-link {
+    flex-shrink: 0;
+    margin-left: auto; 
+    align-self: flex-start; 
+    transform: translateY(-50%); 
+}
+
+.inventory-button {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    color: #4CAF50;
+    font-size: 0.8rem;
+    font-weight: bold;
+    transition: transform 0.2s ease-in-out;
+}
+
+.inventory-button:hover {
+    transform: scale(1.1);
+}
+
+.inventory-icon {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #4CAF50;
+    border-radius: 50%;
+    padding: 5px;
+}
+/* Ende der neuen Klassen */
+
 .avatar-container {
-  width: 120px;
-  height: 120px;
-  background-color: #ffe6c7;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
+    width: 120px;
+    height: 120px;
+    background-color: #ffe6c7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
 }
 
 .avatar-image {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .welcome-message {
-  line-height: 1.2;
+    line-height: 1.2;
 }
 
 .greeting-text {
-  font-size: 1.2rem;
-  color: #ff9900;
-  margin: 0;
+    font-size: 1.2rem;
+    color: #ff9900;
+    margin: 0;
 }
 
 .user-name {
-  font-size: 2.5rem;
-  font-family: 'Comic Sans MS', 'Arial', sans-serif;;
-  font-weight: bold;
-  color: #ff9900;
-  margin: 0;
+    font-size: 2.5rem;
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
+    font-weight: bold;
+    color: #ff9900;
+    margin: 0;
 }
 
 /* Hauptinhaltsbereich */
 .main-content {
-  width: 100%;
-  max-width: 900px; /* Maximale Breite für Desktop-Ansicht */
+    width: 100%;
+    max-width: 900px; /* Maximale Breite für Desktop-Ansicht */
 }
 
 /* Responsive Grid für die Kinder-Auswahlkarten */
 .child-selection-container h3 {
-  text-align: center;
-  margin-bottom: 1rem;
-  color: #ff9900;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #ff9900;
 }
 
 .child-cards-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1.5rem;
-  padding: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem 0;
 }
 
 .child-card {
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
 }
 
 /* Stil für die einzelnen Kinder-Karten */
 .child-card-one {
-  background: #98f5e1;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-  text-decoration: none;
-  color: #ff9900;
+    background: #98f5e1;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: #ff9900;
 }
 
 .child-card-two {
-  background: #fbf8cc;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-  text-decoration: none;
-  color: #ff9900;
+    background: #fbf8cc;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: #ff9900;
 }
 
 .child-card-three {
-  background: #cdb4db;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-  text-decoration: none;
-  color: #ff9900;
+    background: #cdb4db;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: #ff9900;
 }
 
 .child-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .child-card-one:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .child-card-two:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.child-card-three:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .child-card.active-child {
-  border: 4px solid #ffb703; /* Visuelle Kennzeichnung für das aktive Kind */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    border: 4px solid #ffb703; /* Visuelle Kennzeichnung für das aktive Kind */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .child-header {
-  margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .child-picture {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .child-name {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-top: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
 }
 
-.card-lettering{
+.card-lettering {
     font-weight: bold;
-    
 }
 
 /* Responsive Grid für die Lektionskarten */
 .lessons-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
 }
 
 /* Stil für die einzelnen Lektionskarten */
 .lesson-card {
-  background-color: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
 }
 
 .lesson-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .lesson-icon {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 1rem;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1rem;
 }
 
 .lesson-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #333;
-  margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
 }
 
 .lesson-description {
-  font-size: 0.9rem;
-  color: #999;
-  margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #999;
+    margin-top: 0.5rem;
 }
 
 .message-text, .no-children-message {
-  text-align: center;
-  color: #666;
-  font-size: 1.2rem;
-  margin-top: 2rem;
+    text-align: center;
+    color: #666;
+    font-size: 1.2rem;
+    margin-top: 2rem;
 }
 
 /* Stil für die Intro-Sektion bei nicht angemeldeten Benutzern */
 .intro-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .intro-section p {
-  color: #ff9900;
+    color: #ff9900;
 }
 
 .header-actions {
-  margin-top: 1rem;
+    margin-top: 1rem;
 }
 
 .btn {
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 50px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: bold;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
 }
 
 .btn-primary {
-  background-color: #ffb703;
-  color: white;
+    background-color: #ffb703;
+    color: white;
 }
 
 .btn-primary:hover {
-  background-color: #fb8500;
+    background-color: #fb8500;
 }
 
 .btn-secondary {
-  background-color: #f7f9fc;
-  color: #ff9900;
-  border: 2px solid #ff9900;
+    background-color: #f7f9fc;
+    color: #ff9900;
+    border: 2px solid #ff9900;
 }
 
 .btn-secondary:hover {
-  background-color: #ff9900;
-  color: #fff;
+    background-color: #ff9900;
+    color: #fff;
 }

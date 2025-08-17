@@ -5,6 +5,7 @@ import { TasksService } from '../../services/tasks.service';
 import { LearningTask } from '../../models/learning-task';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RewardService } from '../../services/reward.service';
 
 @Component({
   selector: 'app-learning-tasks',
@@ -16,20 +17,19 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 export class LearningTasksComponent implements OnInit {
   tasks: LearningTask[] = [];
   subject: string = '';
-  childId: number | null = null; // Hinzugefügte Eigenschaft
+  childId: number | null = null;
 
   constructor(
     private tasksService: TasksService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute, 
+    private rewardService : RewardService
   ) {}
 
   ngOnInit(): void {
-    // Parameter aus der URL auslesen
     this.route.paramMap.subscribe(params => {
       this.subject = params.get('subject') || '';
-      const childIdParam = params.get('childId'); // childId aus der Route lesen
+      const childIdParam = params.get('childId');
       
-      // Hinzugefügt: Die childId-Eigenschaft der Klasse zuweisen
       if (childIdParam) {
         this.childId = +childIdParam;
       }
