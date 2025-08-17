@@ -61,7 +61,7 @@
           <img [src]="avatar"
                [alt]="'Avatar ' + $index"
                class="avatar-thumbnail"
-               [class.selected]="newChild.avatarUrl === avatar"
+               [class.selected]="editingChild?.avatarUrl === avatar"
                (click)="selectEditChildAvatar(avatar)">
         }
       </div>

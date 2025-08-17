@@ -6,11 +6,20 @@
       <h3>Deine Avatare</h3>
       <div class="avatars-grid">
         @for (avatar of unlockedAvatars; track avatar.id) {
-          <div class="avatar-item clickable" (click)="selectAvatar(avatar)">
+          <div 
+            class="avatar-item clickable" 
+            (click)="selectAvatar(avatar)"
+            [class.selected]="selectedAvatar?.id === avatar.id"
+          >
             <img [src]="avatar.imageUrl" alt="Avatar" class="avatar-image">
           </div>
         }
       </div>
+      @if (selectedAvatar) {
+        <a class="btn btn-primary mt-4" (click)="onConfirmSelection()">
+          Auswahl bestätigen
+        </a>
+      }
     </div>
     
     <div class="badges-section card p-4">

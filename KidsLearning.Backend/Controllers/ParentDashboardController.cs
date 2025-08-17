@@ -73,7 +73,7 @@ public class ParentDashboardController : ControllerBase
             if (latestCompletion != null)
             {
                 lastActivityMessage = latestCompletion.CompletedAt.ToString("dd.MM.yyyy HH:mm");
-                recentActivities.Add($"{child.Name} hat '{latestCompletion.LearningTask.Title}' in {latestCompletion.LearningTask.Subject} abgeschlossen am {lastActivityMessage}.");
+                recentActivities.Add($"{child.Name} hat '{latestCompletion?.LearningTask?.Title}' in {latestCompletion?.LearningTask?.Subject} abgeschlossen am {lastActivityMessage}.");
             }
             else
             {

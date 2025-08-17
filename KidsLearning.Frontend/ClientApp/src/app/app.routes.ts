@@ -12,7 +12,7 @@ import { InventoryComponent } from './components/inventory/inventory';
 
 export const routes: Routes = [
    { path: '', component: StartPageComponent, pathMatch: 'full' },
-  { path: 'start', component: StartPageComponent },
+  { path: 'start-page', component: StartPageComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: ParentLogin },
   {

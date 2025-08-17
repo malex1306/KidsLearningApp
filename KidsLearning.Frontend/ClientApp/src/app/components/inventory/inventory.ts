@@ -2,10 +2,11 @@
 
 import { Component, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ActiveChildService } from '../../services/active-child.service';
-import { AvatarDto, BadgeDto } from '../../dtos/parent-dashboard.dto';
-import { HttpClient } from '@angular/common/http'; // Importieren Sie HttpClient
+import { AvatarDto, BadgeDto, EditChildDto } from '../../dtos/parent-dashboard.dto';
+import { HttpClient } from '@angular/common/http';
+import { ParentDashboardService } from '../../services/parent-dashboard.service';
 
 @Component({
   selector: 'app-inventory',
@@ -18,26 +19,29 @@ export class InventoryComponent implements OnInit {
   activeChild = computed(() => this.activeChildService.activeChild());
   unlockedAvatars: AvatarDto[] = [];
   badges: BadgeDto[] = [];
+  selectedAvatar: AvatarDto | null = null;
   
   constructor(
     private activeChildService: ActiveChildService,
     private route: ActivatedRoute,
-    private http: HttpClient 
+    private http: HttpClient,
+    private dashboardService: ParentDashboardService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     const child = this.activeChild();
     if (child) {
-     
-      this.getUnlockedAvatars(child.id); 
-    
+      this.getUnlockedAvatars(Number(child.id)); 
       this.badges = child.badges;
+      const currentAvatar = this.unlockedAvatars.find(a => a.imageUrl === child.avatarUrl);
+      if (currentAvatar) {
+        this.selectedAvatar = currentAvatar;
+      }
     }
   }
 
-  // Neue Methode zum Abrufen der freigeschalteten Avatare vom Backend
-  getUnlockedAvatars(childId: string): void {
-   
+  getUnlockedAvatars(childId: number): void {
     this.http.get<AvatarDto[]>(`api/Inventory/avatars/${childId}`)
       .subscribe(avatars => {
         this.unlockedAvatars = avatars;
@@ -46,15 +50,40 @@ export class InventoryComponent implements OnInit {
   }
 
   selectAvatar(avatar: AvatarDto): void {
+    this.selectedAvatar = avatar;
+    console.log(`Avatar ${avatar.name} wurde lokal ausgewählt.`);
+  }
+
+  onConfirmSelection(): void {
     const child = this.activeChild();
-    if (child) {
-      const updatedChild = {
-        ...child,
-        avatarUrl: avatar.imageUrl
+    if (child && this.selectedAvatar) {
+      console.log('Sende Anfrage zur Aktualisierung des Avatars...');
+      const editChildDto: EditChildDto = {
+        childId: Number(child.id), 
+        name: child.name,
+        avatarUrl: this.selectedAvatar.imageUrl,
+        dateOfBirth: child.dateOfBirth
       };
-      // Verwenden Sie die neue updateAvatar-Methode
-      this.activeChildService.updateAvatar(updatedChild);
-      console.log(`Avatar für Kind ${child.name} wurde geändert.`);
+
+      this.dashboardService.editChild(Number(child.id), editChildDto).subscribe({
+        next: () => {
+          console.log('✅ API-Aufruf erfolgreich! Aktualisiere Frontend-Status und navigiere...');
+          
+          const updatedChild = {
+            ...child,
+            avatarUrl: this.selectedAvatar!.imageUrl
+          };
+          this.activeChildService.updateAvatar(updatedChild);
+          
+          this.router.navigate(['/start-page']);
+        },
+        error: (err: any) => {
+          console.log('❌ API-Aufruf fehlgeschlagen!');
+          console.error('Fehler beim Ändern des Avatars:', err);
+        }
+      });
+    } else {
+      console.log('Kein Kind ausgewählt oder kein Avatar ausgewählt.');
     }
   }
 }
