@@ -5,7 +5,7 @@
 namespace KidsLearning.Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class AddAvatarsTable : Migration
+    public partial class AddDescriptionToAvatars : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

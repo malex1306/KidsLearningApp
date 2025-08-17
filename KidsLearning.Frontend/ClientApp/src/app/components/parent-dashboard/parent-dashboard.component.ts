@@ -69,7 +69,7 @@ export class ParentDashboardComponent implements OnInit {
       this.dashboardService.addChild(this.newChild).subscribe({
         next: (response: any) => {
           this.message = response.message;
-          this.newChild = { name: '', avatarUrl: '', dateOfBirth: new Date() }; // Reset the form
+          this.newChild = { name: '', avatarUrl: '', dateOfBirth: new Date() }; 
           this.showAddChildForm = false;
           this.loadDashboardData();
         },

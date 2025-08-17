@@ -11,8 +11,11 @@ export interface BadgeDto {
 }
 
 export interface AvatarDto {
-  id: number;
-  imageUrl: string;
+   id: number;
+  name: string;
+  imageUrl: string; 
+  description: string; 
+  unlockStarRequirement: number; 
 }
 
 export interface ChildDto {

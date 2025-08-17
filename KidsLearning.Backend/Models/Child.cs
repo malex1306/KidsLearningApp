@@ -24,6 +24,6 @@ namespace KidsLearning.Backend.Models
         
         // Navigationseigenschaften für Belohnungen
         public ICollection<Badge> Badges { get; set; } = new List<Badge>();
-        public ICollection<Avatar> UnlockedAvatars { get; set; } = new List<Avatar>();
+        
     }
 }

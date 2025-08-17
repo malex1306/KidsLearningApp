@@ -39,7 +39,7 @@ public class ParentDashboardController : ControllerBase
             .ToListAsync();
 
         var allSubjects = await _context.LearningTasks.Select(t => t.Subject).Distinct().ToListAsync();
-        
+
         var childrenDtos = new List<ChildDto>();
         var recentActivities = new List<string>();
 
@@ -52,7 +52,7 @@ public class ParentDashboardController : ControllerBase
                 var totalTasks = await _context.LearningTasks.CountAsync(t => t.Subject == subject);
                 var completedTasks = await _context.ChildCompletedTasks
                     .CountAsync(ct => ct.ChildId == child.Id &&
-                                      _context.LearningTasks.Any(lt => lt.Id == ct.LearningTaskId && lt.Subject == subject));
+                                    _context.LearningTasks.Any(lt => lt.Id == ct.LearningTaskId && lt.Subject == subject));
 
                 int progressPercentage = (totalTasks > 0) ? (int)Math.Round((double)completedTasks * 100 / totalTasks) : 0;
 
@@ -80,6 +80,11 @@ public class ParentDashboardController : ControllerBase
                 recentActivities.Add($"{child.Name} hat noch nicht mit dem Lernen begonnen.");
             }
 
+            // Avatare basierend auf Sternenanzahl abrufen
+            var unlockedAvatars = await _context.Avatars
+                .Where(a => child.StarCount >= a.UnlockStarRequirement)
+                .ToListAsync();
+
             childrenDtos.Add(new ChildDto
             {
                 ChildId = child.Id,
@@ -88,10 +93,21 @@ public class ParentDashboardController : ControllerBase
                 DateOfBirth = child.DateOfBirth,
                 Age = (DateTime.Now - child.DateOfBirth).TotalDays > 0 ? (int)((DateTime.Now - child.DateOfBirth).TotalDays / 365.25) : 0,
                 LastActivity = lastActivityMessage,
-                Progress = childProgressList
+                Progress = childProgressList,
+                StarCount = child.StarCount,
+                // Die Liste der freigeschalteten Avatare in DTOs umwandeln
+                UnlockedAvatars = unlockedAvatars.Select(a => new AvatarDto
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    ImageUrl = a.ImageUrl,
+                    Description = a.Description,
+                    UnlockStarRequirement = a.UnlockStarRequirement
+                }).ToList(),
+                Badges = child.Badges
             });
         }
-        
+
         recentActivities = recentActivities.OrderByDescending(a => a).ToList();
 
         var dashboardData = new ParentDashboardDto
@@ -150,7 +166,7 @@ public class ParentDashboardController : ControllerBase
 
         return Ok(new { Message = $"Kind '{child.Name}' wurde erfolgreich entfernt." });
     }
-    
+
     [HttpPut("edit-child/{childId}")]
     public async Task<IActionResult> EditChild(int childId, [FromBody] EditChildDto editChildDto)
     {

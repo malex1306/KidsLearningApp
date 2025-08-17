@@ -1,5 +1,7 @@
 namespace KidsLearning.Backend.DTOs;
 
+using KidsLearning.Backend.Models;
+
 
 public class SubjectProgressDto
 {
@@ -16,6 +18,9 @@ public class ChildDto
     public string AvatarUrl { get; set; } = string.Empty;
     public string LastActivity { get; set; } = string.Empty;
     public List<SubjectProgressDto> Progress { get; set; } = [];
+    public int StarCount { get; set; }
+    public ICollection<Badge> Badges { get; set; } = new List<Badge>();
+    public ICollection<AvatarDto> UnlockedAvatars { get; set; } = new List<AvatarDto>();
 }
 
 public class ParentDashboardDto

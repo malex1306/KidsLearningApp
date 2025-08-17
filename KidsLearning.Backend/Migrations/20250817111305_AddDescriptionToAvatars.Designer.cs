@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KidsLearning.Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250816085653_AddAvatarsTable")]
-    partial class AddAvatarsTable
+    [Migration("20250817111305_AddDescriptionToAvatars")]
+    partial class AddDescriptionToAvatars
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,10 @@ namespace KidsLearning.Backend.Migrations
 
                     b.Property<int?>("ChildId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
