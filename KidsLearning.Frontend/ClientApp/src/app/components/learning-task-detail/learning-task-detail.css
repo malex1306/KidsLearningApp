@@ -6,6 +6,7 @@
     padding: 2rem;
     max-width: 800px;
     margin: auto;
+    margin-top: 8rem;
 }
 
 .task-card.glass-card {
@@ -25,13 +26,13 @@
 
 .question-title {
     font-size: 1.8rem;
-    color: #4CAF50; /* Passend zum fröhlichen Design */
+    color: #4CAF50; 
 }
 
 .question-text {
     font-size: 1.4rem;
     margin-top: 1rem;
-    color: #333;
+    color: #ff9900;
 }
 
 .options-grid {

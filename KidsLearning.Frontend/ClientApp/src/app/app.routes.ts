@@ -11,24 +11,23 @@ import { InventoryComponent } from './components/inventory/inventory';
 
 
 export const routes: Routes = [
-   { path: '', component: StartPageComponent, pathMatch: 'full' },
-  { path: 'start-page', component: StartPageComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: ParentLogin },
-  {
-    path: 'parent-dashboard',
-    component: ParentDashboardComponent,
-    canActivate: [authGuard]
-  },
+{ path: '', component: StartPageComponent, pathMatch: 'full' },
+{ path: 'start-page', component: StartPageComponent },
+{ path: 'register', component: RegisterComponent },
+{ path: 'login', component: ParentLogin },
+{
+path: 'parent-dashboard',
+ component: ParentDashboardComponent,
+canActivate: [authGuard]
+},
 { path: 'inventory/:childId', component: InventoryComponent, canActivate: [authGuard] },
-  { path: 'tasks/:subject/child/:childId', component: LearningTasksComponent, canActivate: [authGuard] },
-  {
-    path: 'task/:id/child/:childId', component: LearningTaskDetail,
-    canActivate: [authGuard]
-  },
-  { path: 'learning-letter-tasks/:subject/:id/child/:childId', component: LearningLetterTasks,
-    canActivate: [authGuard]
-  },
-  // Korrigierte Route: Der Doppelpunkt vor childId fehlte
-  { path: 'tasks/:subject/:id/child/:childId', component: LearningTaskDetail}
+{ path: 'tasks/:subject/child/:childId', component: LearningTasksComponent, canActivate: [authGuard] }, {
+ path: 'task/:id/child/:childId', component: LearningTaskDetail,
+canActivate: [authGuard]
+},
+{ path: 'learning-letter-tasks/:subject/:id/child/:childId', component: LearningLetterTasks,
+ canActivate: [authGuard]
+ },
+// Korrigierte Route: Der Doppelpunkt vor childId fehlte
+{ path: 'tasks/:subject/:id/child/:childId', component: LearningTaskDetail}
 ];

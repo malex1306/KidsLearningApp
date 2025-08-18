@@ -7,13 +7,13 @@
   background-image: url('/src/assets/images/10456302.jpg');
 
   /* Bildeigenschaften anpassen */
-  background-size: cover;          /* Bild so skalieren, dass es den gesamten Container ausfüllt */
-  background-position: center center; /* Bild zentrieren */
-  background-repeat: no-repeat;    /* Verhindern, dass sich das Bild wiederholt */
+  background-size: cover;        
+  background-position: center center; 
+  background-repeat: no-repeat;   
 
   /* Höhe des Containers sicherstellen */
-  min-height: 100vh; /* Mindesthöhe auf die volle Bildschirmhöhe setzen */
-  color: #333;
+  min-height: 100vh;
+  color: #ff9900;
   text-align: center;
 }
 
@@ -21,7 +21,7 @@
 .tasks-container h1 {
   font-size: 2.5rem;
   margin-bottom: 2rem;
-  color: #2b2d42;
+  color: #ff9900;
 }
 
 /* Grid */
@@ -64,13 +64,13 @@
 /* Inhalt */
 .card-content h3 {
   font-size: 1.4rem;
-  color: #073b4c;
+  color: #fb8500;
   margin-bottom: 0.5rem;
 }
 
 .card-content p {
   font-size: 1rem;
-  color: #333;
+  color: #ff9900;
 }
 
 /* Button */
@@ -96,6 +96,6 @@
 /* Kein Aufgaben-Text */
 .no-tasks-message {
   font-size: 1.2rem;
-  color: #333;
+  color: #fb8500;
   margin-top: 3rem;
 }
