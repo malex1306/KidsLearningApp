@@ -1,32 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alexa\\source\\repos\\KidsLearningApp\\KidsLearning.Backend\\KidsLearning.Backend.csproj": {}
+    "C:\\Users\\Marcel\\RiderProjects\\KidsLearningApp\\KidsLearning.Backend\\KidsLearning.Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alexa\\source\\repos\\KidsLearningApp\\KidsLearning.Backend\\KidsLearning.Backend.csproj": {
+    "C:\\Users\\Marcel\\RiderProjects\\KidsLearningApp\\KidsLearning.Backend\\KidsLearning.Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alexa\\source\\repos\\KidsLearningApp\\KidsLearning.Backend\\KidsLearning.Backend.csproj",
+        "projectUniqueName": "C:\\Users\\Marcel\\RiderProjects\\KidsLearningApp\\KidsLearning.Backend\\KidsLearning.Backend.csproj",
         "projectName": "KidsLearning.Backend",
-        "projectPath": "C:\\Users\\alexa\\source\\repos\\KidsLearningApp\\KidsLearning.Backend\\KidsLearning.Backend.csproj",
-        "packagesPath": "C:\\Users\\alexa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alexa\\source\\repos\\KidsLearningApp\\KidsLearning.Backend\\obj\\",
+        "projectPath": "C:\\Users\\Marcel\\RiderProjects\\KidsLearningApp\\KidsLearning.Backend\\KidsLearning.Backend.csproj",
+        "packagesPath": "C:\\Users\\Marcel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Marcel\\RiderProjects\\KidsLearningApp\\KidsLearning.Backend\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\alexa\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Marcel\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -103,7 +96,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

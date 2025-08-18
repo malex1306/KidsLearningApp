@@ -64,11 +64,18 @@ builder.Services.AddAuthentication(options =>
         )
     };
 });
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<RewardService>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    EnsureDatabase.Seed(dbContext);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
