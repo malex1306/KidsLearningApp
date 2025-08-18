@@ -1,4 +1,6 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# =========================
+# Angular / Frontend
+# =========================
 
 # Compiled output
 /dist
@@ -41,8 +43,48 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Docker
+# Docker (only if you don’t want to track these)
 docker-compose.yml
 Dockerfile
 .dockerignore
 .docker/
+
+# =========================
+# ASP.NET Core / Backend
+# =========================
+
+# Build output
+bin/
+obj/
+out/
+
+# Visual Studio
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.cache
+*.log
+.vs/
+
+# ASP.NET publish output
+wwwroot/dist/
+wwwroot/node_modules/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Others
+*.ncrunch*
+_ReSharper*/
+*.resharper
+*.DotSettings.user
+
+# Rider
+.idea/
+
+# =========================
+# OS-specific
+# =========================
+ehthumbs.db
+Icon?
