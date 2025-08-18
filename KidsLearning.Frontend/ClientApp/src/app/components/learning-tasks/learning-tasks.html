@@ -27,7 +27,10 @@
                     <div class="card-actions">
                         @if (task.subject === 'Buchstaben-land') {
                             <button class="fun-button" [routerLink]="['/learning-letter-tasks', task.subject, task.id, 'child', childId]">Starten</button>
-                        } @else {
+                        } @else if (task.subject === 'Englisch') {
+                          <button class="fun-button" [routerLink]="['/learning-task-english', task.subject, task.id, 'child', childId]">Starten</button>
+                        }
+                        @else {
                             <button class="fun-button" [routerLink]="['/task', task.id, 'child', childId]">Starten</button>
                         }
                     </div>

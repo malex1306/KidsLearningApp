@@ -48,7 +48,13 @@ public class EnsureDatabase
                     Title = "Wörter buchstabieren",
                     Description = "Buchstabiere einfache Wörter wie 'Hund' und 'Katze'.",
                     Subject = "Buchstaben-land"
-                }
+                },
+                new LearningTask {
+                    Title = "Englisch",
+                    Description = "Test",
+                    Subject = "Englisch"
+                
+            }
             };
 
             context.LearningTasks.AddRange(tasks);

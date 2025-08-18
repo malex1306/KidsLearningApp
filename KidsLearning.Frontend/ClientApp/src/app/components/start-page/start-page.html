@@ -54,7 +54,7 @@
           </div>
         }
       }
-      
+
       <div class="lessons-section mt-4">
         <div class="child-selection-container">
           @if (activeChild()) {
@@ -63,10 +63,10 @@
             <h3>Bitte wähle ein Kind aus.</h3>
           }
         </div>
-        
+
         @if (activeChild()) {
           <p class="centered-text" style="color:#ff9900;">Hier siehst du die verfügbaren Übungen für {{ activeChild()?.name }}.</p>
-          
+
           <div class="lessons-list">
             <a class="child-card-two mb-3" [routerLink]="['tasks', 'Mathe-Abenteuer', 'child', activeChild()?.id]">
               <div class="child-header">
@@ -77,7 +77,7 @@
                 <p>Grundlagen der Mathematik.</p>
               </div>
             </a>
-            
+
             <a class="child-card-one mb-3" [routerLink]="['tasks', 'Buchstaben-land', 'child', activeChild()?.id]">
               <div class="child-header">
                 <img src="assets/images/boy.png" alt="Lektion Bild" class="child-picture">
@@ -97,6 +97,18 @@
               </div>
               <div class="progress-section" style="color: black;">
                 <p>Lerne, wie man puzzelt.</p>
+              </div>
+              <div class="card-footer">
+              </div>
+            </a>
+
+            <a class="child-card-four mb-3" [routerLink]="['tasks', 'Englisch', 'child', activeChild()?.id]">
+              <div class="child-header">
+                <img src="assets/images/english.png" alt="Lektion Bild" class="child-picture">
+                <h3 class="card-lettering">Englisch-Land</h3>
+              </div>
+              <div class="progress-section" style="color: black;">
+                <p>Lerne, wie man Englisch spricht.</p>
               </div>
               <div class="card-footer">
               </div>
