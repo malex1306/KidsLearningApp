@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TasksService } from '../../services/tasks.service';
 import { LearningService } from '../../services/learning.service';
 import { LearningTask } from '../../models/learning-task';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-learning-task-english',
+  imports: [CommonModule, RouterLink],
   templateUrl: './learning-task-english.html',
   styleUrls: ['./learning-task-english.css']
 })
@@ -59,5 +61,9 @@ export class LearningTaskEnglish implements OnInit {
     if (this.task && this.currentQuestionIndex < this.task.questions.length - 1) {
       this.currentQuestionIndex++;
     }
+  }
+
+  get isCompleted(): boolean {
+    return !!this.task && this.currentQuestionIndex >= this.task.questions.length;
   }
 }
