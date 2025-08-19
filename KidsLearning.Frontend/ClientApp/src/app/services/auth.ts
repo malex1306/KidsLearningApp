@@ -22,8 +22,7 @@ export class Auth {
     return this.http.post(this.apiUrl + 'login', credentials).pipe(
       tap((response: any) => {
         if (response.token) {
-          // Nur SessionStorage nutzen → Logout wenn Tab geschlossen
-          sessionStorage.setItem(this.tokenKey, response.token);
+          sessionStorage.setItem(this.tokenKey, response.token); // Token speichern
           this.isLoggedInSubject.next(true);
         }
       }),
@@ -51,5 +50,9 @@ export class Auth {
 
   isAuthenticated(): boolean {
     return !!sessionStorage.getItem(this.tokenKey);
+  }
+
+  getToken(): string | null {
+    return sessionStorage.getItem(this.tokenKey);
   }
 }

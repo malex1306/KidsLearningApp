@@ -10,25 +10,33 @@ public class EnsureDatabase
         context.Database.EnsureCreated();
 
         // --- Parents ---
-        if (!userManager.Users.Any())
+        IdentityUser parentUser;
+        var existingParent = userManager.FindByEmailAsync("parent1@test.com").GetAwaiter().GetResult();
+
+        if (existingParent == null)
         {
-            var parent = new IdentityUser
+            parentUser = new IdentityUser
             {
                 UserName = "parent1",
                 Email = "parent1@test.com",
                 EmailConfirmed = true
             };
-            userManager.CreateAsync(parent, "Passwort123!").GetAwaiter().GetResult();
+            userManager.CreateAsync(parentUser, "Passwort123!").GetAwaiter().GetResult();
+        }
+        else
+        {
+            parentUser = existingParent;
         }
 
         // --- Children ---
         if (!context.Children.Any())
         {
-            var parent = userManager.Users.First();
             var child = new Child
             {
                 Name = "Max",
-                ParentId = parent.Id
+                ParentId = parentUser.Id,
+                AvatarUrl = "https://via.placeholder.com/40",
+                DateOfBirth = DateTime.Now.AddYears(-7) // Beispielalter
             };
             context.Children.Add(child);
             context.SaveChanges();
@@ -56,29 +64,12 @@ public class EnsureDatabase
         {
             var questions = new List<Questions>
             {
-                // Zahlen finden (TaskId = 1)
                 new Questions { Text = "Welche Zahl fehlt in der Reihe: 1, 2, ?, 4, 5", CorrectAnswer = "3", Options = new List<string>{"1","2","3","4"}, LearningTaskId = 1 },
-                new Questions { Text = "Welche Zahl fehlt in der Reihe: 5, ?, 7, 8, 9", CorrectAnswer = "6", Options = new List<string>{"5","6","7","8"}, LearningTaskId = 1 },
-
-                // Addition bis 10 (TaskId = 2)
                 new Questions { Text = "Was ist 3 + 4?", CorrectAnswer = "7", Options = new List<string>{"5","6","7","8"}, LearningTaskId = 2 },
-                new Questions { Text = "Was ist 5 + 2?", CorrectAnswer = "7", Options = new List<string>{"6","7","8","9"}, LearningTaskId = 2 },
-
-                // Formen erkennen (TaskId = 3)
                 new Questions { Text = "Welche Form hat vier gleich lange Seiten?", CorrectAnswer = "Quadrat", Options = new List<string>{"Dreieck","Kreis","Quadrat","Rechteck"}, LearningTaskId = 3 },
-                new Questions { Text = "Welche Form hat drei Ecken?", CorrectAnswer = "Dreieck", Options = new List<string>{"Quadrat","Dreieck","Kreis","Stern"}, LearningTaskId = 3 },
-
-                // Alphabet lernen (TaskId = 4)
                 new Questions { Text = "Welcher Buchstabe kommt nach dem B?", CorrectAnswer = "C", Options = new List<string>{"A","B","C","D"}, LearningTaskId = 4 },
-                new Questions { Text = "Welcher Buchstabe kommt vor dem G?", CorrectAnswer = "F", Options = new List<string>{"D","E","F","H"}, LearningTaskId = 4 },
-
-                // Buchstaben verbinden (TaskId = 5)
                 new Questions { Text = "Welche Kombination ist richtig?", CorrectAnswer = "A-a", Options = new List<string>{"A-b","A-c","A-a","A-d"}, LearningTaskId = 5 },
-                new Questions { Text = "Welche Kombination ist richtig?", CorrectAnswer = "E-e", Options = new List<string>{"E-f","E-g","E-h","E-e"}, LearningTaskId = 5 },
-
-                // Wörter buchstabieren (TaskId = 6)
-                new Questions { Text = "Buchstabiere das Wort 'Katze'.", CorrectAnswer = "KATZE", ImageUrl = "assets/images/bengal.png", Options = new List<string>{"K","A","T","Z","E","S","N","P"}, LearningTaskId = 6 },
-                new Questions { Text = "Buchstabiere das Wort 'Hund'.", CorrectAnswer = "HUND", ImageUrl = "assets/images/golden-retriever.png", Options = new List<string>{"H","U","N","D","T","P","B","L"}, LearningTaskId = 6 }
+                new Questions { Text = "Buchstabiere das Wort 'Katze'.", CorrectAnswer = "KATZE", ImageUrl = "assets/images/bengal.png", Options = new List<string>{"K","A","T","Z","E","S","N","P"}, LearningTaskId = 6 }
             };
             context.Questions.AddRange(questions);
             context.SaveChanges();
