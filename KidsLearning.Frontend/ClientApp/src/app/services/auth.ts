@@ -14,7 +14,7 @@ export class Auth {
   public isLoggedIn$: Observable<boolean>;
 
   constructor(private http: HttpClient) {
-    const initialStatus = !!localStorage.getItem('jwt_token');
+    const initialStatus = !!sessionStorage.getItem('jwt_token');
     this.isLoggedInSubject = new BehaviorSubject<boolean>(initialStatus);
     this.isLoggedIn$ = this.isLoggedInSubject.asObservable();
   }
@@ -24,7 +24,7 @@ export class Auth {
       .pipe(
         tap((response: any) => {
           if (response.token) {
-            localStorage.setItem('jwt_token', response.token);
+            sessionStorage.setItem('jwt_token', response.token);
             this.isLoggedInSubject.next(true); 
           }
         }),
@@ -37,7 +37,7 @@ export class Auth {
   }
 
   logout(): void {
-    localStorage.removeItem('jwt_token');
+    sessionStorage.removeItem('jwt_token');
     this.isLoggedInSubject.next(false);
   }
 
