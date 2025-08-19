@@ -19,22 +19,19 @@ export class Auth {
   }
 
   login(credentials: { email: string; password: string; rememberMe: boolean }): Observable<any> {
-    return this.http.post(this.apiUrl + 'login', credentials)
-      .pipe(
-        tap((response: any) => {
-          if (response.token) {
-            sessionStorage.setItem('jwt_token', response.token);
-            // Speichern Sie die E-Mail-Adresse im sessionStorage
-            sessionStorage.setItem('parent_email', credentials.email);
-            this.isLoggedInSubject.next(true); 
-          }
-        }),
-        catchError(error => {
-          console.error('Login failed', error);
-          this.isLoggedInSubject.next(false); 
-          return throwError(() => new Error(error?.error?.message || 'Login failed.'));
-        })
-      );
+    return this.http.post(this.apiUrl + 'login', credentials).pipe(
+      tap((response: any) => {
+        if (response.token) {
+          sessionStorage.setItem(this.tokenKey, response.token); // Token speichern
+          this.isLoggedInSubject.next(true);
+        }
+      }),
+      catchError(error => {
+        console.error('Login failed', error);
+        this.isLoggedInSubject.next(false);
+        return throwError(() => new Error(error?.error?.message || 'Login failed.'));
+      })
+    );
   }
 
   logout(): void {
@@ -55,5 +52,9 @@ export class Auth {
 
   isAuthenticated(): boolean {
     return !!sessionStorage.getItem(this.tokenKey);
+  }
+
+  getToken(): string | null {
+    return sessionStorage.getItem(this.tokenKey);
   }
 }
