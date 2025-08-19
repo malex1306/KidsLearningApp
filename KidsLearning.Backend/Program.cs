@@ -73,8 +73,11 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    EnsureDatabase.Seed(dbContext);
+    var services = scope.ServiceProvider;
+    var dbContext = services.GetRequiredService<AppDbContext>();
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+
+    EnsureDatabase.Seed(dbContext, userManager);
 }
 
 // Configure the HTTP request pipeline.
