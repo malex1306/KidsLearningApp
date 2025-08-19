@@ -150,7 +150,7 @@ public class EnsureDatabase
                 {
                     Text = "Buchstabiere das Wort 'Katze'.",
                     CorrectAnswer = "KATZE",
-                    ImageUrl = "assets/images/katze.png",
+                    ImageUrl = "assets/images/bengal.png",
                     Options = new List<string> { "K", "A", "T", "Z", "E", "S", "N", "P" },
                     LearningTaskId = 6
                 },
@@ -158,7 +158,7 @@ public class EnsureDatabase
                 {
                     Text = "Buchstabiere das Wort 'Hund'.",
                     CorrectAnswer = "HUND",
-                    ImageUrl = "assets/images/hund.png",
+                    ImageUrl = "assets/images/golden-retriever.png",
                     Options = new List<string> { "H", "U", "N", "D", "T", "P", "B", "L" },
                     LearningTaskId = 6
                 }
