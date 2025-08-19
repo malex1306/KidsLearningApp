@@ -50,8 +50,8 @@ public class EnsureDatabase
                     Subject = "Buchstaben-land"
                 },
                 new LearningTask {
-                    Title = "Englisch",
-                    Description = "Test",
+                    Title = "Englische Bilder",
+                    Description = "Wähle das korrekte Englische Wort zum angezeigten Bild",
                     Subject = "Englisch"
                 
             }
@@ -161,12 +161,37 @@ public class EnsureDatabase
                     ImageUrl = "assets/images/golden-retriever.png",
                     Options = new List<string> { "H", "U", "N", "D", "T", "P", "B", "L" },
                     LearningTaskId = 6
+                },
+                new Questions
+                {
+                    Text = "Wähle das korrekte Englische Wort",
+                    CorrectAnswer = "Dog",
+                    ImageUrl = "assets/images/golden-retriever.png",
+                    Options = new List<string> { "Dog", "Horse", "Pig", "Whale" },
+                    LearningTaskId = 7
+                },
+                new Questions
+                {
+                    Text = "Wähle das korrekte Englische Wort",
+                    CorrectAnswer = "Cat",
+                    ImageUrl = "assets/images/bengal.png",
+                    Options = new List<string> { "Meerkat", "Guineapig", "Scarecrow", "Cat" },
+                    LearningTaskId = 7
+                },
+                new Questions
+                {
+                    Text = "Wähle das korrekte Englische Wort",
+                    CorrectAnswer = "Fox",
+                    ImageUrl = "assets/images/fox.png",
+                    Options = new List<string> { "Fox", "Dolphin", "Penguin", "Lizard" },
+                    LearningTaskId = 7
+
                 }
             };
 
-            context.Questions.AddRange(questions);
-            context.SaveChanges();
-        }
+                context.Questions.AddRange(questions);
+                context.SaveChanges();
+            }
         
         if (!context.Avatars.Any())
         {
