@@ -1,13 +1,36 @@
+using Microsoft.AspNetCore.Identity;
 using KidsLearning.Backend.Models;
 
 namespace KidsLearning.Backend.Data;
 
 public class EnsureDatabase
 {
-
-    public static void Seed(AppDbContext context)
+    public static void Seed(AppDbContext context, UserManager<IdentityUser> userManager)
     {
         context.Database.EnsureCreated();
+        
+        if (!userManager.Users.Any())
+        {
+            var parent = new IdentityUser
+            {
+                UserName = "parent1",
+                Email = "parent1@test.com",
+                EmailConfirmed = true
+            };
+            userManager.CreateAsync(parent, "Passwort123!").GetAwaiter().GetResult();
+        }
+        
+        if (!context.Children.Any())
+        {
+            var parent = userManager.Users.First();
+            var child = new Child
+            {
+                Name = "Max",
+                ParentId = parent.Id
+            };
+            context.Children.Add(child);
+            context.SaveChanges();
+        }
         
         if (!context.LearningTasks.Any())
         {
@@ -56,7 +79,6 @@ public class EnsureDatabase
                 
             }
             };
-
             context.LearningTasks.AddRange(tasks);
             context.SaveChanges();
         }
@@ -219,7 +241,6 @@ public class EnsureDatabase
                     UnlockStarRequirement = 6
                 }
             };
-
             context.Avatars.AddRange(avatars);
             context.SaveChanges();
         }
