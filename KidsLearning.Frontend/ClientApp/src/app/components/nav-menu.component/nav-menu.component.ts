@@ -4,7 +4,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgClass, NgIf, AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { Auth } from '../../services/auth'; // Dein zentraler Auth Service
+import { Auth } from '../../services/auth'; 
 
 @Component({
   selector: 'app-nav-menu',
