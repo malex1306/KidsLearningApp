@@ -23,6 +23,7 @@ export class Auth {
       tap((response: any) => {
         if (response.token) {
           sessionStorage.setItem(this.tokenKey, response.token); // Token speichern
+          sessionStorage.setItem('parent_email', credentials.email);
           this.isLoggedInSubject.next(true);
         }
       }),
@@ -36,7 +37,7 @@ export class Auth {
 
   logout(): void {
     sessionStorage.removeItem('jwt_token');
-    sessionStorage.removeItem('parent_email'); // Entfernen Sie auch die E-Mail-Adresse
+    sessionStorage.removeItem('parent_email'); 
     this.isLoggedInSubject.next(false);
   }
 
