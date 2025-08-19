@@ -1,40 +1,70 @@
 <header>
-  <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">KidsLearningApp</a>
-      <button class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target=".navbar-collapse"
-              aria-label="Toggle navigation"
-              [attr.aria-expanded]="isExpanded"
-              (click)="toggle()">
+      <button class="navbar-toggler" type="button" aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded" (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end" [ngClass]="{ show: isExpanded }">
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
+           [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-dark" [routerLink]="['/']" (click)="collapse()">Home</a>
           </li>
 
-          <!-- Wenn NICHT eingeloggt -->
-          <li class="nav-item" *ngIf="!(authService.isLoggedIn$ | async)" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/login']" (click)="collapse()">Login</a>
-          </li>
-          <li class="nav-item" *ngIf="!(authService.isLoggedIn$ | async)" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/register']" (click)="collapse()">Register</a>
-          </li>
+        
+          @if(!(authService.isLoggedIn$ | async)){
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/login']" (click)="collapse()">Login</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/register']" (click)="collapse()">Register</a>
+            </li>
+          }
 
-          <!-- Wenn eingeloggt -->
-          <li class="nav-item" *ngIf="authService.isLoggedIn$ | async" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/parent-dashboard']" (click)="collapse()">Dashboard</a>
-          </li>
-          <li class="nav-item" *ngIf="authService.isLoggedIn$ | async">
-            <a class="nav-link text-dark" (click)="logout()" style="cursor: pointer;">Logout</a>
-          </li>
+          @if(authService.isLoggedIn$ | async){
+            <li class="nav-item">
+              <a class="nav-link text-dark" (click)="openDashboardModal()">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" (click)="openLogoutModal()">Logout</a>
+            </li>
+          }
         </ul>
       </div>
     </div>
   </nav>
+
+ 
+  @if(showDashboardModal){
+    <div class="modal-overlay">
+      <div class="glass-card modal-card">
+        <h4>Eltern-Passwort eingeben</h4>
+        <input type="password" [(ngModel)]="passwordInput" placeholder="Passwort" class="form-input">
+        <div class="modal-buttons">
+          <button class="fun-button" (click)="submitDashboard()">Einloggen</button>
+          <button class="fun-button cancel" (click)="cancelModal()">Abbrechen</button>
+        </div>
+        <div *ngIf="errorMessage" class="alert-message">{{ errorMessage }}</div>
+      </div>
+    </div>
+  }
+
+  
+  @if (showLogoutModal){
+    <div class="modal-overlay">
+      <div class="glass-card modal-card">
+        <h4>Eltern-Passwort zum Ausloggen</h4>
+        <input type="password" [(ngModel)]="passwordInput" placeholder="Passwort" class="form-input">
+        <div class="modal-buttons">
+          <button class="fun-button" (click)="submitLogout()">Logout</button>
+          <button class="fun-button cancel" (click)="cancelModal()">Abbrechen</button>
+        </div>
+        <div *ngIf="errorMessage" class="alert-message">{{ errorMessage }}</div>
+      </div>
+    </div>
+  }
 </header>
+
