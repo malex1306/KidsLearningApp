@@ -9,29 +9,38 @@ public class EnsureDatabase
     {
         context.Database.EnsureCreated();
         
-        if (!userManager.Users.Any())
+        IdentityUser parentUser;
+        var existingParent = userManager.FindByEmailAsync("parent1@test.com").GetAwaiter().GetResult();
+
+        if (existingParent == null)
         {
-            var parent = new IdentityUser
+            parentUser = new IdentityUser
             {
                 UserName = "parent1",
                 Email = "parent1@test.com",
                 EmailConfirmed = true
             };
-            userManager.CreateAsync(parent, "Passwort123!").GetAwaiter().GetResult();
+            userManager.CreateAsync(parentUser, "Passwort123!").GetAwaiter().GetResult();
+        }
+        else
+        {
+            parentUser = existingParent;
         }
         
         if (!context.Children.Any())
         {
-            var parent = userManager.Users.First();
             var child = new Child
             {
                 Name = "Max",
-                ParentId = parent.Id
+                ParentId = parentUser.Id,
+                AvatarUrl = "https://via.placeholder.com/40",
+                DateOfBirth = DateTime.Now.AddYears(-7) // Beispielalter
             };
             context.Children.Add(child);
             context.SaveChanges();
         }
-        
+
+        // --- LearningTasks ---
         if (!context.LearningTasks.Any())
         {
             var tasks = new List<LearningTask>
