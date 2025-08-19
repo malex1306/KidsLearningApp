@@ -23,6 +23,7 @@ export class Auth {
       tap((response: any) => {
         if (response.token) {
           sessionStorage.setItem(this.tokenKey, response.token); // Token speichern
+          sessionStorage.setItem('parent_email', credentials.email);
           this.isLoggedInSubject.next(true);
         }
       }),
@@ -35,17 +36,19 @@ export class Auth {
   }
 
   logout(): void {
-    sessionStorage.removeItem(this.tokenKey);
+    sessionStorage.removeItem('jwt_token');
+    sessionStorage.removeItem('parent_email'); 
     this.isLoggedInSubject.next(false);
   }
 
-  register(user: { email: string; password: string; confirmedPassword: string; userName: string }): Observable<any> {
-    return this.http.post(this.apiUrl + 'register', user).pipe(
-      catchError(error => {
-        console.error('Registration failed', error);
-        return throwError(() => new Error(error?.error?.message || 'Registration failed.'));
-      })
-    );
+  register(user: { email: string; password: string, confirmedPassword: string, userName: string }): Observable<any> {
+    return this.http.post(this.apiUrl + 'register', user)
+      .pipe(
+        catchError(error => {
+          console.error('Registration failed', error);
+          return throwError(() => new Error(error?.error?.message || 'Registration failed.'));
+        })
+      );
   }
 
   isAuthenticated(): boolean {
