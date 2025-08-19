@@ -19,34 +19,38 @@ export class Auth {
   }
 
   login(credentials: { email: string; password: string; rememberMe: boolean }): Observable<any> {
-    return this.http.post(this.apiUrl + 'login', credentials).pipe(
-      tap((response: any) => {
-        if (response.token) {
-          // Nur SessionStorage nutzen → Logout wenn Tab geschlossen
-          sessionStorage.setItem(this.tokenKey, response.token);
-          this.isLoggedInSubject.next(true);
-        }
-      }),
-      catchError(error => {
-        console.error('Login failed', error);
-        this.isLoggedInSubject.next(false);
-        return throwError(() => new Error(error?.error?.message || 'Login failed.'));
-      })
-    );
+    return this.http.post(this.apiUrl + 'login', credentials)
+      .pipe(
+        tap((response: any) => {
+          if (response.token) {
+            sessionStorage.setItem('jwt_token', response.token);
+            // Speichern Sie die E-Mail-Adresse im sessionStorage
+            sessionStorage.setItem('parent_email', credentials.email);
+            this.isLoggedInSubject.next(true); 
+          }
+        }),
+        catchError(error => {
+          console.error('Login failed', error);
+          this.isLoggedInSubject.next(false); 
+          return throwError(() => new Error(error?.error?.message || 'Login failed.'));
+        })
+      );
   }
 
   logout(): void {
-    sessionStorage.removeItem(this.tokenKey);
+    sessionStorage.removeItem('jwt_token');
+    sessionStorage.removeItem('parent_email'); // Entfernen Sie auch die E-Mail-Adresse
     this.isLoggedInSubject.next(false);
   }
 
-  register(user: { email: string; password: string; confirmedPassword: string; userName: string }): Observable<any> {
-    return this.http.post(this.apiUrl + 'register', user).pipe(
-      catchError(error => {
-        console.error('Registration failed', error);
-        return throwError(() => new Error(error?.error?.message || 'Registration failed.'));
-      })
-    );
+  register(user: { email: string; password: string, confirmedPassword: string, userName: string }): Observable<any> {
+    return this.http.post(this.apiUrl + 'register', user)
+      .pipe(
+        catchError(error => {
+          console.error('Registration failed', error);
+          return throwError(() => new Error(error?.error?.message || 'Registration failed.'));
+        })
+      );
   }
 
   isAuthenticated(): boolean {
