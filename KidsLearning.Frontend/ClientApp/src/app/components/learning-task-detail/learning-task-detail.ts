@@ -23,7 +23,9 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
   isWaitingForNext = false;
   childId: number | null = null;
   selectedAnswer: string | null = null;
+  answeredQuestions: boolean[] = [];
   private subscriptions = new Subscription();
+
   constructor(
     private route: ActivatedRoute,
     private tasksService: TasksService,
@@ -39,6 +41,8 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
       this.tasksService.getTaskById(+taskId).subscribe((task) => {
         this.task = task;
         this.navigationService.setTask(task);
+        // Initialisiere den answeredQuestions-Array basierend auf der Anzahl der Fragen
+        this.answeredQuestions = new Array(task.questions.length).fill(false);
       });
     }
     if (childIdParam) {
@@ -62,6 +66,9 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
       return;
     }
     this.selectedAnswer = answer;
+    
+    // Markiere die Frage als beantwortet
+    this.answeredQuestions[this.currentQuestionIndex] = true;
 
     const currentQuestion = this.task.questions[this.currentQuestionIndex];
     if (currentQuestion && answer === currentQuestion.correctAnswer) {
@@ -69,17 +76,28 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
       this.statusMessage = 'Richtig! 🎉';
       this.isWaitingForNext = true;
 
+      // Warte 1,5 Sekunden, bevor zur nächsten Frage gewechselt wird
       setTimeout(() => {
-        if (this.currentQuestionIndex < this.task!.questions.length - 1) {
-          this.navigationService.nextQuestion();
-        } else {
-          this.isCompleted = true;
-          this.completeLearningTask();
-        }
+        this.navigationService.nextQuestion();
       }, 1500);
     } else {
       this.answerStatus = 'wrong';
       this.statusMessage = 'Falsch, versuche es noch einmal.';
+    }
+  }
+
+  // NEU: Methode, die beim Klick auf "Beenden" aufgerufen wird
+  onFinishTask(): void {
+    // Überprüfen, ob alle Fragen beantwortet wurden
+    const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
+
+    this.isCompleted = true; // Setze den Status auf "abgeschlossen", um den Abschlussbereich anzuzeigen
+
+    if (allQuestionsAnswered) {
+      this.statusMessage = 'Gut gemacht! Du hast alle Fragen beantwortet. Das Ergebnis wurde gespeichert.';
+      this.completeLearningTask();
+    } else {
+      this.statusMessage = 'Du hast nicht alle Fragen beantwortet. Das Ergebnis wird nicht gespeichert.';
     }
   }
 

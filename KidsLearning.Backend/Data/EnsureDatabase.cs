@@ -114,7 +114,7 @@ public class EnsureDatabase
                  new Questions
                 {
                     Text = "Welche Zahl fehlt in der Reihe: ?, 9, 10, 11, 12",
-                    CorrectAnswer = "6",
+                    CorrectAnswer = "8",
                     Options = new List<string> { "5", "6", "7", "8" },
                     LearningTaskId = 1
                 },
