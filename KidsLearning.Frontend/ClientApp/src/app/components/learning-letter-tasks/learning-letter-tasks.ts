@@ -6,7 +6,9 @@ import { TasksService } from '../../services/tasks.service';
 import { LearningService } from '../../services/learning.service';
 import { LearningTask, } from '../../models/learning-task';
 import { Question } from '../../models/question';
-import { RewardService } from '../../services/reward.service'; // NEU: RewardService importieren
+import { RewardService } from '../../services/reward.service';
+import { QuestionNavigationService } from '../../services/question-navigation.service'; 
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-learning-letter-tasks',
@@ -20,6 +22,8 @@ export class LearningLetterTasks implements OnInit {
   isConnectingTask: boolean = false;
   task: LearningTask | null = null;
   childId: number | null = null;
+  selectedLetter: string | null = null;
+  selectedAnswer: string | null = null;
   currentQuestionIndex = 0;
   isCompleted = false;
 
@@ -30,12 +34,15 @@ export class LearningLetterTasks implements OnInit {
 
   lastClickedLetter: string | null = null;
   lastClickedStatus: 'correct' | 'wrong' | null = null;
+  answeredQuestions: boolean[] = [];
+  private subscriptions = new Subscription();
 
   constructor(
     private route: ActivatedRoute,
     private tasksService: TasksService,
     private learningService: LearningService,
-    private rewardService: RewardService 
+    private rewardService: RewardService,
+    public navigationService: QuestionNavigationService 
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +52,8 @@ export class LearningLetterTasks implements OnInit {
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe(task => {
         this.task = task;
+        this.navigationService.setTask(task);
+        this.answeredQuestions = new Array(task.questions.length).fill(false);
         if (this.task.title === 'Wörter buchstabieren') {
           this.isSpellingTask = true;
           this.initializeSpellingTask();
@@ -57,7 +66,16 @@ export class LearningLetterTasks implements OnInit {
     if (childIdParam) {
       this.childId = +childIdParam;
     }
+
+    this.subscriptions.add(
+    this.navigationService.currentIndex$.subscribe((index) =>{
+      this.currentQuestionIndex = index;
+      this.resetAnswerState();
+    })
+  )
   }
+
+  
 
   initializeSpellingTask(): void {
     if (this.task && this.task.questions.length > 0) {
@@ -69,6 +87,8 @@ export class LearningLetterTasks implements OnInit {
     if (!this.task || this.childId === null) {
       return;
     }
+    this.selectedLetter = letter;
+    this.answeredQuestions[this.currentQuestionIndex] = true;
 
     const currentQuestion = this.task.questions[this.currentQuestionIndex];
     if (currentQuestion) {
@@ -101,9 +121,11 @@ export class LearningLetterTasks implements OnInit {
   }
 
   selectAnswer(answer: string): void {
-    if (!this.task || this.childId === null) {
+    if (this.isWaitingForNext || !this.task || this.childId === null) {
       return;
     }
+    this.selectedAnswer = answer;
+    this.answeredQuestions[this.currentQuestionIndex] = true;
 
     const currentQuestion = this.task.questions[this.currentQuestionIndex];
     if (currentQuestion && answer === currentQuestion.correctAnswer) {
@@ -125,7 +147,6 @@ export class LearningLetterTasks implements OnInit {
         this.learningService.completeTask(this.childId, this.task.id).subscribe({
           next: () => {
             console.log('Aufgabe erfolgreich als abgeschlossen markiert!');
-            // Belohnungssystem-Endpunkt aufrufen
             this.rewardService.rewardChild(this.childId!, this.task!.id)
               .subscribe({
                 next: () => console.log('Belohnung erfolgreich vergeben!'),
@@ -136,17 +157,57 @@ export class LearningLetterTasks implements OnInit {
         });
       }
     } else {
-      setTimeout(() => this.nextQuestion(), 1500);
+      setTimeout(() => this.navigationService.nextQuestion(), 1000);
     }
   }
 
-  nextQuestion(): void {
+  resetAnswerState(): void {
     this.answerStatus = null;
     this.statusMessage = '';
     this.isWaitingForNext = false;
-    this.currentQuestionIndex++;
     if (this.isSpellingTask) {
       this.initializeSpellingTask();
     }
   }
+
+  goToPreviousQuestion(): void {
+  if (this.currentQuestionIndex > 0) {
+    this.navigationService.previousQuestion(); 
+  }
+}
+
+goToNextQuestion(): void {
+  if (this.currentQuestionIndex < (this.task?.questions.length ?? 0) - 1) {
+    this.navigationService.nextQuestion();
+  }
+}
+private completeLearningTask(): void {
+  if (this.childId && this.task) {
+    this.learningService.completeTask(this.childId, this.task.id).subscribe({
+      next: () => {
+        console.log('Aufgabe erfolgreich abgeschlossen markiert!');
+      },
+      error: (err) => {
+        console.error(
+          'Fehler beim Markieren der Aufgabe als abgeschlossen',
+          err
+        );
+      },
+    });
+  }
+}
+
+onFinishTask(): void {
+  const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
+
+  this.isCompleted = true;
+
+  if (allQuestionsAnswered) {
+    this.statusMessage = 'Gut gemacht! Du hast alle Fragen beantwortet. Das Ergebnis wurde gespeichert.';
+    this.completeLearningTask();
+  } else {
+    this.statusMessage = 'Du hast nicht alle Fragen beantwortet. Das Ergebnis wird nicht gespeichert.';
+  }
+}
+
 }

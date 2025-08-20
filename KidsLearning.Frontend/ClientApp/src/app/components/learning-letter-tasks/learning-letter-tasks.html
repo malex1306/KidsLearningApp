@@ -23,9 +23,11 @@
                 }
             </div>
             
-            <div *ngIf="answerStatus" class="status-message-container">
+            @if(answerStatus){
+            <div class="status-message-container">
                 <p [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">{{ statusMessage }}</p>
             </div>
+        }
 
             <div class="options-grid">
                 @for (option of task.questions[currentQuestionIndex].options; track $index) {
@@ -55,9 +57,11 @@
                     </button>
                 }
             </div>
-             <div *ngIf="answerStatus" class="status-message-container">
+            @if(answerStatus){
+             <div class="status-message-container">
                 <p [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">{{ statusMessage }}</p>
             </div>
+        }
         </div>
     }
 
@@ -70,4 +74,31 @@
             </div>
         </div>
     }
+
+    @if(!(isCompleted)){
+    <div class="navigation-buttons">
+   @if(currentQuestionIndex > 0){
+  <button class="fun-button"
+          (click)="goToPreviousQuestion()">
+    Zurück
+  </button>
+}
+
+    @if(currentQuestionIndex < task.questions.length - 1){
+  <button class="fun-button"
+          (click)="goToNextQuestion()"
+          >
+    Weiter
+  </button>
+}
+
+ @if(currentQuestionIndex === task.questions.length - 1){
+  <button class="fun-button"
+          (click)="onFinishTask()">
+    Beenden
+  </button>
+}
+</div>
+    }
+
 </div>
