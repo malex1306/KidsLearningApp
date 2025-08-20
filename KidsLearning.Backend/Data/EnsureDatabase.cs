@@ -86,7 +86,19 @@ public class EnsureDatabase
                     Description = "Wähle das korrekte Englische Wort zum angezeigten Bild",
                     Subject = "Englisch"
                 
-            }
+                },
+                new LearningTask {
+                    Title = "Deutsch/Englisch verbinden",
+                    Description = "Finde zu jedem deutschen Wort das richtige Englische Wort",
+                    Subject = "Englisch"
+                
+                },
+                new LearningTask {
+                    Title = "To be continued...",
+                    Description = "Eine menge Fantasie",
+                    Subject = "Englisch"
+                
+                }
             };
             context.LearningTasks.AddRange(tasks);
             context.SaveChanges();
@@ -217,6 +229,71 @@ public class EnsureDatabase
                     Options = new List<string> { "Fox", "Dolphin", "Penguin", "Lizard" },
                     LearningTaskId = 7
 
+                },
+                new Questions
+                {
+                    Text = "Hut",
+                    CorrectAnswer = "Hat",
+                    Options = new List<string> { "hat" },
+                    LearningTaskId = 8,
+                    Category = "Cloth"
+                },
+                new Questions
+                {
+                    Text = "Vater",
+                    CorrectAnswer = "Father",
+                    Options = new List<string> { "father" },
+                    LearningTaskId = 8,
+                    Category = "Family"
+                },
+                new Questions
+                {
+                    Text = "Eichhörnchen",
+                    CorrectAnswer = "Squirrel",
+                    Options = new List<string> { "squirrel" },
+                    LearningTaskId = 8,
+                    Category = "Animal"
+                },
+                new Questions
+                {
+                    Text = "Eidechse",
+                    CorrectAnswer = "lizard",
+                    Options = new List<string> { "lizard" },
+                    LearningTaskId = 8,
+                    Category = "Animal"
+                    
+                },
+                new Questions
+                {
+                    Text = "Mutter",
+                    CorrectAnswer = "mother",
+                    Options = new List<string> { "mother" },
+                    LearningTaskId = 8,
+                    Category = "Family"
+                },
+                new Questions
+                {
+                    Text = "Schwester",
+                    CorrectAnswer = "sister",
+                    Options = new List<string> { "sister" },
+                    LearningTaskId = 8,
+                    Category = "Family"
+                },
+                new Questions
+                {
+                    Text = "Bruder",
+                    CorrectAnswer = "brother",
+                    Options = new List<string> { "brother" },
+                    LearningTaskId = 8,
+                    Category = "Family"
+                },
+                new Questions
+                {
+                    Text = "Rakete",
+                    CorrectAnswer = "rocket",
+                    Options = new List<string> { "rocket" },
+                    LearningTaskId = 8,
+                    Category = "Other"
                 }
             };
 

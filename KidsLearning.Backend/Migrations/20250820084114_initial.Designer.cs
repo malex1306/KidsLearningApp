@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KidsLearning.Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250819094944_inital")]
-    partial class inital
+    [Migration("20250820084114_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -212,8 +212,14 @@ namespace KidsLearning.Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CorrectAnswer")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Difficulty")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")

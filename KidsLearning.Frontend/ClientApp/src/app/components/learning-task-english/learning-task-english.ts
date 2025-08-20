@@ -20,6 +20,14 @@ export class LearningTaskEnglish implements OnInit {
   childId: number | null = null;
   isCompleted = false;
 
+  pairs: { de: string; en: string }[] = [];
+  shuffledEnglish: string[] = [];
+  shuffledGerman: string[] = [];
+  selectedGerman: string | null = null;
+  selectedEnglish: string | null = null;
+
+  connectedPairs: Set<{ de: string; en: string }> = new Set();
+
   constructor(
     private route: ActivatedRoute,
     private tasksService: TasksService,
@@ -30,14 +38,69 @@ export class LearningTaskEnglish implements OnInit {
     const taskId = this.route.snapshot.paramMap.get('id');
     const childIdParam = this.route.snapshot.paramMap.get('childId');
 
-    if (taskId) this.tasksService.getTaskById(+taskId).subscribe(task => this.task = task);
     if (childIdParam) this.childId = +childIdParam;
+
+    if (taskId) {
+      this.tasksService.getTaskById(+taskId).subscribe(task => {
+        this.task = task;
+
+        if (this.task.title === 'Deutsch/Englisch verbinden') {
+          // Shuffle German and English words
+          this.shuffledGerman = this.shuffleArray(this.task.questions.map(q => q.text));
+          this.shuffledEnglish = this.shuffleArray(this.task.questions.map(q => q.correctAnswer));
+        }
+      });
+    }
+  }
+
+  shuffleArray<T>(array: T[]): T[] {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  selectGerman(word: string) {
+    this.selectedGerman = word;
+    this.checkMatch();
+  }
+
+  selectEnglish(word: string) {
+    this.selectedEnglish = word;
+    this.checkMatch();
+  }
+
+  checkMatch() {
+    if (this.selectedGerman && this.selectedEnglish && this.task) {
+      const correct = this.task.questions.find(
+        q => q.text === this.selectedGerman && q.correctAnswer === this.selectedEnglish
+      );
+
+      if (correct) {
+        this.connectedPairs.add({ de: correct.text, en: correct.correctAnswer });
+      }
+
+      this.selectedGerman = null;
+      this.selectedEnglish = null;
+
+      if (this.connectedPairs.size === this.task.questions.length) {
+        this.isCompleted = true;
+      }
+    }
+  }
+
+  isGermanConnected(word: string): boolean {
+    return [...this.connectedPairs].some(pair => pair.de === word);
+  }
+
+  isEnglishConnected(word: string): boolean {
+    return [...this.connectedPairs].some(pair => pair.en === word);
   }
 
   selectAnswer(answer: string): void {
-    if (this.isWaitingForNext || !this.task || this.childId === null) {
-      return;
-    }
+    if (this.isWaitingForNext || !this.task || this.childId === null) return;
 
     const currentQuestion = this.task.questions[this.currentQuestionIndex];
     if (currentQuestion && answer === currentQuestion.correctAnswer) {
@@ -47,18 +110,12 @@ export class LearningTaskEnglish implements OnInit {
 
       if (this.currentQuestionIndex === this.task.questions.length - 1) {
         this.learningService.completeTask(this.childId, this.task.id).subscribe({
-          next: () => {
-            console.log('Aufgabe erfolgreich als abgeschlossen markiert!');
-          },
-          error: (err) => {
-            console.error('Fehler beim Markieren der Aufgabe als abgeschlossen', err);
-          }
+          next: () => console.log('Aufgabe erfolgreich als abgeschlossen markiert!'),
+          error: err => console.error('Fehler beim Markieren der Aufgabe als abgeschlossen', err)
         });
       }
 
-      setTimeout(() => {
-        this.nextQuestion();
-      }, 1500);
+      setTimeout(() => this.nextQuestion(), 1500);
     } else {
       this.answerStatus = 'wrong';
       this.statusMessage = 'Falsch, versuche es noch einmal. 🤔';
@@ -72,8 +129,7 @@ export class LearningTaskEnglish implements OnInit {
 
     if (this.task && this.currentQuestionIndex < this.task.questions.length - 1) {
       this.currentQuestionIndex++;
-    }
-    else {
+    } else {
       this.isCompleted = true;
     }
   }
