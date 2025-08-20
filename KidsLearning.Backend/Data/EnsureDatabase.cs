@@ -94,8 +94,8 @@ public class EnsureDatabase
                 
                 },
                 new LearningTask {
-                    Title = "To be continued...",
-                    Description = "Eine menge Fantasie",
+                    Title = "Finde den Imposter",
+                    Description = "Wähle das Englische Wort Wort, das nicht zu den anderen passt",
                     Subject = "Englisch"
                 
                 }
@@ -205,6 +205,8 @@ public class EnsureDatabase
                     Options = new List<string> { "H", "U", "N", "D", "T", "P", "B", "L" },
                     LearningTaskId = 6
                 },
+                
+                // Englisch Bilder (Task 7)
                 new Questions
                 {
                     Text = "Wähle das korrekte Englische Wort",
@@ -230,6 +232,8 @@ public class EnsureDatabase
                     LearningTaskId = 7
 
                 },
+                
+                // Englisch Vokabeln / Wörter Verbinden (Task 8)
                 new Questions
                 {
                     Text = "Hut",
@@ -294,7 +298,18 @@ public class EnsureDatabase
                     Options = new List<string> { "rocket" },
                     LearningTaskId = 8,
                     Category = "Other"
-                }
+                },
+                
+                // Englisch finde das falsche Wort
+                
+                new Questions
+                {
+                    Text = "Wähle das Wort das nicht zu den anderen passt",
+                    CorrectAnswer = "tree",
+                    Options = new List<string> { "rocket, tree, ship, car" },
+                    LearningTaskId = 9
+                },
+                
             };
 
                 context.Questions.AddRange(questions);
