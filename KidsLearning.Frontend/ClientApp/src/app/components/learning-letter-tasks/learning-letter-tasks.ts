@@ -83,7 +83,7 @@ export class LearningLetterTasks implements OnInit {
           this.statusMessage = '';
 
           if (this.spelledWord.join('') === currentQuestion.correctAnswer) {
-            this.statusMessage = 'Richtig! 🎉';
+            this.statusMessage = 'Richtig! ';
             this.checkCompletion();
           }
         } else {
