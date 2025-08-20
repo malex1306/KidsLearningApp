@@ -18,6 +18,7 @@ export class LearningTaskEnglish implements OnInit {
   statusMessage = '';
   isWaitingForNext = false;
   childId: number | null = null;
+  isCompleted = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,23 +35,34 @@ export class LearningTaskEnglish implements OnInit {
   }
 
   selectAnswer(answer: string): void {
-    if (!this.task || this.isWaitingForNext) return;
-
-    const currentQuestion = this.task.questions[this.currentQuestionIndex];
-    if (!currentQuestion) return;
-
-    if (answer === currentQuestion.correctAnswer) {
-      this.answerStatus = 'correct';
-      this.statusMessage = 'Correct! 🎉';
-    } else {
-      this.answerStatus = 'wrong';
-      this.statusMessage = 'Wrong, try again. 🤔';
+    if (this.isWaitingForNext || !this.task || this.childId === null) {
+      return;
     }
 
-    this.isWaitingForNext = true;
-    setTimeout(() => {
-      this.nextQuestion();
-    }, 1500);
+    const currentQuestion = this.task.questions[this.currentQuestionIndex];
+    if (currentQuestion && answer === currentQuestion.correctAnswer) {
+      this.answerStatus = 'correct';
+      this.statusMessage = 'Richtig! 🎉';
+      this.isWaitingForNext = true;
+
+      if (this.currentQuestionIndex === this.task.questions.length - 1) {
+        this.learningService.completeTask(this.childId, this.task.id).subscribe({
+          next: () => {
+            console.log('Aufgabe erfolgreich als abgeschlossen markiert!');
+          },
+          error: (err) => {
+            console.error('Fehler beim Markieren der Aufgabe als abgeschlossen', err);
+          }
+        });
+      }
+
+      setTimeout(() => {
+        this.nextQuestion();
+      }, 1500);
+    } else {
+      this.answerStatus = 'wrong';
+      this.statusMessage = 'Falsch, versuche es noch einmal. 🤔';
+    }
   }
 
   nextQuestion(): void {
@@ -61,9 +73,8 @@ export class LearningTaskEnglish implements OnInit {
     if (this.task && this.currentQuestionIndex < this.task.questions.length - 1) {
       this.currentQuestionIndex++;
     }
-  }
-
-  get isCompleted(): boolean {
-    return !!this.task && this.currentQuestionIndex >= this.task.questions.length;
+    else {
+      this.isCompleted = true;
+    }
   }
 }
