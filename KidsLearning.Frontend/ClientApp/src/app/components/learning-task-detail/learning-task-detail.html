@@ -1,33 +1,80 @@
-<div class="task-detail-container" *ngIf="task">
-
-  <div class="quiz-area" *ngIf="!isCompleted && task.questions.length > 0">
+<div class="task-detail-container">
+  @if (task) {
+  <!-- QUIZ-Bereich -->
+  @if (!isCompleted && task.questions.length > 0) {
+  <div class="quiz-area">
     <div class="task-card glass-card question-card">
       <div class="card-content">
-        <h2 class="question-title">Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}</h2>
-        <p class="question-text">{{ task.questions[currentQuestionIndex].text }}</p>
+        <h2 class="question-title">
+          Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}
+        </h2>
+        <p class="question-text">
+          {{ task.questions[currentQuestionIndex]?.text }}
+        </p>
       </div>
     </div>
-    
+
     <div class="options-grid" [class.disabled]="isWaitingForNext">
-      @for (option of task.questions[currentQuestionIndex].options; track option) {
-        <button class="option-button" 
-                [ngClass]="{'correct-answer': answerStatus === 'correct' && option === task.questions[currentQuestionIndex].correctAnswer, 'wrong-answer': answerStatus === 'wrong' && option !== task.questions[currentQuestionIndex].correctAnswer}"
-                (click)="selectAnswer(option)">
-          {{ option }}
-        </button>
+      @for (option of task.questions[currentQuestionIndex]?.options; track
+      option) {
+      <button
+        class="option-button"
+        [ngClass]="{
+          'correct-answer':
+            answerStatus === 'correct' &&
+            option === task.questions[currentQuestionIndex]?.correctAnswer,
+          'wrong-answer': answerStatus === 'wrong' && option === selectedAnswer
+        }"
+        (click)="selectAnswer(option)"
+      >
+        {{ option }}
+      </button>
       }
     </div>
 
-    <div *ngIf="answerStatus" class="status-message-container">
-      <p [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">{{ statusMessage }}</p>
+    @if (answerStatus) {
+    <div class="status-message-container">
+      <p
+        [ngClass]="{
+          'correct-text': answerStatus === 'correct',
+          'wrong-text': answerStatus === 'wrong'
+        }"
+      >
+        {{ statusMessage }}
+      </p>
     </div>
-  </div>
+    }
 
-  <div class="completion-message-card glass-card" *ngIf="isCompleted">
+    <div class="navigation-buttons">
+    <button 
+        class="fun-button" 
+        (click)="navigationService.previousQuestion()"
+        [disabled]="currentQuestionIndex === 0">
+        Zurück
+    </button>
+    <button 
+        class="fun-button" 
+        (click)="navigationService.nextQuestion()"
+        [disabled]="currentQuestionIndex === task.questions.length - 1">
+        Weiter
+    </button>
+</div>
+  </div>
+  }
+
+  <!-- ABSCHLUSS-Bereich -->
+  @if (isCompleted) {
+  <div class="completion-message-card glass-card">
     <div class="card-content">
       <h2>Aufgabe abgeschlossen! 🎉</h2>
       <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>
-      <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">Zurück zu den Aufgaben</a>
+      <a
+        [routerLink]="['/tasks', task.subject, 'child', childId]"
+        class="back-button"
+      >
+        Zurück zu den Aufgaben
+      </a>
     </div>
   </div>
+  } }
 </div>
