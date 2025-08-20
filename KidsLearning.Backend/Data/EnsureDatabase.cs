@@ -111,6 +111,13 @@ public class EnsureDatabase
                     Options = new List<string> { "5", "6", "7", "8" },
                     LearningTaskId = 1
                 },
+                 new Questions
+                {
+                    Text = "Welche Zahl fehlt in der Reihe: ?, 9, 10, 11, 12",
+                    CorrectAnswer = "8",
+                    Options = new List<string> { "5", "6", "7", "8" },
+                    LearningTaskId = 1
+                },
 
                 // Fragen für "Addition bis 10" (LearningTask 2)
                 new Questions
