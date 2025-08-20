@@ -14,7 +14,7 @@
             <a class="nav-link text-dark" [routerLink]="['/']" (click)="collapse()">Home</a>
           </li>
 
-        
+
           @if(!(authService.isLoggedIn$ | async)){
             <li class="nav-item" [routerLinkActive]="['link-active']">
               <a class="nav-link text-dark" [routerLink]="['/login']" (click)="collapse()">Login</a>
@@ -29,7 +29,7 @@
               <a class="nav-link text-dark" (click)="openDashboardModal()">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-dark" (click)="openLogoutModal()">Logout</a>
+              <a class="nav-link text-dark" (click)="submitLogout()">Logout</a>
             </li>
           }
         </ul>
@@ -37,7 +37,7 @@
     </div>
   </nav>
 
- 
+
   @if(showDashboardModal){
     <div class="modal-overlay">
       <div class="glass-card modal-card">
@@ -47,22 +47,9 @@
           <button class="fun-button" (click)="submitDashboard()">Einloggen</button>
           <button class="fun-button cancel" (click)="cancelModal()">Abbrechen</button>
         </div>
-        <div *ngIf="errorMessage" class="alert-message">{{ errorMessage }}</div>
-      </div>
-    </div>
-  }
-
-  
-  @if (showLogoutModal){
-    <div class="modal-overlay">
-      <div class="glass-card modal-card">
-        <h4>Eltern-Passwort zum Ausloggen</h4>
-        <input type="password" [(ngModel)]="passwordInput" placeholder="Passwort" class="form-input">
-        <div class="modal-buttons">
-          <button class="fun-button" (click)="submitLogout()">Logout</button>
-          <button class="fun-button cancel" (click)="cancelModal()">Abbrechen</button>
-        </div>
-        <div *ngIf="errorMessage" class="alert-message">{{ errorMessage }}</div>
+        @if(errorMessage) {
+        <div class="alert-message">{{ errorMessage }}</div>
+        }
       </div>
     </div>
   }

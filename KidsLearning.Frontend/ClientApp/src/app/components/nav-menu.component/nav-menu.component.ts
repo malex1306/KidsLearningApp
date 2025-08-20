@@ -9,7 +9,7 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-nav-menu',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgClass, AsyncPipe, FormsModule, NgIf],
+  imports: [RouterLink, RouterLinkActive, NgClass, AsyncPipe, FormsModule],
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
@@ -41,11 +41,6 @@ export class NavMenuComponent implements OnInit, OnDestroy {
     this.showDashboardModal = true;
   }
 
-  openLogoutModal(): void {
-    this.passwordInput = '';
-    this.errorMessage = '';
-    this.showLogoutModal = true;
-  }
 
   submitDashboard(): void {
     const parentEmail = sessionStorage.getItem('parent_email');
