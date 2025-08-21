@@ -98,6 +98,12 @@ public class EnsureDatabase
                     Description = "Wähle das Englische Wort, das nicht zu den anderen passt",
                     Subject = "Englisch"
                 
+                },
+                new LearningTask
+                {
+                    Title = "Fülle die Lücken",
+                    Description = "Schreibe die richtigen Wörter in die Lücken",
+                    Subject = "Buchstaben-land"
                 }
             };
             context.LearningTasks.AddRange(tasks);
@@ -595,6 +601,20 @@ public class EnsureDatabase
                     Options = new List<string> { "rocket, tree, ship, car" },
                     LearningTaskId = 9
                 },
+                
+                
+                // Buchstabenland Fill in the Blank
+                
+                new Questions
+                {
+                    Text = "DEINS PLACEHOLDER",
+                    CorrectAnswer = "tree",
+                    Options = new List<string> { "rocket, tree, ship, car" },
+                    LearningTaskId = 10
+                },
+                
+                
+                
                 
             };
 
