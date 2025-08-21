@@ -598,7 +598,56 @@ public class EnsureDatabase
                 {
                     Text = "Wähle das Wort das nicht zu den anderen passt",
                     CorrectAnswer = "tree",
-                    Options = new List<string> { "rocket, tree, ship, car" },
+                    Options = new List<string> { "rocket", "tree", "ship", "car" },
+                    LearningTaskId = 9
+                },
+                new Questions
+                {
+                    Text = "Wähle das Wort das nicht zu den anderen passt",
+                    CorrectAnswer = "lava",
+                    Options = new List<string> { "lava", "green", "blue", "red" },
+                    LearningTaskId = 9
+                },
+                new Questions
+                {
+                    Text = "Wähle das Wort das nicht zu den anderen passt",
+                    CorrectAnswer = "ship",
+                    Options = new List<string> { "hat", "boot", "ship", "shirt" },
+                    LearningTaskId = 9
+                },
+                new Questions
+                {
+                    Text = "Wähle das Wort das nicht zu den anderen passt",
+                    CorrectAnswer = "glass",
+                    Options = new List<string> { "lion", "dog", "glass", "penguin" },
+                    LearningTaskId = 9
+                },
+                new Questions
+                {
+                    Text = "Wähle das Wort das nicht zu den anderen passt",
+                    CorrectAnswer = "snake",
+                    Options = new List<string> { "door", "window", "wall", "snake" },
+                    LearningTaskId = 9
+                },
+                new Questions
+                {
+                    Text = "Wähle das Wort das nicht zu den anderen passt",
+                    CorrectAnswer = "toy",
+                    Options = new List<string> { "mother", "sister", "uncle", "toy" },
+                    LearningTaskId = 9
+                },
+                new Questions
+                {
+                    Text = "Wähle das Wort das nicht zu den anderen passt",
+                    CorrectAnswer = "food",
+                    Options = new List<string> { "golf", "football", "basketball", "food" },
+                    LearningTaskId = 9
+                },
+                new Questions
+                {
+                    Text = "Wähle das Wort das nicht zu den anderen passt",
+                    CorrectAnswer = "cat",
+                    Options = new List<string> { "apple", "banana", "carrot", "cat" },
                     LearningTaskId = 9
                 },
                 

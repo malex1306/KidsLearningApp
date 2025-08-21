@@ -7,7 +7,16 @@
                 <div class="task-card glass-card">
                     <div class="card-icon">
                         @if (task.subject === 'Buchstaben-land') {
-                            <img src="" alt="Buchstaben-Land-Icon">
+                          @if (task.title === 'Alphabet lernen') {
+                            <img src="assets/images/abc-block.png" alt="Addition-Icon">
+                          } @else if (task.title === 'Buchstaben verbinden') {
+                            <img src="assets/images/a.png" alt="Zahlen finden-Icon">
+                          } @else if (task.title === 'Wörter buchstabieren') {
+                            <img src="assets/images/open-book.png" alt="Formen-Icon">
+                          } @else if (task.title === 'Fülle die Lücken') {
+                            <img src="assets/images/study.png" alt="Formen-Icon">
+                          }
+
                         } @else if (task.subject === 'Mathe-Abenteuer') {
                             @if (task.title === 'Addition bis 10') {
                                 <img src="assets/images/abacus.png" alt="Addition-Icon">
@@ -16,8 +25,19 @@
                             } @else if (task.title === 'Formen erkennen') {
                                 <img src="assets/images/block.png" alt="Formen-Icon">
                             }
-                        } @else {
-                            <img src="assets/icons/default-icon.png" alt="Standard-Icon">
+                        } @else if (task.subject === 'Englisch') {
+                          @if (task.title === 'Englische Bilder') {
+                            <img src="assets/images/eng.png" alt="English-Icon">
+
+                          } @else if (task.title === 'Deutsch/Englisch verbinden') {
+                            <img src="assets/images/literature.png" alt="English-Connect-Icon">
+
+                          } @else if (task.title === 'Finde den Imposter') {
+                            <img src="assets/images/understanding.png" alt="English-Wrong-Icon">
+                        }
+                        @else {
+                            <img src="assets/images/goofy.png" alt="Standard-Icon">
+                        }
                         }
                     </div>
                     <div class="card-content">
