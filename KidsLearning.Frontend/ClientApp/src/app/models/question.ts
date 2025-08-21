@@ -4,4 +4,5 @@ export interface Question {
     correctAnswer: string;
     options: string[];
     imageUrl?: string;
+    difficulty?: string;
 }
