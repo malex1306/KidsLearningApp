@@ -68,11 +68,24 @@ export class LearningTaskEnglish implements OnInit {
     }
   }
   nextBatch(): void {
-    this.currentBatchIndex++;
-    this.connectedPairs.clear();
-    this.selectedGerman = null;
-    this.selectedEnglish = null;
-    this.loadBatch();
+    const totalBatches = Math.ceil(this.task?.questions.length ?? 0 / this.batchSize);
+
+    if (this.currentBatchIndex < totalBatches - 1) {
+      this.currentBatchIndex++;
+      this.connectedPairs.clear();
+      this.selectedGerman = null;
+      this.selectedEnglish = null;
+      this.loadBatch();
+    }
+  }
+  prevBatch(): void {
+    if (this.currentBatchIndex > 0) {
+      this.currentBatchIndex--;
+      this.connectedPairs.clear();
+      this.selectedGerman = null;
+      this.selectedEnglish = null;
+      this.loadBatch();
+    }
   }
 
   shuffleArray<T>(array: T[]): T[] {
@@ -94,7 +107,7 @@ export class LearningTaskEnglish implements OnInit {
     this.checkMatch();
   }
 
-  private completeLearningTask(): void {
+  completeLearningTask(): void {
     if (this.childId && this.task) {
       this.learningService.completeTask(this.childId, this.task.id).subscribe({
         next: () => console.log('Englisch-Aufgabe erfolgreich abgeschlossen!'),
@@ -172,4 +185,6 @@ export class LearningTaskEnglish implements OnInit {
       this.isCompleted = true;
     }
   }
+
+  protected readonly Math = Math;
 }

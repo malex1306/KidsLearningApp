@@ -312,7 +312,7 @@ public class EnsureDatabase
                     new Questions
                     {
                         Text = "Eichhörnchen",
-                        CorrectAnswer = "Squirrel",
+                        CorrectAnswer = "squirrel",
                         Options = new List<string> { "squirrel" },
                         LearningTaskId = 8,
                         Category = "Animal"

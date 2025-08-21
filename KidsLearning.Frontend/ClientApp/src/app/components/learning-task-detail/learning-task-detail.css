@@ -26,7 +26,7 @@
 
 .question-title {
     font-size: 1.8rem;
-    color: #4CAF50; 
+    color: #4CAF50;
 }
 
 .question-text {
@@ -127,9 +127,11 @@
   transform: scale(1.05);
 }
 .navigation-buttons {
-    /* Flexbox-Eigenschaften hinzufügen */
     display: flex;
     justify-content: space-between;
-    width: 100%; /* Stellt sicher, dass der Container die volle Breite einnimmt */
+    width: 100%;
     margin-top: 20px;
+}
+a {
+  text-decoration: none;
 }
