@@ -32,6 +32,18 @@
             </p>
           </div>
         }
+        <div class="navigation-buttons">
+          @if (currentQuestionIndex === 0) {
+            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> ⬅ Zurück </a>
+          } @else {
+            <button class="fun-button" (click)="prevQuestion()"> ⬅ Vorherige </button>
+          }
+          @if (currentQuestionIndex === task.questions.length - 1) {
+            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Beenden ✅ </a>
+          } @else {
+            <button class="fun-button" (click)="nextQuestion()"> Nächste ➡ </button>
+          }
+        </div>
       </div>
     } @else if (!isCompleted && task.title === 'Deutsch/Englisch verbinden') {
       <div class="quiz-area default-quiz">
@@ -70,13 +82,13 @@
           @if (currentBatchIndex === 0) {
             <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> ⬅ Zurück </a>
           } @else {
-            <button class="fun-button" (click)="prevBatch()"> ⬅ Vorherige 8 </button>
+            <button class="fun-button" (click)="prevBatch()"> ⬅ Vorherige  </button>
           }
           <span class="batch-info">Batch {{ currentBatchIndex + 1 }} von {{ Math.ceil(task.questions.length / batchSize) }} </span>
           @if (currentBatchIndex >= Math.ceil(task.questions.length / batchSize) - 1) {
             <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Beenden ✅ </a>
           } @else {
-            <button class="fun-button" (click)="nextBatch()"> Nächste 8 ➡ </button>
+            <button class="fun-button" (click)="nextBatch()"> Nächste  ➡ </button>
           }
         </div>
       </div>

@@ -87,6 +87,14 @@ export class LearningTaskEnglish implements OnInit {
       this.loadBatch();
     }
   }
+  prevQuestion(): void {
+    if (this.currentQuestionIndex > 0) {
+      this.currentQuestionIndex--;
+      this.answerStatus = null;
+      this.statusMessage = '';
+      this.isWaitingForNext = false;
+    }
+  }
 
   shuffleArray<T>(array: T[]): T[] {
     const arr = [...array];
