@@ -1,0 +1,208 @@
+
+.task-detail-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px); 
+  padding: 20px;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 30px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.quiz-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.question-card {
+  width: 100%;
+}
+
+
+.number-sequence-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 80px;
+  width: 100%;
+  margin-top: 5rem;
+}
+
+.number-block {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #3b82f6; 
+  padding: 15px 25px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease-in-out;
+  margin-bottom: 5rem;
+}
+
+.number-block.highlight {
+  background-color: #ef4444; 
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+  }
+  to {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+  }
+}
+
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.option-button {
+  background-color: #ffb703;
+  color: #333;
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.option-button:hover:not([disabled]) {
+  background-color: #fb8500;
+  transform: translateY(-2px);
+}
+
+.option-button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 20px;
+}
+
+.fun-button {
+ margin-top: 1rem;
+  background-color: #ffb703;
+  color: black;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.fun-button:hover:not([disabled]) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.fun-button[disabled] {
+  background-color: #fb8500;
+  cursor: not-allowed;
+}
+
+
+.completion-message-card {
+  width: 100%;
+  max-width: 500px;
+}
+
+.back-button {
+  background-color: #4CAF50;
+  border-radius: 12px;
+  color: white;
+  padding: 15px 25px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 20px;
+  display: inline-block;
+}
+
+.back-button:hover {
+  background-color: #45a049;
+}
+
+.option-button {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #333;
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0); 
+}
+
+.option-button:hover:not([disabled]) {
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+.option-button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+.option-button.correct-answer-highlight {
+  background-color: #4CAF50; /* Hellgrün */
+  color: white;
+  transform: scale(1.05);
+  animation: correct-pulse 0.5s ease-out;
+}
+
+
+.option-button.wrong-answer-highlight {
+  background-color: #ef4444; /* Hellrot */
+  color: white;
+  transform: scale(1.05);
+  animation: wrong-pulse 0.5s ease-out;
+}
+
+@keyframes correct-pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+  50% { transform: scale(1.1); box-shadow: 0 0 20px 5px rgba(76, 175, 80, 0.9); }
+  100% { transform: scale(1.05); box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+}
+
+@keyframes wrong-pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+  50% { transform: scale(1.1); box-shadow: 0 0 20px 5px rgba(239, 68, 68, 0.9); }
+  100% { transform: scale(1.05); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+/* ... restliches CSS ... */
