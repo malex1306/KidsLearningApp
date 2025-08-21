@@ -20,8 +20,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem;
+    
     width: 100%;
+    
 }
 
 .header-section {
@@ -153,7 +154,7 @@
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
     text-decoration: none;
-    color: #ff9900;
+    color: black;
 }
 
 .child-card-two {
@@ -168,7 +169,7 @@
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
     text-decoration: none;
-    color: #ff9900;
+    color: black;
 }
 
 .child-card-three {
@@ -183,11 +184,11 @@
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
     text-decoration: none;
-    color: #ff9900;
+    color: black;
 }
 
 .child-card-four {
-  background: #a9def9;
+  background: #9bf6ff;
   border-radius: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   padding: 1rem;
@@ -198,7 +199,7 @@
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
   text-decoration: none;
-  color: #ff9900;
+  color: black;
 }
 
 .child-card-five {
@@ -213,7 +214,21 @@
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
   text-decoration: none;
-  color: #ff9900;
+  color: black;
+}
+.child-card-six {
+  background: #fad643;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
 }
 
 .child-card:hover {
@@ -240,6 +255,10 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 .child-card-five:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.child-card-six:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
@@ -373,4 +392,11 @@
 }
 .centered-text {
     text-align: center;
+}
+/* Responsive Grid für die Lektionskarten */
+.lessons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
 }

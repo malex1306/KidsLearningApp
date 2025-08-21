@@ -1,9 +1,4 @@
-<div class="inventory-header-link">
-  <a [routerLink]="['/inventory', activeChild()?.id]" class="inventory-button">
-    <img src="assets/images/check.png" alt="Inventar Icon" class="inventory-icon">
-    <span>Inventar</span>
-  </a>
-</div>
+
 <div class="dashboard-container">
   @if (isLoggedIn) {
     <header class="dashboard-header">
@@ -33,12 +28,12 @@
       @if (dashboardData) {
         @if (dashboardData.children.length > 0) {
           <div class="child-selection-container">
-            <h3>Für welches Kind möchtest du Lektionen sehen?</h3>
+            <h3>Wer möchte lernen?</h3>
             <div class="child-cards-container">
               @for (child of dashboardData.children; track child.childId) {
                 <div class="child-card clickable"
                      [class.active-child]="activeChild()?.id === child.childId"
-                      (click)="selectChild(child)">
+                     (click)="selectChild(child)">
                   <div class="child-header">
                     <img [src]="child.avatarUrl" alt="Profilbild" class="child-picture">
                     <h3>{{ child.name }}</h3><br>
@@ -66,9 +61,9 @@
         </div>
 
         @if (activeChild()) {
-          <p class="centered-text" style="color:#ff9900;">Hier siehst du die verfügbaren Übungen für {{ activeChild()?.name }}.</p>
+          <!-- <p class="centered-text" style="color:#ff9900;">Hier siehst du die verfügbaren Übungen für {{ activeChild()?.name }}.</p> -->
 
-          <div class="lessons-list">
+          <div class="lessons-grid">
             <a class="child-card-two mb-3" [routerLink]="['tasks', 'Mathe-Abenteuer', 'child', activeChild()?.id]">
               <div class="child-header">
                 <img src="assets/images/math.png" alt="Lektion Bild" class="child-picture">
@@ -122,6 +117,18 @@
               </div>
               <div class="progress-section" style="color: black;">
                 <p>Logik ist überall.</p>
+              </div>
+              <div class="card-footer">
+              </div>
+            </a>
+
+            <a class="child-card-six mb-3" [routerLink]="['/inventory', activeChild()?.id]">
+              <div class="child-header">
+                <img src="assets/images/treasure-chest.png" alt="Lektion Bild" class="child-picture">
+                <h3 class="card-lettering">Mein Inventar</h3>
+              </div>
+              <div class="progress-section" style="color: black;">
+                <p>Neue Avatare und mehr...</p>
               </div>
               <div class="card-footer">
               </div>
