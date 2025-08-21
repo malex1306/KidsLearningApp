@@ -1,4 +1,7 @@
 <div class="dashboard-container">
+  @if(message){
+  <p class="info-message">{{ message }}</p>
+  }
   <header class="dashboard-header">
     <div class="user-info">
       <h2>Eltern-Dashboard</h2>
@@ -11,9 +14,9 @@
     </div>
   </header>
 
-  <p *ngIf="message" class="info-message">{{ message }}</p>
 
-  <div *ngIf="showAddChildForm" class="add-child-form">
+  @if(showAddChildForm){
+  <div class="add-child-form">
   <h3>Neues Kind hinzufügen</h3>
   <form (ngSubmit)="onAddChildSubmit()">
     <div class="form-group">
@@ -42,6 +45,7 @@
     </div>
   </form>
 </div>
+}
 
   <div *ngIf="showEditChildForm" class="add-child-form">
   <h3>Kind bearbeiten</h3>

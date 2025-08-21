@@ -1,3 +1,9 @@
+<div class="inventory-header-link">
+  <a [routerLink]="['/inventory', activeChild()?.id]" class="inventory-button">
+    <img src="assets/images/check.png" alt="Inventar Icon" class="inventory-icon">
+    <span>Inventar</span>
+  </a>
+</div>
 <div class="dashboard-container">
   @if (isLoggedIn) {
     <header class="dashboard-header">
@@ -10,12 +16,6 @@
             <p class="greeting-text">{{ greetingText }}</p>
             <h1 class="user-name">{{ activeChild()?.name }}!</h1>
           </div>
-        </div>
-        <div class="inventory-header-link">
-          <a [routerLink]="['/inventory', activeChild()?.id]" class="inventory-button">
-            <img src="assets/images/check.png" alt="Inventar Icon" class="inventory-icon">
-            <span>Inventar</span>
-          </a>
         </div>
       } @else {
         <div class="header-section">
