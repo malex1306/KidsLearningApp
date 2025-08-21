@@ -28,6 +28,10 @@ export class LearningTaskEnglish implements OnInit {
 
   connectedPairs: Set<{ de: string; en: string }> = new Set();
 
+  batchSize = 8;
+  currentBatchIndex = 0;
+  currentBatch: any[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private tasksService: TasksService,
@@ -45,11 +49,50 @@ export class LearningTaskEnglish implements OnInit {
         this.task = task;
 
         if (this.task.title === 'Deutsch/Englisch verbinden') {
-          // Shuffle German and English words
-          this.shuffledGerman = this.shuffleArray(this.task.questions.map(q => q.text));
-          this.shuffledEnglish = this.shuffleArray(this.task.questions.map(q => q.correctAnswer));
+          this.loadBatch();
         }
       });
+    }
+  }
+
+  loadBatch(): void {
+    if (!this.task) return;
+
+    const start = this.currentBatchIndex * this.batchSize;
+    const end = start + this.batchSize;
+    this.currentBatch = this.task.questions.slice(start, end);
+
+    if (this.task.title === 'Deutsch/Englisch verbinden') {
+      this.shuffledGerman = this.shuffleArray(this.currentBatch.map(q => q.text));
+      this.shuffledEnglish = this.shuffleArray(this.currentBatch.map(q => q.correctAnswer));
+    }
+  }
+  nextBatch(): void {
+    const totalBatches = Math.ceil(this.task?.questions.length ?? 0 / this.batchSize);
+
+    if (this.currentBatchIndex < totalBatches - 1) {
+      this.currentBatchIndex++;
+      this.connectedPairs.clear();
+      this.selectedGerman = null;
+      this.selectedEnglish = null;
+      this.loadBatch();
+    }
+  }
+  prevBatch(): void {
+    if (this.currentBatchIndex > 0) {
+      this.currentBatchIndex--;
+      this.connectedPairs.clear();
+      this.selectedGerman = null;
+      this.selectedEnglish = null;
+      this.loadBatch();
+    }
+  }
+  prevQuestion(): void {
+    if (this.currentQuestionIndex > 0) {
+      this.currentQuestionIndex--;
+      this.answerStatus = null;
+      this.statusMessage = '';
+      this.isWaitingForNext = false;
     }
   }
 
@@ -72,9 +115,18 @@ export class LearningTaskEnglish implements OnInit {
     this.checkMatch();
   }
 
+  completeLearningTask(): void {
+    if (this.childId && this.task) {
+      this.learningService.completeTask(this.childId, this.task.id).subscribe({
+        next: () => console.log('Englisch-Aufgabe erfolgreich abgeschlossen!'),
+        error: (err) => console.error('Fehler beim Abschluss der Englisch-Aufgabe', err),
+      });
+    }
+  }
+
   checkMatch() {
     if (this.selectedGerman && this.selectedEnglish && this.task) {
-      const correct = this.task.questions.find(
+      const correct = this.currentBatch.find(
         q => q.text === this.selectedGerman && q.correctAnswer === this.selectedEnglish
       );
 
@@ -85,11 +137,19 @@ export class LearningTaskEnglish implements OnInit {
       this.selectedGerman = null;
       this.selectedEnglish = null;
 
-      if (this.connectedPairs.size === this.task.questions.length) {
-        this.isCompleted = true;
+      if (this.connectedPairs.size === this.currentBatch.length) {
+        // Batch completed
+        const totalBatches = Math.ceil(this.task.questions.length / this.batchSize);
+        if (this.currentBatchIndex < totalBatches - 1) {
+          this.nextBatch();
+        } else {
+          this.isCompleted = true;
+          this.completeLearningTask();
+        }
       }
     }
   }
+
 
   isGermanConnected(word: string): boolean {
     return [...this.connectedPairs].some(pair => pair.de === word);
@@ -133,4 +193,6 @@ export class LearningTaskEnglish implements OnInit {
       this.isCompleted = true;
     }
   }
+
+  protected readonly Math = Math;
 }
