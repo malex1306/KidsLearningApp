@@ -94,6 +94,15 @@ export class LearningTaskEnglish implements OnInit {
     this.checkMatch();
   }
 
+  private completeLearningTask(): void {
+    if (this.childId && this.task) {
+      this.learningService.completeTask(this.childId, this.task.id).subscribe({
+        next: () => console.log('Englisch-Aufgabe erfolgreich abgeschlossen!'),
+        error: (err) => console.error('Fehler beim Abschluss der Englisch-Aufgabe', err),
+      });
+    }
+  }
+
   checkMatch() {
     if (this.selectedGerman && this.selectedEnglish && this.task) {
       const correct = this.currentBatch.find(
@@ -114,6 +123,7 @@ export class LearningTaskEnglish implements OnInit {
           this.nextBatch();
         } else {
           this.isCompleted = true;
+          this.completeLearningTask();
         }
       }
     }
