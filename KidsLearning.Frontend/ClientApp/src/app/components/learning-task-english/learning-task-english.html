@@ -1,13 +1,13 @@
 @if (task) {
   <div class="task-detail-container">
 
-    @if (!isCompleted) {
+    @if (!isCompleted && task.title === 'Englische Bilder') {
       <div class="quiz-area default-quiz">
         <div class="task-card glass-card image-card" style="text-align: center; margin: 1rem 0;">
-            <h2 class="question-title">
-              Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}
-            </h2>
-            <p class="question-text">{{ task.questions[currentQuestionIndex].text }}</p>
+          <h2 class="question-title">
+            Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}
+          </h2>
+          <p class="question-text">{{ task.questions[currentQuestionIndex].text }}</p>
           <img [src]="task.questions[currentQuestionIndex].imageUrl || 'assets/images/bengal.png'"
                alt="Frage Bild" class="question-image" style="max-width: 100%; height: auto;">
         </div>
@@ -16,9 +16,9 @@
           @for (option of task.questions[currentQuestionIndex].options; track option) {
             <button class="option-button"
                     [ngClass]="{
-                          'correct-answer': answerStatus === 'correct' && option === task.questions[currentQuestionIndex].correctAnswer,
-                          'wrong-answer': answerStatus === 'wrong' && option !== task.questions[currentQuestionIndex].correctAnswer
-                        }"
+                      'correct-answer': answerStatus === 'correct' && option === task.questions[currentQuestionIndex].correctAnswer,
+                      'wrong-answer': answerStatus === 'wrong' && option !== task.questions[currentQuestionIndex].correctAnswer
+                    }"
                     (click)="selectAnswer(option)">
               {{ option }}
             </button>
@@ -33,14 +33,54 @@
           </div>
         }
       </div>
+    } @else if (!isCompleted && task.title === 'Deutsch/Englisch verbinden') {
+      <div class="quiz-area default-quiz">
+        <div class="task-card glass-card question-card">
+          <div class="card-content">
+            <h2 class="question-title">Verbinde die Wörter</h2>
+            <p class="question-text">Klicke ein deutsches und das passende englische Wort.</p>
+          </div>
+
+          <div class="match-box">
+            <div class="match-column">
+              @for (de of shuffledGerman; track de) {
+                @if (!isGermanConnected(de)){
+                <button class="option-button"
+                        [class.selected]="selectedGerman === de"
+                        (click)="selectGerman(de)">
+                  {{ de }}
+                </button>
+                }
+              }
+            </div>
+            <div class="match-column">
+              @for (en of shuffledEnglish; track en) {
+                @if (!isEnglishConnected(en)){
+                <button class="option-button"
+                        [class.selected]="selectedEnglish === en"
+                        (click)="selectEnglish(en)">
+                  {{ en }}
+                </button>
+                }
+              }
+            </div>
+          </div>
+        </div>
+      </div>
     }
 
     @if (isCompleted) {
       <div class="completion-message-card glass-card">
         <div class="card-content">
-          <h2>Aufgabe abgeschlossen! 🎉</h2>
-          <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>
-          <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">Zurück zu den Aufgaben</a>
+          <h2>
+            {{ task.title === 'Deutsch/Englisch verbinden' ? 'Alle Paare gefunden! 🎉' : 'Aufgabe abgeschlossen! 🎉' }}
+          </h2>
+          @if(task.title !== 'Deutsch/Englisch verbinden') {
+            <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>
+          }
+          <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">
+            Weiter zur nächsten Seite
+          </a>
         </div>
       </div>
     }
