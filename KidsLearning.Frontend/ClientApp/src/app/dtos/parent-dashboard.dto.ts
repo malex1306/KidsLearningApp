@@ -13,9 +13,9 @@ export interface BadgeDto {
 export interface AvatarDto {
    id: number;
   name: string;
-  imageUrl: string; 
-  description: string; 
-  unlockStarRequirement: number; 
+  imageUrl: string;
+  description: string;
+  unlockStarRequirement: number;
 }
 
 export interface ChildDto {
@@ -24,11 +24,12 @@ export interface ChildDto {
   avatarUrl: string;
   lastActivity: string;
   progress: SubjectProgressDto[];
-  age: number; 
+  age: number;
   dateOfBirth: Date;
   starCount: number;
   badges: BadgeDto[];
   unlockedAvatars: AvatarDto[];
+  difficulty: string;
 }
 
 export interface ParentDashboardDto {
@@ -40,7 +41,7 @@ export interface ParentDashboardDto {
 export interface AddChildDto {
   name: string;
   avatarUrl?: string;
-  dateOfBirth: Date; 
+  dateOfBirth: Date;
 }
 
 export interface RemoveChildDto {
@@ -50,6 +51,6 @@ export interface RemoveChildDto {
 export interface EditChildDto {
   childId: number;
   name: string;
-  dateOfBirth: Date; 
+  dateOfBirth: Date;
   avatarUrl?: string;
 }
