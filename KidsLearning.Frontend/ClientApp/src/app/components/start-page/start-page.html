@@ -20,7 +20,7 @@
       } @else {
         <div class="header-section">
             <div class="avatar-container">
-            <img src="https://via.placeholder.com/100" alt="" class="avatar-image">
+            <img src="assets/images/teddy-bear.png" alt="" class="avatar-image">
           </div>
           <div class="welcome-message">
             <h1 class="user-name">Willkommen zurück!</h1>
@@ -110,6 +110,18 @@
               </div>
               <div class="progress-section" style="color: black;">
                 <p>Lerne, wie man Englisch spricht.</p>
+              </div>
+              <div class="card-footer">
+              </div>
+            </a>
+
+            <a class="child-card-five mb-3" [routerLink]="['tasks', 'Logik-Dschungel', 'child', activeChild()?.id]">
+              <div class="child-header">
+                <img src="assets/images/logic.png" alt="Lektion Bild" class="child-picture">
+                <h3 class="card-lettering">Logik-Dschungel</h3>
+              </div>
+              <div class="progress-section" style="color: black;">
+                <p>Logik ist überall.</p>
               </div>
               <div class="card-footer">
               </div>
