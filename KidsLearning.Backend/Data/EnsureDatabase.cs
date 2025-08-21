@@ -95,7 +95,7 @@ public class EnsureDatabase
                 },
                 new LearningTask {
                     Title = "Finde den Imposter",
-                    Description = "Wähle das Englische Wort Wort, das nicht zu den anderen passt",
+                    Description = "Wähle das Englische Wort, das nicht zu den anderen passt",
                     Subject = "Englisch"
                 
                 }
@@ -241,71 +241,350 @@ public class EnsureDatabase
                 },
                 
                 // Englisch Vokabeln / Wörter Verbinden (Task 8)
-                new Questions
-                {
-                    Text = "Hut",
-                    CorrectAnswer = "Hat",
-                    Options = new List<string> { "hat" },
-                    LearningTaskId = 8,
-                    Category = "Cloth"
-                },
-                new Questions
-                {
-                    Text = "Vater",
-                    CorrectAnswer = "Father",
-                    Options = new List<string> { "father" },
-                    LearningTaskId = 8,
-                    Category = "Family"
-                },
-                new Questions
-                {
-                    Text = "Eichhörnchen",
-                    CorrectAnswer = "Squirrel",
-                    Options = new List<string> { "squirrel" },
-                    LearningTaskId = 8,
-                    Category = "Animal"
-                },
-                new Questions
-                {
-                    Text = "Eidechse",
-                    CorrectAnswer = "lizard",
-                    Options = new List<string> { "lizard" },
-                    LearningTaskId = 8,
-                    Category = "Animal"
+                
+                    // Category Family
+                    new Questions
+                    {
+                        Text = "Onkel",
+                        CorrectAnswer = "uncle",
+                        Options = new List<string> { "uncle" },
+                        LearningTaskId = 8,
+                        Category = "Family"
+                    },
+                    new Questions
+                    {
+                        Text = "Vater",
+                        CorrectAnswer = "father",
+                        Options = new List<string> { "father" },
+                        LearningTaskId = 8,
+                        Category = "Family"
+                    },
+                    new Questions
+                    {
+                        Text = "Mutter",
+                        CorrectAnswer = "mother",
+                        Options = new List<string> { "mother" },
+                        LearningTaskId = 8,
+                        Category = "Family"
+                    },
+                    new Questions
+                    {
+                        Text = "Schwester",
+                        CorrectAnswer = "sister",
+                        Options = new List<string> { "sister" },
+                        LearningTaskId = 8,
+                        Category = "Family"
+                    },
+                    new Questions
+                    {
+                        Text = "Bruder",
+                        CorrectAnswer = "brother",
+                        Options = new List<string> { "brother" },
+                        LearningTaskId = 8,
+                        Category = "Family"
+                    },
+                    new Questions
+                    {
+                        Text = "Tante",
+                        CorrectAnswer = "aunt",
+                        Options = new List<string> { "aunt" },
+                        LearningTaskId = 8,
+                        Category = "Family"
+                    },
+                    new Questions
+                    {
+                        Text = "Großvater",
+                        CorrectAnswer = "grandpa",
+                        Options = new List<string> { "grandpa" },
+                        LearningTaskId = 8,
+                        Category = "Family"
+                    },
+                    new Questions
+                    {
+                        Text = "Großmutter",
+                        CorrectAnswer = "grandma",
+                        Options = new List<string> { "grandpa" },
+                        LearningTaskId = 8,
+                        Category = "Family"
+                    },
                     
-                },
-                new Questions
-                {
-                    Text = "Mutter",
-                    CorrectAnswer = "mother",
-                    Options = new List<string> { "mother" },
-                    LearningTaskId = 8,
-                    Category = "Family"
-                },
-                new Questions
-                {
-                    Text = "Schwester",
-                    CorrectAnswer = "sister",
-                    Options = new List<string> { "sister" },
-                    LearningTaskId = 8,
-                    Category = "Family"
-                },
-                new Questions
-                {
-                    Text = "Bruder",
-                    CorrectAnswer = "brother",
-                    Options = new List<string> { "brother" },
-                    LearningTaskId = 8,
-                    Category = "Family"
-                },
-                new Questions
-                {
-                    Text = "Rakete",
-                    CorrectAnswer = "rocket",
-                    Options = new List<string> { "rocket" },
-                    LearningTaskId = 8,
-                    Category = "Other"
-                },
+                    //  Category Animals
+                    new Questions
+                    {
+                        Text = "Eichhörnchen",
+                        CorrectAnswer = "Squirrel",
+                        Options = new List<string> { "squirrel" },
+                        LearningTaskId = 8,
+                        Category = "Animal"
+                    },
+                    new Questions
+                    {
+                        Text = "Eidechse",
+                        CorrectAnswer = "lizard",
+                        Options = new List<string> { "lizard" },
+                        LearningTaskId = 8,
+                        Category = "Animal"
+                        
+                    },
+                    new Questions
+                    {
+                        Text = "Hund",
+                        CorrectAnswer = "dog",
+                        Options = new List<string> { "dog" },
+                        LearningTaskId = 8,
+                        Category = "Animal"
+                        
+                    },
+                    new Questions
+                    {
+                        Text = "Katze",
+                        CorrectAnswer = "cat",
+                        Options = new List<string> { "cat" },
+                        LearningTaskId = 8,
+                        Category = "Animal"
+                        
+                    },
+                    new Questions
+                    {
+                        Text = "Hase",
+                        CorrectAnswer = "rabbit",
+                        Options = new List<string> { "rabbit" },
+                        LearningTaskId = 8,
+                        Category = "Animal"
+                        
+                    },
+                    new Questions
+                    {
+                        Text = "Maus",
+                        CorrectAnswer = "mouse",
+                        Options = new List<string> { "mouse" },
+                        LearningTaskId = 8,
+                        Category = "Animal"
+                        
+                    },
+                    new Questions
+                    {
+                        Text = "Schlange",
+                        CorrectAnswer = "snake",
+                        Options = new List<string> { "snake" },
+                        LearningTaskId = 8,
+                        Category = "Animal"
+                        
+                    },
+                    new Questions
+                    {
+                        Text = "Wurm",
+                        CorrectAnswer = "worm",
+                        Options = new List<string> { "worm" },
+                        LearningTaskId = 8,
+                        Category = "Animal"
+                        
+                    },
+                    new Questions
+                    {
+                        Text = "Delfin",
+                        CorrectAnswer = "dolphin",
+                        Options = new List<string> { "dolphin" },
+                        LearningTaskId = 8,
+                        Category = "Animal"
+                        
+                    },
+                    new Questions
+                    {
+                        Text = "Fuchs",
+                        CorrectAnswer = "fox",
+                        Options = new List<string> { "fox" },
+                        LearningTaskId = 8,
+                        Category = "Animal"
+                        
+                    },
+                    new Questions
+                    {
+                        Text = "Pinguin",
+                        CorrectAnswer = "penguin",
+                        Options = new List<string> { "penguin" },
+                        LearningTaskId = 8,
+                        Category = "Animal"
+                        
+                    },
+                    new Questions
+                    {
+                        Text = "Vogel",
+                        CorrectAnswer = "bird",
+                        Options = new List<string> { "bird" },
+                        LearningTaskId = 8,
+                        Category = "Animal"
+                        
+                    },
+                    new Questions
+                    {
+                        Text = "Meerschweinchen",
+                        CorrectAnswer = "meerkat",
+                        Options = new List<string> { "meerkat" },
+                        LearningTaskId = 8,
+                        Category = "Animal"
+                        
+                    },
+                    new Questions
+                    {
+                        Text = "Ratte",
+                        CorrectAnswer = "rat",
+                        Options = new List<string> { "rat" },
+                        LearningTaskId = 8,
+                        Category = "Animal"
+                        
+                    },
+                    new Questions
+                    {
+                        Text = "Löwe",
+                        CorrectAnswer = "lion",
+                        Options = new List<string> { "lion" },
+                        LearningTaskId = 8,
+                        Category = "Animal"
+                        
+                    },
+                    new Questions
+                    {
+                        Text = "Tiger",
+                        CorrectAnswer = "tiger",
+                        Options = new List<string> { "tiger" },
+                        LearningTaskId = 8,
+                        Category = "Animal"
+                        
+                    },
+                    
+                    // Category Other
+                    new Questions
+                    {
+                        Text = "Rakete",
+                        CorrectAnswer = "rocket",
+                        Options = new List<string> { "rocket" },
+                        LearningTaskId = 8,
+                        Category = "Other"
+                    },
+                    new Questions
+                    {
+                        Text = "Haus",
+                        CorrectAnswer = "house",
+                        Options = new List<string> { "house" },
+                        LearningTaskId = 8,
+                        Category = "Other"
+                    },
+                    new Questions
+                    {
+                        Text = "Baum",
+                        CorrectAnswer = "tree",
+                        Options = new List<string> { "tree" },
+                        LearningTaskId = 8,
+                        Category = "Other"
+                    },
+                    new Questions
+                    {
+                        Text = "Auto",
+                        CorrectAnswer = "car",
+                        Options = new List<string> { "car" },
+                        LearningTaskId = 8,
+                        Category = "Other"
+                    },
+                    new Questions
+                    {
+                        Text = "Schiff",
+                        CorrectAnswer = "ship",
+                        Options = new List<string> { "ship" },
+                        LearningTaskId = 8,
+                        Category = "Other"
+                    },
+                    new Questions
+                    {
+                        Text = "Blume",
+                        CorrectAnswer = "flower",
+                        Options = new List<string> { "flower" },
+                        LearningTaskId = 8,
+                        Category = "Other"
+                    },
+                    new Questions
+                    {
+                        Text = "Tisch",
+                        CorrectAnswer = "table",
+                        Options = new List<string> { "table" },
+                        LearningTaskId = 8,
+                        Category = "Other"
+                    },
+                    new Questions
+                    {
+                        Text = "Vulkan",
+                        CorrectAnswer = "volcano",
+                        Options = new List<string> { "volcano" },
+                        LearningTaskId = 8,
+                        Category = "Other"
+                    },
+                    
+                    // category cloth
+                    new Questions
+                    {
+                        Text = "Hut",
+                        CorrectAnswer = "hat",
+                        Options = new List<string> { "hat" },
+                        LearningTaskId = 8,
+                        Category = "Cloth"
+                    },
+                    new Questions
+                    {
+                        Text = "Stiefel",
+                        CorrectAnswer = "boot",
+                        Options = new List<string> { "boot" },
+                        LearningTaskId = 8,
+                        Category = "Cloth"
+                    },
+                    new Questions
+                    {
+                        Text = "Handschuhe",
+                        CorrectAnswer = "gloves",
+                        Options = new List<string> { "gloves" },
+                        LearningTaskId = 8,
+                        Category = "Cloth"
+                    },
+                    new Questions
+                    {
+                        Text = "Gürtel",
+                        CorrectAnswer = "waist",
+                        Options = new List<string> { "waist" },
+                        LearningTaskId = 8,
+                        Category = "Cloth"
+                    },
+                    new Questions
+                    {
+                        Text = "Armband",
+                        CorrectAnswer = "wrist",
+                        Options = new List<string> { "wrist" },
+                        LearningTaskId = 8,
+                        Category = "Cloth"
+                    },
+                    new Questions
+                    {
+                        Text = "Jacke",
+                        CorrectAnswer = "jacket",
+                        Options = new List<string> { "jacket" },
+                        LearningTaskId = 8,
+                        Category = "Cloth"
+                    },
+                    new Questions
+                    {
+                        Text = "Schuh",
+                        CorrectAnswer = "shoe",
+                        Options = new List<string> { "shoe" },
+                        LearningTaskId = 8,
+                        Category = "Cloth"
+                    },
+                    new Questions
+                    {
+                        Text = "Brille",
+                        CorrectAnswer = "glasses",
+                        Options = new List<string> { "glasses" },
+                        LearningTaskId = 8,
+                        Category = "Cloth"
+                    },
+                    
                 
                 // Englisch finde das falsche Wort
                 
