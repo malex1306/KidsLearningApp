@@ -149,7 +149,7 @@ export class LearningLetterTasks implements OnInit {
             console.log('Aufgabe erfolgreich als abgeschlossen markiert!');
             this.rewardService.rewardChild(this.childId!, this.task!.id)
               .subscribe({
-                next: () => console.log('Belohnung erfolgreich vergeben!'),
+                next: () => console.log('Belohnung erfolgreich vergeben'),
                 error: (err) => console.error('Fehler beim Vergeben der Belohnung', err)
               });
           },
