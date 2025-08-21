@@ -26,37 +26,37 @@
       }
     </div>
 
-    @if (answerStatus) {
-    <div class="status-message-container">
-      <p [ngClass]="{
- 'correct-text': answerStatus === 'correct',
-'wrong-text': answerStatus === 'wrong'
- }">
-        {{ statusMessage }}
-      </p>
-    </div>
-    }
-
+    
     <div class="navigation-buttons">
       @if (currentQuestionIndex > 0) {
-      <button class="fun-button" (click)="navigationService.previousQuestion()">
-        Zurück
+        <button class="fun-button" (click)="navigationService.previousQuestion()">
+          Zurück
       </button>
-      }
+    }
       @if (currentQuestionIndex < task.questions.length - 1) { <button class="fun-button"
         (click)="navigationService.nextQuestion()">
         Weiter
-        </button>
-        } @else {
-        <button class="fun-button" (click)="onFinishTask()">
-          Beenden
-        </button>
-        }
-    </div>
+      </button>
+    } @else {
+      <button class="fun-button" (click)="onFinishTask()">
+        Beenden
+      </button>
+    }
   </div>
-  }
+</div>
+}
+@if (answerStatus) {
+<div class="status-message-container">
+  <p [ngClass]="{
+'correct-text': answerStatus === 'correct',
+'wrong-text': answerStatus === 'wrong'
+}">
+    {{ statusMessage }}
+  </p>
+</div>
+}
 
-  @if (isCompleted) {
+@if (isCompleted) {
   <div class="completion-message-card glass-card">  <div class="card-content">
       <h2>Aufgabe abgeschlossen! 🎉</h2>
       <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>

@@ -9,11 +9,12 @@ import { Question } from '../../models/question';
 import { RewardService } from '../../services/reward.service';
 import { QuestionNavigationService } from '../../services/question-navigation.service'; 
 import { Subscription } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-learning-letter-tasks',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './learning-letter-tasks.html',
   styleUrl: './learning-letter-tasks.css'
 })
@@ -31,6 +32,8 @@ export class LearningLetterTasks implements OnInit {
   statusMessage: string = '';
   answerStatus: 'correct' | 'wrong' | null = null;
   isWaitingForNext = false;
+  typedAnswer: string = '';
+  isGapFillTask: boolean = false;
 
   lastClickedLetter: string | null = null;
   lastClickedStatus: 'correct' | 'wrong' | null = null;
@@ -59,6 +62,8 @@ export class LearningLetterTasks implements OnInit {
           this.initializeSpellingTask();
         } else if (this.task.title === 'Buchstaben verbinden') {
           this.isConnectingTask = true;
+        } else if (this.task.title === 'Fülle die Lücken'){
+          this.isGapFillTask = true;
         }
       });
     }
@@ -165,6 +170,9 @@ export class LearningLetterTasks implements OnInit {
     this.answerStatus = null;
     this.statusMessage = '';
     this.isWaitingForNext = false;
+    if(this.isGapFillTask){
+      this.typedAnswer = '';
+    }
     if (this.isSpellingTask) {
       this.initializeSpellingTask();
     }
@@ -207,6 +215,21 @@ onFinishTask(): void {
     this.completeLearningTask();
   } else {
     this.statusMessage = 'Du hast nicht alle Fragen beantwortet. Das Ergebnis wird nicht gespeichert.';
+  }
+}
+
+checkTypedAnswer(): void{
+   if (!this.task) return;
+
+  const currentQuestion = this.task.questions[this.currentQuestionIndex];
+  if (this.typedAnswer.trim().toLowerCase() === currentQuestion.correctAnswer.toLowerCase()) {
+    this.answerStatus = 'correct';
+    this.statusMessage = 'Richtig! 🎉';
+    this.answeredQuestions[this.currentQuestionIndex] = true;
+    this.checkCompletion();
+  } else {
+    this.answerStatus = 'wrong';
+    this.statusMessage = 'Falsch, versuche es nochmal.';
   }
 }
 
