@@ -39,9 +39,18 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
 
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe((task) => {
+        // Fragen mischen
+        task.questions = this.shuffleArray(task.questions);
+
+        // Optionen jeder Frage mischen
+        task.questions.forEach(q => {
+          q.options = this.shuffleArray(q.options);
+        });
+
         this.task = task;
         this.navigationService.setTask(task);
-        // Initialisiere den answeredQuestions-Array basierend auf der Anzahl der Fragen
+
+        // answeredQuestions passend initialisieren
         this.answeredQuestions = new Array(task.questions.length).fill(false);
       });
     }
@@ -57,6 +66,15 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
     );
   }
 
+  private shuffleArray<T>(array: T[]): T[] {
+    const copy = [...array]; // Original nicht überschreiben
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
@@ -66,7 +84,7 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
       return;
     }
     this.selectedAnswer = answer;
-    
+
     // Markiere die Frage als beantwortet
     this.answeredQuestions[this.currentQuestionIndex] = true;
 
@@ -86,7 +104,6 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
     }
   }
 
-  // NEU: Methode, die beim Klick auf "Beenden" aufgerufen wird
   onFinishTask(): void {
     // Überprüfen, ob alle Fragen beantwortet wurden
     const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
