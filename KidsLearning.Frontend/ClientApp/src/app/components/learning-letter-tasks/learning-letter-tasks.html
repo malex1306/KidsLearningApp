@@ -1,4 +1,6 @@
-<div class="task-detail-container" *ngIf="task">
+
+@if(task){
+<div class="task-detail-container">
     <!-- <div class="task-card glass-card"> -->
         <!-- <div class="card-content">
             <h1>{{ task.title }}</h1>
@@ -57,13 +59,24 @@
                     </button>
                 }
             </div>
-            @if(answerStatus){
-             <div class="status-message-container">
-                <p [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">{{ statusMessage }}</p>
-            </div>
-        }
+           
         </div>
     }
+
+     @if (isGapFillTask && !isCompleted) {
+    <div class="quiz-area gap-fill-quiz">
+
+      <input type="text"
+             [(ngModel)]="typedAnswer"
+             placeholder="Antwort hier eingeben"
+             class="answer-input" />
+
+      <button class="fun-button" (click)="checkTypedAnswer()">Überprüfen</button>
+
+     
+    </div>
+    
+  }
 
     @if (isCompleted) {
         <div class="completion-message-card glass-card">
@@ -100,5 +113,11 @@
 }
 </div>
     }
+     @if(answerStatus){
+             <div class="status-message-container">
+                <p [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">{{ statusMessage }}</p>
+            </div>
+        }
 
 </div>
+}

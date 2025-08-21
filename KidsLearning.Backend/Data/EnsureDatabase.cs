@@ -603,15 +603,43 @@ public class EnsureDatabase
                 },
                 
                 
-                // Buchstabenland Fill in the Blank
-                
+                // Fragen für "Fülle die Lücken" (LearningTask 10)
                 new Questions
                 {
-                    Text = "DEINS PLACEHOLDER",
-                    CorrectAnswer = "tree",
-                    Options = new List<string> { "rocket, tree, ship, car" },
+                    Text = "Der Hund läuft durch den ___.",
+                    CorrectAnswer = "Park",
+                    Options = new List<string> { "Park", "Wald", "Garten" },
                     LearningTaskId = 10
                 },
+                new Questions
+                {
+                    Text = "Am Himmel scheint die ___.",
+                    CorrectAnswer = "Sonne",
+                    Options = new List<string> { "Mond", "Sonne", "Stern" },
+                    LearningTaskId = 10
+                },
+                new Questions
+                {
+                    Text = "Die Katze sitzt auf dem ___.",
+                    CorrectAnswer = "Dach",
+                    Options = new List<string> { "Stuhl", "Dach", "Boden" },
+                    LearningTaskId = 10
+                },
+                new Questions
+                {
+                    Text = "Ich trinke Wasser aus dem ___.",
+                    CorrectAnswer = "Glas",
+                    Options = new List<string> { "Glas", "Becher", "Flasche" },
+                    LearningTaskId = 10
+                },
+                new Questions
+                {
+                    Text = "Der Apfel ist ___.",
+                    CorrectAnswer = "rot",
+                    Options = new List<string> { "blau", "rot", "gelb" },
+                    LearningTaskId = 10
+                },
+
                 
                 
                 
