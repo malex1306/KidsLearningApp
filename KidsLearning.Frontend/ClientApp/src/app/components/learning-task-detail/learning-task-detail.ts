@@ -39,9 +39,13 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
 
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe((task) => {
+        task.questions = this.shuffleArray(task.questions);
+        task.questions.forEach(q => {
+          q.options = this.shuffleArray(q.options);
+        });
         this.task = task;
         this.navigationService.setTask(task);
-        // Initialisiere den answeredQuestions-Array basierend auf der Anzahl der Fragen
+
         this.answeredQuestions = new Array(task.questions.length).fill(false);
       });
     }
@@ -57,6 +61,15 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
     );
   }
 
+  private shuffleArray<T>(array: T[]): T[] {
+    const copy = [...array];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
@@ -66,8 +79,6 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
       return;
     }
     this.selectedAnswer = answer;
-    
-    // Markiere die Frage als beantwortet
     this.answeredQuestions[this.currentQuestionIndex] = true;
 
     const currentQuestion = this.task.questions[this.currentQuestionIndex];
@@ -76,7 +87,6 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
       this.statusMessage = 'Richtig! 🎉';
       this.isWaitingForNext = true;
 
-      // Warte 1,5 Sekunden, bevor zur nächsten Frage gewechselt wird
       setTimeout(() => {
         this.navigationService.nextQuestion();
       }, 1500);
@@ -86,12 +96,10 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
     }
   }
 
-  // NEU: Methode, die beim Klick auf "Beenden" aufgerufen wird
   onFinishTask(): void {
-    // Überprüfen, ob alle Fragen beantwortet wurden
     const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
 
-    this.isCompleted = true; // Setze den Status auf "abgeschlossen", um den Abschlussbereich anzuzeigen
+    this.isCompleted = true;
 
     if (allQuestionsAnswered) {
       this.statusMessage = 'Gut gemacht! Du hast alle Fragen beantwortet. Das Ergebnis wurde gespeichert.';
