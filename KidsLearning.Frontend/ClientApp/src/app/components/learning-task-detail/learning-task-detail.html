@@ -7,18 +7,18 @@
           Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}
         </h2>
         <p class="question-text">
-          {{ task.questions[currentQuestionIndex]?.text }}
+          {{ task.questions[currentQuestionIndex].text }}
         </p>
       </div>
     </div>
 
     <div class="options-grid" [class.disabled]="isWaitingForNext">
-      @for (option of task.questions[currentQuestionIndex]?.options; track
+      @for (option of task.questions[currentQuestionIndex].options; track
       option) {
       <button class="option-button" [ngClass]="{
  'correct-answer':
  answerStatus === 'correct' &&
- option === task.questions[currentQuestionIndex]?.correctAnswer,
+ option === task.questions[currentQuestionIndex].correctAnswer,
  'wrong-answer': answerStatus === 'wrong' && option === selectedAnswer
  }" (click)="selectAnswer(option)">
         {{ option }}

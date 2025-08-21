@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KidsLearning.Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250820084114_initial")]
-    partial class initial
+    [Migration("20250821064404_inital")]
+    partial class inital
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
