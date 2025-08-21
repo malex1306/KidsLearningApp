@@ -21,4 +21,7 @@ public class Questions
     [ForeignKey("LearningTask")]
     public int LearningTaskId { get; set; }
     public LearningTask? LearningTask { get; set; }
+    
+    public string? Difficulty { get; set; } = string.Empty;
+    public string? Category { get; set; } = string.Empty;
 }
