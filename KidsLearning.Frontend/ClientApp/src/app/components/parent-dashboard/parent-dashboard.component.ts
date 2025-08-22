@@ -1,18 +1,18 @@
 // src/app/components/parent-dashboard/parent-dashboard.component.ts
 
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { ParentDashboardService } from '../../services/parent-dashboard.service';
-import { ParentDashboardDto, ChildDto, AddChildDto, EditChildDto } from '../../dtos/parent-dashboard.dto';
-import { MatButtonModule } from '@angular/material/button';
-import { ActiveChildService } from '../../services/active-child.service';
+import {Component, OnInit} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {ParentDashboardService} from '../../services/parent-dashboard.service';
+import {ParentDashboardDto, ChildDto, AddChildDto, EditChildDto} from '../../dtos/parent-dashboard.dto';
+import {MatButtonModule} from '@angular/material/button';
+import {ActiveChildService} from '../../services/active-child.service';
 
 @Component({
   selector: 'app-parent-dashboard',
   standalone: true,
   imports: [
-    CommonModule,  
+    CommonModule,
     FormsModule,
     MatButtonModule
   ],
@@ -55,7 +55,8 @@ export class ParentDashboardComponent implements OnInit {
   constructor(
     private dashboardService: ParentDashboardService,
     private activeChildService: ActiveChildService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.loadDashboardData();
@@ -82,7 +83,7 @@ export class ParentDashboardComponent implements OnInit {
       this.dashboardService.addChild(this.newChild).subscribe({
         next: (response: any) => {
           this.showMessage(response.message, 3000);
-          this.newChild = { name: '', avatarUrl: '', dateOfBirth: new Date(), difficulty: '' };
+          this.newChild = {name: '', avatarUrl: '', dateOfBirth: new Date(), difficulty: ''};
           this.showAddChildForm = false;
           this.loadDashboardData();
         },
@@ -108,14 +109,14 @@ export class ParentDashboardComponent implements OnInit {
   }
 
   onEditChild(child: ChildDto): void {
-    this.editingChild = { ...child };
+    this.editingChild = {...child};
     this.showEditChildForm = true;
     this.showAddChildForm = false;
   }
 
   onEditChildSubmit(): void {
     if (this.editingChild && this.editingChild.name.trim()) {
-      const editedChildData = { ...this.editingChild };
+      const editedChildData = {...this.editingChild};
 
       this.dashboardService.editChild(editedChildData.childId, editedChildData as EditChildDto).subscribe({
         next: (response: any) => {

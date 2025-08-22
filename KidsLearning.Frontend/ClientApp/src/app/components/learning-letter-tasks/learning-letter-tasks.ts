@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, RouterLink} from '@angular/router';
+import {CommonModule} from '@angular/common';
 
-import { TasksService } from '../../services/tasks.service';
-import { LearningService } from '../../services/learning.service';
-import { LearningTask, } from '../../models/learning-task';
-import { Question } from '../../models/question';
-import { RewardService } from '../../services/reward.service';
-import { QuestionNavigationService } from '../../services/question-navigation.service';
-import { Subscription } from 'rxjs';
-import { FormsModule } from '@angular/forms';
-import { ActiveChildService } from '../../services/active-child.service';
+import {TasksService} from '../../services/tasks.service';
+import {LearningService} from '../../services/learning.service';
+import {LearningTask,} from '../../models/learning-task';
+import {Question} from '../../models/question';
+import {RewardService} from '../../services/reward.service';
+import {QuestionNavigationService} from '../../services/question-navigation.service';
+import {Subscription} from 'rxjs';
+import {FormsModule} from '@angular/forms';
+import {ActiveChildService} from '../../services/active-child.service';
 
 @Component({
   selector: 'app-learning-letter-tasks',
@@ -48,7 +48,8 @@ export class LearningLetterTasks implements OnInit {
     private rewardService: RewardService,
     public navigationService: QuestionNavigationService,
     private activeChildService: ActiveChildService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     const taskId = this.route.snapshot.paramMap.get('id');
@@ -56,14 +57,14 @@ export class LearningLetterTasks implements OnInit {
 
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe(task => {
-        
+
         const activeChild = this.activeChildService.activeChild();
         const childDifficulty = activeChild?.difficulty ?? 'Vorschule';
         if (childDifficulty) {
           task.questions = task.questions.filter(q => q.difficulty === childDifficulty);
         }
-        
-        
+
+
         task.questions = this.shuffleArray(task.questions);
 
         this.task = task;
@@ -74,7 +75,7 @@ export class LearningLetterTasks implements OnInit {
           this.initializeSpellingTask();
         } else if (this.task.title === 'Buchstaben verbinden') {
           this.isConnectingTask = true;
-        } else if (this.task.title === 'Fülle die Lücken'){
+        } else if (this.task.title === 'Fülle die Lücken') {
           this.isGapFillTask = true;
         }
       });
@@ -85,24 +86,24 @@ export class LearningLetterTasks implements OnInit {
     }
 
     this.subscriptions.add(
-    this.navigationService.currentIndex$.subscribe((index) =>{
-      this.currentQuestionIndex = index;
-      this.resetAnswerState();
-    })
-  )
+      this.navigationService.currentIndex$.subscribe((index) => {
+        this.currentQuestionIndex = index;
+        this.resetAnswerState();
+      })
+    )
   }
 
-  
+
   private shuffleArray(array: any[]): any[] {
     let currentIndex = array.length, randomIndex;
 
-    
+
     while (currentIndex !== 0) {
-      
+
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
 
-      
+
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
@@ -197,7 +198,7 @@ export class LearningLetterTasks implements OnInit {
     this.answerStatus = null;
     this.statusMessage = '';
     this.isWaitingForNext = false;
-    if(this.isGapFillTask){
+    if (this.isGapFillTask) {
       this.typedAnswer = '';
     }
     if (this.isSpellingTask) {
@@ -206,57 +207,58 @@ export class LearningLetterTasks implements OnInit {
   }
 
   goToPreviousQuestion(): void {
-  if (this.currentQuestionIndex > 0) {
-    this.navigationService.previousQuestion();
+    if (this.currentQuestionIndex > 0) {
+      this.navigationService.previousQuestion();
+    }
   }
-}
 
-goToNextQuestion(): void {
-  if (this.currentQuestionIndex < (this.task?.questions.length ?? 0) - 1) {
-    this.navigationService.nextQuestion();
+  goToNextQuestion(): void {
+    if (this.currentQuestionIndex < (this.task?.questions.length ?? 0) - 1) {
+      this.navigationService.nextQuestion();
+    }
   }
-}
-private completeLearningTask(): void {
-  if (this.childId && this.task) {
-    this.learningService.completeTask(this.childId, this.task.id).subscribe({
-      next: () => {
-        console.log('Aufgabe erfolgreich abgeschlossen markiert!');
-      },
-      error: (err) => {
-        console.error(
-          'Fehler beim Markieren der Aufgabe als abgeschlossen',
-          err
-        );
-      },
-    });
+
+  private completeLearningTask(): void {
+    if (this.childId && this.task) {
+      this.learningService.completeTask(this.childId, this.task.id).subscribe({
+        next: () => {
+          console.log('Aufgabe erfolgreich abgeschlossen markiert!');
+        },
+        error: (err) => {
+          console.error(
+            'Fehler beim Markieren der Aufgabe als abgeschlossen',
+            err
+          );
+        },
+      });
+    }
   }
-}
 
-onFinishTask(): void {
-  const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
+  onFinishTask(): void {
+    const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
 
-  this.isCompleted = true;
+    this.isCompleted = true;
 
-  if (allQuestionsAnswered) {
-    this.statusMessage = 'Gut gemacht! Du hast alle Fragen beantwortet. Das Ergebnis wurde gespeichert.';
-    this.completeLearningTask();
-  } else {
-    this.statusMessage = 'Du hast nicht alle Fragen beantwortet. Das Ergebnis wird nicht gespeichert.';
+    if (allQuestionsAnswered) {
+      this.statusMessage = 'Gut gemacht! Du hast alle Fragen beantwortet. Das Ergebnis wurde gespeichert.';
+      this.completeLearningTask();
+    } else {
+      this.statusMessage = 'Du hast nicht alle Fragen beantwortet. Das Ergebnis wird nicht gespeichert.';
+    }
   }
-}
 
-checkTypedAnswer(): void{
+  checkTypedAnswer(): void {
     if (!this.task) return;
 
-  const currentQuestion = this.task.questions[this.currentQuestionIndex];
-  if (this.typedAnswer.trim().toLowerCase() === currentQuestion.correctAnswer.toLowerCase()) {
-    this.answerStatus = 'correct';
-    this.statusMessage = 'Richtig! 🎉';
-    this.answeredQuestions[this.currentQuestionIndex] = true;
-    this.checkCompletion();
-  } else {
-    this.answerStatus = 'wrong';
-    this.statusMessage = 'Falsch, versuche es nochmal.';
+    const currentQuestion = this.task.questions[this.currentQuestionIndex];
+    if (this.typedAnswer.trim().toLowerCase() === currentQuestion.correctAnswer.toLowerCase()) {
+      this.answerStatus = 'correct';
+      this.statusMessage = 'Richtig! 🎉';
+      this.answeredQuestions[this.currentQuestionIndex] = true;
+      this.checkCompletion();
+    } else {
+      this.answerStatus = 'wrong';
+      this.statusMessage = 'Falsch, versuche es nochmal.';
+    }
   }
-}
 }

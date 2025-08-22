@@ -39,17 +39,17 @@ public class TasksController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<LearningTask>> GetLearningTask(int id) 
+    public async Task<ActionResult<LearningTask>> GetLearningTask(int id)
     {
         var learningTask = await _context.LearningTasks
-            .Include(lt => lt.Questions) 
+            .Include(lt => lt.Questions)
             .FirstOrDefaultAsync(lt => lt.Id == id);
 
         if (learningTask == null)
         {
             return NotFound();
         }
-        
-        return Ok(learningTask); 
+
+        return Ok(learningTask);
     }
 }

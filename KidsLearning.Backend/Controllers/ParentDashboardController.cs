@@ -52,9 +52,11 @@ public class ParentDashboardController : ControllerBase
                 var totalTasks = await _context.LearningTasks.CountAsync(t => t.Subject == subject);
                 var completedTasks = await _context.ChildCompletedTasks
                     .CountAsync(ct => ct.ChildId == child.Id &&
-                                    _context.LearningTasks.Any(lt => lt.Id == ct.LearningTaskId && lt.Subject == subject));
+                                      _context.LearningTasks.Any(lt =>
+                                          lt.Id == ct.LearningTaskId && lt.Subject == subject));
 
-                int progressPercentage = (totalTasks > 0) ? (int)Math.Round((double)completedTasks * 100 / totalTasks) : 0;
+                int progressPercentage =
+                    (totalTasks > 0) ? (int)Math.Round((double)completedTasks * 100 / totalTasks) : 0;
 
                 childProgressList.Add(new SubjectProgressDto
                 {
@@ -73,7 +75,8 @@ public class ParentDashboardController : ControllerBase
             if (latestCompletion != null)
             {
                 lastActivityMessage = latestCompletion.CompletedAt.ToString("dd.MM.yyyy HH:mm");
-                recentActivities.Add($"{child.Name} hat '{latestCompletion?.LearningTask?.Title}' in {latestCompletion?.LearningTask?.Subject} abgeschlossen am {lastActivityMessage}.");
+                recentActivities.Add(
+                    $"{child.Name} hat '{latestCompletion?.LearningTask?.Title}' in {latestCompletion?.LearningTask?.Subject} abgeschlossen am {lastActivityMessage}.");
             }
             else
             {
@@ -92,7 +95,9 @@ public class ParentDashboardController : ControllerBase
                 AvatarUrl = child.AvatarUrl,
                 DateOfBirth = child.DateOfBirth,
                 Difficulty = child.Difficulty,
-                Age = (DateTime.Now - child.DateOfBirth).TotalDays > 0 ? (int)((DateTime.Now - child.DateOfBirth).TotalDays / 365.25) : 0,
+                Age = (DateTime.Now - child.DateOfBirth).TotalDays > 0
+                    ? (int)((DateTime.Now - child.DateOfBirth).TotalDays / 365.25)
+                    : 0,
                 LastActivity = lastActivityMessage,
                 Progress = childProgressList,
                 StarCount = child.StarCount,
@@ -143,7 +148,8 @@ public class ParentDashboardController : ControllerBase
 
         _context.Children.Add(newChild);
         await _context.SaveChangesAsync();
-        Console.WriteLine($"Neues Kind gespeichert: Id={newChild.Id}, Name={newChild.Name}, ParentId={newChild.ParentId}");
+        Console.WriteLine(
+            $"Neues Kind gespeichert: Id={newChild.Id}, Name={newChild.Name}, ParentId={newChild.ParentId}");
 
         return Ok(new { Message = $"Kind '{newChild.Name}' wurde erfolgreich hinzugefügt." });
     }
