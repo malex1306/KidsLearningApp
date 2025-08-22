@@ -1,24 +1,26 @@
 // src/app/components/parent-dashboard/parent-dashboard.component.ts
 
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // <-- HIER FÜGEN WIR FormsModule HINZU
-import { CommonModule } from '@angular/common'; // Für *ngIf und *ngFor
+import { FormsModule } from '@angular/forms'; 
+import { CommonModule } from '@angular/common'; 
 import { ParentDashboardService } from '../../services/parent-dashboard.service';
-import { ParentDashboardDto, ChildDto, AddChildDto, RemoveChildDto, EditChildDto } from '../../dtos/parent-dashboard.dto';
-import {MatButtonModule} from '@angular/material/button';
+import { ParentDashboardDto, ChildDto, AddChildDto, EditChildDto } from '../../dtos/parent-dashboard.dto';
+import { MatButtonModule } from '@angular/material/button';
+import { ActiveChildService } from '../../services/active-child.service';
 
 @Component({
   selector: 'app-parent-dashboard',
   standalone: true, 
   imports: [
-    CommonModule,  
-    FormsModule   
+    CommonModule,  
+    FormsModule,
+    MatButtonModule
   ],
   templateUrl: './parent-dashboard.html', 
   styleUrls: ['./parent-dashboard.css']
 })
 export class ParentDashboardComponent implements OnInit {
- showAddChildForm = false;
+  showAddChildForm = false;
   showEditChildForm = false;
   editingChild: ChildDto | null = null;
   message = '';
@@ -42,7 +44,10 @@ export class ParentDashboardComponent implements OnInit {
     dateOfBirth: new Date()
   };
 
-  constructor(private dashboardService: ParentDashboardService) { }
+  constructor(
+    private dashboardService: ParentDashboardService,
+    private activeChildService: ActiveChildService
+  ) { }
 
   ngOnInit(): void {
     this.loadDashboardData();
@@ -54,7 +59,7 @@ export class ParentDashboardComponent implements OnInit {
         this.dashboardData = data;
       },
       error: (err) => {
-        this.message = 'Error loading dashboard data. Please log in again.';
+        this.showMessage('Fehler beim Laden der Dashboard-Daten. Bitte melden Sie sich erneut an.', 5000);
         console.error(err);
       }
     });
@@ -68,64 +73,74 @@ export class ParentDashboardComponent implements OnInit {
     if (this.newChild.name.trim()) {
       this.dashboardService.addChild(this.newChild).subscribe({
         next: (response: any) => {
-          this.message = response.message;
+          this.showMessage(response.message, 3000);
           this.newChild = { name: '', avatarUrl: '', dateOfBirth: new Date() }; 
           this.showAddChildForm = false;
           this.loadDashboardData();
         },
         error: (err: any) => {
-          this.message = 'Fehler beim Hinzufügen des Kindes.';
+          this.showMessage('Fehler beim Hinzufügen des Kindes.', 5000);
           console.error(err);
         }
       });
     }
   }
+
   onDeleteChild(childId: number): void {
-    this.dashboardService.removeChild( childId ).subscribe({
+    this.dashboardService.removeChild(childId).subscribe({
       next: (response: any) => {
-        this.message = response.message;
+        this.showMessage(response.message, 3000);
         this.loadDashboardData();
       },
       error: (err: any) => {
-        this.message = 'Fehler beim Entfernen des Kindes.';
+        this.showMessage('Fehler beim Entfernen des Kindes.', 5000);
         console.error(err);
       }
     });
   }
+
   onEditChild(child: ChildDto): void {
     this.editingChild = { ...child }; 
     this.showEditChildForm = true;
     this.showAddChildForm = false;
-    };
+  }
 
   onEditChildSubmit(): void {
-  // Überprüfe, ob ein Kind zum Bearbeiten ausgewählt ist
-   if (this.editingChild && this.editingChild.name.trim()) {
-      // Rufe den Service auf, um die Änderungen zu speichern
-      this.dashboardService.editChild(this.editingChild.childId, this.editingChild as EditChildDto).subscribe({
+    if (this.editingChild && this.editingChild.name.trim()) {
+      const editedChildData = { ...this.editingChild }; 
+
+      this.dashboardService.editChild(editedChildData.childId, editedChildData as EditChildDto).subscribe({
         next: (response: any) => {
-          this.message = response.message;
-          // Formular zurücksetzen und schließen
-          this.editingChild = null;
+          this.showMessage(response.message, 1500);
           this.showEditChildForm = false;
-          this.loadDashboardData(); // Dashboard-Daten neu laden
+          this.loadDashboardData();
+          
+          this.activeChildService.setActiveChild(editedChildData as ChildDto);
+          
+          this.editingChild = null;
         },
         error: (err: any) => {
-          this.message = 'Fehler beim Bearbeiten des Kindes.';
+          this.showMessage('Fehler beim Bearbeiten des Kindes.', 5000);
           console.error(err);
-      }
-    });
+        }
+      });
+    }
   }
-}
 
-selectNewChildAvatar(avatarUrl:string): void{
-  this.newChild.avatarUrl = avatarUrl;
-}
-
-selectEditChildAvatar(avatarUrl: string): void {
-  if (this.editingChild) {
-    this.editingChild.avatarUrl = avatarUrl;
+  selectNewChildAvatar(avatarUrl: string): void {
+    this.newChild.avatarUrl = avatarUrl;
   }
-}
-  
+
+  selectEditChildAvatar(avatarUrl: string): void {
+    if (this.editingChild) {
+      this.editingChild.avatarUrl = avatarUrl;
+    }
+  }
+
+  private showMessage(msg: string, duration: number): void {
+    this.message = msg;
+    setTimeout(() => {
+      this.message = '';
+    }, duration);
+  }
 }

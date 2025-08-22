@@ -1,4 +1,7 @@
 <div class="dashboard-container">
+  @if(message){
+  <p class="info-message">{{ message }}</p>
+  }
   <header class="dashboard-header">
     <div class="user-info">
       <h2>Eltern-Dashboard</h2>
@@ -11,9 +14,9 @@
     </div>
   </header>
 
-  <p *ngIf="message" class="info-message">{{ message }}</p>
 
-  <div *ngIf="showAddChildForm" class="add-child-form">
+  @if(showAddChildForm){
+  <div class="add-child-form">
   <h3>Neues Kind hinzufügen</h3>
   <form (ngSubmit)="onAddChildSubmit()">
     <div class="form-group">
@@ -42,8 +45,10 @@
     </div>
   </form>
 </div>
+}
 
-  <div *ngIf="showEditChildForm" class="add-child-form">
+@if(showEditChildForm){
+  <div class="add-child-form">
   <h3>Kind bearbeiten</h3>
   <form (ngSubmit)="onEditChildSubmit()">
     <div class="form-group">
@@ -72,8 +77,9 @@
     </div>
   </form>
 </div>
-  
-  <div *ngIf="dashboardData.children.length > 0" class="child-cards-container">
+}
+  @if(dashboardData.children.length > 0){
+  <div class="child-cards-container">
     <div class="child-card" *ngFor="let child of dashboardData.children">
       <div class="child-header">
         <img [src]="child.avatarUrl" alt="Kinder-Profilbild" class="child-picture">
@@ -87,17 +93,21 @@
           <span class="progress-text">{{ progress.subjectName }}: {{ progress.progressPercentage }}%</span>
         </div>
       </div>
-      <div class="card-footer d-flex gap-2">
-        <p>Letzte Aktivität: {{ child.lastActivity }}</p>
+      <div class="card-footer">
+    <p>Letzte Aktivität: {{ child.lastActivity }}</p>
+    <div class="card-actions">
         <button class="btn btn-danger" (click)="onDeleteChild(child.childId)">Entfernen</button>
         <button class="btn btn-secondary" (click)="onEditChild(child)">Bearbeiten</button>
-      </div>
+    </div>
+</div>
     </div>
   </div>
-  
-  <p *ngIf="dashboardData.children.length === 0 && !showAddChildForm && !showEditChildForm" class="no-children-message">
+}
+  @if(dashboardData.children.length === 0 && !showAddChildForm && !showEditChildForm){
+  <p class="no-children-message">
     Du hast noch keine Kinder hinzugefügt.
   </p>
+}
 
   <div class="dashboard-section">
     <div class="section-header">

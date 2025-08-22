@@ -33,7 +33,7 @@ public class EnsureDatabase
             {
                 Name = "Max",
                 ParentId = parentUser.Id,
-                AvatarUrl = "https://via.placeholder.com/40",
+                AvatarUrl = "assets/images/teddy-bear.png",
                 DateOfBirth = DateTime.Now.AddYears(-7) // Beispielalter
             };
             context.Children.Add(child);
@@ -85,26 +85,33 @@ public class EnsureDatabase
                     Title = "Englische Bilder",
                     Description = "Wähle das korrekte Englische Wort zum angezeigten Bild",
                     Subject = "Englisch"
-                
+
                 },
                 new LearningTask {
                     Title = "Deutsch/Englisch verbinden",
                     Description = "Finde zu jedem deutschen Wort das richtige Englische Wort",
                     Subject = "Englisch"
-                
+
                 },
                 new LearningTask {
                     Title = "Finde den Imposter",
                     Description = "Wähle das Englische Wort, das nicht zu den anderen passt",
                     Subject = "Englisch"
-                
+
                 },
                 new LearningTask
                 {
                     Title = "Fülle die Lücken",
                     Description = "Schreibe die richtigen Wörter in die Lücken",
                     Subject = "Buchstaben-land"
-                }
+                },
+                new LearningTask
+                {
+                    Title = "Zahlenkombinationen",
+                    Description = "Bist du bereit dir Zahlenkombinationen zu merken?",
+                    Subject = "Logik-Dschungel"
+
+                },
             };
             context.LearningTasks.AddRange(tasks);
             context.SaveChanges();
