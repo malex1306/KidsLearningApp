@@ -34,7 +34,8 @@ public class EnsureDatabase
                 Name = "Max",
                 ParentId = parentUser.Id,
                 AvatarUrl = "assets/images/teddy-bear.png",
-                DateOfBirth = DateTime.Now.AddYears(-7) // Beispielalter
+                DateOfBirth = DateTime.Now.AddYears(-7),
+                Difficulty = "vorschule" 
             };
             context.Children.Add(child);
             context.SaveChanges();
