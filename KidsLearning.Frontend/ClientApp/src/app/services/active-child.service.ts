@@ -4,7 +4,7 @@ import { Injectable, signal, Signal } from '@angular/core';
 import { ChildDto } from '../dtos/parent-dashboard.dto';
 
 export interface ChildInfo {
-  id: number; 
+  id: number;
   name: string;
   avatarUrl: string;
   age: number;
@@ -12,7 +12,8 @@ export interface ChildInfo {
   badges: any[];
   unlockedAvatars: any[];
   // Fügen Sie diese Eigenschaft hinzu
-  dateOfBirth: Date; 
+  dateOfBirth: Date;
+  difficulty: string;
 }
 
 @Injectable({
@@ -20,7 +21,7 @@ export interface ChildInfo {
 })
 export class ActiveChildService {
   private activeChildSignal = signal<ChildInfo | null>(null);
-  
+
   public activeChild: Signal<ChildInfo | null> = this.activeChildSignal.asReadonly();
 
   constructor() {
@@ -34,22 +35,23 @@ export class ActiveChildService {
       this.activeChildSignal.set(parsedChild);
     }
   }
-  
+
   setActiveChild(childDto: ChildDto): void {
     const childInfo: ChildInfo = {
-      id: childDto.childId, 
+      id: childDto.childId,
       name: childDto.name,
       age: childDto.age,
       avatarUrl: childDto.avatarUrl,
       starCount: childDto.starCount,
       badges: childDto.badges,
       unlockedAvatars: childDto.unlockedAvatars,
-      dateOfBirth: childDto.dateOfBirth // Fügen Sie hier die Eigenschaft hinzu
+      dateOfBirth: childDto.dateOfBirth, // Fügen Sie hier die Eigenschaft hinzu
+      difficulty: childDto.difficulty
     };
     this.activeChildSignal.set(childInfo);
     localStorage.setItem('activeChild', JSON.stringify(childInfo));
   }
-  
+
   updateAvatar(childInfo: ChildInfo): void {
       this.activeChildSignal.set(childInfo);
       localStorage.setItem('activeChild', JSON.stringify(childInfo));

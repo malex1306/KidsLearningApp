@@ -21,6 +21,8 @@ public class ChildDto
     public int StarCount { get; set; }
     public ICollection<Badge> Badges { get; set; } = new List<Badge>();
     public ICollection<AvatarDto> UnlockedAvatars { get; set; } = new List<AvatarDto>();
+    
+    public string Difficulty { get; set; } = string.Empty;
 }
 
 public class ParentDashboardDto
