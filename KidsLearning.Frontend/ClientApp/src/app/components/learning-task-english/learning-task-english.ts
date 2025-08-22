@@ -4,6 +4,7 @@ import { TasksService } from '../../services/tasks.service';
 import { LearningService } from '../../services/learning.service';
 import { LearningTask } from '../../models/learning-task';
 import { CommonModule } from '@angular/common';
+import { ActiveChildService } from '../../services/active-child.service';
 
 @Component({
   selector: 'app-learning-task-english',
@@ -35,7 +36,8 @@ export class LearningTaskEnglish implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private tasksService: TasksService,
-    private learningService: LearningService
+    private learningService: LearningService,
+    private activeChildService: ActiveChildService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +48,13 @@ export class LearningTaskEnglish implements OnInit {
 
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe(task => {
+        // Get active child difficulty
+        const activeChild = this.activeChildService.activeChild();
+        const childDifficulty = activeChild?.difficulty ?? 'Vorschule';
+
+        if (childDifficulty) {
+          task.questions = task.questions.filter(q => q.difficulty === childDifficulty);
+        }
         this.task = task;
 
         if (this.task.title === 'Deutsch/Englisch verbinden') {
