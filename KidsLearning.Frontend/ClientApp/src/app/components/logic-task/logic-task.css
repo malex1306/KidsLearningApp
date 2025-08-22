@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 80px); 
+  min-height: calc(100vh - 80px);
   padding: 20px;
 }
 
@@ -47,7 +47,7 @@
   font-size: 3rem;
   font-weight: bold;
   color: #fff;
-  background-color: #3b82f6; 
+  background-color: #3b82f6;
   padding: 15px 25px;
   border-radius: 10px;
   transition: background-color 0.3s ease-in-out;
@@ -55,7 +55,7 @@
 }
 
 .number-block.highlight {
-  background-color: #ef4444; 
+  background-color: #ef4444;
   animation: pulse 1s infinite alternate;
 }
 
@@ -164,7 +164,7 @@
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0); 
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
 
 .option-button:hover:not([disabled]) {
@@ -205,4 +205,12 @@
   100% { transform: scale(1.05); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
 }
 
-/* ... restliches CSS ... */
+.form-image {
+  width: 100%;
+  max-width: 300px;
+}
+.option-img {
+  width: 100%;
+  max-width: 60px;
+
+}

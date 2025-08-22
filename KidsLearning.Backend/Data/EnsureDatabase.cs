@@ -46,66 +46,77 @@ public class EnsureDatabase
         {
             var tasks = new List<LearningTask>
             {
+                // Task 1
                 new LearningTask
                 {
                     Title = "Zahlen finden",
                     Description = "Finde die fehlenden Zahlen in der Reihe.",
                     Subject = "Mathe-Abenteuer"
                 },
+                // Task 2
                 new LearningTask
                 {
                     Title = "Addition bis 10",
                     Description = "Addiere zwei einstellige Zahlen.",
                     Subject = "Mathe-Abenteuer"
                 },
+                // Task 3
                 new LearningTask
                 {
                     Title = "Formen erkennen",
                     Description = "Erkenne verschiedene geometrische Formen.",
                     Subject = "Mathe-Abenteuer"
                 },
+                // Task 4
                 new LearningTask
                 {
                     Title = "Alphabet lernen",
                     Description = "Nenne alle Buchstaben des Alphabets in der richtigen Reihenfolge.",
                     Subject = "Buchstaben-land"
                 },
+                // Task 5
                 new LearningTask
                 {
                     Title = "Buchstaben verbinden",
                     Description = "Verbinde die Großbuchstaben mit den Kleinbuchstaben.",
                     Subject = "Buchstaben-land"
                 },
+                // Task 6
                 new LearningTask
                 {
                     Title = "Wörter buchstabieren",
                     Description = "Buchstabiere einfache Wörter wie 'Hund' und 'Katze'.",
                     Subject = "Buchstaben-land"
                 },
+                // Task 7
                 new LearningTask {
                     Title = "Englische Bilder",
                     Description = "Wähle das korrekte Englische Wort zum angezeigten Bild",
                     Subject = "Englisch"
 
                 },
+                // Task 8
                 new LearningTask {
                     Title = "Deutsch/Englisch verbinden",
                     Description = "Finde zu jedem deutschen Wort das richtige Englische Wort",
                     Subject = "Englisch"
 
                 },
+                // Task 9
                 new LearningTask {
                     Title = "Finde den Imposter",
                     Description = "Wähle das Englische Wort, das nicht zu den anderen passt",
                     Subject = "Englisch"
 
                 },
+                // Task 10
                 new LearningTask
                 {
                     Title = "Fülle die Lücken",
                     Description = "Schreibe die richtigen Wörter in die Lücken",
                     Subject = "Buchstaben-land"
                 },
+                // Task 11
                 new LearningTask
                 {
                     Title = "Zahlenkombinationen",
@@ -113,6 +124,13 @@ public class EnsureDatabase
                     Subject = "Logik-Dschungel"
 
                 },
+                // Task 12
+                new LearningTask
+                {
+                    Title = "Fülle die Form",
+                    Description = "Finde die Richtige Form die in das Muster passt!",
+                    Subject = "Logik-Dschungel"
+                }
             };
             context.LearningTasks.AddRange(tasks);
             context.SaveChanges();
@@ -844,7 +862,27 @@ public class EnsureDatabase
                 new Questions { Text = "Die Alpen sind ein ___.", CorrectAnswer = "Gebirge", Options = new List<string> { "Gebirge", "Fluss", "Meer" }, LearningTaskId = 10, Difficulty = "4 Klasse" },
                 new Questions { Text = "Das Blut ist ___.", CorrectAnswer = "rot", Options = new List<string> { "rot", "blau", "grün" }, LearningTaskId = 10, Difficulty = "4 Klasse" },
                 new Questions { Text = "Der höchste Berg der Erde ist der ___.", CorrectAnswer = "Mount Everest", Options = new List<string> { "Mount Everest", "Zugspitze", "Matterhorn" }, LearningTaskId = 10, Difficulty = "4 Klasse" },
-
+                
+                
+                // Fragen für "Fülle die Form" (Learning Task 12)
+                new Questions
+                {
+                    Text = "Wähle die passende Form für das Muster",
+                    CorrectAnswer = "assets/questImg/form.heart.png",
+                    ImageUrl = "assets/questImg/form.heartQuestion.png",
+                    Options = new List<string> { "assets/questImg/form.label.png", "assets/questImg/form.heart.png", "assets/questImg/form.tear.png", "assets/questImg/form.new-moon.png" },
+                    LearningTaskId = 12,
+                    Difficulty = "Vorschule" 
+                },
+                new Questions
+                {
+                    Text = "Wähle die passende Form für das Muster",
+                    CorrectAnswer = "assets/questImg/form.diamond.png",
+                    ImageUrl = "assets/questImg/form.diamondQuestion.png",
+                    Options = new List<string> { "assets/questImg/form.hexagon.png", "assets/questImg/form.bleach.png", "assets/questImg/form.diamond.png", "assets/questImg/form.black-square.png" },
+                    LearningTaskId = 12,
+                    Difficulty = "Vorschule" 
+                }
                 
             };
 

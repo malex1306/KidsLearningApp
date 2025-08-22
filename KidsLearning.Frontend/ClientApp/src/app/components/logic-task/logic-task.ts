@@ -35,6 +35,12 @@ export class LogicTask implements OnInit, OnDestroy {
   lastClickedNumber: number | null = null;
   lastClickedStatus: 'correct' | 'wrong' | null = null;
 
+  currentQuestionIndex = 0;
+  questionImage: string | null = null;
+  optionsImages: string[] = [];
+  selectedOption: number | null = null;
+  correctOptionIndex: number | null = null;
+
   constructor(
     private route: ActivatedRoute,
     private tasksService: TasksService,
@@ -51,22 +57,69 @@ export class LogicTask implements OnInit, OnDestroy {
 
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe(task => {
-        // Get active child difficulty
         const activeChild = this.activeChildService.activeChild();
         const childDifficulty = activeChild?.difficulty ?? 'Vorschule';
         if (childDifficulty) {
           task.questions = task.questions.filter(q => q.difficulty === childDifficulty);
         }
         this.task = task;
+        if (this.task.title === 'Fülle die Form') {
+          this.loadCurrentFillFormQuestion();
+        }
+        if (this.task.title === 'Zahlenkombinationen') {
+          this.startGame();
+        }
         this.navigationService.setTask(task);
-        this.startGame();
       });
     }
+  }
+  loadCurrentFillFormQuestion(): void {
+    if (!this.task || !this.task.questions || this.currentQuestionIndex >= this.task.questions.length) {
+      this.isCompleted = true;
+      return;
+    }
+
+    const question = this.task.questions[this.currentQuestionIndex];
+
+    this.questionImage = question.imageUrl ?? null;
+    this.optionsImages = question.options ?? [];
+    this.correctOptionIndex = question.options?.findIndex(opt => opt === question.correctAnswer) ?? null;
+    this.selectedOption = null;
+    this.answerStatus = null;
+    this.statusMessage = 'Wähle das richtige Bild aus!';
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
+  selectOption(index: number): void {
+    if (this.answerStatus === 'correct') return;
+
+    this.selectedOption = index;
+
+    if (index === this.correctOptionIndex) {
+      this.answerStatus = 'correct';
+      this.statusMessage = 'Richtig! 🎉';
+      setTimeout(() => this.nextQuestion(), 1000);
+    } else {
+      this.answerStatus = 'wrong';
+      this.statusMessage = 'Leider falsch. Versuche es noch einmal.';
+    }
+  }
+
+
+  nextQuestion(): void {
+    if (!this.task) return;
+
+    if (this.currentQuestionIndex < this.task.questions.length - 1) {
+      this.currentQuestionIndex++;
+      this.loadCurrentFillFormQuestion();
+    } else {
+      this.isCompleted = true;
+      this.completeLearningTask();
+    }
+  }
+
 
   startGame(): void {
     this.gameSequence = [];
@@ -145,7 +198,16 @@ export class LogicTask implements OnInit, OnDestroy {
   onFinishTask(): void {
     this.isCompleted = true;
     this.statusMessage = `Spiel beendet. Du hast Level ${this.currentLevel} erreicht.`;
+    this.completeLearningTask();
+  }
 
+  private completeLearningTask(): void {
+    if (this.childId && this.task) {
+      this.learningService.completeTask(this.childId, this.task.id).subscribe({
+        next: () => console.log('Logic-Aufgabe erfolgreich abgeschlossen!'),
+        error: (err) => console.error('Fehler beim Abschluss der Logic-Aufgabe', err),
+      });
+    }
   }
 
   resetFeedbackState(): void {
