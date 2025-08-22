@@ -7,9 +7,10 @@ import { LearningService } from '../../services/learning.service';
 import { LearningTask, } from '../../models/learning-task';
 import { Question } from '../../models/question';
 import { RewardService } from '../../services/reward.service';
-import { QuestionNavigationService } from '../../services/question-navigation.service'; 
+import { QuestionNavigationService } from '../../services/question-navigation.service';
 import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { ActiveChildService } from '../../services/active-child.service';
 
 @Component({
   selector: 'app-learning-letter-tasks',
@@ -45,7 +46,8 @@ export class LearningLetterTasks implements OnInit {
     private tasksService: TasksService,
     private learningService: LearningService,
     private rewardService: RewardService,
-    public navigationService: QuestionNavigationService 
+    public navigationService: QuestionNavigationService,
+    private activeChildService: ActiveChildService
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +56,12 @@ export class LearningLetterTasks implements OnInit {
 
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe(task => {
+        // Get active child difficulty
+        const activeChild = this.activeChildService.activeChild();
+        const childDifficulty = activeChild?.difficulty ?? 'Vorschule';
+        if (childDifficulty) {
+          task.questions = task.questions.filter(q => q.difficulty === childDifficulty);
+        }
         this.task = task;
         this.navigationService.setTask(task);
         this.answeredQuestions = new Array(task.questions.length).fill(false);
@@ -80,7 +88,7 @@ export class LearningLetterTasks implements OnInit {
   )
   }
 
-  
+
 
   initializeSpellingTask(): void {
     if (this.task && this.task.questions.length > 0) {
@@ -100,7 +108,7 @@ export class LearningLetterTasks implements OnInit {
       const nextLetterIndex = this.spelledWord.findIndex(l => l === '');
       if (nextLetterIndex !== -1) {
         this.lastClickedLetter = letter;
-        
+
         if (letter === currentQuestion.correctAnswer.charAt(nextLetterIndex)) {
           this.spelledWord[nextLetterIndex] = letter;
           this.lastClickedStatus = 'correct';
@@ -180,7 +188,7 @@ export class LearningLetterTasks implements OnInit {
 
   goToPreviousQuestion(): void {
   if (this.currentQuestionIndex > 0) {
-    this.navigationService.previousQuestion(); 
+    this.navigationService.previousQuestion();
   }
 }
 

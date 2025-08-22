@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { LearningService } from '../../services/learning.service';
 import { QuestionNavigationService } from '../../services/question-navigation.service';
 import { Subscription } from 'rxjs';
+import { ActiveChildService } from '../../services/active-child.service';
 
 @Component({
   selector: 'app-logic-task',
@@ -20,7 +21,7 @@ export class LogicTask implements OnInit, OnDestroy {
   isCompleted = false;
   private subscriptions = new Subscription();
 
-  
+
   gameSequence: number[] = [];
   playerSequence: number[] = [];
   isMemorizing = false;
@@ -30,15 +31,16 @@ export class LogicTask implements OnInit, OnDestroy {
   statusMessage = '';
   answerStatus: 'correct' | 'wrong' | null = null;
 
-  
+
   lastClickedNumber: number | null = null;
   lastClickedStatus: 'correct' | 'wrong' | null = null;
-  
+
   constructor(
     private route: ActivatedRoute,
     private tasksService: TasksService,
     private learningService: LearningService,
-    private navigationService: QuestionNavigationService
+    private navigationService: QuestionNavigationService,
+    private activeChildService: ActiveChildService
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +51,12 @@ export class LogicTask implements OnInit, OnDestroy {
 
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe(task => {
+        // Get active child difficulty
+        const activeChild = this.activeChildService.activeChild();
+        const childDifficulty = activeChild?.difficulty ?? 'Vorschule';
+        if (childDifficulty) {
+          task.questions = task.questions.filter(q => q.difficulty === childDifficulty);
+        }
         this.task = task;
         this.navigationService.setTask(task);
         this.startGame();
@@ -59,7 +67,7 @@ export class LogicTask implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-  
+
   startGame(): void {
     this.gameSequence = [];
     this.currentLevel = 0;
@@ -72,11 +80,11 @@ export class LogicTask implements OnInit, OnDestroy {
     this.isRecalling = false;
     this.resetFeedbackState();
     this.statusMessage = 'Merke dir die Zahlenfolge...';
-    
-    
+
+
     const newNumber = Math.floor(Math.random() * 9) + 1;
     this.gameSequence.push(newNumber);
-    
+
     this.showSequence();
   }
 
@@ -97,7 +105,7 @@ export class LogicTask implements OnInit, OnDestroy {
     if (!this.isRecalling) {
       return;
     }
-    
+
     this.lastClickedNumber = number;
 
     const correct = (number === this.gameSequence[this.playerSequence.length]);
@@ -122,8 +130,8 @@ export class LogicTask implements OnInit, OnDestroy {
         this.resetFeedbackState();
       }, 1500);
     }
-    
-    
+
+
     setTimeout(() => {
       this.lastClickedNumber = null;
       this.lastClickedStatus = null;
@@ -137,7 +145,7 @@ export class LogicTask implements OnInit, OnDestroy {
   onFinishTask(): void {
     this.isCompleted = true;
     this.statusMessage = `Spiel beendet. Du hast Level ${this.currentLevel} erreicht.`;
-   
+
   }
 
   resetFeedbackState(): void {
