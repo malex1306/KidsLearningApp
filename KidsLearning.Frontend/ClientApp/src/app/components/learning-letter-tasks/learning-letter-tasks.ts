@@ -56,14 +56,14 @@ export class LearningLetterTasks implements OnInit {
 
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe(task => {
-        // Get active child difficulty
+        
         const activeChild = this.activeChildService.activeChild();
         const childDifficulty = activeChild?.difficulty ?? 'Vorschule';
         if (childDifficulty) {
           task.questions = task.questions.filter(q => q.difficulty === childDifficulty);
         }
         
-        // Mischen der Fragen
+        
         task.questions = this.shuffleArray(task.questions);
 
         this.task = task;
@@ -92,17 +92,17 @@ export class LearningLetterTasks implements OnInit {
   )
   }
 
-  // Methode zum Mischen des Arrays
+  
   private shuffleArray(array: any[]): any[] {
     let currentIndex = array.length, randomIndex;
 
-    // Solange es noch Elemente zum Mischen gibt.
+    
     while (currentIndex !== 0) {
-      // Wählen Sie ein verbleibendes Element aus.
+      
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
 
-      // Und tauschen Sie es mit dem aktuellen Element.
+      
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
