@@ -28,6 +28,16 @@
       <input type="date" id="childBirthday" [(ngModel)]="newChild.dateOfBirth" name="childBirthday" required>
     </div>
     <div class="form-group">
+      <label for="childDifficulty">Schwierigkeitsgrad</label>
+      <select id="childDifficulty"
+              [(ngModel)]="newChild.difficulty"
+              name="childDifficulty"
+              required>
+        @for (difficulty of availableDifficulties; track difficulty){
+          <option value="{{ difficulty }}">{{ difficulty }}</option>      }
+      </select>
+    </div>
+    <div class="form-group">
       <label>Avatar auswählen</label>
       <div class="avatar-selection-container">
         @for (avatar of availableAvatars; track avatar){
@@ -85,6 +95,7 @@
         <img [src]="child.avatarUrl" alt="Kinder-Profilbild" class="child-picture">
         <h3>{{ child.name }}</h3>
         <p>Alter: {{ child.age }} Jahre</p>
+        <p>Lernstand: {{child.difficulty}}</p>
       </div>
       <div class="progress-section">
         <h4>Lernfortschritt</h4>

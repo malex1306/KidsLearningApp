@@ -101,6 +101,10 @@ namespace KidsLearning.Backend.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Difficulty")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("LastLearningDay")
                         .HasColumnType("datetime2");
 

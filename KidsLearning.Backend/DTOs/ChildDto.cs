@@ -22,7 +22,7 @@ public class ChildDto
     public ICollection<Badge> Badges { get; set; } = new List<Badge>();
     public ICollection<AvatarDto> UnlockedAvatars { get; set; } = new List<AvatarDto>();
     
-    public string difficulty { get; set; } = string.Empty;
+    public string Difficulty { get; set; } = string.Empty;
 }
 
 public class ParentDashboardDto

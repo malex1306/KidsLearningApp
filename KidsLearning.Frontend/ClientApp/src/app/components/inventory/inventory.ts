@@ -20,7 +20,7 @@ export class InventoryComponent implements OnInit {
   unlockedAvatars: AvatarDto[] = [];
   badges: BadgeDto[] = [];
   selectedAvatar: AvatarDto | null = null;
-  
+
   constructor(
     private activeChildService: ActiveChildService,
     private route: ActivatedRoute,
@@ -32,7 +32,7 @@ export class InventoryComponent implements OnInit {
   ngOnInit(): void {
     const child = this.activeChild();
     if (child) {
-      this.getUnlockedAvatars(Number(child.id)); 
+      this.getUnlockedAvatars(Number(child.id));
       this.badges = child.badges;
       const currentAvatar = this.unlockedAvatars.find(a => a.imageUrl === child.avatarUrl);
       if (currentAvatar) {
@@ -59,22 +59,23 @@ export class InventoryComponent implements OnInit {
     if (child && this.selectedAvatar) {
       console.log('Sende Anfrage zur Aktualisierung des Avatars...');
       const editChildDto: EditChildDto = {
-        childId: Number(child.id), 
+        childId: Number(child.id),
         name: child.name,
         avatarUrl: this.selectedAvatar.imageUrl,
-        dateOfBirth: child.dateOfBirth
+        dateOfBirth: child.dateOfBirth,
+        difficulty: child.difficulty,
       };
 
       this.dashboardService.editChild(Number(child.id), editChildDto).subscribe({
         next: () => {
           console.log('✅ API-Aufruf erfolgreich! Aktualisiere Frontend-Status und navigiere...');
-          
+
           const updatedChild = {
             ...child,
             avatarUrl: this.selectedAvatar!.imageUrl
           };
           this.activeChildService.updateAvatar(updatedChild);
-          
+
           this.router.navigate(['/start-page']);
         },
         error: (err: any) => {

@@ -42,6 +42,7 @@ export interface AddChildDto {
   name: string;
   avatarUrl?: string;
   dateOfBirth: Date;
+  difficulty: string;
 }
 
 export interface RemoveChildDto {
@@ -53,4 +54,5 @@ export interface EditChildDto {
   name: string;
   dateOfBirth: Date;
   avatarUrl?: string;
+  difficulty: string;
 }

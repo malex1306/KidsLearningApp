@@ -25,7 +25,7 @@ namespace KidsLearning.Backend.Models
         // Navigationseigenschaften für Belohnungen
         public ICollection<Badge> Badges { get; set; } = new List<Badge>();
         
-        public string difficulty { get; set; } = string.Empty;
+        public string Difficulty { get; set; } = string.Empty;
         
     }
 }
