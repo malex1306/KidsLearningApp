@@ -122,27 +122,65 @@ public class EnsureDatabase
             var questions = new List<Questions>
             {
                 // Fragen für "Zahlen finden" (LearningTask 1)
-                new Questions
-                {
-                    Text = "Welche Zahl fehlt in der Reihe: 1, 2, ?, 4, 5",
-                    CorrectAnswer = "3",
-                    Options = new List<string> { "1", "2", "3", "4" },
-                    LearningTaskId = 1
-                },
-                new Questions
-                {
-                    Text = "Welche Zahl fehlt in der Reihe: 5, ?, 7, 8, 9",
-                    CorrectAnswer = "6",
-                    Options = new List<string> { "5", "6", "7", "8" },
-                    LearningTaskId = 1
-                },
-                 new Questions
-                {
-                    Text = "Welche Zahl fehlt in der Reihe: ?, 9, 10, 11, 12",
-                    CorrectAnswer = "8",
-                    Options = new List<string> { "5", "6", "7", "8" },
-                    LearningTaskId = 1
-                },
+                //Vorschule
+                new Questions { Text = "Welche Zahl fehlt: 1, 2, ?, 4", CorrectAnswer = "3", Options = new List<string>{ "2", "3", "4", "5" }, LearningTaskId = 1 },
+                new Questions { Text = "Welche Zahl fehlt: ?, 2, 3", CorrectAnswer = "1", Options = new List<string>{ "0", "1", "2", "3" }, LearningTaskId = 1 },
+                new Questions { Text = "Welche Zahl fehlt: 3, ?, 5", CorrectAnswer = "4", Options = new List<string>{ "2", "3", "4", "5" }, LearningTaskId = 1 },
+                new Questions { Text = "Welche Zahl fehlt: 4, ?, 6", CorrectAnswer = "5", Options = new List<string>{ "3", "4", "5", "7" }, LearningTaskId = 1 },
+                new Questions { Text = "Welche Zahl fehlt: 6, 7, ?, 9", CorrectAnswer = "8", Options = new List<string>{ "6", "7", "8", "10" }, LearningTaskId = 1 },
+                new Questions { Text = "Welche Zahl fehlt: ?, 1, 2", CorrectAnswer = "0", Options = new List<string>{ "0", "1", "2", "3" }, LearningTaskId = 1 },
+                new Questions { Text = "Welche Zahl fehlt: 7, 8, ?, 10", CorrectAnswer = "9", Options = new List<string>{ "7", "8", "9", "11" }, LearningTaskId = 1 },
+                new Questions { Text = "Welche Zahl fehlt: 2, 3, ?, 5", CorrectAnswer = "4", Options = new List<string>{ "3", "4", "5", "6" }, LearningTaskId = 1 },
+                new Questions { Text = "Welche Zahl fehlt: 9, ?, 11", CorrectAnswer = "10", Options = new List<string>{ "9", "10", "11", "12" }, LearningTaskId = 1 },
+                new Questions { Text = "Welche Zahl fehlt: ?, 5, 6", CorrectAnswer = "4", Options = new List<string>{ "3", "4", "5", "6" }, LearningTaskId = 1 },
+
+                //1Klasse
+                new Questions { Text = "Welche Zahl fehlt: 2, 4, ?, 8", CorrectAnswer = "6", Options = new List<string>{ "5", "6", "7", "8" }, LearningTaskId = 2 },
+                new Questions { Text = "Welche Zahl fehlt: 10, ?, 12, 13", CorrectAnswer = "11", Options = new List<string>{ "10", "11", "12", "14" }, LearningTaskId = 2 },
+                new Questions { Text = "Welche Zahl fehlt: 1, 3, ?, 7", CorrectAnswer = "5", Options = new List<string>{ "4", "5", "6", "7" }, LearningTaskId = 2 },
+                new Questions { Text = "Welche Zahl fehlt: ?, 15, 16", CorrectAnswer = "14", Options = new List<string>{ "13", "14", "15", "16" }, LearningTaskId = 2 },
+                new Questions { Text = "Welche Zahl fehlt: 20, 21, ?, 23", CorrectAnswer = "22", Options = new List<string>{ "21", "22", "23", "24" }, LearningTaskId = 2 },
+                new Questions { Text = "Welche Zahl fehlt: 5, ?, 15, 20", CorrectAnswer = "10", Options = new List<string>{ "8", "9", "10", "12" }, LearningTaskId = 2 },
+                new Questions { Text = "Welche Zahl fehlt: ?, 30, 40", CorrectAnswer = "20", Options = new List<string>{ "10", "20", "25", "30" }, LearningTaskId = 2 },
+                new Questions { Text = "Welche Zahl fehlt: 12, 13, ?, 15", CorrectAnswer = "14", Options = new List<string>{ "12", "13", "14", "15" }, LearningTaskId = 2 },
+                new Questions { Text = "Welche Zahl fehlt: 50, ?, 52", CorrectAnswer = "51", Options = new List<string>{ "50", "51", "52", "53" }, LearningTaskId = 2 },
+                new Questions { Text = "Welche Zahl fehlt: 9, 12, ?, 18", CorrectAnswer = "15", Options = new List<string>{ "14", "15", "16", "17" }, LearningTaskId = 2 },
+
+                //2Klasse
+                new Questions { Text = "Welche Zahl fehlt: 100, 200, ?, 400", CorrectAnswer = "300", Options = new List<string>{ "100", "200", "300", "400" }, LearningTaskId = 3 },
+                new Questions { Text = "Welche Zahl fehlt: 2, 4, 6, ?", CorrectAnswer = "8", Options = new List<string>{ "6", "7", "8", "9" }, LearningTaskId = 3 },
+                new Questions { Text = "Welche Zahl fehlt: 5, 10, ?, 20", CorrectAnswer = "15", Options = new List<string>{ "12", "15", "18", "20" }, LearningTaskId = 3 },
+                new Questions { Text = "Welche Zahl fehlt: 25, 30, ?, 40", CorrectAnswer = "35", Options = new List<string>{ "32", "33", "34", "35" }, LearningTaskId = 3 },
+                new Questions { Text = "Welche Zahl fehlt: ?, 70, 80", CorrectAnswer = "60", Options = new List<string>{ "50", "55", "60", "65" }, LearningTaskId = 3 },
+                new Questions { Text = "Welche Zahl fehlt: 90, ?, 110", CorrectAnswer = "100", Options = new List<string>{ "95", "98", "100", "105" }, LearningTaskId = 3 },
+                new Questions { Text = "Welche Zahl fehlt: 7, 14, ?, 28", CorrectAnswer = "21", Options = new List<string>{ "20", "21", "22", "23" }, LearningTaskId = 3 },
+                new Questions { Text = "Welche Zahl fehlt: 11, ?, 33", CorrectAnswer = "22", Options = new List<string>{ "20", "21", "22", "23" }, LearningTaskId = 3 },
+                new Questions { Text = "Welche Zahl fehlt: 40, 50, ?, 70", CorrectAnswer = "60", Options = new List<string>{ "55", "58", "60", "65" }, LearningTaskId = 3 },
+                new Questions { Text = "Welche Zahl fehlt: 13, ?, 39", CorrectAnswer = "26", Options = new List<string>{ "24", "25", "26", "27" }, LearningTaskId = 3 },
+
+                //3Klasse
+                new Questions { Text = "Welche Zahl fehlt: 100, 105, ?, 115", CorrectAnswer = "110", Options = new List<string>{ "108", "109", "110", "111" }, LearningTaskId = 4 },
+                new Questions { Text = "Welche Zahl fehlt: 200, 220, ?, 260", CorrectAnswer = "240", Options = new List<string>{ "230", "235", "240", "245" }, LearningTaskId = 4 },
+                new Questions { Text = "Welche Zahl fehlt: 300, ?, 500", CorrectAnswer = "400", Options = new List<string>{ "350", "375", "400", "450" }, LearningTaskId = 4 },
+                new Questions { Text = "Welche Zahl fehlt: 50, ?, 80", CorrectAnswer = "65", Options = new List<string>{ "60", "62", "65", "70" }, LearningTaskId = 4 },
+                new Questions { Text = "Welche Zahl fehlt: 1000, 900, ?, 700", CorrectAnswer = "800", Options = new List<string>{ "750", "800", "850", "900" }, LearningTaskId = 4 },
+                new Questions { Text = "Welche Zahl fehlt: ?, 3000, 4000", CorrectAnswer = "2000", Options = new List<string>{ "1000", "2000", "2500", "3000" }, LearningTaskId = 4 },
+                new Questions { Text = "Welche Zahl fehlt: 15, 30, ?, 60", CorrectAnswer = "45", Options = new List<string>{ "40", "42", "45", "48" }, LearningTaskId = 4 },
+                new Questions { Text = "Welche Zahl fehlt: 21, ?, 63", CorrectAnswer = "42", Options = new List<string>{ "40", "41", "42", "43" }, LearningTaskId = 4 },
+                new Questions { Text = "Welche Zahl fehlt: 120, 130, ?, 150", CorrectAnswer = "140", Options = new List<string>{ "135", "138", "140", "142" }, LearningTaskId = 4 },
+                new Questions { Text = "Welche Zahl fehlt: 500, ?, 700", CorrectAnswer = "600", Options = new List<string>{ "550", "580", "600", "620" }, LearningTaskId = 4 },
+
+                //4Klasse
+                new Questions { Text = "Welche Zahl fehlt: 5, 10, ?, 20, 25", CorrectAnswer = "15", Options = new List<string>{ "12", "13", "14", "15" }, LearningTaskId = 5 },
+                new Questions { Text = "Welche Zahl fehlt: 100, 200, ?, 400, 500", CorrectAnswer = "300", Options = new List<string>{ "250", "275", "300", "325" }, LearningTaskId = 5 },
+                new Questions { Text = "Welche Zahl fehlt: 2, 4, 8, ?, 32", CorrectAnswer = "16", Options = new List<string>{ "12", "14", "16", "18" }, LearningTaskId = 5 },
+                new Questions { Text = "Welche Zahl fehlt: 3, 9, ?, 81", CorrectAnswer = "27", Options = new List<string>{ "18", "21", "27", "36" }, LearningTaskId = 5 },
+                new Questions { Text = "Welche Zahl fehlt: 1, 4, 9, ?, 25", CorrectAnswer = "16", Options = new List<string>{ "12", "14", "16", "18" }, LearningTaskId = 5 },
+                new Questions { Text = "Welche Zahl fehlt: ?, 64, 81", CorrectAnswer = "49", Options = new List<string>{ "36", "42", "49", "56" }, LearningTaskId = 5 },
+                new Questions { Text = "Welche Zahl fehlt: 12, 24, ?, 96", CorrectAnswer = "48", Options = new List<string>{ "36", "42", "48", "54" }, LearningTaskId = 5 },
+                new Questions { Text = "Welche Zahl fehlt: 144, ?, 576", CorrectAnswer = "288", Options = new List<string>{ "200", "240", "288", "320" }, LearningTaskId = 5 },
+                new Questions { Text = "Welche Zahl fehlt: 7, 14, ?, 56", CorrectAnswer = "28", Options = new List<string>{ "21", "25", "28", "30" }, LearningTaskId = 5 },
+                new Questions { Text = "Welche Zahl fehlt: 1000, ?, 4000", CorrectAnswer = "2000", Options = new List<string>{ "1500", "2000", "2500", "3000" }, LearningTaskId = 5 },
 
                 // Fragen für "Addition bis 10" (LearningTask 2)
                 new Questions
