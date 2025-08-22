@@ -70,6 +70,16 @@
       <input type="date" id="editChildBirthday" [(ngModel)]="editingChild!.dateOfBirth" name="editChildBirthday" required>
     </div>
     <div class="form-group">
+      <label for="childDifficulty">Schwierigkeitsgrad</label>
+      <select id="childDifficulty"
+              [(ngModel)]="editingChild!.difficulty"
+              name="childDifficulty"
+              required>
+        @for (difficulty of availableDifficulties; track difficulty){
+          <option value="{{ difficulty }}">{{ difficulty }}</option>      }
+      </select>
+    </div>
+    <div class="form-group">
       <label>Avatar auswählen</label>
       <div class="avatar-selection-container">
         @for (avatar of availableAvatars; track avatar){
