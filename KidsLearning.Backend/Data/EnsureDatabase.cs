@@ -425,40 +425,85 @@ public class EnsureDatabase
                 new Questions { Text = "Welche Kombination passt zu 'Biologie'?", CorrectAnswer = "B-b", Options = new List<string> { "B-i", "B-o", "B-l", "B-b" }, LearningTaskId = 5, Difficulty = "4 Klasse" },
 
                 // Neue Fragen für "Wörter buchstabieren" (LearningTask 6)
-                new Questions
-                {
-                    Text = "Buchstabiere das Wort 'Katze'.",
-                    CorrectAnswer = "KATZE",
-                    ImageUrl = "assets/images/bengal.png",
-                    Options = new List<string> { "K", "A", "T", "Z", "E", "S", "N", "P" },
-                    LearningTaskId = 6
-                },
-                new Questions
-                {
-                    Text = "Buchstabiere das Wort 'Hund'.",
-                    CorrectAnswer = "HUND",
-                    ImageUrl = "assets/images/golden-retriever.png",
-                    Options = new List<string> { "H", "U", "N", "D", "T", "P", "B", "L" },
-                    LearningTaskId = 6
-                },
+                //Vorschule
+                new Questions { Text = "Buchstabiere das Wort 'Ball'.", CorrectAnswer = "BALL", ImageUrl = "assets/questImg/soccer.png", Options = new List<string> { "B", "O", "M", "L", "M", "K", "L", "A" }, LearningTaskId = 6, Difficulty = "Vorschule" },
+                new Questions { Text = "Buchstabiere das Wort 'Auto'.", CorrectAnswer = "AUTO", ImageUrl = "assets/questImg/toy-car.png", Options = new List<string> { "A", "S", "T", "O", "E", "M", "U", "R" }, LearningTaskId = 6, Difficulty = "Vorschule" },
+                new Questions { Text = "Buchstabiere das Wort 'Haus'.", CorrectAnswer = "HAUS", ImageUrl = "assets/questImg/house.png", Options = new List<string> { "K", "R", "U", "S", "E", "A", "M", "H" }, LearningTaskId = 6, Difficulty = "Vorschule" },
+                new Questions { Text = "Buchstabiere das Wort 'Oma'.", CorrectAnswer = "OMA", ImageUrl = "assets/questImg/old-woman.png", Options = new List<string> { "O", "E", "A", "E", "S", "M", "K", "L" }, LearningTaskId = 6, Difficulty = "Vorschule" },
+                new Questions { Text = "Buchstabiere das Wort 'Bär'.", CorrectAnswer = "BÄR", ImageUrl = "assets/questImg/bears.png", Options = new List<string> { "B", "N", "L", "A", "R", "E", "T", "Ä" }, LearningTaskId = 6, Difficulty = "Vorschule" },
                 
+                // Neue Fragen für "Wörter buchstabieren" (LearningTask 6)
+                //1Klasse
+               new Questions { Text = "Buchstabiere das Wort 'Katze'.", CorrectAnswer = "KATZE", ImageUrl = "assets/questImg/exotic-shorthair.png", Options = new List<string> { "P", "A", "E", "Z", "T", "S", "N", "K" }, LearningTaskId = 6, Difficulty = "1 Klasse" },
+                new Questions { Text = "Buchstabiere das Wort 'Hund'.", CorrectAnswer = "HUND", ImageUrl = "assets/questImg/dog.png", Options = new List<string> { "H", "B", "N", "L", "T", "P", "U", "D" }, LearningTaskId = 6, Difficulty = "1 Klasse" },
+                new Questions { Text = "Buchstabiere das Wort 'Apfel'.", CorrectAnswer = "APFEL", ImageUrl = "assets/questImg/apple.png", Options = new List<string> { "P", "A", "F", "O", "L", "S", "E", "M" }, LearningTaskId = 6, Difficulty = "1 Klasse" },
+                new Questions { Text = "Buchstabiere das Wort 'Sonne'.", CorrectAnswer = "SONNE", ImageUrl = "assets/questImg/sun.png", Options = new List<string> { "N", "O", "S", "N", "U", "E", "R", "L" }, LearningTaskId = 6, Difficulty = "1 Klasse" },
+                new Questions { Text = "Buchstabiere das Wort 'Fisch'.", CorrectAnswer = "FISCH", ImageUrl = "assets/questImg/clown-fish.png", Options = new List<string> { "S", "I", "F", "C", "H", "E", "T", "A" }, LearningTaskId = 6, Difficulty = "1 Klasse" },
+
+
+                 // Neue Fragen für "Wörter buchstabieren" (LearningTask 6)
+                //2Klasse
+                new Questions { Text = "Buchstabiere das Wort 'Blume'.", CorrectAnswer = "BLUME", ImageUrl = "assets/questImg/flower.png", Options = new List<string> { "S", "N", "U", "M", "E", "A", "B", "L" }, LearningTaskId = 6, Difficulty = "2 Klasse" },
+                new Questions { Text = "Buchstabiere das Wort 'Tiger'.", CorrectAnswer = "TIGER", ImageUrl = "assets/questImg/tiger.png", Options = new List<string> { "T", "P", "A", "E", "R", "G", "L", "I" }, LearningTaskId = 6, Difficulty = "2 Klasse" },
+                new Questions { Text = "Buchstabiere das Wort 'Brot'.", CorrectAnswer = "BROT", ImageUrl = "assets/questImg/baguette.png", Options = new List<string> { "N", "L", "O", "T", "A", "S", "B", "R" }, LearningTaskId = 6, Difficulty = "2 Klasse" },
+                new Questions { Text = "Buchstabiere das Wort 'Pferd'.", CorrectAnswer = "PFERD", ImageUrl = "assets/questImg/horse.png", Options = new List<string> { "F", "P", "E", "N", "D", "T", "S", "R" }, LearningTaskId = 6, Difficulty = "2 Klasse" },
+                new Questions { Text = "Buchstabiere das Wort 'Banane'.", CorrectAnswer = "BANANE", ImageUrl = "assets/questImg/banana.png", Options = new List<string> { "N", "A", "B", "A", "N", "E", "S", "T" }, LearningTaskId = 6, Difficulty = "2 Klasse" },
+
+
+                // Neue Fragen für "Wörter buchstabieren" (LearningTask 6)
+                //3Klasse
+                new Questions { Text = "Buchstabiere das Wort 'Schule'.", CorrectAnswer = "SCHULE", ImageUrl = "assets/questImg/elementary-school.png", Options = new List<string> { "M", "L", "H", "U", "C", "E", "R", "S" }, LearningTaskId = 6, Difficulty = "3 Klasse" },
+                new Questions { Text = "Buchstabiere das Wort 'Wasser'.", CorrectAnswer = "WASSER", ImageUrl = "assets/questImg/drainage.png", Options = new List<string> { "S", "A", "S", "W", "E", "T", "R", "N" }, LearningTaskId = 6, Difficulty = "3 Klasse" },
+                new Questions { Text = "Buchstabiere das Wort 'Zebra'.", CorrectAnswer = "ZEBRA", ImageUrl = "assets/questImg/zebra.png", Options = new List<string> { "Z", "L", "O", "R", "A", "B", "N", "E" }, LearningTaskId = 6, Difficulty = "3 Klasse" },
+                new Questions { Text = "Buchstabiere das Wort 'Tisch'.", CorrectAnswer = "TISCH", ImageUrl = "assets/questImg/dining-table.png", Options = new List<string> { "I", "T", "H", "C", "S", "R", "E", "N" }, LearningTaskId = 6, Difficulty = "3 Klasse" },
+                new Questions { Text = "Buchstabiere das Wort 'Wolke'.", CorrectAnswer = "WOLKE", ImageUrl = "assets/questImg/cloud.png", Options = new List<string> { "T", "O", "T", "K", "E", "S", "W", "L" }, LearningTaskId = 6, Difficulty = "3 Klasse" },
+
+                // Neue Fragen für "Wörter buchstabieren" (LearningTask 6)
+                //4Klasse
+                new Questions { Text = "Buchstabiere das Wort 'Planet'.", CorrectAnswer = "PLANET", ImageUrl = "assets/questImg/saturn.png", Options = new List<string> { "T", "R", "A", "N", "E", "P", "S", "L" }, LearningTaskId = 6, Difficulty = "4 Klasse" },
+                new Questions { Text = "Buchstabiere das Wort 'Computer'.", CorrectAnswer = "COMPUTER", ImageUrl = "assets/questImg/computers.png", Options = new List<string> { "T", "O", "M", "U", "R", "C", "E", "P" }, LearningTaskId = 6, Difficulty = "4 Klasse" },
+                new Questions { Text = "Buchstabiere das Wort 'Brücke'.", CorrectAnswer = "BRÜCKE", ImageUrl = "assets/questImg/bridge.png", Options = new List<string> { "B", "Ü", "R", "K", "C", "E", "S", "T" }, LearningTaskId = 6, Difficulty = "4 Klasse" },
+                new Questions { Text = "Buchstabiere das Wort 'Freund'.", CorrectAnswer = "FREUND", ImageUrl = "assets/questImg/friends.png", Options = new List<string> { "A", "S", "E", "U", "N", "D", "F", "R" }, LearningTaskId = 6, Difficulty = "4 Klasse" },
+                new Questions { Text = "Buchstabiere das Wort 'Wald'.", CorrectAnswer = "WALD", ImageUrl = "assets/questImg/forest.png", Options = new List<string> { "O", "T", "L", "D", "S", "A", "R", "W" }, LearningTaskId = 6, Difficulty = "4 Klasse" },
+
                 // Englisch Bilder (Task 7)
-                new Questions
-                {
-                    Text = "Wähle das korrekte Englische Wort",
-                    CorrectAnswer = "Dog",
-                    ImageUrl = "assets/images/golden-retriever.png",
-                    Options = new List<string> { "Dog", "Horse", "Pig", "Whale" },
-                    LearningTaskId = 7
-                },
-                new Questions
-                {
-                    Text = "Wähle das korrekte Englische Wort",
-                    CorrectAnswer = "Cat",
-                    ImageUrl = "assets/images/bengal.png",
-                    Options = new List<string> { "Meerkat", "Guineapig", "Scarecrow", "Cat" },
-                    LearningTaskId = 7
-                },
+                //Vorschule
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Ball", ImageUrl = "assets/questImg/soccer.png", Options = new List<string> { "Ball", "Car", "Cat", "Sun" }, LearningTaskId = 7, Difficulty = "Vorschule" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Apple", ImageUrl = "assets/questImg/apple.png", Options = new List<string> { "Apple", "Banana", "Dog", "Hat" }, LearningTaskId = 7, Difficulty = "Vorschule" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Car", ImageUrl = "assets/questImg/toy-car.png", Options = new List<string> { "Car", "Bus", "Plane", "Tree" }, LearningTaskId = 7, Difficulty = "Vorschule" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Dog", ImageUrl = "assets/questImg/dog.png", Options = new List<string> { "Dog", "Cat", "Bird", "Fish" }, LearningTaskId = 7, Difficulty = "Vorschule" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Sun", ImageUrl = "assets/questImg/sun.png", Options = new List<string> { "Sun", "Moon", "Star", "Cloud" }, LearningTaskId = 7, Difficulty = "Vorschule" },
+
+                //1Klasse
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Cat", ImageUrl = "assets/questImg/exotic-shorthair.png", Options = new List<string> { "Dog", "Cat", "Fox", "Pig" }, LearningTaskId = 7, Difficulty = "1 Klasse" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Fox", ImageUrl = "assets/questImg/fox.png", Options = new List<string> { "Fox", "Penguin", "Horse", "Cow" }, LearningTaskId = 7, Difficulty = "1 Klasse" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Bird", ImageUrl = "assets/questImg/bird.png", Options = new List<string> { "Bird", "Dog", "Cat", "Fish" }, LearningTaskId = 7, Difficulty = "1 Klasse" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Milk", ImageUrl = "assets/questImg/milk.png", Options = new List<string> { "Milk", "Juice", "Water", "Tea" }, LearningTaskId = 7, Difficulty = "1 Klasse" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Tree", ImageUrl = "assets/questImg/tree.png", Options = new List<string> { "Tree", "Flower", "Grass", "Rock" }, LearningTaskId = 7, Difficulty = "1 Klasse" },
+
+
+                //2Klasse
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Horse", ImageUrl = "assets/questImg/horse.png", Options = new List<string> { "Horse", "Dog", "Cat", "Cow" }, LearningTaskId = 7, Difficulty = "2 Klasse" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Fish", ImageUrl = "assets/questImg/fish.png", Options = new List<string> { "Fish", "Bird", "Dog", "Fox" }, LearningTaskId = 7, Difficulty = "2 Klasse" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Banana", ImageUrl = "assets/questImg/banana.png", Options = new List<string> { "Banana", "Apple", "Grapes", "Orange" }, LearningTaskId = 7, Difficulty = "2 Klasse" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Duck", ImageUrl = "assets/questImg/ducks.png", Options = new List<string> { "Duck", "Chicken", "Goose", "Turkey" }, LearningTaskId = 7, Difficulty = "2 Klasse" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "House", ImageUrl = "assets/questImg/house.png", Options = new List<string> { "House", "Car", "Tree", "Boat" }, LearningTaskId = 7, Difficulty = "2 Klasse" },
+                
+                //3Klasse
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Penguin", ImageUrl = "assets/questImg/penguin.png", Options = new List<string> { "Penguin", "Fox", "Dog", "Cat" }, LearningTaskId = 7, Difficulty = "3 Klasse" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Dolphin", ImageUrl = "assets/questImg/dolphin.png", Options = new List<string> { "Dolphin", "Shark", "Whale", "Fish" }, LearningTaskId = 7, Difficulty = "3 Klasse" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Carrot", ImageUrl = "assets/questImg/carrot.png", Options = new List<string> { "Carrot", "Potato", "Apple", "Tomato" }, LearningTaskId = 7, Difficulty = "3 Klasse" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Lion", ImageUrl = "assets/questImg/lion.png", Options = new List<string> { "Lion", "Tiger", "Bear", "Wolf" }, LearningTaskId = 7, Difficulty = "3 Klasse" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Plane", ImageUrl = "assets/questImg/airplane.png", Options = new List<string> { "Plane", "Car", "Train", "Boat" }, LearningTaskId = 7, Difficulty = "3 Klasse" },
+                
+                //4Klasse
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Elephant", ImageUrl = "assets/questImg/elephant.png", Options = new List<string> { "Elephant", "Lion", "Tiger", "Bear" }, LearningTaskId = 7, Difficulty = "4 Klasse" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Giraffe", ImageUrl = "assets/questImg/giraffe.png", Options = new List<string> { "Giraffe", "Zebra", "Horse", "Cow" }, LearningTaskId = 7, Difficulty = "4 Klasse" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Shark", ImageUrl = "assets/questImg/shark.png", Options = new List<string> { "Shark", "Dolphin", "Whale", "Fish" }, LearningTaskId = 7, Difficulty = "4 Klasse" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Tiger", ImageUrl = "assets/questImg/tiger.png", Options = new List<string> { "Tiger", "Lion", "Leopard", "Cat" }, LearningTaskId = 7, Difficulty = "4 Klasse" },
+                new Questions { Text = "Wähle das korrekte Englische Wort", CorrectAnswer = "Frog", ImageUrl = "assets/questImg/frog.png", Options = new List<string> { "Frog", "Toad", "Lizard", "Snake" }, LearningTaskId = 7, Difficulty = "4 Klasse" },
+
+
                 new Questions
                 {
                     Text = "Wähle das korrekte Englische Wort",
