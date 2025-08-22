@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace KidsLearning.Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class inital : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -216,7 +216,8 @@ namespace KidsLearning.Backend.Migrations
                     StarCount = table.Column<int>(type: "int", nullable: false),
                     DailyLearningMinutes = table.Column<int>(type: "int", nullable: false),
                     LastLearningDay = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ConsecutiveLearningDays = table.Column<int>(type: "int", nullable: false)
+                    ConsecutiveLearningDays = table.Column<int>(type: "int", nullable: false),
+                    Difficulty = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -91,6 +91,7 @@ public class ParentDashboardController : ControllerBase
                 Name = child.Name,
                 AvatarUrl = child.AvatarUrl,
                 DateOfBirth = child.DateOfBirth,
+                Difficulty = child.Difficulty,
                 Age = (DateTime.Now - child.DateOfBirth).TotalDays > 0 ? (int)((DateTime.Now - child.DateOfBirth).TotalDays / 365.25) : 0,
                 LastActivity = lastActivityMessage,
                 Progress = childProgressList,
@@ -137,6 +138,7 @@ public class ParentDashboardController : ControllerBase
             AvatarUrl = addChildDto.AvatarUrl ?? "https://via.placeholder.com/40",
             ParentId = parentId,
             DateOfBirth = addChildDto.DateOfBirth,
+            Difficulty = addChildDto.Difficulty,
         };
 
         _context.Children.Add(newChild);
@@ -185,6 +187,7 @@ public class ParentDashboardController : ControllerBase
         child.Name = editChildDto.Name;
         child.DateOfBirth = editChildDto.DateOfBirth;
         child.AvatarUrl = editChildDto.AvatarUrl ?? "https://via.placeholder.com/40";
+        child.Difficulty = editChildDto.Difficulty;
 
         _context.Children.Update(child);
         await _context.SaveChangesAsync();

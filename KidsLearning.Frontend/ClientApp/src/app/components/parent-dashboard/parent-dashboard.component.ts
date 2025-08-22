@@ -1,8 +1,8 @@
 // src/app/components/parent-dashboard/parent-dashboard.component.ts
 
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms'; 
-import { CommonModule } from '@angular/common'; 
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { ParentDashboardService } from '../../services/parent-dashboard.service';
 import { ParentDashboardDto, ChildDto, AddChildDto, EditChildDto } from '../../dtos/parent-dashboard.dto';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,13 +10,13 @@ import { ActiveChildService } from '../../services/active-child.service';
 
 @Component({
   selector: 'app-parent-dashboard',
-  standalone: true, 
+  standalone: true,
   imports: [
     CommonModule,  
     FormsModule,
     MatButtonModule
   ],
-  templateUrl: './parent-dashboard.html', 
+  templateUrl: './parent-dashboard.html',
   styleUrls: ['./parent-dashboard.css']
 })
 export class ParentDashboardComponent implements OnInit {
@@ -31,6 +31,13 @@ export class ParentDashboardComponent implements OnInit {
     'assets/images/pumpkin.png',
     'assets/images/firefighter.png',
   ];
+  availableDifficulties: string[] = [
+    'Vorschule',
+    '1 Klasse',
+    '2 Klasse',
+    '3 Klasse',
+    '4 Klasse',
+  ];
 
   dashboardData: ParentDashboardDto = {
     welcomeMessage: '',
@@ -41,7 +48,8 @@ export class ParentDashboardComponent implements OnInit {
   newChild: AddChildDto = {
     name: '',
     avatarUrl: '',
-    dateOfBirth: new Date()
+    dateOfBirth: new Date(),
+    difficulty: '',
   };
 
   constructor(
@@ -74,7 +82,7 @@ export class ParentDashboardComponent implements OnInit {
       this.dashboardService.addChild(this.newChild).subscribe({
         next: (response: any) => {
           this.showMessage(response.message, 3000);
-          this.newChild = { name: '', avatarUrl: '', dateOfBirth: new Date() }; 
+          this.newChild = { name: '', avatarUrl: '', dateOfBirth: new Date(), difficulty: '' };
           this.showAddChildForm = false;
           this.loadDashboardData();
         },
@@ -100,23 +108,23 @@ export class ParentDashboardComponent implements OnInit {
   }
 
   onEditChild(child: ChildDto): void {
-    this.editingChild = { ...child }; 
+    this.editingChild = { ...child };
     this.showEditChildForm = true;
     this.showAddChildForm = false;
   }
 
   onEditChildSubmit(): void {
     if (this.editingChild && this.editingChild.name.trim()) {
-      const editedChildData = { ...this.editingChild }; 
+      const editedChildData = { ...this.editingChild };
 
       this.dashboardService.editChild(editedChildData.childId, editedChildData as EditChildDto).subscribe({
         next: (response: any) => {
           this.showMessage(response.message, 1500);
           this.showEditChildForm = false;
           this.loadDashboardData();
-          
+
           this.activeChildService.setActiveChild(editedChildData as ChildDto);
-          
+
           this.editingChild = null;
         },
         error: (err: any) => {

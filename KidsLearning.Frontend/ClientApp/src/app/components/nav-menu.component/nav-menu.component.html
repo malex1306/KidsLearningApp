@@ -42,13 +42,15 @@
     <div class="modal-overlay">
       <div class="glass-card modal-card">
         <h4>Eltern-Passwort eingeben</h4>
-        <input type="password" [(ngModel)]="passwordInput" placeholder="Passwort" class="form-input">
-        <div class="modal-buttons">
-          <button class="fun-button" (click)="submitDashboard()">Einloggen</button>
-          <button class="fun-button cancel" (click)="cancelModal()">Abbrechen</button>
-        </div>
+        <form (ngSubmit)="submitDashboard()">
+          <input type="password" [(ngModel)]="passwordInput" name="password" placeholder="Passwort" class="form-input">
+          <div class="modal-buttons">
+            <button type="submit" class="fun-button">Einloggen</button>
+            <button type="button" class="fun-button cancel" (click)="cancelModal()">Abbrechen</button>
+          </div>
+        </form>
         @if(errorMessage) {
-        <div class="alert-message">{{ errorMessage }}</div>
+          <div class="alert-message">{{ errorMessage }}</div>
         }
       </div>
     </div>

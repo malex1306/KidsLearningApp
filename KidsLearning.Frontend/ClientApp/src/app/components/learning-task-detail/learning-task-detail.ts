@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { LearningService } from '../../services/learning.service';
 import { QuestionNavigationService } from '../../services/question-navigation.service';
 import { Subscription } from 'rxjs';
+import { ActiveChildService } from '../../services/active-child.service';
 
 @Component({
   selector: 'app-learning-task-detail',
@@ -30,27 +31,39 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private tasksService: TasksService,
     private learningService: LearningService,
-    public navigationService: QuestionNavigationService
+    public navigationService: QuestionNavigationService,
+    private activeChildService: ActiveChildService
   ) {}
 
   ngOnInit(): void {
     const taskId = this.route.snapshot.paramMap.get('id');
     const childIdParam = this.route.snapshot.paramMap.get('childId');
 
+    if (childIdParam) {
+      this.childId = +childIdParam;
+    }
+
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe((task) => {
+        // Get active child difficulty
+        const activeChild = this.activeChildService.activeChild();
+        const childDifficulty = activeChild?.difficulty ?? 'Vorschule';
+
+        // Filter questions by difficulty
+        if (childDifficulty) {
+          task.questions = task.questions.filter(q => q.difficulty === childDifficulty);
+        }
+
+        // Shuffle questions and their options
         task.questions = this.shuffleArray(task.questions);
         task.questions.forEach(q => {
           q.options = this.shuffleArray(q.options);
         });
+
         this.task = task;
         this.navigationService.setTask(task);
-
         this.answeredQuestions = new Array(task.questions.length).fill(false);
       });
-    }
-    if (childIdParam) {
-      this.childId = +childIdParam;
     }
 
     this.subscriptions.add(
@@ -60,6 +73,7 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
       })
     );
   }
+
 
   private shuffleArray<T>(array: T[]): T[] {
     const copy = [...array];
