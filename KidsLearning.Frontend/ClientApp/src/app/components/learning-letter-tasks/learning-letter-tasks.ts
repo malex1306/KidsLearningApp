@@ -62,6 +62,10 @@ export class LearningLetterTasks implements OnInit {
         if (childDifficulty) {
           task.questions = task.questions.filter(q => q.difficulty === childDifficulty);
         }
+        
+        // Mischen der Fragen
+        task.questions = this.shuffleArray(task.questions);
+
         this.task = task;
         this.navigationService.setTask(task);
         this.answeredQuestions = new Array(task.questions.length).fill(false);
@@ -88,7 +92,22 @@ export class LearningLetterTasks implements OnInit {
   )
   }
 
+  // Methode zum Mischen des Arrays
+  private shuffleArray(array: any[]): any[] {
+    let currentIndex = array.length, randomIndex;
 
+    // Solange es noch Elemente zum Mischen gibt.
+    while (currentIndex !== 0) {
+      // Wählen Sie ein verbleibendes Element aus.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // Und tauschen Sie es mit dem aktuellen Element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+    return array;
+  }
 
   initializeSpellingTask(): void {
     if (this.task && this.task.questions.length > 0) {
@@ -227,7 +246,7 @@ onFinishTask(): void {
 }
 
 checkTypedAnswer(): void{
-   if (!this.task) return;
+    if (!this.task) return;
 
   const currentQuestion = this.task.questions[this.currentQuestionIndex];
   if (this.typedAnswer.trim().toLowerCase() === currentQuestion.correctAnswer.toLowerCase()) {
@@ -240,5 +259,4 @@ checkTypedAnswer(): void{
     this.statusMessage = 'Falsch, versuche es nochmal.';
   }
 }
-
 }
