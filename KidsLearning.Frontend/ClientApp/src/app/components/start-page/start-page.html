@@ -9,7 +9,7 @@
           </div>
           <div class="welcome-message">
             <p class="greeting-text">{{ greetingText }}</p>
-            <h1 class="user-name">{{ activeChild()?.name }}!</h1>
+           <h1 class="user-name" [class.animate-typing]="triggerAnimation">{{ activeChild()?.name }}!</h1>
           </div>
         </div>
       } @else {
@@ -21,8 +21,12 @@
             <h1 class="user-name">Willkommen zurück!</h1>
           </div>
         </div>
+        
       }
     </header>
+    @if (activeChild() && showDuduGif) {
+      <img src="assets/gifs/dudu.gif" alt="bear gif" class="dudu-gif">
+    }
 
     <div class="main-content">
       @if (dashboardData) {
@@ -122,8 +126,15 @@
               <div class="card-footer">
               </div>
             </a>
-
-            <a class="child-card-six mb-3" [routerLink]="['/inventory', activeChild()?.id]">
+          </div>
+          <div class="lessons-section mt-4">
+           <div class="child-selection-container">
+           @if (activeChild()) {
+            <h3>Das ist der Bereich von {{ activeChild()?.name }}</h3>
+            <p>Hier findest du dein Inventar und mehr</p>
+          }
+           </div>
+           <a class="child-card-six mb-3" [routerLink]="['/inventory', activeChild()?.id]">
               <div class="child-header">
                 <img src="assets/images/treasure-chest.png" alt="Lektion Bild" class="child-picture">
                 <h3 class="card-lettering">Mein Inventar</h3>
@@ -134,7 +145,8 @@
               <div class="card-footer">
               </div>
             </a>
-          </div>
+            
+            </div>
         }
       </div>
     </div>
@@ -156,5 +168,6 @@
         </div>
       </div>
     </div>
+    
   }
 </div>
