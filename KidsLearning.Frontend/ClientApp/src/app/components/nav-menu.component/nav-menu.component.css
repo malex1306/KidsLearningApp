@@ -338,6 +338,15 @@
         margin-left: 5px;
     }
 }
+.nav-item-mobile-inventory {
+    display: none;
+}
+@media (max-width: 600px) {
+    .nav-item-mobile-inventory {
+        display: block;
+    }
+}
+
 
 @media (min-width: 768px) and (max-width: 1024px) {
     .navbar {

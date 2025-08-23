@@ -10,6 +10,11 @@
 
       <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end" [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
+          <li class="nav-item nav-item-mobile-inventory">
+      <a [routerLink]="['/inventory', activeChildService.activeChild()?.id]" class="nav-link text-dark">
+        <img src="assets/images/treasure-chest.png" class="nav-item-img">Inventar
+      </a>
+    </li>
           <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-dark" [routerLink]="['/']" (click)="collapse()"><img src="assets/images/home.png"
                 class="nav-item-img">Home</a>
@@ -46,6 +51,7 @@
             </div>
             }
           </li>
+           
           <li class="nav-item">
             <a class="nav-link text-dark" (click)="submitLogout()"><img src="assets/images/exit.png"
                 class="nav-item-img">Logout</a>

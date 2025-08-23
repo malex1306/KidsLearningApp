@@ -1,37 +1,43 @@
 <div class="main-page-layout">
-  <div class="side-card left-sidebar">
-                  <div class="child-side">
-                    <h3 class="child-side-name">{{ activeChild()?.name }}</h3>
-                    <h4 class="child-side-age">Alter:{{ activeChild()?.age}}</h4>
-                    <h5 class="child-side-difficult">Klasse: {{activeChild()?.difficulty}}</h5>
-                  </div>
+  @if(isLoggedIn){
+  <div class="side-card-three left-sidebar">
+    <div class="child-side">
+      <p class="greeting-text">{{ greetingText }}</p>
+      <div class="child-side-header-flex">
+        <img [src]="activeChild()?.avatarUrl" class="child-side-avatar">
+        <h3 class="child-side-name">{{ activeChild()?.name }}</h3>
+      </div>
+      <h4 class="child-side-age">Alter:{{ activeChild()?.age}}</h4>
+      <h5 class="child-side-difficult">Klasse: {{activeChild()?.difficulty}}</h5>
+    </div>
   </div>
+}
 
-  
-<div class="dashboard-container">
-  @if (isLoggedIn) {
-    <header class="dashboard-header">
+
+  <div class="dashboard-container">
+    @if (isLoggedIn) {
+    <!-- <header class="dashboard-header">
       @if (activeChild()) {
-        <div class="header-section">
-          <div class="welcome-message">
-            <p class="greeting-text">{{ greetingText }}</p>
-           <h1 class="user-name" [class.animate-typing]="triggerAnimation">{{ activeChild()?.name }}!</h1>
-          </div>
+      <div class="header-section">
+        <div class="welcome-message">
+          <p class="greeting-text">{{ greetingText }}</p>
+          <h1 class="user-name" [class.animate-typing]="triggerAnimation">{{ activeChild()?.name }}!</h1>
         </div>
+      </div>
       } @else {
-        <div class="header-section">
-            <div class="avatar-container">
-            <img src="assets/images/teddy-bear.png" alt="" class="avatar-image">
-          </div>
-          <div class="welcome-message">
-            <h1 class="user-name">Willkommen zurück!</h1>
-          </div>
+      <div class="header-section">
+        <div class="avatar-container">
+          <img src="assets/images/teddy-bear.png" alt="" class="avatar-image">
         </div>
-        
+        <div class="welcome-message">
+          <h1 class="user-name">Willkommen zurück!</h1>
+        </div>
+      </div>
+
       }
-    </header>
+    </header> -->
     @if (activeChild() && showDuduGif) {
-      <img src="assets/gifs/dudu.gif" alt="bear gif" class="dudu-gif">
+    <img src="assets/gifs/dudu.gif" alt="bear gif" class="dudu-gif">
     }
 
     <div class="main-content">
@@ -61,103 +67,83 @@
           </div>
         }
       } -->
-      
+
 
       <div class="lessons-section mt-4">
         <div class="child-selection-container">
           @if (activeChild()) {
-            <h3>Deine Lektionen</h3>
+          <h3>Deine Lektionen</h3>
           } @else {
-            <h3>Bitte wähle ein Kind aus.</h3>
+          <h3>Bitte wähle ein Kind aus.</h3>
           }
         </div>
 
         @if (activeChild()) {
-          <!-- <p class="centered-text" style="color:#ff9900;">Hier siehst du die verfügbaren Übungen für {{ activeChild()?.name }}.</p> -->
-
-          <div class="lessons-grid">
-            <a class="child-card-two mb-3" [routerLink]="['tasks', 'Mathe-Abenteuer', 'child', activeChild()?.id]">
-              <div class="child-header">
-                <img src="assets/images/math.png" alt="Lektion Bild" class="child-picture">
-                <h3 class="card-lettering">Mathe-Abenteuer</h3>
-              </div>
-              <div class="progress-section" style="color: black;">
-                <p>Grundlagen der Mathematik.</p>
-              </div>
-            </a>
-
-            <a class="child-card-one mb-3" [routerLink]="['tasks', 'Buchstaben-land', 'child', activeChild()?.id]">
-              <div class="child-header">
-                <img src="assets/images/boy.png" alt="Lektion Bild" class="child-picture">
-                <h3 class="card-lettering">Buchstaben-Land</h3>
-              </div>
-              <div class="progress-section" style="color: black;">
-                <p>Lerne, wie man liest und schreibt.</p>
-              </div>
-              <div class="card-footer">
-              </div>
-            </a>
-
-            <a class="child-card-three mb-3" [routerLink]="['tasks', 'Spaß-land', 'child', activeChild()?.id]">
-              <div class="child-header">
-                <img src="assets/images/girl.png" alt="Lektion Bild" class="child-picture">
-                <h3 class="card-lettering">Spaßig-Land</h3>
-              </div>
-              <div class="progress-section" style="color: black;">
-                <p>Lerne, wie man puzzelt.</p>
-              </div>
-              <div class="card-footer">
-              </div>
-            </a>
-
-            <a class="child-card-four mb-3" [routerLink]="['tasks', 'Englisch', 'child', activeChild()?.id]">
-              <div class="child-header">
-                <img src="assets/images/english.png" alt="Lektion Bild" class="child-picture">
-                <h3 class="card-lettering">Englisch-Land</h3>
-              </div>
-              <div class="progress-section" style="color: black;">
-                <p>Lerne, wie man Englisch spricht.</p>
-              </div>
-              <div class="card-footer">
-              </div>
-            </a>
-
-            <a class="child-card-five mb-3" [routerLink]="['tasks', 'Logik-Dschungel', 'child', activeChild()?.id]">
-              <div class="child-header">
-                <img src="assets/images/logic.png" alt="Lektion Bild" class="child-picture">
-                <h3 class="card-lettering">Logik-Dschungel</h3>
-              </div>
-              <div class="progress-section" style="color: black;">
-                <p>Logik ist überall.</p>
-              </div>
-              <div class="card-footer">
-              </div>
-            </a>
-          </div>
-          <div class="lessons-section mt-4">
-           <div class="child-selection-container">
-           @if (activeChild()) {
-            <h3>Das ist der Bereich von {{ activeChild()?.name }}</h3>
-            <p>Hier findest du dein Inventar und mehr</p>
-          }
-           </div>
-           <a class="child-card-six mb-3" [routerLink]="['/inventory', activeChild()?.id]">
-              <div class="child-header">
-                <img src="assets/images/treasure-chest.png" alt="Lektion Bild" class="child-picture">
-                <h3 class="card-lettering">Mein Inventar</h3>
-              </div>
-              <div class="progress-section" style="color: black;">
-                <p>Neue Avatare und mehr...</p>
-              </div>
-              <div class="card-footer">
-              </div>
-            </a>
-            
+        <div class="lessons-grid">
+          <a class="child-card-two mb-3" [routerLink]="['tasks', 'Mathe-Abenteuer', 'child', activeChild()?.id]">
+            <div class="child-header">
+              <img src="assets/images/math.png" alt="Lektion Bild" class="child-picture">
+              <h3 class="card-lettering">Mathe-Abenteuer</h3>
             </div>
+            <div class="progress-section" style="color: black;">
+              <p>Grundlagen der Mathematik.</p>
+            </div>
+          </a>
+
+          <a class="child-card-one mb-3" [routerLink]="['tasks', 'Buchstaben-land', 'child', activeChild()?.id]">
+            <div class="child-header">
+              <img src="assets/images/boy.png" alt="Lektion Bild" class="child-picture">
+              <h3 class="card-lettering">Buchstaben-Land</h3>
+            </div>
+            <div class="progress-section" style="color: black;">
+              <p>Lerne, wie man liest und schreibt.</p>
+            </div>
+            <div class="card-footer">
+            </div>
+          </a>
+
+          <a class="child-card-three mb-3" [routerLink]="['tasks', 'Spaß-land', 'child', activeChild()?.id]">
+            <div class="child-header">
+              <img src="assets/images/girl.png" alt="Lektion Bild" class="child-picture">
+              <h3 class="card-lettering">Spaßig-Land</h3>
+            </div>
+            <div class="progress-section" style="color: black;">
+              <p>Lerne, wie man puzzelt.</p>
+            </div>
+            <div class="card-footer">
+            </div>
+          </a>
+
+          <a class="child-card-four mb-3" [routerLink]="['tasks', 'Englisch', 'child', activeChild()?.id]">
+            <div class="child-header">
+              <img src="assets/images/english.png" alt="Lektion Bild" class="child-picture">
+              <h3 class="card-lettering">Englisch-Land</h3>
+            </div>
+            <div class="progress-section" style="color: black;">
+              <p>Lerne, wie man Englisch spricht.</p>
+            </div>
+            <div class="card-footer">
+            </div>
+          </a>
+
+          <a class="child-card-five mb-3" [routerLink]="['tasks', 'Logik-Dschungel', 'child', activeChild()?.id]">
+            <div class="child-header">
+              <img src="assets/images/logic.png" alt="Lektion Bild" class="child-picture">
+              <h3 class="card-lettering">Logik-Dschungel</h3>
+            </div>
+            <div class="progress-section" style="color: black;">
+              <p>Logik ist überall.</p>
+            </div>
+            <div class="card-footer">
+            </div>
+          </a>
+        </div>
+        <div class="lessons-section mt-4">
+        </div>
         }
       </div>
     </div>
-  } @else {
+    } @else {
     <header class="dashboard-header">
       <div class="user-info">
         <h2>Willkommen bei der KidsLearningApp!</h2>
@@ -175,52 +161,52 @@
         </div>
       </div>
     </div>
-  }
-</div>
-  <div class="right-sidebar-container">
-    <a [routerLink]="['/inventory', activeChild()?.id]" class="inventar-link">
-        <div class="side-card right-sidebar">
-            <div class="child-inventar">
-                <img src="assets/images/treasure-chest.png" alt="Lektion Bild" class="child-picture-inventar">
-                <h3 class="card-lettering-inventar">Mein Inventar</h3>
-            </div>
-        </div>
-    </a>
-
-  <div class="side-card-two right-sidebar">
-
-    @if (activeChild()) {
-      <div class="achievement-card" *ngFor="let badge of activeChild()?.badges">
-  <div class="achievement-item">
-    <img [src]="badge.iconUrl" alt="{{ badge.name }}" class="achievement-icon" />
-    <div class="achievement-info">
-      <div class="achievement-title">{{ badge.name }}</div>
-      <div class="progress-container">
-        <div class="progress-bar"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Beispiel für Fortschritt -->
-<div class="achievement-card" *ngFor="let subject of activeChild()?.progress">
-  <div class="achievement-item">
-    <img [src]="'assets/images/' + getSubjectIcon(subject.subjectName)" 
-     alt="{{ subject.subjectName }}" 
-     class="achievement-icon" />
-
-    <div class="achievement-info">
-      <div class="achievement-title">{{ subject.subjectName }}</div>
-      <div class="achievement-subtitle">{{ subject.progressPercentage }}% abgeschlossen</div>
-      <div class="progress-container">
-        <div class="progress-bar" [style.width.%]="subject.progressPercentage"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
     }
   </div>
-</div>
- 
+  @if(isLoggedIn){
+  <div class="right-sidebar-container">
+    <a [routerLink]="['/inventory', activeChild()?.id]" class="inventar-link">
+      <div class="side-card right-sidebar">
+        <div class="child-inventar">
+          <img src="assets/images/treasure-chest.png" alt="Lektion Bild" class="child-picture-inventar">
+          <h3 class="card-lettering-inventar">Mein Inventar</h3>
+        </div>
+      </div>
+    </a>
 
+    <div class="side-card-two right-sidebar">
+
+      @if (activeChild()) {
+      @for (badge of activeChild()?.badges; track $index) {
+      <div class="achievement-card">
+        <div class="achievement-item">
+          <img [src]="badge.iconUrl" alt="{{ badge.name }}" class="achievement-icon" />
+          <div class="achievement-info">
+            <div class="achievement-title">{{ badge.name }}</div>
+            <div class="progress-container">
+              <div class="progress-bar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+
+      @for (subject of activeChild()?.progress; track $index) {
+      <div class="achievement-card">
+        <div class="achievement-item">
+          <img [src]="'assets/images/' + getSubjectIcon(subject.subjectName)" alt="{{ subject.subjectName }}"
+            class="achievement-icon" />
+          <div class="achievement-info">
+            <div class="achievement-title">{{ subject.subjectName }}</div>
+            <div class="achievement-subtitle">{{ subject.progressPercentage }}% abgeschlossen</div>
+            <div class="progress-container">
+              <div class="progress-bar" [style.width.%]="subject.progressPercentage"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+      }
+    </div>
+  </div>
+}
