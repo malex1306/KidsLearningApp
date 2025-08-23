@@ -9,11 +9,12 @@ export interface ChildInfo {
   avatarUrl: string;
   age: number;
   starCount: number;
+  totalStarsEarned: number;
   badges: any[];
   unlockedAvatars: any[];
-  // Fügen Sie diese Eigenschaft hinzu
   dateOfBirth: Date;
   difficulty: string;
+  progress: { subjectName: string; progressPercentage: number }[];
 }
 
 @Injectable({
@@ -43,10 +44,12 @@ export class ActiveChildService {
       age: childDto.age,
       avatarUrl: childDto.avatarUrl,
       starCount: childDto.starCount,
+      totalStarsEarned: childDto.starCount,
       badges: childDto.badges,
       unlockedAvatars: childDto.unlockedAvatars,
       dateOfBirth: childDto.dateOfBirth, // Fügen Sie hier die Eigenschaft hinzu
-      difficulty: childDto.difficulty
+      difficulty: childDto.difficulty,
+      progress: childDto.progress
     };
     this.activeChildSignal.set(childInfo);
     localStorage.setItem('activeChild', JSON.stringify(childInfo));

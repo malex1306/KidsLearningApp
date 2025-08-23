@@ -1,12 +1,18 @@
+<div class="main-page-layout">
+  <div class="side-card left-sidebar">
+                  <div class="child-side">
+                    <h3 class="child-side-name">{{ activeChild()?.name }}</h3>
+                    <h4 class="child-side-age">Alter:{{ activeChild()?.age}}</h4>
+                    <h5 class="child-side-difficult">Klasse: {{activeChild()?.difficulty}}</h5>
+                  </div>
+  </div>
 
+  
 <div class="dashboard-container">
   @if (isLoggedIn) {
     <header class="dashboard-header">
       @if (activeChild()) {
         <div class="header-section">
-          <div class="avatar-container">
-            <img [src]="activeChild()?.avatarUrl" alt="Profilbild" class="avatar-image">
-          </div>
           <div class="welcome-message">
             <p class="greeting-text">{{ greetingText }}</p>
            <h1 class="user-name" [class.animate-typing]="triggerAnimation">{{ activeChild()?.name }}!</h1>
@@ -29,7 +35,7 @@
     }
 
     <div class="main-content">
-      @if (dashboardData) {
+      <!-- @if (dashboardData) {
         @if (dashboardData.children.length > 0) {
           <div class="child-selection-container">
             <h3>Wer möchte lernen?</h3>
@@ -54,12 +60,13 @@
             Füge über das Dashboard dein/e Kind/er hinzu.
           </div>
         }
-      }
+      } -->
+      
 
       <div class="lessons-section mt-4">
         <div class="child-selection-container">
           @if (activeChild()) {
-            <h3>Lektionen für {{ activeChild()?.name }}</h3>
+            <h3>Deine Lektionen</h3>
           } @else {
             <h3>Bitte wähle ein Kind aus.</h3>
           }
@@ -168,6 +175,52 @@
         </div>
       </div>
     </div>
-    
   }
 </div>
+  <div class="right-sidebar-container">
+    <a [routerLink]="['/inventory', activeChild()?.id]" class="inventar-link">
+        <div class="side-card right-sidebar">
+            <div class="child-inventar">
+                <img src="assets/images/treasure-chest.png" alt="Lektion Bild" class="child-picture-inventar">
+                <h3 class="card-lettering-inventar">Mein Inventar</h3>
+            </div>
+        </div>
+    </a>
+
+  <div class="side-card-two right-sidebar">
+
+    @if (activeChild()) {
+      <div class="achievement-card" *ngFor="let badge of activeChild()?.badges">
+  <div class="achievement-item">
+    <img [src]="badge.iconUrl" alt="{{ badge.name }}" class="achievement-icon" />
+    <div class="achievement-info">
+      <div class="achievement-title">{{ badge.name }}</div>
+      <div class="progress-container">
+        <div class="progress-bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Beispiel für Fortschritt -->
+<div class="achievement-card" *ngFor="let subject of activeChild()?.progress">
+  <div class="achievement-item">
+    <img [src]="'assets/images/' + getSubjectIcon(subject.subjectName)" 
+     alt="{{ subject.subjectName }}" 
+     class="achievement-icon" />
+
+    <div class="achievement-info">
+      <div class="achievement-title">{{ subject.subjectName }}</div>
+      <div class="achievement-subtitle">{{ subject.progressPercentage }}% abgeschlossen</div>
+      <div class="progress-container">
+        <div class="progress-bar" [style.width.%]="subject.progressPercentage"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    }
+  </div>
+</div>
+ 
+

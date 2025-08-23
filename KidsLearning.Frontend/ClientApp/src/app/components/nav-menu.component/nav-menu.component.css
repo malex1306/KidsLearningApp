@@ -6,7 +6,8 @@
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  padding: 10px 20px;
+   padding: 0 20px; /* Vertikale Polsterung entfernen */
+  min-height: 80px; /* Passen Sie dies an, um das Logo aufzunehmen */
   position: fixed;
   top: 0;
   left: 0;
@@ -19,6 +20,13 @@
   font-weight: bold;
   font-size: 24px;
   color: #ff8c42 !important; /* Passend zum Logo-Farbton */
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nav {
+  /* Zentriert die Hauptlinks in der Mitte */
+  justify-content: center;
 }
 
 .navbar-nav .nav-item {
@@ -66,13 +74,132 @@
   margin-bottom: 25px !important;
 }
 
+.nav-item-star {
+  width: 35px;
+  height: auto;
+  margin-right: 1rem;
+}
+.nav-item-img {
+  height: 35px;
+  width: Auto;
+  margin-right: 1rem;
+}
+.nav-item-logo {
+  height: 70px;
+  width: Auto;
+}
+
+/* Container für die Stern- und Badge-Positionierung */
+.star-item-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: 230px;
+}
+
+/* Stil für den Sternenzähler als Badge */
+.star-count-badge {
+  position: absolute;
+  top: -1px;
+  right: 4px;
+  background-color: #ffc107;
+  color: black;
+  font-weight: bold;
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  border: 1px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  min-width: 25px;
+  text-align: center;
+}
+
+.hover-info-box {
+    position: absolute;
+    top: 100%;
+    right: 0; 
+    transform: none; 
+    
+    /* Hintergrund und Rahmen wie auf dem Bild */
+    background: white;
+    backdrop-filter: blur(10px);
+    border: 3px solid #ffc107; /* Lila Rahmen */
+    border-radius: 20px;
+    
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    z-index: 100;
+    
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    text-align: center;
+    color: #fff; /* Textfarbe auf weiß setzen */
+}
+
+/* Zeigt die Hover-Box an, wenn der Container überfahren wird */
+.star-item-container:hover .hover-info-box {
+    opacity: 1;
+    visibility: visible;
+}
+
+.info-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: black; /* Dunkle Schriftfarbe für den Titel */
+}
+
+.star-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+}
+
+.star-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-star-img {
+    width: 30px;
+    height: auto;
+}
+
+.info-count-text {
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #34495e;
+    margin-top: 5px;
+}
+
+.info-label {
+    font-size: 0.8rem;
+    color: black;
+    margin-top: 5px;
+}
+
+
+/* Optional: Stil für den Text innerhalb der Hover-Box */
+.info-count-text {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #ffc107;
+  margin-left: 5px;
+}
+
 /* ========================================================================= */
 /* Glass-Card Modal Stile */
 /* ========================================================================= */
 .modal-overlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,11 +207,11 @@
 }
 
 .modal-card {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   padding: 2rem;
   border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   width: 300px;
   text-align: center;
   color: #fff;
@@ -101,8 +228,8 @@
   width: 100%;
   padding: 0.8rem 1rem;
   border-radius: 50px;
-  border: 2px solid rgba(255,255,255,0.4);
-  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.15);
   color: #fff;
   margin-top: 0.5rem;
   font-size: 1rem;
@@ -112,11 +239,11 @@
 .form-input:focus {
   outline: none;
   border-color: #ff9100;
-  box-shadow: 0 0 0 3px rgba(255,145,0,0.3);
+  box-shadow: 0 0 0 3px rgba(255, 145, 0, 0.3);
 }
 
 .form-input::placeholder {
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Buttons im Modal */
@@ -155,12 +282,151 @@
 
 /* Fehlermeldungen */
 .alert-message {
-  background: rgba(255,0,0,0.3);
+  background: rgba(255, 0, 0, 0.3);
   color: #fff;
   padding: 0.75rem 1.25rem;
   margin-top: 1rem;
   border-radius: 10px;
-  border: 1px solid rgba(255,0,0,0.5);
+  border: 1px solid rgba(255, 0, 0, 0.5);
   font-weight: 500;
   font-size: 0.9rem;
+}
+@media (max-width: 767px) {
+    .navbar {
+        padding: 10px;
+        min-height: auto;
+    }
+
+    .navbar-collapse {
+        text-align: center;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .navbar-nav .nav-item {
+        margin: 10px 0;
+        width: 100%;
+    }
+    
+    .nav-item-img {
+      height: 25px;
+      width: auto;
+    }
+
+    .navbar-brand {
+        display: block;
+        text-align: left;
+        padding-left: 0;
+    }
+    
+    .nav-item-logo {
+        height: 50px;
+        margin-right: 0.5rem;
+    }
+
+    .star-item-container {
+        margin-left: 0;
+        margin-top: 15px;
+    }
+    
+    .star-count-badge {
+        position: static; /* Positionierung für mobile Ansicht zurücksetzen */
+        margin-left: 5px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .navbar {
+        padding: 0 15px; /* Etwas weniger horizontale Polsterung */
+    }
+    
+    .navbar-nav {
+        flex-grow: 1; /* Nimmt den verfügbaren Platz ein */
+        justify-content: flex-end; /* Links nach rechts ausrichten */
+    }
+
+    .navbar-nav .nav-item {
+        margin: 0 8px; 
+    }
+
+    .nav-item-logo {
+        height: 60px; 
+    }
+    
+    .navbar-brand {
+        font-size: 22px; 
+    }
+
+    .nav-item-img {
+        height: 30px;
+    }
+    
+    .star-item-container {
+        margin-left: 15px; 
+    }
+
+    
+    .nav-link {
+      font-size: 0.9rem;
+      padding: 6px 10px;
+    }
+}
+
+.child-menu-container {
+  position: relative;
+  
+}
+
+
+.child-dropdown-menu {
+  display: none; 
+  position: absolute;
+  top: 100%; 
+  left: 0;
+  min-width: 150px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 8px;
+}
+
+
+.child-menu-container:hover .child-dropdown-menu {
+  display: block;
+}
+
+
+.child-dropdown-menu .child-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.child-dropdown-menu .child-menu-item:hover {
+  background-color: #f0f0f0;
+}
+
+.child-menu-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.nav-item-avatar {
+    width: 50px; 
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 5px; 
+    border: 2px solid #ffb703;
 }

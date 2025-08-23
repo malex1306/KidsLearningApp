@@ -25,6 +25,15 @@ export class StartPageComponent implements OnInit, OnDestroy {
   activeChild = computed(() => this.activeChildService.activeChild());
   triggerAnimation: boolean = false;
   showDuduGif: boolean = false;
+  subjectIconMap: { [key: string]: string } = {
+  'Mathe-Abenteuer': 'math.png',
+  'Buchstaben-Land': 'boy.png',
+  'Spaßig-Land': 'girl.png',
+  'Englisch': 'english.png',
+  'Logik-Dschungel': 'logic.png'
+};
+
+  
 
   constructor(
     private authService: Auth,
@@ -51,6 +60,18 @@ export class StartPageComponent implements OnInit, OnDestroy {
       this.authStatusSubscription.unsubscribe();
     }
   }
+  getSubjectIcon(subjectName: string): string {
+  if (!subjectName) return 'default.png';
+
+  if (subjectName.includes('Mathe')) return 'math.png';
+  if (subjectName.includes('Buchstaben')) return 'boy.png';
+  if (subjectName.includes('Spaß')) return 'girl.png';
+  if (subjectName.includes('Englisch')) return 'english.png';
+  if (subjectName.includes('Logik')) return 'logic.png';
+
+  return 'default.png'; // Fallback
+}
+  
 
   loadDashboardData(): void {
     this.parentDashboardService.getDashboardData().subscribe({

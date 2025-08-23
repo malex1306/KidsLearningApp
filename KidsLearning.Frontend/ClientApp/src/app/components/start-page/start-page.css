@@ -1,17 +1,60 @@
 .dashboard-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-    min-height: 100vh;
-    font-family: 'Poppins', sans-serif;
-    color: #333;
-    border-radius: 2rem;
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    padding: 1.5rem;
-    transition: transform 0.3s ease;
+  flex-grow: 1; /* Lässt den Container den verfügbaren Platz in der Mitte einnehmen */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  border-radius: 2rem;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+}
+.side-card {
+  width: 250px; /* Feste Breite für die Seitenleisten */
+  height: 10vh; /* Nimmt die volle Höhe des Viewports ein */
+  padding: 1rem;
+  background-color: #f7f9fc;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex-shrink: 0; /* Verhindert das Schrumpfen */
+  
+  /* Zusätzliches Styling für die Darstellung der Seitenleisten */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.side-card-two {
+  width: 250px; /* Feste Breite für die Seitenleisten */
+  height: 40vh; /* Nimmt die volle Höhe des Viewports ein */
+  padding: 1rem;
+  background-color: #f7f9fc;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex-shrink: 0; /* Verhindert das Schrumpfen */
+  
+  /* Zusätzliches Styling für die Darstellung der Seitenleisten */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.main-page-layout {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 1rem; /* Verringert den Abstand zu den Seiten */
+  max-width: 1400px; /* Begrenzt die maximale Breite auf großen Bildschirmen */
+  margin: 0 auto; /* Zentriert das Layout horizontal */
+  flex-wrap: wrap; /* Ermöglicht das Umbrechen von Elementen */
 }
 
 
@@ -307,7 +350,19 @@
     font-weight: bold;
     margin-top: 0.5rem;
 }
-
+.child-side{
+    font-size: 20px;
+    margin-left: 10px;
+}
+.child-side-name{
+    font-size: 20px;
+}
+.child-side-age{
+    font-size: 10px; 
+}
+.child-side-difficult{
+    font-size: 10px;
+}
 .card-lettering {
     font-weight: bold;
 }
@@ -457,4 +512,79 @@
         transform: translateY(-150%) rotateZ(210deg) scaleX(-1); 
         opacity: 0;
     }
+}
+.right-sidebar-container {
+  display: flex;
+  flex-direction: column; /* stapelt die Cards untereinander */
+  gap: 20px; /* optionaler Abstand */
+}
+.achievement-card {
+  background: transparent;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+  
+}
+
+.achievement-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.achievement-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.achievement-info {
+  flex: 1;
+}
+
+.achievement-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+}
+
+.achievement-subtitle {
+  font-size: 12px;
+  color: #666;
+}
+
+.progress-container {
+  background: #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 8px;
+  margin-top: 4px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  width: 0%;
+  transition: width 0.5s ease;
+}
+.child-inventar{
+    display: flex;
+    align-items: center; 
+    justify-content: flex-start; 
+    gap: 10px; 
+    width: 100%; 
+    margin-bottom: 0.5rem; 
+    
+}
+
+.card-lettering-inventar{
+    color: Black;
+}
+
+.child-picture-inventar{
+    height: 50px;
+    width: 50px;
+    margin-bottom: 0.5rem;
+}
+.inventar-link{
+    text-decoration: none;
 }
