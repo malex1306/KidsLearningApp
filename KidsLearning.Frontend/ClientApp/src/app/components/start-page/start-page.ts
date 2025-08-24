@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Auth } from '../../services/auth';
 import { ParentDashboardService } from '../../services/parent-dashboard.service';
-import { ParentDashboardDto, ChildDto } from '../../dtos/parent-dashboard.dto';
+import { ParentDashboardDto, ChildDto, DailyGoal } from '../../dtos/parent-dashboard.dto';
 import { ActiveChildService, ChildInfo } from '../../services/active-child.service';
 
 @Component({
@@ -32,6 +32,7 @@ export class StartPageComponent implements OnInit, OnDestroy {
   'Englisch': 'english.png',
   'Logik-Dschungel': 'logic.png'
 };
+  dailyGoals: DailyGoal[] = [];
 
   
 

@@ -6,8 +6,8 @@
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-   padding: 0 20px; /* Vertikale Polsterung entfernen */
-  min-height: 80px; /* Passen Sie dies an, um das Logo aufzunehmen */
+  padding: 0 20px;
+  min-height: 80px;
   position: fixed;
   top: 0;
   left: 0;
@@ -16,16 +16,16 @@
 }
 
 .navbar-brand {
-  font-family: 'Comic Sans MS', 'Arial', sans-serif; /* Ein verspielter Font */
+  font-family: 'Comic Sans MS', 'Arial', sans-serif;
   font-weight: bold;
   font-size: 24px;
-  color: #ff8c42 !important; /* Passend zum Logo-Farbton */
+  color: #ff8c42 !important;
   display: flex;
   align-items: center;
 }
 
 .navbar-nav {
-  /* Zentriert die Hauptlinks in der Mitte */
+
   justify-content: center;
 }
 
@@ -44,10 +44,10 @@
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-item.link-active a {
   color: #ffffff !important;
-  background-color: #ffc107; /* Gelb als Hover-Effekt */
+  background-color: #ffc107;
 }
 
-/* Stil für den Logout-Button */
+
 .nav-link.logout-link {
   background-color: #e74c3c;
   color: #ffffff !important;
@@ -59,7 +59,7 @@
   background-color: #c0392b;
 }
 
-/* Anpassungen für mobile Ansicht */
+
 .navbar-toggler {
   border-color: #ff8c42;
   background-color: #fff8f2;
@@ -69,7 +69,7 @@
   background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='%23ff8c42' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-/* Abstand unter der Navbar */
+
 .mb-3 {
   margin-bottom: 25px !important;
 }
@@ -79,17 +79,19 @@
   height: auto;
   margin-right: 1rem;
 }
+
 .nav-item-img {
   height: 35px;
   width: Auto;
   margin-right: 1rem;
 }
+
 .nav-item-logo {
   height: 70px;
   width: Auto;
 }
 
-/* Container für die Stern- und Badge-Positionierung */
+
 .star-item-container {
   position: relative;
   display: flex;
@@ -97,7 +99,7 @@
   margin-left: 230px;
 }
 
-/* Stil für den Sternenzähler als Badge */
+
 .star-count-badge {
   position: absolute;
   top: -1px;
@@ -115,74 +117,74 @@
 }
 
 .hover-info-box {
-    position: absolute;
-    top: 100%;
-    right: 0; 
-    transform: none; 
-    
-    /* Hintergrund und Rahmen wie auf dem Bild */
-    background: white;
-    backdrop-filter: blur(10px);
-    border: 3px solid #ffc107; /* Lila Rahmen */
-    border-radius: 20px;
-    
-    padding: 1.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    white-space: nowrap;
-    z-index: 100;
-    
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    text-align: center;
-    color: #fff; /* Textfarbe auf weiß setzen */
+  position: absolute;
+  top: 100%;
+  right: 0;
+  transform: none;
+
+
+  background: white;
+  backdrop-filter: blur(10px);
+  border: 3px solid #ffc107;
+  border-radius: 20px;
+
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  z-index: 100;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  text-align: center;
+  color: #fff;
 }
 
-/* Zeigt die Hover-Box an, wenn der Container überfahren wird */
+
 .star-item-container:hover .hover-info-box {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 .info-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: black; /* Dunkle Schriftfarbe für den Titel */
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: black;
 }
 
 .star-grid {
-    display: flex;
-    justify-content: space-around;
-    gap: 15px;
+  display: flex;
+  justify-content: space-around;
+  gap: 15px;
 }
 
 .star-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .info-star-img {
-    width: 30px;
-    height: auto;
+  width: 30px;
+  height: auto;
 }
 
 .info-count-text {
-    font-weight: bold;
-    font-size: 1.4rem;
-    color: #34495e;
-    margin-top: 5px;
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #34495e;
+  margin-top: 5px;
 }
 
 .info-label {
-    font-size: 0.8rem;
-    color: black;
-    margin-top: 5px;
+  font-size: 0.8rem;
+  color: black;
+  margin-top: 5px;
 }
 
 
-/* Optional: Stil für den Text innerhalb der Hover-Box */
+
 .info-count-text {
   font-weight: bold;
   font-size: 1.1rem;
@@ -223,7 +225,7 @@
   font-size: 1.5rem;
 }
 
-/* Formular-Elemente im Modal */
+
 .form-input {
   width: 100%;
   padding: 0.8rem 1rem;
@@ -246,7 +248,7 @@
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* Buttons im Modal */
+
 .modal-buttons {
   display: flex;
   justify-content: center;
@@ -280,7 +282,7 @@
   transform: translateY(-2px);
 }
 
-/* Fehlermeldungen */
+
 .alert-message {
   background: rgba(255, 0, 0, 0.3);
   color: #fff;
@@ -291,110 +293,113 @@
   font-weight: 500;
   font-size: 0.9rem;
 }
+
 @media (max-width: 767px) {
-    .navbar {
-        padding: 10px;
-        min-height: auto;
-    }
+  .navbar {
+    padding: 10px;
+    min-height: auto;
+  }
 
-    .navbar-collapse {
-        text-align: center;
-    }
+  .navbar-collapse {
+    text-align: center;
+  }
 
-    .navbar-nav {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
+  .navbar-nav {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
 
-    .navbar-nav .nav-item {
-        margin: 10px 0;
-        width: 100%;
-    }
-    
-    .nav-item-img {
-      height: 25px;
-      width: auto;
-    }
+  .navbar-nav .nav-item {
+    margin: 10px 0;
+    width: 100%;
+  }
 
-    .navbar-brand {
-        display: block;
-        text-align: left;
-        padding-left: 0;
-    }
-    
-    .nav-item-logo {
-        height: 50px;
-        margin-right: 0.5rem;
-    }
+  .nav-item-img {
+    height: 25px;
+    width: auto;
+  }
 
-    .star-item-container {
-        margin-left: 0;
-        margin-top: 15px;
-    }
-    
-    .star-count-badge {
-        position: static; /* Positionierung für mobile Ansicht zurücksetzen */
-        margin-left: 5px;
-    }
+  .navbar-brand {
+    display: block;
+    text-align: left;
+    padding-left: 0;
+  }
+
+  .nav-item-logo {
+    height: 50px;
+    margin-right: 0.5rem;
+  }
+
+  .star-item-container {
+    margin-left: 0;
+    margin-top: 15px;
+  }
+
+  .star-count-badge {
+    position: static;
+    margin-left: 5px;
+  }
 }
+
 .nav-item-mobile-inventory {
-    display: none;
+  display: none;
 }
+
 @media (max-width: 600px) {
-    .nav-item-mobile-inventory {
-        display: block;
-    }
+  .nav-item-mobile-inventory {
+    display: block;
+  }
 }
 
 
 @media (min-width: 768px) and (max-width: 1024px) {
-    .navbar {
-        padding: 0 15px; /* Etwas weniger horizontale Polsterung */
-    }
-    
-    .navbar-nav {
-        flex-grow: 1; /* Nimmt den verfügbaren Platz ein */
-        justify-content: flex-end; /* Links nach rechts ausrichten */
-    }
+  .navbar {
+    padding: 0 15px;
+  }
 
-    .navbar-nav .nav-item {
-        margin: 0 8px; 
-    }
+  .navbar-nav {
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
 
-    .nav-item-logo {
-        height: 60px; 
-    }
-    
-    .navbar-brand {
-        font-size: 22px; 
-    }
+  .navbar-nav .nav-item {
+    margin: 0 8px;
+  }
 
-    .nav-item-img {
-        height: 30px;
-    }
-    
-    .star-item-container {
-        margin-left: 15px; 
-    }
+  .nav-item-logo {
+    height: 60px;
+  }
 
-    
-    .nav-link {
-      font-size: 0.9rem;
-      padding: 6px 10px;
-    }
+  .navbar-brand {
+    font-size: 22px;
+  }
+
+  .nav-item-img {
+    height: 30px;
+  }
+
+  .star-item-container {
+    margin-left: 15px;
+  }
+
+
+  .nav-link {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
 }
 
 .child-menu-container {
   position: relative;
-  
+
 }
 
 
 .child-dropdown-menu {
-  display: none; 
+  display: none;
   position: absolute;
-  top: 100%; 
+  top: 100%;
   left: 0;
   min-width: 150px;
   background-color: #fff;
@@ -432,10 +437,11 @@
   height: 30px;
   border-radius: 50%;
 }
+
 .nav-item-avatar {
-    width: 50px; 
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 5px; 
-    border: 2px solid #ffb703;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 5px;
+  border: 2px solid #ffb703;
 }
