@@ -14,6 +14,22 @@
     padding: 1.5rem;
     transition: transform 0.3s ease;
 }
+.main-card{
+    width: 290px;
+    height: 56vh;
+    padding: 1rem;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
 
 .side-card:hover {
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
@@ -38,7 +54,7 @@
     width: 250px;
     height: 40vh;
     padding: 1rem;
-    background-color: #f7f9fc;
+    background-color: #caf0f8;
     border-radius: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -53,7 +69,7 @@
     width: 250px;
     height: 40vh;
     padding: 1rem;
-    background-color: #f7f9fc;
+    background-color: #caf0f8;
     border-radius: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -153,7 +169,8 @@
 
 .greeting-text {
     font-size: 1.5rem;
-    color: #ff9900;
+     font-size: 1.5rem;
+    font-weight: bold;
     margin: 0;
 }
 
@@ -210,6 +227,7 @@
 
 .child-selection-container {
     text-align: center;
+    
 
 }
 
@@ -217,6 +235,8 @@
     text-align: center;
     margin-bottom: 1rem;
     color: #ff9900;
+    font-family: Milkyway, sans-serif;
+    font-size: 4rem;
 }
 
 .child-cards-container {
@@ -703,7 +723,7 @@
 }
 
 .progress-container {
-    background: #eee;
+    background: #ffb80359;
     border-radius: 8px;
     overflow: hidden;
     height: 8px;
@@ -712,7 +732,7 @@
 
 .progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, #3b82f6, #06b6d4);
+    background: linear-gradient(90deg, #ff9900, #ffab2e);
     width: 0%;
     transition: width 0.5s ease;
 }
@@ -729,6 +749,9 @@
 
 .card-lettering-inventar {
     color: Black;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
 }
 
 .child-picture-inventar {

@@ -1,4 +1,5 @@
 <div class="main-page-layout">
+  <div class="main-card">
   <div class="left-side-container">
     <div class="side-card-four left-sidebar">
       <div class="goal-header">
@@ -28,6 +29,7 @@
       </div>
     </div>
     }
+  </div>
   </div>
 
 
@@ -181,6 +183,7 @@
     }
   </div>
   @if(isLoggedIn){
+    <div class="main-card">
   <div class="right-sidebar-container">
     <a [routerLink]="['/inventory', activeChild()?.id]" class="inventar-link">
       <div class="side-card right-sidebar">
@@ -226,4 +229,6 @@
       }
     </div>
   </div>
+  </div>
   }
+  
