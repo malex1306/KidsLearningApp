@@ -128,4 +128,14 @@ export class StartPageComponent implements OnInit, OnDestroy {
       }, 3000); // 5000 Millisekunden = 5 Sekunden
     }
   }
+  speak(text: string): void {
+  if ('speechSynthesis' in window) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'de-DE'; // Deutsch, falls du englische Lektionen hast: 'en-US'
+    speechSynthesis.cancel(); // bricht laufende Sprachausgabe ab
+    speechSynthesis.speak(utterance);
+  } else {
+    console.warn('Text-to-Speech wird in diesem Browser nicht unterstützt.');
+  }
+}
 }

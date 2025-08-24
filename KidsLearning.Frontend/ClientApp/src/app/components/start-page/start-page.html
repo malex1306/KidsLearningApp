@@ -99,7 +99,8 @@
 
         @if (activeChild()) {
         <div class="lessons-grid">
-          <a class="child-card-two mb-3" [routerLink]="['tasks', 'Mathe-Abenteuer', 'child', activeChild()?.id]">
+          <a class="child-card-two mb-3" [routerLink]="['tasks', 'Mathe-Abenteuer', 'child', activeChild()?.id]"
+          (mouseenter)="speak('Mathe-Abenteuer: Grundlagen der Mathematik')">
             <div class="child-header">
               <img src="assets/images/math.png" alt="Lektion Bild" class="child-picture">
               <h3 class="card-lettering">Mathe-Abenteuer</h3>
@@ -109,7 +110,8 @@
             </div>
           </a>
 
-          <a class="child-card-one mb-3" [routerLink]="['tasks', 'Buchstaben-land', 'child', activeChild()?.id]">
+          <a class="child-card-one mb-3" [routerLink]="['tasks', 'Buchstaben-land', 'child', activeChild()?.id]"
+          (mouseenter)="speak('Buchstaben-Land: Lerne, wie man liest und schreibt.')">
             <div class="child-header">
               <img src="assets/images/boy.png" alt="Lektion Bild" class="child-picture">
               <h3 class="card-lettering">Buchstaben-Land</h3>
@@ -121,7 +123,8 @@
             </div>
           </a>
 
-          <a class="child-card-three mb-3" [routerLink]="['tasks', 'Spaß-land', 'child', activeChild()?.id]">
+          <a class="child-card-three mb-3" [routerLink]="['tasks', 'Spaß-land', 'child', activeChild()?.id]"
+          (mouseenter)="speak('Spaß-land: Lerne, wie man Puzzelt')">
             <div class="child-header">
               <img src="assets/images/girl.png" alt="Lektion Bild" class="child-picture">
               <h3 class="card-lettering">Spaßig-Land</h3>
@@ -133,7 +136,8 @@
             </div>
           </a>
 
-          <a class="child-card-four mb-3" [routerLink]="['tasks', 'Englisch', 'child', activeChild()?.id]">
+          <a class="child-card-four mb-3" [routerLink]="['tasks', 'Englisch', 'child', activeChild()?.id]"
+          (mouseenter)="speak('Englisch-Land: wie man Englisch spricht.')">
             <div class="child-header">
               <img src="assets/images/english.png" alt="Lektion Bild" class="child-picture">
               <h3 class="card-lettering">Englisch-Land</h3>
@@ -145,7 +149,8 @@
             </div>
           </a>
 
-          <a class="child-card-five mb-3" [routerLink]="['tasks', 'Logik-Dschungel', 'child', activeChild()?.id]">
+          <a class="child-card-five mb-3" [routerLink]="['tasks', 'Logik-Dschungel', 'child', activeChild()?.id]"
+          (mouseenter)="speak('Logik-Dschungel:Logik ist überall.')">
             <div class="child-header">
               <img src="assets/images/logic.png" alt="Lektion Bild" class="child-picture">
               <h3 class="card-lettering">Logik-Dschungel</h3>

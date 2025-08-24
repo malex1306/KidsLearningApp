@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+// src/app/components/learning-letter-tasks/learning-letter-tasks.ts
+
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { TasksService } from '../../services/tasks.service';
 import { LearningService } from '../../services/learning.service';
-import { LearningTask, } from '../../models/learning-task';
-import { Question } from '../../models/question';
+import { LearningTask } from '../../models/learning-task';
 import { RewardService } from '../../services/reward.service';
 import { QuestionNavigationService } from '../../services/question-navigation.service';
 import { Subscription } from 'rxjs';
@@ -19,7 +20,7 @@ import { ActiveChildService } from '../../services/active-child.service';
   templateUrl: './learning-letter-tasks.html',
   styleUrl: './learning-letter-tasks.css'
 })
-export class LearningLetterTasks implements OnInit {
+export class LearningLetterTasks implements OnInit, OnDestroy {
   isSpellingTask: boolean = false;
   isConnectingTask: boolean = false;
   task: LearningTask | null = null;
@@ -41,6 +42,9 @@ export class LearningLetterTasks implements OnInit {
   answeredQuestions: boolean[] = [];
   private subscriptions = new Subscription();
 
+  private speechSynth: SpeechSynthesis | null = null;
+  private germanVoice: SpeechSynthesisVoice | null = null;
+
   constructor(
     private route: ActivatedRoute,
     private tasksService: TasksService,
@@ -48,7 +52,12 @@ export class LearningLetterTasks implements OnInit {
     private rewardService: RewardService,
     public navigationService: QuestionNavigationService,
     private activeChildService: ActiveChildService
-  ) {}
+  ) {
+    if ('speechSynthesis' in window) {
+      this.speechSynth = window.speechSynthesis;
+      this.setGermanVoice();
+    }
+  }
 
   ngOnInit(): void {
     const taskId = this.route.snapshot.paramMap.get('id');
@@ -56,16 +65,12 @@ export class LearningLetterTasks implements OnInit {
 
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe(task => {
-        
         const activeChild = this.activeChildService.activeChild();
         const childDifficulty = activeChild?.difficulty ?? 'Vorschule';
         if (childDifficulty) {
           task.questions = task.questions.filter(q => q.difficulty === childDifficulty);
         }
-        
-        
         task.questions = this.shuffleArray(task.questions);
-
         this.task = task;
         this.navigationService.setTask(task);
         this.answeredQuestions = new Array(task.questions.length).fill(false);
@@ -85,24 +90,50 @@ export class LearningLetterTasks implements OnInit {
     }
 
     this.subscriptions.add(
-    this.navigationService.currentIndex$.subscribe((index) =>{
-      this.currentQuestionIndex = index;
-      this.resetAnswerState();
-    })
-  )
+      this.navigationService.currentIndex$.subscribe((index) => {
+        this.currentQuestionIndex = index;
+        this.resetAnswerState();
+        this.readQuestion();
+      })
+    );
   }
 
-  
+  ngOnDestroy(): void {
+    if (this.speechSynth) {
+      this.speechSynth.cancel();
+    }
+    this.subscriptions.unsubscribe();
+  }
+
+  private setGermanVoice(): void {
+    if (!this.speechSynth) return;
+
+    this.speechSynth.onvoiceschanged = () => {
+      const voices = this.speechSynth?.getVoices();
+      if (voices) {
+        this.selectVoice(voices);
+      }
+    };
+
+    const voices = this.speechSynth.getVoices();
+    if (voices.length > 0) {
+      this.selectVoice(voices);
+    }
+  }
+
+  private selectVoice(voices: SpeechSynthesisVoice[]): void {
+    this.germanVoice = voices.find(voice => 
+      voice.lang === 'de-DE' && voice.name.includes('Female')
+    ) || voices.find(voice => 
+      voice.lang === 'de-DE'
+    ) || null;
+  }
+
   private shuffleArray(array: any[]): any[] {
     let currentIndex = array.length, randomIndex;
-
-    
     while (currentIndex !== 0) {
-      
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-
-      
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
@@ -206,57 +237,85 @@ export class LearningLetterTasks implements OnInit {
   }
 
   goToPreviousQuestion(): void {
-  if (this.currentQuestionIndex > 0) {
-    this.navigationService.previousQuestion();
+    if (this.currentQuestionIndex > 0) {
+      this.navigationService.previousQuestion();
+    }
   }
-}
 
-goToNextQuestion(): void {
-  if (this.currentQuestionIndex < (this.task?.questions.length ?? 0) - 1) {
-    this.navigationService.nextQuestion();
+  goToNextQuestion(): void {
+    if (this.currentQuestionIndex < (this.task?.questions.length ?? 0) - 1) {
+      this.navigationService.nextQuestion();
+    }
   }
-}
-private completeLearningTask(): void {
-  if (this.childId && this.task) {
-    this.learningService.completeTask(this.childId, this.task.id).subscribe({
-      next: () => {
-        console.log('Aufgabe erfolgreich abgeschlossen markiert!');
-      },
-      error: (err) => {
-        console.error(
-          'Fehler beim Markieren der Aufgabe als abgeschlossen',
-          err
-        );
-      },
-    });
+
+  private completeLearningTask(): void {
+    if (this.childId && this.task) {
+      this.learningService.completeTask(this.childId, this.task.id).subscribe({
+        next: () => {
+          console.log('Aufgabe erfolgreich abgeschlossen markiert!');
+        },
+        error: (err) => {
+          console.error('Fehler beim Markieren der Aufgabe als abgeschlossen', err);
+        },
+      });
+    }
   }
-}
 
-onFinishTask(): void {
-  const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
-
-  this.isCompleted = true;
-
-  if (allQuestionsAnswered) {
-    this.statusMessage = 'Gut gemacht! Du hast alle Fragen beantwortet. Das Ergebnis wurde gespeichert.';
-    this.completeLearningTask();
-  } else {
-    this.statusMessage = 'Du hast nicht alle Fragen beantwortet. Das Ergebnis wird nicht gespeichert.';
+  onFinishTask(): void {
+    const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
+    this.isCompleted = true;
+    if (allQuestionsAnswered) {
+      this.statusMessage = 'Gut gemacht! Du hast alle Fragen beantwortet. Das Ergebnis wurde gespeichert.';
+      this.completeLearningTask();
+    } else {
+      this.statusMessage = 'Du hast nicht alle Fragen beantwortet. Das Ergebnis wird nicht gespeichert.';
+    }
   }
-}
 
-checkTypedAnswer(): void{
+  checkTypedAnswer(): void {
     if (!this.task) return;
-
-  const currentQuestion = this.task.questions[this.currentQuestionIndex];
-  if (this.typedAnswer.trim().toLowerCase() === currentQuestion.correctAnswer.toLowerCase()) {
-    this.answerStatus = 'correct';
-    this.statusMessage = 'Richtig! 🎉';
-    this.answeredQuestions[this.currentQuestionIndex] = true;
-    this.checkCompletion();
-  } else {
-    this.answerStatus = 'wrong';
-    this.statusMessage = 'Falsch, versuche es nochmal.';
+    const currentQuestion = this.task.questions[this.currentQuestionIndex];
+    if (this.typedAnswer.trim().toLowerCase() === currentQuestion.correctAnswer.toLowerCase()) {
+      this.answerStatus = 'correct';
+      this.statusMessage = 'Richtig! 🎉';
+      this.answeredQuestions[this.currentQuestionIndex] = true;
+      this.checkCompletion();
+    } else {
+      this.answerStatus = 'wrong';
+      this.statusMessage = 'Falsch, versuche es nochmal.';
+    }
   }
-}
+
+  readQuestion(): void {
+    if (!this.speechSynth || !this.task || this.isCompleted) {
+      return;
+    }
+
+    this.speechSynth.cancel();
+
+    let textToRead = '';
+    const currentQuestion = this.task.questions[this.currentQuestionIndex];
+
+    if (this.isSpellingTask) {
+      textToRead = `Wie buchstabiert man ${currentQuestion.correctAnswer}?`;
+    } else if (this.isGapFillTask) {
+      textToRead = `Fülle die Lücke: ${currentQuestion.text}`;
+    } else {
+      textToRead = currentQuestion.text;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(textToRead);
+    utterance.lang = 'de-DE';
+
+    // Verwenden Sie die ausgewählte Stimme, falls vorhanden
+    if (this.germanVoice) {
+      utterance.voice = this.germanVoice;
+    }
+
+    // Passen Sie Tonhöhe und Geschwindigkeit für einen kindlicheren Klang an
+    utterance.pitch = 4;
+    utterance.rate = 1.1;
+
+    this.speechSynth.speak(utterance);
+  }
 }
