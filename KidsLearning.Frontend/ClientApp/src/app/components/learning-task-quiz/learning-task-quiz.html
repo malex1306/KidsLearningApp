@@ -1,1 +1,66 @@
-<p>learning-task-quiz works!</p>
+@if (!isCompleted && questions.length > 0) {
+  <div class="quiz-container">
+
+    @switch (currentQuestion?.learningTaskId) {
+      @case (1) {}
+      @case (2) {}
+      @case (3) {
+        <div class="quiz-area">
+          <div class="task-card glass-card question-card">
+            <div class="card-content">
+              <h2 class="question-title">
+                Frage {{ currentQuestionIndex + 1 }} von {{ questions.length }}
+              </h2>
+              <p class="question-text">
+                {{ currentQuestion?.text }}
+              </p>
+            </div>
+          </div>
+
+          <div class="options-grid" [class.disabled]="isWaitingForNext">
+            @for (option of currentQuestion?.options; track option) {
+              <button class="option-button" [ngClass]="{
+                        'correct-answer': answerStatus === 'correct' && option === currentQuestion?.correctAnswer,
+                        'wrong-answer': answerStatus === 'wrong' && option === selectedAnswer
+                    }" (click)="selectAnswer(option)">
+                {{ option }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+      @case (4) {
+      }
+      @case (5){}
+      @case (6){}
+      @case (7){}
+      @case (8){}
+      @case (9){}
+      @case (10){}
+      @case (11){}
+      @case (12){}
+      @default {
+        <div class="task-header">
+          <h3>Aufgabe konnte nicht geladen werden</h3>
+        </div>
+      }
+    }
+    @if(selectedAnswer){
+      <div class="feedback">
+        <p>{{ feedbackMessage }}</p>
+      </div>
+    }
+    <div class="navigation">
+      <button (click)="nextQuestion!()">
+        {{ currentQuestionIndex < questions.length - 1 ? 'Nächste Frage' : 'Quiz beenden' }}
+      </button>
+    </div>
+  </div>
+
+  @if (isCompleted) {
+    <div class="completion-screen">
+      <h2>Quiz abgeschlossen! 🎉</h2>
+      <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>
+    </div>
+  }
+}

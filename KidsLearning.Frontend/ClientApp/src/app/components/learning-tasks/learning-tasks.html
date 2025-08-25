@@ -38,7 +38,7 @@
                         @else {
                             <img src="assets/images/goofy.png" alt="Standard-Icon">
                         }
-                        
+
                     </div>
                     <div class="card-content">
                         <h3>{{ task.title }}</h3>
@@ -51,6 +51,8 @@
                           <button class="fun-button" [routerLink]="['/learning-task-english', task.subject, task.id, 'child', childId]">Starten</button>
                         } @else if (task.subject === 'Logik-Dschungel') {
                           <button class="fun-button" [routerLink]="['/logic-task', task.subject, task.id, 'child', childId]">Starten</button>
+                        } @else if (task.subject === 'Quiz-Ozean') {
+                            <button class="fun-button" [routerLink]="['/learning-task-quiz', task.subject, task.id, 'child', childId]">Starten</button>
                         }
                         @else {
                             <button class="fun-button" [routerLink]="['/task', task.id, 'child', childId]">Starten</button>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LearningTask } from '../models/learning-task';
+import { Question } from '../models/question';
 
 @Injectable({
   providedIn: 'root'
@@ -20,4 +21,7 @@ export class TasksService {
     // Korrigiert: Ruft direkt den Endpunkt auf
     return this.http.get<LearningTask>(`${this.apiUrl}/${taskId}`);
   }
+  getAllQuestions(): Observable<Question[]> {
+    return this.http.get<Question[]>(`${this.apiUrl}/all-questions`);
+  }
 }
