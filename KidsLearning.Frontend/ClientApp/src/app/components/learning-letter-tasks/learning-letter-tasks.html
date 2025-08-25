@@ -51,9 +51,9 @@
           </div>
         </div>
 
-        <div class="options-grid" [class.disabled]="isWaitingForNext">
+        <div class="options-grid-two" [class.disabled]="isWaitingForNext">
           @for (option of task.questions[currentQuestionIndex].options; track option) {
-            <button class="option-button"
+            <button class="option-button-two"
                     [ngClass]="{'correct-answer': answerStatus === 'correct' && option === task.questions[currentQuestionIndex].correctAnswer, 'wrong-answer': answerStatus === 'wrong' && option !== task.questions[currentQuestionIndex].correctAnswer}"
                     (click)="selectAnswer(option)">
               {{ option }}
