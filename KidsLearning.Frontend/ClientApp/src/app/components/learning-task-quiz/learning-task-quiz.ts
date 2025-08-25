@@ -8,6 +8,8 @@ import {LearningLetterTasks} from '../learning-letter-tasks/learning-letter-task
 import {LearningTaskDetail} from '../learning-task-detail/learning-task-detail';
 import {LogicTask} from '../logic-task/logic-task';
 import { ActiveChildService } from '../../services/active-child.service';
+import { QuizLogic, AnswerStatus } from '../../services/quiz-logic';
+import { LearningTask } from '../../models/learning-task';
 
 
 @Component({
@@ -33,23 +35,23 @@ export class LearningTaskQuiz implements OnInit {
 
   activeChild = computed(() => this.activeChildService.activeChild());
 
-  constructor(private route: ActivatedRoute, private tasksService: TasksService, private activeChildService: ActiveChildService) {}
+  constructor(private route: ActivatedRoute, private tasksService: TasksService, private activeChildService: ActiveChildService, private quizLogic: QuizLogic) {}
 
   ngOnInit(): void {
     const activeChild = this.activeChildService.activeChild();
+
+    // Alle Fragen laden
     this.tasksService.getAllQuestions().subscribe({
       next: (questions: Question[]) => {
-        console.log('API returned questions:', questions);
         this.questions = this.shuffleArray(questions);
-        console.log('Questions after shuffle:', this.questions);
       },
       error: err => console.error('API error:', err)
-
-
     });
+
+    // Task-Titel holen für ngSwitch / Typen
     const taskId = 13;
     this.tasksService.getTaskById(taskId).subscribe(task => {
-      this.currentTaskTitle = task.title; // nur für ngSwitch im Template
+      this.currentTaskTitle = task.title;
     });
   }
 
@@ -58,13 +60,84 @@ export class LearningTaskQuiz implements OnInit {
     return this.questions[this.currentQuestionIndex];
   }
 
-  selectAnswer(answer: string) {
-    this.selectedAnswer = answer;
-    this.feedbackMessage =
-      answer === this.currentQuestion.correctAnswer
-        ? 'Richtig! 🎉'
-        : 'Falsch, versuche es noch einmal. 🤔';
+  selectAnswer(option: string, selectedIndex?: number) {
+    if (!this.currentQuestion) return;
+
+    const task: LearningTask = {
+      id: this.currentQuestion.learningTaskId,
+      title: this.currentTaskTitle || 'Unbekannter Task',
+      description: '',
+      subject: '',
+      questions: this.questions
+    };
+
+    switch (this.currentQuestion.learningTaskId) {
+      // Mathe Aufgaben
+      case 1:
+      case 2: {
+        const res = this.quizLogic.selectMathAnswer(task, this.currentQuestionIndex, option, []);
+        this.answerStatus = res.answerStatus;
+        this.feedbackMessage = res.statusMessage;
+        break;
+      }
+
+      // Formen Aufgaben
+      case 3:
+      case 12: {
+        if (selectedIndex === undefined) return;
+        const res = this.quizLogic.selectFillFormOption(this.currentQuestion, selectedIndex);
+        this.answerStatus = res.status;
+        this.feedbackMessage = res.message;
+        break;
+      }
+
+      // Buchstaben-land
+      case 4:
+      case 5:
+      case 6:
+      case 10: {
+        const res = this.quizLogic.selectTypedAnswer(option, this.currentQuestion);
+        this.answerStatus = res.correct ? 'correct' : 'wrong';
+        this.feedbackMessage = res.message;
+        break;
+      }
+
+      // Englisch
+      case 7:
+      case 9: {
+        const res = this.quizLogic.selectEnglishAnswer(task, this.currentQuestionIndex, option, []);
+        this.answerStatus = res.answerStatus;
+        this.feedbackMessage = res.statusMessage;
+        break;
+      }
+
+      case 8: {
+        // Deutsch/Englisch Matching
+        const batch = task.questions.slice(); // optional: batch logic
+        const correct = this.quizLogic.checkEnglishMatching(
+          this.currentQuestion.text,
+          option,
+          batch
+        );
+        this.answerStatus = correct ? 'correct' : 'wrong';
+        this.feedbackMessage = correct
+          ? 'Richtig! 🎉'
+          : 'Falsch, versuche es noch einmal.';
+        break;
+      }
+
+      // Zahlenkombinationen
+      case 11:
+        // Logik bleibt in Component, nicht auslagern
+        break;
+
+      default:
+        this.answerStatus = option === this.currentQuestion.correctAnswer ? 'correct' : 'wrong';
+        this.feedbackMessage = this.answerStatus === 'correct' ? 'Richtig! 🎉' : 'Falsch, versuche es noch einmal.';
+        break;
+    }
   }
+
 
   nextQuestion() {
     this.selectedAnswer = null;
