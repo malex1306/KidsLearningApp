@@ -50,10 +50,24 @@
         <p>{{ feedbackMessage }}</p>
       </div>
     }
-    <div class="navigation">
-      <button (click)="nextQuestion!()">
-        {{ currentQuestionIndex < questions.length - 1 ? 'Nächste Frage' : 'Quiz beenden' }}
-      </button>
+    <div class="navigation-buttons">
+      @if (currentQuestionIndex === 0) {
+        <a [routerLink]="['tasks', 'Quiz-Ozean', 'child', activeChild()?.id]" class="fun-button">
+          ⬅ Zurück
+        </a>
+      } @else {
+        <button class="fun-button" (click)="prevQuestion()"> ⬅ Vorherige </button>
+      }
+
+      @if (currentQuestionIndex === questions.length - 1) {
+        <a [routerLink]="['tasks', 'Quiz-Ozean', 'child', activeChild()?.id]" class="fun-button">
+          Beenden ✅
+        </a>
+      } @else {
+        <button class="fun-button" (click)="nextQuestion!()">
+          {{ currentQuestionIndex < questions.length - 1 ? 'Nächste Frage' : 'Quiz beenden' }}
+        </button>
+      }
     </div>
   </div>
 

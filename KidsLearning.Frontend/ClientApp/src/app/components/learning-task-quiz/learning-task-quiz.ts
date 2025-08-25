@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, computed } from '@angular/core';
 import { TasksService } from '../../services/tasks.service';
 import { Question } from '../../models/question';
 import {CommonModule} from '@angular/common';
@@ -7,6 +7,7 @@ import {LearningTaskEnglish} from '../learning-task-english/learning-task-englis
 import {LearningLetterTasks} from '../learning-letter-tasks/learning-letter-tasks';
 import {LearningTaskDetail} from '../learning-task-detail/learning-task-detail';
 import {LogicTask} from '../logic-task/logic-task';
+import { ActiveChildService } from '../../services/active-child.service';
 
 
 @Component({
@@ -30,9 +31,12 @@ export class LearningTaskQuiz implements OnInit {
   lastClickedStatus: 'correct' | 'wrong' | null = null;
   selectedLetter: string | null = null;
 
-  constructor(private route: ActivatedRoute, private tasksService: TasksService) {}
+  activeChild = computed(() => this.activeChildService.activeChild());
+
+  constructor(private route: ActivatedRoute, private tasksService: TasksService, private activeChildService: ActiveChildService) {}
 
   ngOnInit(): void {
+    const activeChild = this.activeChildService.activeChild();
     this.tasksService.getAllQuestions().subscribe({
       next: (questions: Question[]) => {
         console.log('API returned questions:', questions);
@@ -69,6 +73,13 @@ export class LearningTaskQuiz implements OnInit {
       this.currentQuestionIndex++;
     } else {
       this.isCompleted = true;
+    }
+  }
+  prevQuestion() {
+    this.selectedAnswer = null;
+    this.feedbackMessage = '';
+    if (this.currentQuestionIndex > 0) {
+      this.currentQuestionIndex--;
     }
   }
 
