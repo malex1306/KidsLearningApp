@@ -127,7 +127,7 @@
           (mouseenter)="speak('Spaß-land: Lerne, wie man Puzzelt')">
             <div class="child-header">
               <img src="assets/images/girl.png" alt="Lektion Bild" class="child-picture">
-              <h3 class="card-lettering">Spaßig-Land</h3>
+              <h3 class="card-lettering">Spaß-Paradise</h3>
             </div>
             <div class="progress-section" style="color: black;">
               <p>Lerne, wie man puzzelt.</p>
@@ -140,7 +140,7 @@
           (mouseenter)="speak('Englisch-Land: wie man Englisch spricht.')">
             <div class="child-header">
               <img src="assets/images/english.png" alt="Lektion Bild" class="child-picture">
-              <h3 class="card-lettering">Englisch-Land</h3>
+              <h3 class="card-lettering">Englisch-Insel</h3>
             </div>
             <div class="progress-section" style="color: black;">
               <p>Lerne, wie man Englisch spricht.</p>
@@ -161,6 +161,20 @@
             <div class="card-footer">
             </div>
           </a>
+
+          <a class="child-card-six mb-3" [routerLink]="['tasks', 'Quiz-Ozean', 'child', activeChild()?.id]"
+             (mouseenter)="speak('Quiz-Ozean: Teste deinen Wissensstand mit einem Quiz.')">
+            <div class="child-header">
+              <img src="assets/images/girl.png" alt="Lektion Bild" class="child-picture">
+              <h3 class="card-lettering">Quiz-Ozean</h3>
+            </div>
+            <div class="progress-section" style="color: black;">
+              <p>Teste deinen Wissensstand mit einem Quiz</p>
+            </div>
+            <div class="card-footer">
+            </div>
+          </a>
+
         </div>
         <div class="lessons-section mt-4">
         </div>
@@ -236,4 +250,3 @@
   </div>
   </div>
   }
-  

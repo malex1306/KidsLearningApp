@@ -10,6 +10,7 @@ import { LearningLetterTasks } from './components/learning-letter-tasks/learning
 import { InventoryComponent } from './components/inventory/inventory';
 import { LearningTaskEnglish } from './components/learning-task-english/learning-task-english';
 import { LogicTask } from './components/logic-task/logic-task';
+import { LearningTaskQuiz } from './components/learning-task-quiz/learning-task-quiz';
 
 export const routes: Routes = [
   { path: '', component: StartPageComponent, pathMatch: 'full' },
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'learning-letter-tasks/:subject/:id/child/:childId', component: LearningLetterTasks, canActivate: [authGuard] },
   { path: 'learning-task-english/:subject/:id/child/:childId', component: LearningTaskEnglish, canActivate: [authGuard] },
   { path: 'logic-task/:subject/:id/child/:childId', component: LogicTask, canActivate: [authGuard]},
+  { path: 'learning-task-quiz/:subject/:id/child/:childId', component: LearningTaskQuiz, canActivate: [authGuard]},
   // Fallback
   { path: '**', redirectTo: '' }
 ];
