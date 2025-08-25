@@ -31,4 +31,12 @@ export class ParentDashboardService {
   editChild(childId: number, editChildDto: EditChildDto): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/edit-child/${childId}`, editChildDto);
   }
+  updateChildAvatar(childId: number, avatarUrl: string): Observable<ChildDto> {
+  const editChildDto = { avatarUrl: avatarUrl };
+  return this.http.put<ChildDto>(
+    `${this.apiUrl}/edit-child/${childId}`, 
+    editChildDto,
+    { headers: this.getAuthHeaders() }
+  );
+}
 }

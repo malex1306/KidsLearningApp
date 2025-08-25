@@ -1,5 +1,5 @@
-/* Grundlegende Container-Stile */
 .dashboard-container {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,21 +14,100 @@
     padding: 1.5rem;
     transition: transform 0.3s ease;
 }
+.main-card{
+    width: 290px;
+    height: 56vh;
+    padding: 1rem;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
 
-/* Header-Bereich mit Avatar und Begrüßung */
+.side-card:hover {
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+.side-card {
+    width: 250px;
+    height: 10vh;
+    padding: 1rem;
+    background-color: #f7f9fc;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.side-card-two {
+    width: 250px;
+    height: 40vh;
+    padding: 1rem;
+    background-color: #caf0f8;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.side-card-three {
+    width: 250px;
+    height: 40vh;
+    padding: 1rem;
+    background-color: #caf0f8;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 1.4rem;
+}
+
+.main-page-layout {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  
+}
+
+
 .dashboard-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     width: 100%;
-    
+
 }
 
 .header-section {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    gap: 1.5rem;
     flex: 1;
 }
 
@@ -64,7 +143,7 @@
     padding: 5px;
 }
 
-/* Ende der neuen Klassen */
+
 
 .avatar-container {
     width: 120px;
@@ -89,29 +168,66 @@
 }
 
 .greeting-text {
-    font-size: 1.2rem;
-    color: #ff9900;
+    font-size: 1.5rem;
+     font-size: 1.5rem;
+    font-weight: bold;
     margin: 0;
-    margin-left: 0.5rem;
+}
+
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: orange;
+    }
 }
 
 .user-name {
-    font-size: 2.5rem;
-    font-family: 'Comic Sans MS', 'Arial', sans-serif;
+
+    font-size: 3.5rem;
+    font-family: 'Milkyway', sans-serif;
     font-weight: bold;
     color: #ff9900;
-    
+
+
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: .15em solid orange;
 }
 
-/* Hauptinhaltsbereich */
+
+.user-name.animate-typing {
+    animation:
+        typing 1.5s steps(30, end),
+        blink-caret .75s step-end infinite;
+}
+
+
 .main-content {
     width: 100%;
-    max-width: 900px; /* Maximale Breite für Desktop-Ansicht */
+    max-width: 900px;
 }
 
-/* Responsive Grid für die Kinder-Auswahlkarten */
+
 .child-selection-container {
-    text-align: center; /* Hinzugefügte Eigenschaft zum Zentrieren des Textes */
+    text-align: center;
+    
 
 }
 
@@ -119,6 +235,8 @@
     text-align: center;
     margin-bottom: 1rem;
     color: #ff9900;
+    font-family: Milkyway, sans-serif;
+    font-size: 4rem;
 }
 
 .child-cards-container {
@@ -141,7 +259,7 @@
     cursor: pointer;
 }
 
-/* Stil für die einzelnen Kinder-Karten */
+
 .child-card-one {
     background: #98f5e1;
     border-radius: 20px;
@@ -188,47 +306,48 @@
 }
 
 .child-card-four {
-  background: #9bf6ff;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-  text-decoration: none;
-  color: black;
+    background: #9bf6ff;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
 }
 
 .child-card-five {
-  background: #caffbf;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-  text-decoration: none;
-  color: black;
+    background: #caffbf;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
 }
+
 .child-card-six {
-  background: #fad643;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-  text-decoration: none;
-  color: black;
+    background: #fad643;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
 }
 
 .child-card:hover {
@@ -250,21 +369,24 @@
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
+
 .child-card-four:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
+
 .child-card-five:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
+
 .child-card-six:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .child-card.active-child {
-    border: 4px solid #ffb703; /* Visuelle Kennzeichnung für das aktive Kind */
+    border: 4px solid #ffb703;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
@@ -285,11 +407,125 @@
     margin-top: 0.5rem;
 }
 
+.child-side-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.child-side-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ff9900;
+}
+
+.child-side-name {
+    font-size: 3rem;
+    font-weight: bold;
+    color: black;
+    font-family: Milkyway, sans-serif;
+}
+
+.child-side-age,
+.child-side-difficult {
+    font-size: 1.2rem;
+    color: black;
+    margin: 2px 0;
+}
+
+
+/* Tablet (von 601px bis 1024px) */
+@media (max-width: 1024px) and (min-width: 601px) {
+    .main-page-layout {
+        flex-direction: column; 
+        align-items: center;
+        width: 100%;
+    }
+
+    .dashboard-container,
+    .main-content,
+    .lessons-section {
+        width: 100%; 
+        max-width: none; 
+        padding: 1rem;
+    }
+
+    .left-sidebar {
+        display: flex;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .right-sidebar-container {
+        width: 100%; 
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 20px;
+    }
+    
+    .side-card, 
+    .side-card-two, 
+    .side-card-three {
+      width: 100%;
+      height: auto; 
+    }
+
+    .lessons-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    }
+    
+    .child-side-avatar {
+        width: 60px;
+        height: 60px;
+    }
+
+    .child-side-name {
+        font-size: 1.5rem;
+    }
+}
+
+/* Smartphone */
+@media (max-width: 600px) {
+    .left-sidebar {
+        display: none; 
+    }
+    .right-sidebar{
+        display: none; 
+    }
+
+   
+    .child-side-header-flex {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .child-side-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .child-side-name {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .child-side-age,
+    .child-side-difficult {
+        font-size: 0.8rem;
+        text-align: center;
+    }
+}
+
+
 .card-lettering {
     font-weight: bold;
 }
 
-/* Responsive Grid für die Lektionskarten */
+
 .lessons-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -297,7 +533,7 @@
     margin-top: 2rem;
 }
 
-/* Stil für die einzelnen Lektionskarten */
+
 .lesson-card {
     background-color: #ffffff;
     border-radius: 20px;
@@ -338,14 +574,15 @@
     margin-top: 0.5rem;
 }
 
-.message-text, .no-children-message {
+.message-text,
+.no-children-message {
     text-align: center;
     color: #666;
     font-size: 1.2rem;
     margin-top: 2rem;
 }
 
-/* Stil für die Intro-Sektion bei nicht angemeldeten Benutzern */
+
 .intro-section {
     display: flex;
     flex-direction: column;
@@ -390,13 +627,208 @@
     background-color: #ff9900;
     color: #fff;
 }
+
 .centered-text {
     text-align: center;
 }
-/* Responsive Grid für die Lektionskarten */
+
 .lessons-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1.5rem;
     margin-top: 2rem;
+}
+
+
+.dashboard-container {
+    position: relative;
+}
+
+.dudu-gif {
+    position: absolute;
+    top: 1.1rem;
+    right: 0.0001rem;
+    width: 200px;
+    height: auto;
+    z-index: 1000;
+    animation: slide-in-out-dudu 3s forwards;
+}
+
+
+@keyframes slide-in-out-dudu {
+    0% {
+        transform: translateY(-150%) rotateZ(210deg) scaleX(-1);
+        opacity: 0;
+    }
+
+    10% {
+        transform: translateY(0) rotateZ(210deg) scaleX(-1);
+        opacity: 1;
+    }
+
+    90% {
+        transform: translateY(0) rotateZ(210deg) scaleX(-1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-150%) rotateZ(210deg) scaleX(-1);
+        opacity: 0;
+    }
+}
+
+.right-sidebar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.left-sidebar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.achievement-card {
+    background: transparent;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 12px;
+
+}
+
+.achievement-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.achievement-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.achievement-info {
+    flex: 1;
+}
+
+.achievement-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+.achievement-subtitle {
+    font-size: 12px;
+    color: #666;
+}
+
+.progress-container {
+    background: #ffb80359;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 8px;
+    margin-top: 4px;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ff9900, #ffab2e);
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+.child-inventar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 0.5rem;
+
+}
+
+.card-lettering-inventar {
+    color: Black;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.child-picture-inventar {
+    height: 50px;
+    width: 50px;
+    margin-bottom: 0.5rem;
+}
+
+.inventar-link {
+    text-decoration: none;
+}
+
+.child-side-header-flex {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 1rem;
+}
+.side-card-four {
+    width: 250px;
+    height: 10vh;
+    padding: 1rem;
+    background-color: #f7f9fc;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+.goal-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.goal-icon {
+    width: 35px;
+    height: 35px;
+}
+
+.goal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+
+.daily-goal-days {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.day-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: #888;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+
+.day-circle.checked {
+    background-color: #ff9900;
+    color: #fff;
+    border-color: #ff9900;
 }
