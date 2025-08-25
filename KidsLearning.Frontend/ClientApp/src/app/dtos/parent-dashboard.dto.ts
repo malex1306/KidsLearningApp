@@ -56,3 +56,8 @@ export interface EditChildDto {
   avatarUrl?: string;
   difficulty: string;
 }
+export interface DailyGoal {
+    day: string;
+    completed: boolean;
+    tasksCompleted: number;
+}

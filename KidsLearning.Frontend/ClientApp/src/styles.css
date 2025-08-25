@@ -7,9 +7,17 @@ html, body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   padding-top: 70px; /* Beibehalten, falls es für Ihr Layout wichtig ist */
 
-  background-image: url(assets/images/10456302.jpg);
+  background-image: url(assets/images/background-purple.jpg);
   background-position: center center; /* <--- NEU */
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover; 
+}
+
+@font-face {
+  font-family: 'Milkyway';
+  src: url('/assets/fonts/Alessia.otf') format('opentype');
+  font-weight: 400; /* Normal */
+  font-style: normal;
+  font-display: swap; 
 }

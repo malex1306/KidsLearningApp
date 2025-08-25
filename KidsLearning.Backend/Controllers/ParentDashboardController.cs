@@ -52,7 +52,7 @@ public class ParentDashboardController : ControllerBase
                 var totalTasks = await _context.LearningTasks.CountAsync(t => t.Subject == subject);
                 var completedTasks = await _context.ChildCompletedTasks
                     .CountAsync(ct => ct.ChildId == child.Id &&
-                                    _context.LearningTasks.Any(lt => lt.Id == ct.LearningTaskId && lt.Subject == subject));
+                                     _context.LearningTasks.Any(lt => lt.Id == ct.LearningTaskId && lt.Subject == subject));
 
                 int progressPercentage = (totalTasks > 0) ? (int)Math.Round((double)completedTasks * 100 / totalTasks) : 0;
 
@@ -80,6 +80,11 @@ public class ParentDashboardController : ControllerBase
                 recentActivities.Add($"{child.Name} hat noch nicht mit dem Lernen begonnen.");
             }
 
+            // NEU: Berechnung der insgesamt verdienten Sterne
+            var totalStarsEarned = await _context.ChildCompletedTasks
+                .Where(ct => ct.ChildId == child.Id)
+                .CountAsync();
+
             // Avatare basierend auf Sternenanzahl abrufen
             var unlockedAvatars = await _context.Avatars
                 .Where(a => child.StarCount >= a.UnlockStarRequirement)
@@ -96,6 +101,7 @@ public class ParentDashboardController : ControllerBase
                 LastActivity = lastActivityMessage,
                 Progress = childProgressList,
                 StarCount = child.StarCount,
+                TotalStarsEarned = totalStarsEarned, // Zuweisung des neuen Wertes
                 // Die Liste der freigeschalteten Avatare in DTOs umwandeln
                 UnlockedAvatars = unlockedAvatars.Select(a => new AvatarDto
                 {

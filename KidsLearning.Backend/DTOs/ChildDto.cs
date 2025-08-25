@@ -19,6 +19,7 @@ public class ChildDto
     public string LastActivity { get; set; } = string.Empty;
     public List<SubjectProgressDto> Progress { get; set; } = [];
     public int StarCount { get; set; }
+    public int TotalStarsEarned { get; set; }
     public ICollection<Badge> Badges { get; set; } = new List<Badge>();
     public ICollection<AvatarDto> UnlockedAvatars { get; set; } = new List<AvatarDto>();
     
