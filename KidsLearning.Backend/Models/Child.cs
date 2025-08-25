@@ -10,7 +10,7 @@ namespace KidsLearning.Backend.Models
         public string Name { get; set; } = string.Empty;
         public DateTime DateOfBirth { get; set; }
         public string AvatarUrl { get; set; } = string.Empty;
-        
+
         public string ParentId { get; set; } = string.Empty;
         public IdentityUser? Parent { get; set; }
 
@@ -21,11 +21,10 @@ namespace KidsLearning.Backend.Models
         public int DailyLearningMinutes { get; set; } = 0;
         public DateTime? LastLearningDay { get; set; }
         public int ConsecutiveLearningDays { get; set; } = 0;
-        
+
         // Navigationseigenschaften für Belohnungen
         public ICollection<Badge> Badges { get; set; } = new List<Badge>();
-        
+
         public string Difficulty { get; set; } = string.Empty;
-        
     }
 }

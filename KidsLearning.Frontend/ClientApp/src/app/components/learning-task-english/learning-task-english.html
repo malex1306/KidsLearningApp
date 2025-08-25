@@ -113,8 +113,8 @@
             </button>
           }
         </div>
-        
-        
+
+
         <div class="navigation-buttons">
           @if (currentQuestionIndex === 0) {
             <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button">
@@ -123,7 +123,7 @@
           } @else {
             <button class="fun-button" (click)="prevQuestion()"> ⬅ Vorherige </button>
           }
-          
+
           @if (currentQuestionIndex === task.questions.length - 1) {
             <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button">
               Beenden ✅
@@ -141,7 +141,6 @@
         }
       </div>
     }
-
 
     @if (isCompleted) {
       <div class="completion-message-card glass-card">

@@ -1,5 +1,6 @@
+@if (task) {
 <div class="task-detail-container">
-    @if (task && !isCompleted) {
+    @if (!isCompleted && task.title === 'Zahlenkombinationen') {
         <div class="quiz-area default-quiz">
             <div class="task-card glass-card question-card">
                 <div class="card-content">
@@ -20,15 +21,15 @@
 
             <div class="options-grid">
                 @for (num of [1, 2, 3, 4, 5, 6, 7, 8, 9]; track num) {
-                    <button class="option-button" 
-                            (click)="selectNumber(num)" 
+                    <button class="option-button"
+                            (click)="selectNumber(num)"
                             [disabled]="isMemorizing || !isRecalling"
                             [ngClass]="{'correct-answer-highlight': lastClickedNumber === num && lastClickedStatus === 'correct', 'wrong-answer-highlight': lastClickedNumber === num && lastClickedStatus === 'wrong'}">
                         {{ num }}
                     </button>
                 }
             </div>
-            
+
             <div class="navigation-buttons">
                 @if (answerStatus === 'wrong') {
                     <button class="fun-button" (click)="startGame()">Neustart</button>
@@ -36,13 +37,45 @@
                 <button class="fun-button" (click)="onFinishTask()">Beenden</button>
             </div>
         </div>
-    } @else if (isCompleted) {
+    }
+    @if (!isCompleted && task.title === 'Fülle die Form') {
+        <div class="quiz-area fill-form-quiz">
+            <div class="task-card glass-card question-card">
+                <div class="card-content">
+                    <h2 class="question-title">{{ task.title }}</h2>
+                    @if(questionImage) {
+                        <img [src]="questionImage" class="form-image"/>
+                    }
+                </div>
+            </div>
+
+            <div class="options-grid">
+                @for (option of optionsImages; track $index) {
+                    <button class="option-button"
+                            (click)="selectOption($index)"
+                            [ngClass]="{'correct-answer-highlight': selectedOption === $index && $index === correctOptionIndex, 'wrong-answer-highlight': selectedOption === $index && $index !== correctOptionIndex}">
+                        <img [src]="option" class="option-img"/>
+                    </button>
+                }
+            </div>
+
+            <div class="navigation-buttons">
+                <p>{{ statusMessage }}</p>
+                <button class="fun-button" (click)="isCompleted = true">Beenden</button>
+            </div>
+        </div>
+
+    }
+
+
+    @if (isCompleted) {
         <div class="completion-message-card glass-card">
             <div class="card-content">
                 <h2>Aufgabe abgeschlossen! 🎉</h2>
                 <p>{{ statusMessage }}</p>
-                <a [routerLink]="['/tasks', task?.subject, 'child', childId]" class="back-button">Zurück zu den Aufgaben</a>
+                <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">Zurück zu den Aufgaben</a>
             </div>
         </div>
     }
 </div>
+}

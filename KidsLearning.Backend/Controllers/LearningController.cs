@@ -19,7 +19,8 @@ namespace KidsLearning.Backend.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RewardService _rewardService;
 
-        public LearningController(AppDbContext context, UserManager<IdentityUser> userManager, RewardService rewardService)
+        public LearningController(AppDbContext context, UserManager<IdentityUser> userManager,
+            RewardService rewardService)
         {
             _context = context;
             _userManager = userManager;
@@ -34,16 +35,16 @@ namespace KidsLearning.Backend.Controllers
             {
                 return Unauthorized();
             }
-            
-            
+
+
             var child = await _context.Children.FirstOrDefaultAsync(c => c.Id == completionDto.ChildId);
-            
+
             if (child == null || child.ParentId != userId)
             {
                 return Unauthorized(new { Message = "Zugriff verweigert." });
             }
 
-           
+
             bool alreadyCompleted = await _context.ChildCompletedTasks
                 .AnyAsync(ct => ct.ChildId == completionDto.ChildId && ct.LearningTaskId == completionDto.TaskId);
 

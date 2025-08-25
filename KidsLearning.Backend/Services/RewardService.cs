@@ -1,6 +1,5 @@
 namespace KidsLearning.Backend.Services;
 
-
 using KidsLearning.Backend.Data;
 using KidsLearning.Backend.Models;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +26,7 @@ public class RewardService
         }
 
         child.StarCount += 1;
-        
+
         var today = DateTime.UtcNow.Date;
         if (child.LastLearningDay?.Date != today)
         {
@@ -35,15 +34,16 @@ public class RewardService
             {
                 child.ConsecutiveLearningDays++;
             }
-            else 
+            else
             {
                 child.ConsecutiveLearningDays = 1;
             }
 
             child.LastLearningDay = today;
-            child.DailyLearningMinutes = 0; 
+            child.DailyLearningMinutes = 0;
         }
-        child.DailyLearningMinutes += 10; 
+
+        child.DailyLearningMinutes += 10;
 
         if (child.ConsecutiveLearningDays % 5 == 0 && child.ConsecutiveLearningDays > 0)
         {
@@ -51,11 +51,12 @@ public class RewardService
             {
                 Name = $"5-Tage-Lernserie Abzeichen",
                 Description = "Du hast 5 Tage in Folge gelernt! Fantastisch!",
-                IconUrl = "assets/images/badge.png", 
+                IconUrl = "assets/images/badge.png",
                 ChildId = child.Id
             };
             child.Badges.Add(newBadge);
         }
+
         await _context.SaveChangesAsync();
         return true;
     }

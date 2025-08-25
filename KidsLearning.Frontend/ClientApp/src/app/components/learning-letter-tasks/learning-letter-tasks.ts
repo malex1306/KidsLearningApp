@@ -122,9 +122,9 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
   }
 
   private selectVoice(voices: SpeechSynthesisVoice[]): void {
-    this.germanVoice = voices.find(voice => 
+    this.germanVoice = voices.find(voice =>
       voice.lang === 'de-DE' && voice.name.includes('Female')
-    ) || voices.find(voice => 
+    ) || voices.find(voice =>
       voice.lang === 'de-DE'
     ) || null;
   }

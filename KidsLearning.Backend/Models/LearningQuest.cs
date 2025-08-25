@@ -1,4 +1,5 @@
 namespace KidsLearning.Backend.Models;
+
 using KidsLearning.Backend.Enums;
 
 public class LearningQuest
@@ -9,6 +10,3 @@ public class LearningQuest
     public string[] WrongAnswers { get; set; } = Array.Empty<string>();
     public Difficulty Difficulty { get; set; }
 }
-
-
-  

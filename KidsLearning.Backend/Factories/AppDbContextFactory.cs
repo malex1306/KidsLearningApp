@@ -8,7 +8,8 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
         var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
 
-        optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=KidsLearningDb;Trusted_Connection=True;MultipleActiveResultSets=true");
+        optionsBuilder.UseSqlServer(
+            "Server=(localdb)\\mssqllocaldb;Database=KidsLearningDb;Trusted_Connection=True;MultipleActiveResultSets=true");
 
         return new AppDbContext(optionsBuilder.Options);
     }
