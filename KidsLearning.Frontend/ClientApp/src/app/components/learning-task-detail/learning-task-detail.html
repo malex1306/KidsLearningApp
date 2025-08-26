@@ -1,9 +1,5 @@
 <div class="task-detail-container">@if (task) {
-  @if(exam){
-    <div class="exam-timer">
-      Zeit übrig: {{ timerDisplay }}
-    </div>
-  }
+
   @if (!isCompleted && task.questions.length > 0 && !examfailed) {
   <div class="quiz-area">
     <div class="task-card glass-card question-card">
@@ -14,6 +10,11 @@
         <p class="question-text">
           {{ task.questions[currentQuestionIndex].text }}
         </p>
+          @if(exam){
+    <div class="exam-timer">
+      Zeit übrig: {{ timerDisplay }}
+    </div>
+  }
       </div>
     </div>
 

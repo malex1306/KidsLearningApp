@@ -184,3 +184,16 @@ input:checked + .slider:after {
   left: 10px;
   right: auto;
 }
+.switch-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* sorgt dafür, dass es nach rechts rutscht */
+  gap: 0.5rem; /* Abstand zwischen Switch und Text */
+  margin-bottom: 1rem;
+}
+
+.switch-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff9900;
+}
