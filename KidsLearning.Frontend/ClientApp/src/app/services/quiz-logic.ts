@@ -1,8 +1,17 @@
 import { Injectable } from '@angular/core';
 import { LearningTask } from '../models/learning-task';
 import { Question } from '../models/question';
+import { S } from '@angular/cdk/keycodes';
 
 export type AnswerStatus = 'correct' | 'wrong' | null;
+export interface PuzzleTile {
+  id: number;
+  backgroundPosition: string;
+  correctPosition: number;
+  currentPosition:number;
+  selected: boolean;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -214,6 +223,47 @@ export class QuizLogic {
 
   // Spaß-Land Logik
 
+  createPuzzle(rows: number, cols: number, tileSize: number): PuzzleTile[] {
+  const totalTiles = rows * cols;
+  const tiles: PuzzleTile[] = [];
 
+  for (let i = 0; i < totalTiles; i++) {
+    const row = Math.floor(i / cols);
+    const col = i % cols;
 
+    tiles.push({
+      id: i,
+      backgroundPosition: `-${col * tileSize}px -${row * tileSize}px`,
+      correctPosition: i, 
+      currentPosition: i,
+      selected: false
+    });
+  }
+  return tiles;
+}
+
+  shuffleTiles(tiles: PuzzleTile[]): PuzzleTile[] {
+  const shuffledTiles = [...tiles];
+  for (let i = shuffledTiles.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledTiles[i], shuffledTiles[j]] = [shuffledTiles[j], shuffledTiles[i]];
+  }
+ 
+  shuffledTiles.forEach((tile, index) => tile.currentPosition = index);
+  return shuffledTiles;
+}
+
+  swapTiles(tiles: PuzzleTile[], tile1: PuzzleTile, tile2: PuzzleTile): PuzzleTile[]{
+    const index1 = tiles.indexOf(tile1);
+    const index2 = tiles.indexOf(tile2);
+
+    if (index1 !== -1 && index2 !== -1){
+      [tiles[index1], tiles[index2]] = [tiles[index2], tiles[index1]];
+    }
+    tiles.forEach((tile, index) => tile.currentPosition = index);
+    return tiles;
+  }
+  checkPuzzleCompletion(tiles: PuzzleTile[]): boolean{
+    return tiles.every(tile => tile.correctPosition === tile.currentPosition);
+  }
 }

@@ -53,6 +53,8 @@
                           <button class="fun-button" [routerLink]="['/logic-task', task.subject, task.id, 'child', childId]">Starten</button>
                         } @else if (task.subject === 'Quiz-Ozean') {
                             <button class="fun-button" [routerLink]="['/learning-task-quiz', task.subject, task.id, 'child', childId]">Starten</button>
+                        } @else if (task.subject === 'Spaß-Paradise') {
+                            <button class="fun-button" [routerLink]="['/puzzle-game', task.subject, task.id, 'child', childId]">Starten</button>
                         }
                         @else {
                             <button class="fun-button" [routerLink]="['/task', task.id, 'child', childId]">Starten</button>
