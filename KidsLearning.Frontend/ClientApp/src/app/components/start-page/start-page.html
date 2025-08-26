@@ -58,9 +58,9 @@
 
       }
     </header> -->
-    @if (activeChild() && showDuduGif) {
+    <!-- @if (activeChild() && showDuduGif) {
     <img src="assets/gifs/dudu.gif" alt="bear gif" class="dudu-gif">
-    }
+    } -->
 
     <div class="main-content">
       <!-- @if (dashboardData) {
@@ -165,7 +165,7 @@
             </div>
           </a>
 
-          <a class="child-card-six mb-3" [routerLink]="['tasks', 'Quiz-Ozean', 'child', activeChild()?.id]"
+          <!-- <a class="child-card-six mb-3" [routerLink]="['tasks', 'Quiz-Ozean', 'child', activeChild()?.id]"
              (mouseenter)="speak('Quiz-Ozean: Teste deinen Wissensstand mit einem Quiz.')">
             <div class="child-header">
               <img src="assets/images/girl.png" alt="Lektion Bild" class="child-picture">
@@ -176,7 +176,7 @@
             </div>
             <div class="card-footer">
             </div>
-          </a>
+          </a> -->
 
         </div>
         <div class="lessons-section mt-4">
@@ -231,6 +231,7 @@
       }
 
       @for (subject of activeChild()?.progress; track $index) {
+        @if(subject.subjectName != 'Quiz-Ozean' && subject.subjectName != 'Spaß-Paradise'){
       <div class="achievement-card">
         <div class="achievement-item">
           <img [src]="'assets/images/' + getSubjectIcon(subject.subjectName)" alt="{{ subject.subjectName }}"
@@ -244,6 +245,7 @@
           </div>
         </div>
       </div>
+    }
       }
       }
     </div>
