@@ -3,13 +3,13 @@
 
     @if (!isCompleted && task.title === 'Englische Bilder') {
       <div class="quiz-area default-quiz">
-        <div class="task-card glass-card image-card" style="text-align: center; margin: 1rem 0;">
+        <div class="task-card glass-card image-card">
           <h2 class="question-title">
             Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}
           </h2>
           <p class="question-text">{{ task.questions[currentQuestionIndex].text }}</p>
           <img [src]="task.questions[currentQuestionIndex].imageUrl || 'assets/questImg/cloud.png'"
-               alt="Frage Bild" class="question-image" style="max-width: 100%; height: auto;">
+               alt="Frage Bild" class="default-image">
         </div>
 
         <div class="options-grid" [class.disabled]="isWaitingForNext">
@@ -27,14 +27,14 @@
 
         <div class="navigation-buttons">
           @if (currentQuestionIndex === 0) {
-            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> ⬅ Zurück </a>
+            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Zurück </a>
           } @else {
-            <button class="fun-button" (click)="prevQuestion()"> ⬅ Vorherige </button>
+            <button class="fun-button" (click)="prevQuestion()"> Zurück </button>
           }
           @if (currentQuestionIndex === task.questions.length - 1) {
-            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Beenden ✅ </a>
+            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Beenden</a>
           } @else {
-            <button class="fun-button" (click)="nextQuestion()"> Nächste ➡ </button>
+            <button class="fun-button" (click)="nextQuestion()"> Weiter </button>
           }
         </div>
       </div>
@@ -86,9 +86,9 @@
           }
           <span class="batch-info">Batch {{ currentBatchIndex + 1 }} von {{ Math.ceil(task.questions.length / batchSize) }} </span>
           @if (currentBatchIndex >= Math.ceil(task.questions.length / batchSize) - 1) {
-            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Beenden ✅ </a>
+            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Beenden </a>
           } @else {
-            <button class="fun-button" (click)="nextBatch()"> Nächste  ➡ </button>
+            <button class="fun-button" (click)="nextBatch()"> Nächste </button>
           }
         </div>
       </div>
@@ -118,18 +118,18 @@
         <div class="navigation-buttons">
           @if (currentQuestionIndex === 0) {
             <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button">
-              ⬅ Zurück
+              Zurück
             </a>
           } @else {
-            <button class="fun-button" (click)="prevQuestion()"> ⬅ Vorherige </button>
+            <button class="fun-button" (click)="prevQuestion()"> Zurück </button>
           }
 
           @if (currentQuestionIndex === task.questions.length - 1) {
             <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button">
-              Beenden ✅
+              Beenden 
             </a>
           } @else {
-            <button class="fun-button" (click)="nextQuestion()"> Nächste ➡ </button>
+            <button class="fun-button" (click)="nextQuestion()"> Nächste  </button>
           }
         </div>
         @if (answerStatus) {

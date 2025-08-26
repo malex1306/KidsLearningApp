@@ -146,7 +146,7 @@ public class ParentDashboardController : ControllerBase
         var newChild = new Child
         {
             Name = addChildDto.Name,
-            AvatarUrl = addChildDto.AvatarUrl ?? "https://via.placeholder.com/40",
+            AvatarUrl = addChildDto.AvatarUrl ?? "/assets/images/smarty-bear.png",
             ParentId = parentId,
             DateOfBirth = addChildDto.DateOfBirth,
             Difficulty = addChildDto.Difficulty,
@@ -198,7 +198,7 @@ public class ParentDashboardController : ControllerBase
 
         child.Name = editChildDto.Name;
         child.DateOfBirth = editChildDto.DateOfBirth;
-        child.AvatarUrl = editChildDto.AvatarUrl ?? "https://via.placeholder.com/40";
+        child.AvatarUrl = editChildDto.AvatarUrl ?? "/assets/images/smarty-bear.png";
         child.Difficulty = editChildDto.Difficulty;
 
         _context.Children.Update(child);

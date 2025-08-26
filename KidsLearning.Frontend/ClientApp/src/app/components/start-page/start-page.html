@@ -1,4 +1,5 @@
 <div class="main-page-layout">
+  @if(isLoggedIn){
   <div class="main-card">
   <div class="left-side-container">
     <div class="side-card-four left-sidebar">
@@ -16,7 +17,7 @@
         <span class="day-circle">S</span>
       </div>
     </div>
-    @if(isLoggedIn){
+    
     <div class="side-card-three left-sidebar">
       <div class="child-side">
         <p class="greeting-text">{{ greetingText }}</p>
@@ -28,9 +29,11 @@
         <h5 class="child-side-difficult">Klasse: {{activeChild()?.difficulty}}</h5>
       </div>
     </div>
-    }
+    
   </div>
+
   </div>
+}
 
 
   <div class="dashboard-container">
@@ -182,22 +185,19 @@
       </div>
     </div>
     } @else {
-    <header class="dashboard-header">
-      <div class="user-info">
-        <h2>Willkommen bei der KidsLearningApp!</h2>
-      </div>
-    </header>
-    <div class="main-content">
-      <div class="intro-section card p-4 mb-4">
-        <div class="card-body">
+    <div class="start-card">
+        <div class="glass-card">
+          <h2>Willkommen bei</h2><br>
+          <h1>SmartyBear</h1>
           <p>Lernen mit Spaß für deine Kinder.</p>
           <p>Erstelle ein kostenloses Konto, um loszulegen.</p>
+          <p>Bereits regestriert? Hier anmelden</p>
           <div class="header-actions mt-3">
             <a class="btn btn-primary me-2" [routerLink]="['/register']" role="button">Jetzt registrieren</a>
             <a class="btn btn-secondary" [routerLink]="['/login']" role="button">Anmelden</a>
           </div>
         </div>
-      </div>
+      
     </div>
     }
   </div>

@@ -31,6 +31,14 @@
 .question-card {
   width: 100%;
 }
+.question-title{
+  font-size: 1.8rem;
+  color: #4CAF50;
+}
+p{
+  font-size: 1.5rem;
+  color: black;
+}
 
 
 .number-sequence-display {
@@ -88,6 +96,37 @@
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+}
+.options-grid-two{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* immer zwei Buttons nebeneinander */
+    gap: 2rem;  /* etwas mehr Abstand für den „Kachel-Effekt“ */
+    margin-bottom: 2rem;
+    width: 100%;
+}
+.option-button-two{
+    background-color: #6a1b9a;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);;
+    border-radius: 12px;
+    padding: 1.5rem;
+    font-size: 1.6rem;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+.option-button-two:hover {
+     background-color: #8e24aa;
+    transform: translateY(-2px);
+}
+.option-button-two.correct-answer {
+    background-color: #4CAF50;
+    transform: scale(1.05);
+}
+
+.option-button-two.wrong-answer {
+    background-color: #f44336;
 }
 
 .option-button:hover:not([disabled]) {
@@ -206,8 +245,10 @@
 }
 
 .form-image {
-  width: 100%;
-  max-width: 300px;
+   max-width: 50%;
+    height: auto;
+    border-radius: 15px;
+    margin-top: 1rem;
 }
 .option-img {
   width: 100%;
