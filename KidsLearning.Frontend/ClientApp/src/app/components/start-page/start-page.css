@@ -447,7 +447,8 @@
 
     .dashboard-container,
     .main-content,
-    .lessons-section {
+    .lessons-section,
+    .main-card {
         width: 100%; 
         max-width: none; 
         padding: 1rem;
@@ -494,6 +495,9 @@
     }
     .right-sidebar{
         display: none; 
+    }
+    .main-card{
+        display: none;
     }
 
    
