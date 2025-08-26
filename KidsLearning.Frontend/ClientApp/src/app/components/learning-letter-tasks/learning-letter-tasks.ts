@@ -41,6 +41,11 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
   lastClickedLetter: string | null = null;
   lastClickedStatus: 'correct' | 'wrong' | null = null;
   answeredQuestions: boolean[] = [];
+
+  exam: boolean = false; // from route or service
+  timerValue: number = 0; // in seconds
+  timerInterval: any = null;
+  examfailed: boolean = false;
   private subscriptions = new Subscription();
 
   private speechSynth: SpeechSynthesis | null = null;
@@ -64,6 +69,8 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
   ngOnInit(): void {
     const taskId = this.route.snapshot.paramMap.get('id');
     const childIdParam = this.route.snapshot.paramMap.get('childId');
+    const examParam = this.route.snapshot.paramMap.get('exam');
+    this.exam = examParam === 'true';
 
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe(task => {
@@ -83,6 +90,9 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
           this.isConnectingTask = true;
         } else if (this.task.title === 'Fülle die Lücken'){
           this.isGapFillTask = true;
+        }
+        if (this.exam) {
+          this.startTimer(300); // e.g., 5 minutes
         }
       });
     }
@@ -105,6 +115,9 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
       this.speechSynth.cancel();
     }
     this.subscriptions.unsubscribe();
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
   }
 
   private setGermanVoice(): void {
@@ -192,6 +205,7 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
   checkCompletion(): void {
     if (this.currentQuestionIndex === (this.task?.questions.length ?? 0) - 1) {
       this.isCompleted = true;
+      this.stopTimer();
       if (this.childId && this.task) {
         this.learningService.completeTask(this.childId, this.task.id).subscribe({
           next: () => {
@@ -250,6 +264,7 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
   onFinishTask(): void {
     const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
     this.isCompleted = true;
+    this.stopTimer();
     if (allQuestionsAnswered) {
       this.statusMessage = 'Gut gemacht! Du hast alle Fragen beantwortet. Das Ergebnis wurde gespeichert.';
       this.completeLearningTask();
@@ -305,5 +320,39 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
     utterance.rate = 1.1;
 
     this.speechSynth.speak(utterance);
+  }
+  startTimer(seconds: number): void {
+    this.timerValue = seconds;
+
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
+
+    this.timerInterval = setInterval(() => {
+      if (this.timerValue > 0) {
+        this.timerValue--;
+      } else {
+        clearInterval(this.timerInterval);
+        this.onTimeUp();
+      }
+    }, 1000);
+  }
+
+  onTimeUp(): void {
+    this.examfailed = true;
+  }
+
+  get timerDisplay(): string {
+    const minutes = Math.floor(this.timerValue / 60);
+    const seconds = this.timerValue % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds
+      .toString()
+      .padStart(2, '0')}`;
+  }
+  stopTimer(): void {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
   }
 }

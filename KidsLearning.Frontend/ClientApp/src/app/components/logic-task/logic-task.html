@@ -1,6 +1,11 @@
 @if (task) {
 <div class="task-detail-container">
-    @if (!isCompleted && task.title === 'Zahlenkombinationen') {
+    @if(exam){
+        <div class="exam-timer">
+            Zeit übrig: {{ timerDisplay }}
+        </div>
+    }
+    @if (!isCompleted && task.title === 'Zahlenkombinationen' && !examfailed) {
         <div class="quiz-area default-quiz">
             <div class="task-card glass-card question-card">
                 <div class="card-content">
@@ -38,7 +43,7 @@
             </div>
         </div>
     }
-    @if (!isCompleted && task.title === 'Fülle die Form') {
+    @if (!isCompleted && task.title === 'Fülle die Form' && !examfailed){
         <div class="quiz-area fill-form-quiz">
             <div class="task-card glass-card question-card">
                 <div class="card-content">
@@ -74,6 +79,17 @@
                 <h2>Aufgabe abgeschlossen! 🎉</h2>
                 <p>{{ statusMessage }}</p>
                 <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">Zurück zu den Aufgaben</a>
+            </div>
+        </div>
+    }
+    @if (examfailed) {
+        <div class="completion-message-card glass-card">
+            <div class="card-content">
+                <h2>Aufgabe gescheitert 💥</h2>
+                <p>Versuchs nochmal!</p>
+                <a [routerLink]="['/tasks', task!.subject, 'child', childId]" class="back-button">
+                    Zurück zu den Aufgaben
+                </a>
             </div>
         </div>
     }

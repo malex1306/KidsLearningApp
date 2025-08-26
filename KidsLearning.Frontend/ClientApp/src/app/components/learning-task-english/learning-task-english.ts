@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TasksService } from '../../services/tasks.service';
 import { LearningService } from '../../services/learning.service';
 import { LearningTask } from '../../models/learning-task';
 import { CommonModule } from '@angular/common';
 import { ActiveChildService } from '../../services/active-child.service';
+import {Subscription} from 'rxjs';
 import { QuizLogic, AnswerStatus} from '../../services/quiz-logic';
 
 @Component({
@@ -13,7 +14,7 @@ import { QuizLogic, AnswerStatus} from '../../services/quiz-logic';
   templateUrl: './learning-task-english.html',
   styleUrls: ['./learning-task-english.css']
 })
-export class LearningTaskEnglish implements OnInit {
+export class LearningTaskEnglish implements OnInit, OnDestroy {
   task: LearningTask | null = null;
   childId: number | null = null;
 
@@ -35,6 +36,13 @@ export class LearningTaskEnglish implements OnInit {
 
   isCompleted = false;
 
+  exam: boolean = false; // from route or service
+  timerValue: number = 0; // in seconds
+  timerInterval: any = null;
+  examfailed: boolean = false;
+
+  private subscriptions = new Subscription();
+
   constructor(
     private route: ActivatedRoute,
     private tasksService: TasksService,
@@ -46,8 +54,11 @@ export class LearningTaskEnglish implements OnInit {
   ngOnInit(): void {
     const taskId = this.route.snapshot.paramMap.get('id');
     const childIdParam = this.route.snapshot.paramMap.get('childId');
+    const examParam = this.route.snapshot.paramMap.get('exam');
 
     if (childIdParam) this.childId = +childIdParam;
+
+    this.exam = examParam === 'true';
 
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe(task => {
@@ -57,8 +68,12 @@ export class LearningTaskEnglish implements OnInit {
 
         this.task = task;
 
-        // Matching vorbereiten
-        if (task.title === 'Deutsch/Englisch verbinden') this.loadBatch();
+        if (this.task.title === 'Deutsch/Englisch verbinden') {
+          this.loadBatch();
+        }
+        if (this.exam) {
+          this.startTimer(300); // e.g., 5 minutes
+        }
       });
     }
   }
@@ -87,6 +102,7 @@ export class LearningTaskEnglish implements OnInit {
       this.currentQuestionIndex++;
     } else {
       this.isCompleted = true;
+      this.stopTimer();
     }
   }
 
@@ -120,6 +136,7 @@ export class LearningTaskEnglish implements OnInit {
       this.loadBatch();
     } else {
       this.isCompleted = true;
+      this.stopTimer();
       this.completeTask();
     }
   }
@@ -163,7 +180,6 @@ export class LearningTaskEnglish implements OnInit {
     return [...this.connectedPairs].some(pair => pair.en === word);
   }
 
-  // ----------------- Abschluss -----------------
   completeTask() {
     if (this.childId && this.task) {
       this.learningService.completeTask(this.childId, this.task.id).subscribe({
@@ -174,4 +190,51 @@ export class LearningTaskEnglish implements OnInit {
   }
 
   protected readonly Math = Math;
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+    this.stopTimer();
+  }
+  startTimer(seconds: number): void {
+    this.timerValue = seconds;
+
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
+
+    this.timerInterval = setInterval(() => {
+      if (this.timerValue > 0) {
+        this.timerValue--;
+      } else {
+        clearInterval(this.timerInterval);
+        this.onTimeUp();
+      }
+    }, 1000);
+  }
+
+  onTimeUp(): void {
+    this.examfailed = true;
+  }
+
+  get timerDisplay(): string {
+    const minutes = Math.floor(this.timerValue / 60);
+    const seconds = this.timerValue % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds
+      .toString()
+      .padStart(2, '0')}`;
+  }
+  onFinishTask(): void {
+    if (this.task && this.childId) {
+      this.isCompleted = true;
+      this.stopTimer();
+      this.completeTask();
+      alert('Aufgabe automatisch beendet, da die Zeit abgelaufen ist.');
+    }
+  }
+  stopTimer(): void {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
+  }
 }

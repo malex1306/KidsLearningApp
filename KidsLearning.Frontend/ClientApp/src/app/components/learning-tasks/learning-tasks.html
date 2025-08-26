@@ -1,6 +1,11 @@
 <div class="tasks-container">
     <h1>{{ subject }} Aufgaben</h1>
-
+  @if (subject != 'Spaß-Paradise'){
+    <label class="switch">
+      <input type="checkbox" (click)="toggleExamMode()">
+      <span class="slider round"></span>
+    </label>
+  }
     @if (tasks.length > 0) {
         <div class="task-grid">
             @for (task of tasks; track task.id) {
@@ -46,18 +51,18 @@
                     </div>
                     <div class="card-actions">
                         @if (task.subject === 'Buchstaben-land') {
-                            <button class="fun-button" [routerLink]="['/learning-letter-tasks', task.subject, task.id, 'child', childId]">Starten</button>
+                            <button class="fun-button" [routerLink]="['/learning-letter-tasks', task.subject, task.id, 'child', childId, exam]">Starten</button>
                         } @else if (task.subject === 'Englisch') {
-                          <button class="fun-button" [routerLink]="['/learning-task-english', task.subject, task.id, 'child', childId]">Starten</button>
+                          <button class="fun-button" [routerLink]="['/learning-task-english', task.subject, task.id, 'child', childId, exam]">Starten</button>
                         } @else if (task.subject === 'Logik-Dschungel') {
-                          <button class="fun-button" [routerLink]="['/logic-task', task.subject, task.id, 'child', childId]">Starten</button>
+                          <button class="fun-button" [routerLink]="['/logic-task', task.subject, task.id, 'child', childId, exam]">Starten</button>
                         } @else if (task.subject === 'Quiz-Ozean') {
                             <button class="fun-button" [routerLink]="['/learning-task-quiz', task.subject, task.id, 'child', childId]">Starten</button>
                         } @else if (task.subject === 'Spaß-Paradise') {
                             <button class="fun-button" [routerLink]="['/puzzle-game', task.subject, task.id, 'child', childId]">Starten</button>
                         }
                         @else {
-                            <button class="fun-button" [routerLink]="['/task', task.id, 'child', childId]">Starten</button>
+                            <button class="fun-button" [routerLink]="['/task', task.id, 'child', childId, exam]">Starten</button>
                         }
                     </div>
                 </div>

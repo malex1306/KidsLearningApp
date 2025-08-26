@@ -22,11 +22,10 @@ export const routes: Routes = [
   { path: 'parent-dashboard', component: ParentDashboardComponent, canActivate: [authGuard] },
   { path: 'inventory/:childId', component: InventoryComponent, canActivate: [authGuard] },
   { path: 'tasks/:subject/child/:childId', component: LearningTasksComponent, canActivate: [authGuard] },
-  { path: 'task/:id/child/:childId', component: LearningTaskDetail, canActivate: [authGuard] },
-  { path: 'learning-letter-tasks/:subject/:id/child/:childId', component: LearningLetterTasks, canActivate: [authGuard] },
-  { path: 'learning-task-english/:subject/:id/child/:childId', component: LearningTaskEnglish, canActivate: [authGuard] },
-  { path: 'logic-task/:subject/:id/child/:childId', component: LogicTask, canActivate: [authGuard]},
-  { path: 'learning-task-quiz/:subject/:id/child/:childId', component: LearningTaskQuiz, canActivate: [authGuard]},
+  { path: 'task/:id/child/:childId/:exam', component: LearningTaskDetail, canActivate: [authGuard] },
+  { path: 'learning-letter-tasks/:subject/:id/child/:childId/:exam', component: LearningLetterTasks, canActivate: [authGuard] },
+  { path: 'learning-task-english/:subject/:id/child/:childId/:exam', component: LearningTaskEnglish, canActivate: [authGuard] },
+  { path: 'logic-task/:subject/:id/child/:childId/:exam', component: LogicTask, canActivate: [authGuard]},
   { path: 'puzzle-game/:subject/:id/child/:childId', component: PuzzleGame, canActivate: [authGuard] },
   // Fallback
   { path: '**', redirectTo: '' }

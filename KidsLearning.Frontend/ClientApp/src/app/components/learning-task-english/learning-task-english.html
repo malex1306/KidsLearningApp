@@ -1,7 +1,12 @@
 @if (task) {
   <div class="task-detail-container">
+    @if(exam){
+      <div class="exam-timer">
+        Zeit übrig: {{ timerDisplay }}
+      </div>
+    }
 
-    @if (!isCompleted && task.title === 'Englische Bilder') {
+    @if (!isCompleted && task.title === 'Englische Bilder' && !examfailed) {
       <div class="quiz-area default-quiz">
         <div class="task-card glass-card image-card">
           <h2 class="question-title">
@@ -45,7 +50,7 @@
           </p>
         </div>
       }
-    } @else if (!isCompleted && task.title === 'Deutsch/Englisch verbinden') {
+    } @else if (!isCompleted && task.title === 'Deutsch/Englisch verbinden' && !examfailed) {
       <div class="quiz-area default-quiz">
         <div class="task-card glass-card question-card">
           <div class="card-content">
@@ -92,7 +97,7 @@
           }
         </div>
       </div>
-    } @else if (!isCompleted && task.title === 'Finde den Imposter'){
+    } @else if (!isCompleted && task.title === 'Finde den Imposter' && !examfailed){
       <div class="quiz-area default-quiz">
         <div class="task-card glass-card question-card" style="text-align: center; margin: 1rem 0;">
           <h2 class="question-title">
@@ -126,7 +131,7 @@
 
           @if (currentQuestionIndex === task.questions.length - 1) {
             <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button">
-              Beenden 
+              Beenden
             </a>
           } @else {
             <button class="fun-button" (click)="nextQuestion()"> Nächste  </button>
@@ -153,6 +158,17 @@
           }
           <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">
             Weiter zur nächsten Seite
+          </a>
+        </div>
+      </div>
+    }
+    @if (examfailed) {
+      <div class="completion-message-card glass-card">
+        <div class="card-content">
+          <h2>Aufgabe gescheitert 💥</h2>
+          <p>Versuchs nochmal!</p>
+          <a [routerLink]="['/tasks', task!.subject, 'child', childId]" class="back-button">
+            Zurück zu den Aufgaben
           </a>
         </div>
       </div>

@@ -152,7 +152,7 @@
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    
+
 }
 
 .option-button-two:hover {
@@ -292,5 +292,13 @@
 .gap-fill-quiz button.fun-button:hover {
     transform: scale(1.05);
     background-color: #fb8500;
+}
+
+.exam-timer{
+  color: #4CAF50;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 

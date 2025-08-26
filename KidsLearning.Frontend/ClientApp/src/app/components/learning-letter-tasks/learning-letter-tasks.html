@@ -1,13 +1,12 @@
 @if (task) {
   <div class="task-detail-container">
-    <!-- <div class="task-card glass-card"> -->
-    <!-- <div class="card-content">
-        <h1>{{ task.title }}</h1>
-        <p>{{ task.description }}</p>
-    </div> -->
-    <!-- </div> -->
+    @if(exam){
+      <div class="exam-timer">
+        Zeit übrig: {{ timerDisplay }}
+      </div>
+    }
 
-    @if (isSpellingTask && !isCompleted) {
+    @if (isSpellingTask && !isCompleted && !examfailed) {
       <div class="quiz-area spelling-quiz">
         <div class="task-card glass-card image-card">
           <div class="card-content">
@@ -64,7 +63,7 @@
       </div>
     }
 
-    @if (isGapFillTask && !isCompleted) {
+    @if (isGapFillTask && !isCompleted && !examfailed) {
       <div class="quiz-area gap-fill-quiz">
 
         <input type="text"
@@ -118,6 +117,17 @@
       <div class="status-message-container">
         <p
           [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">{{ statusMessage }}</p>
+      </div>
+    }
+    @if (examfailed) {
+      <div class="completion-message-card glass-card">
+        <div class="card-content">
+          <h2>Aufgabe gescheitert 💥</h2>
+          <p>Versuchs nochmal!</p>
+          <a [routerLink]="['/tasks', task!.subject, 'child', childId]" class="back-button">
+            Zurück zu den Aufgaben
+          </a>
+        </div>
       </div>
     }
 
