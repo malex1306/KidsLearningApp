@@ -10,7 +10,6 @@ import { LearningLetterTasks } from './components/learning-letter-tasks/learning
 import { InventoryComponent } from './components/inventory/inventory';
 import { LearningTaskEnglish } from './components/learning-task-english/learning-task-english';
 import { LogicTask } from './components/logic-task/logic-task';
-import { LearningTaskQuiz } from './components/learning-task-quiz/learning-task-quiz';
 import { PuzzleGame } from './components/puzzle-game/puzzle-game';
 
 export const routes: Routes = [
