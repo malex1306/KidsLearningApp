@@ -12,6 +12,7 @@ import { QuestionNavigationService } from '../../services/question-navigation.se
 import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ActiveChildService } from '../../services/active-child.service';
+import { QuizLogic } from '../../services/quiz-logic';
 
 @Component({
   selector: 'app-learning-letter-tasks',
@@ -51,7 +52,8 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
     private learningService: LearningService,
     private rewardService: RewardService,
     public navigationService: QuestionNavigationService,
-    private activeChildService: ActiveChildService
+    private activeChildService: ActiveChildService,
+    private quizLogic: QuizLogic
   ) {
     if ('speechSynthesis' in window) {
       this.speechSynth = window.speechSynthesis;
@@ -147,59 +149,43 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
   }
 
   selectLetter(letter: string): void {
-    if (!this.task || this.childId === null) {
-      return;
-    }
-    this.selectedLetter = letter;
-    this.answeredQuestions[this.currentQuestionIndex] = true;
-
+    if (!this.task || this.childId === null) return;
     const currentQuestion = this.task.questions[this.currentQuestionIndex];
-    if (currentQuestion) {
-      const nextLetterIndex = this.spelledWord.findIndex(l => l === '');
-      if (nextLetterIndex !== -1) {
-        this.lastClickedLetter = letter;
+    if (!currentQuestion) return;
 
-        if (letter === currentQuestion.correctAnswer.charAt(nextLetterIndex)) {
-          this.spelledWord[nextLetterIndex] = letter;
-          this.lastClickedStatus = 'correct';
-          this.answerStatus = 'correct';
-          this.statusMessage = '';
+    const result = this.quizLogic.selectLetter(letter, currentQuestion.correctAnswer, [...this.spelledWord]);
+    this.spelledWord = result.spelledWord;
+    this.lastClickedLetter = letter;
+    this.lastClickedStatus = result.correct ? 'correct' : 'wrong';
+    this.answerStatus = result.correct ? 'correct' : 'wrong';
+    this.statusMessage = result.message;
 
-          if (this.spelledWord.join('') === currentQuestion.correctAnswer) {
-            this.statusMessage = 'Richtig! ';
-            this.checkCompletion();
-          }
-        } else {
-          this.lastClickedStatus = 'wrong';
-          this.answerStatus = 'wrong';
-          this.statusMessage = 'Falsch, versuche es noch einmal. 🤔';
-        }
-
-        setTimeout(() => {
-          this.lastClickedStatus = null;
-          this.lastClickedLetter = null;
-        }, 500);
-      }
+    if (result.completed) {
+      this.checkCompletion();
     }
+
+    setTimeout(() => {
+      this.lastClickedStatus = null;
+      this.lastClickedLetter = null;
+    }, 500);
   }
 
   selectAnswer(answer: string): void {
-    if (this.isWaitingForNext || !this.task || this.childId === null) {
-      return;
-    }
-    this.selectedAnswer = answer;
-    this.answeredQuestions[this.currentQuestionIndex] = true;
+    if (this.isWaitingForNext || !this.task) return;
 
     const currentQuestion = this.task.questions[this.currentQuestionIndex];
-    if (currentQuestion && answer === currentQuestion.correctAnswer) {
-      this.answerStatus = 'correct';
-      this.statusMessage = 'Richtig! 🎉';
-      this.isWaitingForNext = true;
+    if (!currentQuestion) return;
 
+    const result = this.quizLogic.selectAnswer(answer, currentQuestion);
+
+    this.selectedAnswer = answer;
+    this.answeredQuestions[this.currentQuestionIndex] = true;
+    this.answerStatus = result.correct ? 'correct' : 'wrong';
+    this.statusMessage = result.message;
+
+    if (result.completed) {
+      this.isWaitingForNext = true;
       this.checkCompletion();
-    } else {
-      this.answerStatus = 'wrong';
-      this.statusMessage = 'Falsch, versuche es noch einmal. 🤔';
     }
   }
 
@@ -274,15 +260,17 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
 
   checkTypedAnswer(): void {
     if (!this.task) return;
+
     const currentQuestion = this.task.questions[this.currentQuestionIndex];
-    if (this.typedAnswer.trim().toLowerCase() === currentQuestion.correctAnswer.toLowerCase()) {
-      this.answerStatus = 'correct';
-      this.statusMessage = 'Richtig! 🎉';
+    if (!currentQuestion) return;
+
+    const result = this.quizLogic.selectTypedAnswer(this.typedAnswer, currentQuestion);
+
+    this.answerStatus = result.correct ? 'correct' : 'wrong';
+    this.statusMessage = result.message;
+    if (result.correct) {
       this.answeredQuestions[this.currentQuestionIndex] = true;
       this.checkCompletion();
-    } else {
-      this.answerStatus = 'wrong';
-      this.statusMessage = 'Falsch, versuche es nochmal.';
     }
   }
 

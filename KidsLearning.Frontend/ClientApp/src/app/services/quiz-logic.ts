@@ -90,42 +90,61 @@ export class QuizLogic {
   checkGapFill(input: string, currentQuestion: Question) {
     return input.trim().toLowerCase() === currentQuestion.correctAnswer.toLowerCase();
   }
-  selectLetterConnecting(
-    letter: string,
-    currentQuestion: Question
-  ): { correct: boolean; completed: boolean } {
-    const correct = currentQuestion.correctAnswer.includes(letter);
-    const completed = false;
-    return { correct, completed };
+  selectAnswer(answer: string, currentQuestion: any) {
+    const isCorrect = answer === currentQuestion.correctAnswer;
+
+    return {
+      correct: isCorrect,
+      message: isCorrect ? 'Richtig! 🎉' : 'Falsch, versuche es noch einmal. 🤔',
+      completed: isCorrect
+    };
   }
 
-  selectLetterSpelling(
-    letter: string,
-    spelledWord: string[],
-    currentQuestion: Question
-  ): { spelledWord: string[]; correct: boolean; completed: boolean } {
-    const nextIndex = spelledWord.findIndex(l => l === '');
-    if (nextIndex === -1) return { spelledWord, correct: false, completed: false };
+  selectLetterSpelling(letter: string, spelledWord: string, currentQuestion: any) {
+    const newSpelledWord = spelledWord + letter;
+    const isCorrect = currentQuestion.correctAnswer.startsWith(newSpelledWord);
 
-    if (letter === currentQuestion.correctAnswer.charAt(nextIndex)) {
-      spelledWord[nextIndex] = letter;
-      const completed = spelledWord.join('') === currentQuestion.correctAnswer;
-      return { spelledWord, correct: true, completed };
+    return {
+      spelledWord: newSpelledWord,
+      correct: isCorrect,
+      completed: isCorrect && newSpelledWord === currentQuestion.correctAnswer
+    };
+  }
+
+  selectTypedAnswer(typedAnswer: string, currentQuestion: any) {
+    const isCorrect = typedAnswer.trim().toLowerCase() === currentQuestion.correctAnswer.trim().toLowerCase();
+
+    return {
+      correct: isCorrect,
+      message: isCorrect ? 'Richtig! 🎉' : 'Falsch, versuche es noch einmal. 🤔',
+      completed: isCorrect
+    };
+  }
+  selectLetter(letter: string, currentWord: string, spelledWord: string[]): {
+    spelledWord: string[],
+    correct: boolean,
+    completed: boolean,
+    message: string
+  } {
+    const nextLetterIndex = spelledWord.findIndex(l => l === '');
+    if (nextLetterIndex === -1) {
+      return { spelledWord, correct: false, completed: false, message: '' };
+    }
+
+    if (letter === currentWord.charAt(nextLetterIndex)) {
+      spelledWord[nextLetterIndex] = letter;
+      const completed = spelledWord.join('') === currentWord;
+      return {
+        spelledWord,
+        correct: true,
+        completed,
+        message: completed ? 'Richtig!' : ''
+      };
     } else {
-      return { spelledWord, correct: false, completed: false };
+      return { spelledWord, correct: false, completed: false, message: 'Falsch, versuche es nochmal. 🤔' };
     }
   }
 
-  selectTypedAnswer(
-    input: string,
-    currentQuestion: Question
-  ): { correct: boolean; message: string } {
-    const correct = input.trim().toLowerCase() === currentQuestion.correctAnswer.toLowerCase();
-    return {
-      correct,
-      message: correct ? 'Richtig! 🎉' : 'Falsch, versuche es noch einmal.'
-    };
-  }
 
   // ------------------------------------------------------------------------
 
@@ -190,5 +209,11 @@ export class QuizLogic {
 
     return { status, message };
   }
+
+  // -------------------------------------------------------------------
+
+  // Spaß-Land Logik
+
+
 
 }

@@ -3,18 +3,15 @@ import { TasksService } from '../../services/tasks.service';
 import { Question } from '../../models/question';
 import {CommonModule} from '@angular/common';
 import {RouterLink, ActivatedRoute, RouterModule} from '@angular/router';
-import {LearningTaskEnglish} from '../learning-task-english/learning-task-english';
-import {LearningLetterTasks} from '../learning-letter-tasks/learning-letter-tasks';
-import {LearningTaskDetail} from '../learning-task-detail/learning-task-detail';
-import {LogicTask} from '../logic-task/logic-task';
 import { ActiveChildService } from '../../services/active-child.service';
 import { QuizLogic, AnswerStatus } from '../../services/quiz-logic';
 import { LearningTask } from '../../models/learning-task';
+import {LogicTask} from '../logic-task/logic-task';
 
 
 @Component({
   selector: 'app-learning-task-quiz',
-  imports: [CommonModule, RouterModule, LearningTaskEnglish, LearningLetterTasks, LearningTaskDetail, LogicTask, RouterLink],
+  imports: [CommonModule, RouterModule, RouterLink, LogicTask],
   templateUrl: './learning-task-quiz.html',
   styleUrls: ['./learning-task-quiz.css']
 })
@@ -40,18 +37,11 @@ export class LearningTaskQuiz implements OnInit {
   ngOnInit(): void {
     const activeChild = this.activeChildService.activeChild();
 
-    // Alle Fragen laden
     this.tasksService.getAllQuestions().subscribe({
       next: (questions: Question[]) => {
         this.questions = this.shuffleArray(questions);
       },
       error: err => console.error('API error:', err)
-    });
-
-    // Task-Titel holen für ngSwitch / Typen
-    const taskId = 13;
-    this.tasksService.getTaskById(taskId).subscribe(task => {
-      this.currentTaskTitle = task.title;
     });
   }
 
