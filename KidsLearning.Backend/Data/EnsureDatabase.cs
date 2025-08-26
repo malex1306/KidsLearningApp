@@ -129,6 +129,20 @@ public class EnsureDatabase
                     Title = "Fülle die Form",
                     Description = "Finde die Richtige Form die in das Muster passt!",
                     Subject = "Logik-Dschungel"
+                },
+                // Task 13
+                new LearningTask
+                {
+                    Title = "Quiz",
+                    Description = "Teste dein aktuelles Wissen in einem Quiz",
+                    Subject = "Quiz-Ozean"
+                },
+                // Task 14
+                new LearningTask
+                {
+                    Title = "Puzzle",
+                    Description = "Hier kannst du Puzzeln",
+                    Subject = "Spaß-Paradise"
                 }
             };
             context.LearningTasks.AddRange(tasks);

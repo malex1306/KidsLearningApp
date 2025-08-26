@@ -7,6 +7,7 @@ import {LearningService} from '../../services/learning.service';
 import {QuestionNavigationService} from '../../services/question-navigation.service';
 import {Subscription} from 'rxjs';
 import {ActiveChildService} from '../../services/active-child.service';
+import { QuizLogic } from  '../../services/quiz-logic';
 
 @Component({
     selector: 'app-logic-task',
@@ -46,7 +47,8 @@ export class LogicTask implements OnInit, OnDestroy {
         private tasksService: TasksService,
         private learningService: LearningService,
         private navigationService: QuestionNavigationService,
-        private activeChildService: ActiveChildService
+        private activeChildService: ActiveChildService,
+        private quizLogic: QuizLogic
     ) {
     }
 
@@ -95,20 +97,19 @@ export class LogicTask implements OnInit, OnDestroy {
         this.subscriptions.unsubscribe();
     }
 
-    selectOption(index: number): void {
-        if (this.answerStatus === 'correct') return;
+  selectOption(index: number): void {
+    if (!this.task || this.answerStatus === 'correct') return;
 
-        this.selectedOption = index;
+    const question = this.task.questions[this.currentQuestionIndex];
+    const result = this.quizLogic.selectFillFormOption(question, index);
 
-        if (index === this.correctOptionIndex) {
-            this.answerStatus = 'correct';
-            this.statusMessage = 'Richtig! 🎉';
-            setTimeout(() => this.nextQuestion(), 1000);
-        } else {
-            this.answerStatus = 'wrong';
-            this.statusMessage = 'Leider falsch. Versuche es noch einmal.';
-        }
+    this.answerStatus = result.status;
+    this.statusMessage = result.message;
+
+    if (this.answerStatus === 'correct') {
+      setTimeout(() => this.nextQuestion(), 1000);
     }
+  }
 
 
     nextQuestion(): void {

@@ -5,4 +5,5 @@ export interface Question {
     options: string[];
     imageUrl?: string;
     difficulty?: string;
+    learningTaskId: number;
 }

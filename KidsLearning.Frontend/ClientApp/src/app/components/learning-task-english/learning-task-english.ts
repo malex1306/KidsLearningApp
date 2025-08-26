@@ -5,6 +5,7 @@ import { LearningService } from '../../services/learning.service';
 import { LearningTask } from '../../models/learning-task';
 import { CommonModule } from '@angular/common';
 import { ActiveChildService } from '../../services/active-child.service';
+import { QuizLogic, AnswerStatus} from '../../services/quiz-logic';
 
 @Component({
   selector: 'app-learning-task-english',
@@ -14,30 +15,32 @@ import { ActiveChildService } from '../../services/active-child.service';
 })
 export class LearningTaskEnglish implements OnInit {
   task: LearningTask | null = null;
+  childId: number | null = null;
+
+  // Multiple Choice / Bilder
   currentQuestionIndex = 0;
-  answerStatus: 'correct' | 'wrong' | null = null;
+  answerStatus: AnswerStatus = null;
   statusMessage = '';
   isWaitingForNext = false;
-  childId: number | null = null;
-  isCompleted = false;
 
-  pairs: { de: string; en: string }[] = [];
-  shuffledEnglish: string[] = [];
-  shuffledGerman: string[] = [];
-  selectedGerman: string | null = null;
-  selectedEnglish: string | null = null;
-
-  connectedPairs: Set<{ de: string; en: string }> = new Set();
-
-  batchSize = 8;
+  // Deutsch/Englisch Matching
   currentBatchIndex = 0;
   currentBatch: any[] = [];
+  batchSize = 8;
+  shuffledGerman: string[] = [];
+  shuffledEnglish: string[] = [];
+  selectedGerman: string | null = null;
+  selectedEnglish: string | null = null;
+  connectedPairs = new Set<{ de: string; en: string }>();
+
+  isCompleted = false;
 
   constructor(
     private route: ActivatedRoute,
     private tasksService: TasksService,
     private learningService: LearningService,
-    private activeChildService: ActiveChildService
+    private activeChildService: ActiveChildService,
+    private quizLogic: QuizLogic
   ) {}
 
   ngOnInit(): void {
@@ -48,70 +51,84 @@ export class LearningTaskEnglish implements OnInit {
 
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe(task => {
-        // Get active child difficulty
-        const activeChild = this.activeChildService.activeChild();
-        const childDifficulty = activeChild?.difficulty ?? 'Vorschule';
+        // Filter nach Schwierigkeit
+        const difficulty = this.activeChildService.activeChild()?.difficulty ?? 'Vorschule';
+        if (difficulty) task.questions = task.questions.filter(q => q.difficulty === difficulty);
 
-        if (childDifficulty) {
-          task.questions = task.questions.filter(q => q.difficulty === childDifficulty);
-        }
         this.task = task;
 
-        if (this.task.title === 'Deutsch/Englisch verbinden') {
-          this.loadBatch();
-        }
+        // Matching vorbereiten
+        if (task.title === 'Deutsch/Englisch verbinden') this.loadBatch();
       });
     }
   }
 
-  loadBatch(): void {
-    if (!this.task) return;
+  // ----------------- Multiple Choice / Bilder -----------------
+  selectAnswer(answer: string) {
+    if (!this.task || this.isWaitingForNext || this.childId === null) return;
 
-    const start = this.currentBatchIndex * this.batchSize;
-    const end = start + this.batchSize;
-    this.currentBatch = this.task.questions.slice(start, end);
+    const result = this.quizLogic.selectEnglishAnswer(this.task, this.currentQuestionIndex, answer, []);
+    this.answerStatus = result.answerStatus;
+    this.statusMessage = result.statusMessage;
+    this.isWaitingForNext = result.answerStatus === 'correct';
 
-    if (this.task.title === 'Deutsch/Englisch verbinden') {
-      this.shuffledGerman = this.shuffleArray(this.currentBatch.map(q => q.text));
-      this.shuffledEnglish = this.shuffleArray(this.currentBatch.map(q => q.correctAnswer));
+    if (this.isWaitingForNext) {
+      setTimeout(() => this.nextQuestion(), 1500);
+      if (this.currentQuestionIndex === this.task.questions.length - 1) this.completeTask();
     }
   }
-  nextBatch(): void {
-    const totalBatches = Math.ceil(this.task?.questions.length ?? 0 / this.batchSize);
 
+  nextQuestion() {
+    this.answerStatus = null;
+    this.statusMessage = '';
+    this.isWaitingForNext = false;
+
+    if (this.task && this.currentQuestionIndex < this.task.questions.length - 1) {
+      this.currentQuestionIndex++;
+    } else {
+      this.isCompleted = true;
+    }
+  }
+
+  prevQuestion() {
+    if (this.currentQuestionIndex > 0) this.currentQuestionIndex--;
+    this.answerStatus = null;
+    this.statusMessage = '';
+    this.isWaitingForNext = false;
+  }
+
+  // ----------------- Deutsch/Englisch Matching -----------------
+  loadBatch() {
+    if (!this.task) return;
+    const batches = this.quizLogic.createBatches(this.task, this.batchSize);
+    this.currentBatch = batches[this.currentBatchIndex] ?? [];
+
+    const shuffled = this.quizLogic.shuffleBatch(this.currentBatch);
+    this.shuffledGerman = shuffled.german;
+    this.shuffledEnglish = shuffled.english;
+
+    this.connectedPairs.clear();
+    this.selectedGerman = null;
+    this.selectedEnglish = null;
+  }
+
+  nextBatch() {
+    if (!this.task) return;
+    const totalBatches = Math.ceil(this.task.questions.length / this.batchSize);
     if (this.currentBatchIndex < totalBatches - 1) {
       this.currentBatchIndex++;
-      this.connectedPairs.clear();
-      this.selectedGerman = null;
-      this.selectedEnglish = null;
       this.loadBatch();
-    }
-  }
-  prevBatch(): void {
-    if (this.currentBatchIndex > 0) {
-      this.currentBatchIndex--;
-      this.connectedPairs.clear();
-      this.selectedGerman = null;
-      this.selectedEnglish = null;
-      this.loadBatch();
-    }
-  }
-  prevQuestion(): void {
-    if (this.currentQuestionIndex > 0) {
-      this.currentQuestionIndex--;
-      this.answerStatus = null;
-      this.statusMessage = '';
-      this.isWaitingForNext = false;
+    } else {
+      this.isCompleted = true;
+      this.completeTask();
     }
   }
 
-  shuffleArray<T>(array: T[]): T[] {
-    const arr = [...array];
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
+  prevBatch() {
+    if (this.currentBatchIndex > 0) {
+      this.currentBatchIndex--;
+      this.loadBatch();
     }
-    return arr;
   }
 
   selectGerman(word: string) {
@@ -124,82 +141,35 @@ export class LearningTaskEnglish implements OnInit {
     this.checkMatch();
   }
 
-  completeLearningTask(): void {
-    if (this.childId && this.task) {
-      this.learningService.completeTask(this.childId, this.task.id).subscribe({
-        next: () => console.log('Englisch-Aufgabe erfolgreich abgeschlossen!'),
-        error: (err) => console.error('Fehler beim Abschluss der Englisch-Aufgabe', err),
-      });
-    }
-  }
-
   checkMatch() {
-    if (this.selectedGerman && this.selectedEnglish && this.task) {
-      const correct = this.currentBatch.find(
-        q => q.text === this.selectedGerman && q.correctAnswer === this.selectedEnglish
-      );
+    if (!this.selectedGerman || !this.selectedEnglish) return;
+    if (!this.task) return;
 
-      if (correct) {
-        this.connectedPairs.add({ de: correct.text, en: correct.correctAnswer });
-      }
-
-      this.selectedGerman = null;
-      this.selectedEnglish = null;
-
-      if (this.connectedPairs.size === this.currentBatch.length) {
-        // Batch completed
-        const totalBatches = Math.ceil(this.task.questions.length / this.batchSize);
-        if (this.currentBatchIndex < totalBatches - 1) {
-          this.nextBatch();
-        } else {
-          this.isCompleted = true;
-          this.completeLearningTask();
-        }
-      }
+    if (this.quizLogic.checkEnglishMatching(this.selectedGerman, this.selectedEnglish, this.currentBatch)) {
+      this.connectedPairs.add({ de: this.selectedGerman, en: this.selectedEnglish });
     }
+
+    this.selectedGerman = null;
+    this.selectedEnglish = null;
+
+    if (this.connectedPairs.size === this.currentBatch.length) this.nextBatch();
   }
 
-
-  isGermanConnected(word: string): boolean {
+  isGermanConnected(word: string) {
     return [...this.connectedPairs].some(pair => pair.de === word);
   }
 
-  isEnglishConnected(word: string): boolean {
+  isEnglishConnected(word: string) {
     return [...this.connectedPairs].some(pair => pair.en === word);
   }
 
-  selectAnswer(answer: string): void {
-    if (this.isWaitingForNext || !this.task || this.childId === null) return;
-
-    const currentQuestion = this.task.questions[this.currentQuestionIndex];
-    if (currentQuestion && answer === currentQuestion.correctAnswer) {
-      this.answerStatus = 'correct';
-      this.statusMessage = 'Richtig! 🎉';
-      this.isWaitingForNext = true;
-
-      if (this.currentQuestionIndex === this.task.questions.length - 1) {
-        this.learningService.completeTask(this.childId, this.task.id).subscribe({
-          next: () => console.log('Aufgabe erfolgreich als abgeschlossen markiert!'),
-          error: err => console.error('Fehler beim Markieren der Aufgabe als abgeschlossen', err)
-        });
-      }
-
-      setTimeout(() => this.nextQuestion(), 1500);
-    } else {
-      this.answerStatus = 'wrong';
-      this.statusMessage = 'Falsch, versuche es noch einmal. 🤔';
-    }
-  }
-
-  nextQuestion(): void {
-    this.answerStatus = null;
-    this.statusMessage = '';
-    this.isWaitingForNext = false;
-
-    if (this.task && this.currentQuestionIndex < this.task.questions.length - 1) {
-      this.currentQuestionIndex++;
-    } else {
-      this.isCompleted = true;
+  // ----------------- Abschluss -----------------
+  completeTask() {
+    if (this.childId && this.task) {
+      this.learningService.completeTask(this.childId, this.task.id).subscribe({
+        next: () => console.log('Aufgabe erfolgreich abgeschlossen!'),
+        error: err => console.error(err)
+      });
     }
   }
 

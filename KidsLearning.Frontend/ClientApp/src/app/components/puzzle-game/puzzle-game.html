@@ -1,0 +1,58 @@
+
+<div class="puzzle-wrapper">
+    <div class=" glass-card">
+  <h2>Puzzle-Spiel</h2>
+  <p>Löse das Puzzle, um das Bild zu vervollständigen!</p>
+    @if (statusMessage) {
+    <p class="status-message">{{ statusMessage }}</p>
+  }
+  </div>
+  <div class="puzzle-game-area">
+    
+    <div class="available-tiles-container">
+      @for(tile of availableTiles; track tile.id) {
+        <div
+          class="puzzle-tile"
+          [style.width.px]="tileSize"
+          [style.height.px]="tileSize"
+          [style.backgroundImage]="'url(' + imageUrl + ')'"
+          [style.backgroundPosition]="tile.backgroundPosition"
+          draggable="true"
+          (dragstart)="dragStart($event, tile)"
+        ></div>
+      }
+    </div>
+
+    <div class="puzzle-container">
+      <div class="puzzle-board">
+        @for(field of boardFields; track field.id) {
+          <div
+            class="puzzle-field"
+            (dragover)="allowDrop($event)"
+            (drop)="drop($event, field)"
+          >
+            @if (field.tile) {
+              <div
+                class="puzzle-tile"
+                [style.width.px]="tileSize"
+                [style.height.px]="tileSize"
+                [style.backgroundImage]="'url(' + imageUrl + ')'"
+                [style.backgroundPosition]="field.tile.backgroundPosition"
+                draggable="true"
+                (dragstart)="dragStart($event, field.tile)"
+              ></div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- @if (isSolved) {
+    <div class="success-message">
+      <h2> Gut gemacht! </h2>
+      <p>Du hast das Puzzle gelöst!</p>
+       <button class="fun-button" (click)="finishGame()">Beenden</button>
+    </div>
+  }
+</div> -->
