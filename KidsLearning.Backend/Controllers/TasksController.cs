@@ -52,4 +52,11 @@ public class TasksController : ControllerBase
 
         return Ok(learningTask);
     }
+    [HttpGet("all-questions")]
+    [AllowAnonymous] // <-- erlaubt Zugriff ohne Login
+    public async Task<ActionResult<List<Questions>>> GetAllQuestions()
+    {
+        var questions = await _context.Questions.ToListAsync();
+        return Ok(questions);
+    }
 }

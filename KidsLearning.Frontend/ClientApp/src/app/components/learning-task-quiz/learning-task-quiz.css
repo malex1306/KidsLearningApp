@@ -1,0 +1,137 @@
+.task-detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+  margin-top: 8rem;
+}
+
+.task-card.glass-card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  text-align: center;
+  width: 100%;
+}
+
+.question-card {
+  margin-bottom: 2rem;
+}
+
+.question-title {
+  font-size: 1.8rem;
+  color: #4CAF50;
+}
+
+.question-text {
+  font-size: 1.4rem;
+  margin-top: 1rem;
+  color: #ff9900;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.options-grid.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.option-button {
+  background-color: #6a1b9a;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 1.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.option-button:hover {
+  background-color: #8e24aa;
+  transform: translateY(-2px);
+}
+
+.option-button.correct-answer {
+  background-color: #4CAF50;
+  transform: scale(1.05);
+}
+
+.option-button.wrong-answer {
+  background-color: #f44336;
+}
+
+.status-message-container {
+  height: 3rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.correct-text {
+  color: #4CAF50;
+}
+
+.wrong-text {
+  color: #f44336;
+}
+
+.completion-message-card {
+  text-align: center;
+  padding: 3rem;
+}
+
+.back-button {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 1rem 2.5rem;
+  background-color: #6a1b9a;
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #8e24aa;
+}
+.fun-button {
+  margin-top: 1rem;
+  background-color: #ffb703;
+  color: black;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.fun-button:hover {
+  background-color: #fb8500;
+  transform: scale(1.05);
+}
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+a {
+  text-decoration: none;
+}

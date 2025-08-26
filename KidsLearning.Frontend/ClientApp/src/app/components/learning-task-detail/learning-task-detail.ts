@@ -7,6 +7,7 @@ import { LearningService } from '../../services/learning.service';
 import { QuestionNavigationService } from '../../services/question-navigation.service';
 import { Subscription } from 'rxjs';
 import { ActiveChildService } from '../../services/active-child.service';
+import { QuizLogic } from  '../../services/quiz-logic';
 
 @Component({
   selector: 'app-learning-task-detail',
@@ -38,7 +39,8 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
     private tasksService: TasksService,
     private learningService: LearningService,
     public navigationService: QuestionNavigationService,
-    private activeChildService: ActiveChildService
+    private activeChildService: ActiveChildService,
+    private quizLogic: QuizLogic
   ) {}
 
   ngOnInit(): void {
@@ -55,24 +57,13 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
 
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe((task) => {
-        // Get active child difficulty
         const activeChild = this.activeChildService.activeChild();
         const childDifficulty = activeChild?.difficulty ?? 'Vorschule';
 
-        // Filter questions by difficulty
-        if (childDifficulty) {
-          task.questions = task.questions.filter(q => q.difficulty === childDifficulty);
-        }
+        this.task = this.quizLogic.prepareMathTask(task, childDifficulty);
 
-        // Shuffle questions and their options
-        task.questions = this.shuffleArray(task.questions);
-        task.questions.forEach(q => {
-          q.options = this.shuffleArray(q.options);
-        });
-
-        this.task = task;
-        this.navigationService.setTask(task);
-        this.answeredQuestions = new Array(task.questions.length).fill(false);
+        this.navigationService.setTask(this.task);
+        this.answeredQuestions = new Array(this.task.questions.length).fill(false);
         if (this.exam) {
           this.startTimer(60); // e.g., 5 minutes
         }
@@ -87,40 +78,30 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
     );
   }
 
-
-  private shuffleArray<T>(array: T[]): T[] {
-    const copy = [...array];
-    for (let i = copy.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
-    }
-    return copy;
-  }
-
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
     this.stopTimer();
   }
 
   selectAnswer(answer: string): void {
-    if (this.isWaitingForNext || !this.task || this.childId === null) {
-      return;
-    }
-    this.selectedAnswer = answer;
-    this.answeredQuestions[this.currentQuestionIndex] = true;
+    if (!this.task || this.childId === null || this.isWaitingForNext) return;
 
-    const currentQuestion = this.task.questions[this.currentQuestionIndex];
-    if (currentQuestion && answer === currentQuestion.correctAnswer) {
-      this.answerStatus = 'correct';
-      this.statusMessage = 'Richtig! 🎉';
+    const result = this.quizLogic.selectMathAnswer(
+      this.task,
+      this.currentQuestionIndex,
+      answer,
+      this.answeredQuestions
+    );
+
+    this.answerStatus = result.answerStatus;
+    this.statusMessage = result.statusMessage;
+    this.answeredQuestions = result.answeredQuestions;
+
+    if (result.completed) {
       this.isWaitingForNext = true;
-
       setTimeout(() => {
         this.navigationService.nextQuestion();
       }, 1500);
-    } else {
-      this.answerStatus = 'wrong';
-      this.statusMessage = 'Falsch, versuche es noch einmal.';
     }
   }
 
