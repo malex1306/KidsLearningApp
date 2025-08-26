@@ -66,7 +66,9 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
         const difficulty = this.activeChildService.activeChild()?.difficulty ?? 'Vorschule';
         if (difficulty) task.questions = task.questions.filter(q => q.difficulty === difficulty);
 
+        task.questions = this.quizLogic.shuffleArray(task.questions);
         this.task = task;
+
 
         if (this.task.title === 'Deutsch/Englisch verbinden') {
           this.loadBatch();
