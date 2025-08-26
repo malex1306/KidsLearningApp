@@ -6,7 +6,7 @@
     padding: 2rem;
     max-width: 800px;
     margin: auto;
-    margin-top: 8rem;
+    margin-top: 3rem;
 }
 
 .task-card.glass-card {
@@ -137,9 +137,10 @@ a {
   text-decoration: none;
 }
 .exam-timer{
-  color: #4CAF50;
+  color: red;
   font-size: 1.5rem;
   font-weight: bold;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+

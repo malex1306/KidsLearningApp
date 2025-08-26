@@ -1,11 +1,14 @@
 <div class="tasks-container">
     <h1>{{ subject }} Aufgaben</h1>
-  @if (subject != 'Spaß-Paradise'){
+ @if (subject != 'Spaß-Paradise'){
+  <div class="switch-container">
     <label class="switch">
       <input type="checkbox" (click)="toggleExamMode()">
       <span class="slider round"></span>
     </label>
-  }
+    <span class="switch-label">Test-Modus</span>
+  </div>
+}
     @if (tasks.length > 0) {
         <div class="task-grid">
             @for (task of tasks; track task.id) {

@@ -32,6 +32,9 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
   shuffledEnglish: string[] = [];
   selectedGerman: string | null = null;
   selectedEnglish: string | null = null;
+  flashGerman: string | null = null;
+  flashEnglish: string | null = null;
+  flashStatus: 'correct' | 'wrong' | null = null;
   connectedPairs = new Set<{ de: string; en: string }>();
 
   isCompleted = false;
@@ -161,18 +164,41 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
   }
 
   checkMatch() {
-    if (!this.selectedGerman || !this.selectedEnglish) return;
-    if (!this.task) return;
+     if (!this.selectedGerman || !this.selectedEnglish || !this.task) return;
 
-    if (this.quizLogic.checkEnglishMatching(this.selectedGerman, this.selectedEnglish, this.currentBatch)) {
-      this.connectedPairs.add({ de: this.selectedGerman, en: this.selectedEnglish });
-    }
+  const isCorrect = this.quizLogic.checkEnglishMatching(
+    this.selectedGerman,
+    this.selectedEnglish,
+    this.currentBatch
+  );
 
-    this.selectedGerman = null;
-    this.selectedEnglish = null;
+  // Flash setzen
+  this.flashGerman = this.selectedGerman;
+  this.flashEnglish = this.selectedEnglish;
+  this.flashStatus = isCorrect ? 'correct' : 'wrong';
 
-    if (this.connectedPairs.size === this.currentBatch.length) this.nextBatch();
+  if (isCorrect) {
+    setTimeout(() => {
+      this.connectedPairs.add({ de: this.selectedGerman!, en: this.selectedEnglish! });
+      this.resetSelection();
+
+      if (this.connectedPairs.size === this.currentBatch.length) {
+        this.nextBatch();
+      }
+    }, 800);
+  } else {
+    setTimeout(() => {
+      this.resetSelection();
+    }, 800);
   }
+  }
+  resetSelection() {
+  this.selectedGerman = null;
+  this.selectedEnglish = null;
+  this.flashGerman = null;
+  this.flashEnglish = null;
+  this.flashStatus = null;
+}
 
   isGermanConnected(word: string) {
     return [...this.connectedPairs].some(pair => pair.de === word);
