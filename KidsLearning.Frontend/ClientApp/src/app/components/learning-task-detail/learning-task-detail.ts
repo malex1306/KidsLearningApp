@@ -74,7 +74,7 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
         this.navigationService.setTask(task);
         this.answeredQuestions = new Array(task.questions.length).fill(false);
         if (this.exam) {
-          this.startTimer(30); // e.g., 5 minutes
+          this.startTimer(60); // e.g., 5 minutes
         }
       });
     }
@@ -99,9 +99,7 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-    if (this.timerInterval) {
-      clearInterval(this.timerInterval);
-    }
+    this.stopTimer();
   }
 
   selectAnswer(answer: string): void {
@@ -130,6 +128,7 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
     const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
 
     this.isCompleted = true;
+    this.stopTimer();
 
     if (allQuestionsAnswered) {
       this.statusMessage = 'Gut gemacht! Du hast alle Fragen beantwortet. Das Ergebnis wurde gespeichert.';
@@ -188,5 +187,11 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
     return `${minutes.toString().padStart(2, '0')}:${seconds
       .toString()
       .padStart(2, '0')}`;
+  }
+  stopTimer(): void {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
   }
 }

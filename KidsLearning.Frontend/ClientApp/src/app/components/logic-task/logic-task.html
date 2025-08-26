@@ -1,11 +1,10 @@
 @if (task) {
+<div class="task-detail-container">
     @if(exam){
         <div class="exam-timer">
             Zeit übrig: {{ timerDisplay }}
         </div>
     }
-<div class="task-detail-container">
-
     @if (!isCompleted && task.title === 'Zahlenkombinationen' && !examfailed) {
         <div class="quiz-area default-quiz">
             <div class="task-card glass-card question-card">

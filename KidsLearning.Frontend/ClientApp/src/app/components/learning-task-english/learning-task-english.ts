@@ -165,6 +165,7 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
           this.nextBatch();
         } else {
           this.isCompleted = true;
+          this.stopTimer()
           this.completeLearningTask();
         }
       }
@@ -212,6 +213,7 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
       this.currentQuestionIndex++;
     } else {
       this.isCompleted = true;
+      this.stopTimer();
     }
   }
 
@@ -219,9 +221,7 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-    if (this.timerInterval) {
-      clearInterval(this.timerInterval);
-    }
+    this.stopTimer();
   }
   startTimer(seconds: number): void {
     this.timerValue = seconds;
@@ -254,8 +254,15 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
   onFinishTask(): void {
     if (this.task && this.childId) {
       this.isCompleted = true;
+      this.stopTimer();
       this.completeLearningTask();
       alert('Aufgabe automatisch beendet, da die Zeit abgelaufen ist.');
+    }
+  }
+  stopTimer(): void {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
     }
   }
 }

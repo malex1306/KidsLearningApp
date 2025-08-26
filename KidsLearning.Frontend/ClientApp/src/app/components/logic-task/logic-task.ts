@@ -104,9 +104,7 @@ export class LogicTask implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.subscriptions.unsubscribe();
-        if (this.timerInterval) {
-            clearInterval(this.timerInterval);
-        }
+        this.stopTimer();
     }
 
     selectOption(index: number): void {
@@ -133,6 +131,7 @@ export class LogicTask implements OnInit, OnDestroy {
             this.loadCurrentFillFormQuestion();
         } else {
             this.isCompleted = true;
+            this.stopTimer();
             this.completeLearningTask();
         }
     }
@@ -214,6 +213,7 @@ export class LogicTask implements OnInit, OnDestroy {
 
     onFinishTask(): void {
         this.isCompleted = true;
+        this.stopTimer();
         this.statusMessage = `Spiel beendet. Du hast Level ${this.currentLevel} erreicht.`;
         this.completeLearningTask();
     }
@@ -243,7 +243,11 @@ export class LogicTask implements OnInit, OnDestroy {
         this.timerInterval = setInterval(() => {
             if (this.timerValue > 0) {
                 this.timerValue--;
-            } else {
+            }else if(this.isCompleted){
+                clearInterval(this.timerInterval);
+                this.onTimeUp();
+            }
+            else {
                 clearInterval(this.timerInterval);
                 this.onTimeUp();
             }
@@ -260,5 +264,11 @@ export class LogicTask implements OnInit, OnDestroy {
         return `${minutes.toString().padStart(2, '0')}:${seconds
             .toString()
             .padStart(2, '0')}`;
+    }
+    stopTimer(): void {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
     }
 }

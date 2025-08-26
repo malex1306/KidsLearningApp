@@ -219,6 +219,7 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
   checkCompletion(): void {
     if (this.currentQuestionIndex === (this.task?.questions.length ?? 0) - 1) {
       this.isCompleted = true;
+      this.stopTimer();
       if (this.childId && this.task) {
         this.learningService.completeTask(this.childId, this.task.id).subscribe({
           next: () => {
@@ -277,6 +278,7 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
   onFinishTask(): void {
     const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
     this.isCompleted = true;
+    this.stopTimer();
     if (allQuestionsAnswered) {
       this.statusMessage = 'Gut gemacht! Du hast alle Fragen beantwortet. Das Ergebnis wurde gespeichert.';
       this.completeLearningTask();
@@ -358,5 +360,11 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
     return `${minutes.toString().padStart(2, '0')}:${seconds
       .toString()
       .padStart(2, '0')}`;
+  }
+  stopTimer(): void {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
   }
 }
