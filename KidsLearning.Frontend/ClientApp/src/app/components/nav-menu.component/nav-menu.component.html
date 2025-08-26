@@ -31,32 +31,37 @@
           </li>
           }
 
-          @if(authService.isLoggedIn$ | async){
-          <li class="nav-item">
-            <a class="nav-link text-dark" (click)="openDashboardModal()"> <img src="assets/images/parental-control.png"
-                class="nav-item-img">Für Eltern</a>
-          </li>
-          <li class="nav-item child-menu-container">
-            <a class="nav-link text-dark">
-              <img src="assets/images/replacement.png" class="nav-item-img">Kind
-            </a>
-            @if (children) {
-            <div class="child-dropdown-menu">
-              @for (child of children; track child.childId) {
-              <a class="child-menu-item" (click)="selectChild(child)">
-                <img [src]="child.avatarUrl" alt="Profilbild von {{child.name}}" class="child-menu-avatar">
-                <span>{{ child.name }}</span>
-              </a>
-              }
-            </div>
-            }
-          </li>
-           
-          <li class="nav-item">
-            <a class="nav-link text-dark" (click)="submitLogout()"><img src="assets/images/exit.png"
-                class="nav-item-img">Logout</a>
-          </li>
-          }
+          @if (authService.isLoggedIn$ | async) {
+  <li class="nav-item">
+    <a class="nav-link text-dark" (click)="openDashboardModal()">
+      <img src="assets/images/parental-control.png" class="nav-item-img">
+      Für Eltern
+    </a>
+  </li>
+
+  <li class="nav-item child-menu-container">
+    <a class="nav-link text-dark">
+      <img src="assets/images/replacement.png" class="nav-item-img">Kind
+    </a>
+    @if (children) {
+      <div class="child-dropdown-menu">
+        @for (child of children; track child.childId) {
+          <a class="child-menu-item" (click)="selectChild(child)">
+            <img [src]="child.avatarUrl" alt="Profilbild von {{child.name}}" class="child-menu-avatar">
+            <span>{{ child.name }}</span>
+          </a>
+        }
+      </div>
+    }
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link text-dark" (click)="submitLogout()">
+      <img src="assets/images/exit.png" class="nav-item-img">
+      Logout
+    </a>
+  </li>
+}
 
           <li [routerLink]="['/inventory', activeChildService.activeChild()]" class="star-item-container">
             @if (activeChildService.activeChild()) {
@@ -79,7 +84,14 @@
             </div>
             }
           </li>
-          <li><img [src]="activeChildService.activeChild()?.avatarUrl" class="nav-item-avatar"></li>
+          <li>
+  <img 
+    [src]="(authService.isLoggedIn$ | async) 
+              ? (activeChildService.activeChild()?.avatarUrl || 'assets/images/smarty-bear.png') 
+              : 'assets/images/smarty-bear.png'" 
+              class="nav-item-avatar"
+              alt="Avatar">
+</li>
         </ul>
       </div>
     </div>

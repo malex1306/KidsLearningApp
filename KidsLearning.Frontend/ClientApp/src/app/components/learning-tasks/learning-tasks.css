@@ -34,6 +34,9 @@
 
 /* Glass-Card */
 .task-card.glass-card {
+ display: flex;
+  flex-direction: column;   /* Inhalte untereinander */
+  justify-content: space-between; /* Platz zwischen Content & Buttons */
   background: rgba(255, 255, 255, 0.25);
   border-radius: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
@@ -42,6 +45,7 @@
   border: 2px solid rgba(255, 255, 255, 0.3);
   padding: 1.5rem;
   transition: transform 0.3s ease;
+  min-height: 350px; /* sorgt dafür, dass alle Karten gleich hoch bleiben */
 }
 
 .task-card:hover {
@@ -60,17 +64,21 @@
   margin-bottom: 1rem;
 }
 
+.card-content {
+  flex-grow: 1;   /* nimmt den "Restplatz" ein */
+}
 
 /* Inhalt */
 .card-content h3 {
-  font-size: 1.4rem;
+  font-size: 1.9rem;
   color: #fb8500;
   margin-bottom: 0.5rem;
+  font-weight: bold;
 }
 
 .card-content p {
-  font-size: 1rem;
-  color: #ff9900;
+  font-size: 1.5rem;
+  color: black;
 }
 
 /* Button */

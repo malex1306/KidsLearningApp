@@ -45,6 +45,7 @@
 .navbar-nav .nav-item.link-active a {
   color: #ffffff !important;
   background-color: #ffc107;
+  cursor: pointer;
 }
 
 

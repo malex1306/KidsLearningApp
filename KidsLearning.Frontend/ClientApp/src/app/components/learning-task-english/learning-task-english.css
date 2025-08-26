@@ -1,12 +1,11 @@
 .task-detail-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  padding: 1rem;
-  max-width: 800px;
-  margin: auto;
-  margin-bottom: 8rem;
+ display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 800px;
+    margin: auto;
 }
 
 .task-card.glass-card {
@@ -18,6 +17,24 @@
   padding: 2.5rem;
   text-align: center;
   width: 100%;
+}
+
+.default-quiz .image-card {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 1.5rem;
+}
+.default-quiz .image-card .card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.default-image {
+   max-width: 50%;
+    height: auto;
+    border-radius: 15px;
+    margin-top: 1rem;
 }
 
 .question-card {
@@ -48,15 +65,17 @@
 }
 
 .option-button {
-  background-color: #6a1b9a;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 1.5rem;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #6a1b9a;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);;
+    border-radius: 12px;
+    padding: 1.5rem;
+    font-size: 1.6rem;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
 }
 
 .option-button:hover {
@@ -168,6 +187,9 @@
   justify-content: space-between;
   width: 100%; /* Stellt sicher, dass der Container die volle Breite einnimmt */
   margin-top: 20px;
+}
+.navigation-buttons a{
+  text-decoration: none;
 }
 .batch-info{
   color: #4CAF50;

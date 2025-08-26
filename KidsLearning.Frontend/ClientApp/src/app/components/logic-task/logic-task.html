@@ -43,15 +43,16 @@
             <div class="task-card glass-card question-card">
                 <div class="card-content">
                     <h2 class="question-title">{{ task.title }}</h2>
+                    <p>{{ statusMessage }}</p>
                     @if(questionImage) {
                         <img [src]="questionImage" class="form-image"/>
                     }
                 </div>
             </div>
 
-            <div class="options-grid">
+            <div class="options-grid-two">
                 @for (option of optionsImages; track $index) {
-                    <button class="option-button"
+                    <button class="option-button-two"
                             (click)="selectOption($index)"
                             [ngClass]="{'correct-answer-highlight': selectedOption === $index && $index === correctOptionIndex, 'wrong-answer-highlight': selectedOption === $index && $index !== correctOptionIndex}">
                         <img [src]="option" class="option-img"/>
@@ -60,7 +61,6 @@
             </div>
 
             <div class="navigation-buttons">
-                <p>{{ statusMessage }}</p>
                 <button class="fun-button" (click)="isCompleted = true">Beenden</button>
             </div>
         </div>

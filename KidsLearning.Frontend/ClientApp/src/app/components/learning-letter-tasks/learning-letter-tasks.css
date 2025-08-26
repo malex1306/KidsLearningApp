@@ -3,24 +3,24 @@
 /* ========================================================================= */
 
 .task-detail-container {
-    display: flex;
+   display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2rem;
     padding: 2rem;
-    min-height: 100vh;
+    max-width: 800px;
+    margin: auto;
+    margin-top: 3rem;
 }
 
-.glass-card {
-    background: rgba(255, 255, 255, 0.2);
+.task-card.glass-card {
+    background: #98f5e1;
     backdrop-filter: blur(10px);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    color: #fff;
-    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
     text-align: center;
-    max-width: 800px;
     width: 100%;
 }
 
@@ -28,6 +28,10 @@
     h1, h2, h3, p {
         margin: 0 0 1rem 0;
     }
+}
+.card-content p {
+  font-size: 1.5rem;
+  color: black;
 }
 
 .quiz-area {
@@ -58,6 +62,10 @@
 
 .back-button:hover {
     background-color: #ffb84d;
+}
+.question-title {
+    font-size: 1.8rem;
+    color: #4CAF50;
 }
 
 /* ========================================================================= */
@@ -126,10 +134,38 @@
     transition: all 0.3s ease;
     font-weight: bold;
 }
+.options-grid-two{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* immer zwei Buttons nebeneinander */
+    gap: 2rem;  /* etwas mehr Abstand für den „Kachel-Effekt“ */
+    margin-bottom: 2rem;
+    width: 100%;
+}
+.option-button-two{
+    background-color: #6a1b9a;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);;
+    border-radius: 12px;
+    padding: 1.5rem;
+    font-size: 1.6rem;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+}
 
-.option-button:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-3px);
+.option-button-two:hover {
+     background-color: #8e24aa;
+    transform: translateY(-2px);
+}
+.option-button-two.correct-answer {
+    background-color: #4CAF50;
+    transform: scale(1.05);
+}
+
+.option-button-two.wrong-answer {
+    background-color: #f44336;
 }
 
 .letter-button {
