@@ -69,15 +69,20 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
         const difficulty = this.activeChildService.activeChild()?.difficulty ?? 'Vorschule';
         if (difficulty) task.questions = task.questions.filter(q => q.difficulty === difficulty);
 
-        task.questions = this.quizLogic.shuffleArray(task.questions);
-        this.task = task;
-
-
-        if (this.task.title === 'Deutsch/Englisch verbinden') {
+        if (task.title === 'Deutsch/Englisch verbinden') {
+          this.task = task;
           this.loadBatch();
+        } else {
+          task.questions = this.quizLogic.shuffleArray(task.questions);
+          task.questions.forEach(q => {
+            if (q.options) {
+              q.options = this.quizLogic.shuffleArray(q.options);
+            }
+          });
+          this.task = task;
         }
         if (this.exam) {
-          this.startTimer(300); // e.g., 5 minutes
+          this.startTimer(300);
         }
       });
     }
