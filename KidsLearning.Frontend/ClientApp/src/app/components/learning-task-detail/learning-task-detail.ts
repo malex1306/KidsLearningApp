@@ -25,6 +25,12 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
   childId: number | null = null;
   selectedAnswer: string | null = null;
   answeredQuestions: boolean[] = [];
+  exam: boolean = false; // from route or service
+  timerValue: number = 0; // in seconds
+  timerInterval: any = null;
+
+  examfailed: boolean = false;
+
   private subscriptions = new Subscription();
 
   constructor(
@@ -38,10 +44,14 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
   ngOnInit(): void {
     const taskId = this.route.snapshot.paramMap.get('id');
     const childIdParam = this.route.snapshot.paramMap.get('childId');
+    const examParam = this.route.snapshot.paramMap.get('exam');
 
     if (childIdParam) {
       this.childId = +childIdParam;
     }
+
+    this.exam = examParam === 'true';
+    this.examfailed = false;
 
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe((task) => {
@@ -63,6 +73,9 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
         this.task = task;
         this.navigationService.setTask(task);
         this.answeredQuestions = new Array(task.questions.length).fill(false);
+        if (this.exam) {
+          this.startTimer(30); // e.g., 5 minutes
+        }
       });
     }
 
@@ -86,6 +99,9 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
   }
 
   selectAnswer(answer: string): void {
@@ -144,5 +160,33 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
         },
       });
     }
+  }
+  startTimer(seconds: number): void {
+    this.timerValue = seconds;
+
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
+
+    this.timerInterval = setInterval(() => {
+      if (this.timerValue > 0) {
+        this.timerValue--;
+      } else {
+        clearInterval(this.timerInterval);
+        this.onTimeUp();
+      }
+    }, 1000);
+  }
+
+  onTimeUp(): void {
+    this.examfailed = true;
+  }
+
+  get timerDisplay(): string {
+    const minutes = Math.floor(this.timerValue / 60);
+    const seconds = this.timerValue % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds
+      .toString()
+      .padStart(2, '0')}`;
   }
 }

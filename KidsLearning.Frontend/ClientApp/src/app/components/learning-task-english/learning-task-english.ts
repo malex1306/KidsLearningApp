@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TasksService } from '../../services/tasks.service';
 import { LearningService } from '../../services/learning.service';
 import { LearningTask } from '../../models/learning-task';
 import { CommonModule } from '@angular/common';
 import { ActiveChildService } from '../../services/active-child.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-learning-task-english',
@@ -12,7 +13,7 @@ import { ActiveChildService } from '../../services/active-child.service';
   templateUrl: './learning-task-english.html',
   styleUrls: ['./learning-task-english.css']
 })
-export class LearningTaskEnglish implements OnInit {
+export class LearningTaskEnglish implements OnInit, OnDestroy {
   task: LearningTask | null = null;
   currentQuestionIndex = 0;
   answerStatus: 'correct' | 'wrong' | null = null;
@@ -32,6 +33,12 @@ export class LearningTaskEnglish implements OnInit {
   batchSize = 8;
   currentBatchIndex = 0;
   currentBatch: any[] = [];
+  exam: boolean = false; // from route or service
+  timerValue: number = 0; // in seconds
+  timerInterval: any = null;
+  examfailed: boolean = false;
+
+  private subscriptions = new Subscription();
 
   constructor(
     private route: ActivatedRoute,
@@ -43,12 +50,14 @@ export class LearningTaskEnglish implements OnInit {
   ngOnInit(): void {
     const taskId = this.route.snapshot.paramMap.get('id');
     const childIdParam = this.route.snapshot.paramMap.get('childId');
+    const examParam = this.route.snapshot.paramMap.get('exam');
 
     if (childIdParam) this.childId = +childIdParam;
 
+    this.exam = examParam === 'true';
+
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe(task => {
-        // Get active child difficulty
         const activeChild = this.activeChildService.activeChild();
         const childDifficulty = activeChild?.difficulty ?? 'Vorschule';
 
@@ -59,6 +68,9 @@ export class LearningTaskEnglish implements OnInit {
 
         if (this.task.title === 'Deutsch/Englisch verbinden') {
           this.loadBatch();
+        }
+        if (this.exam) {
+          this.startTimer(300); // e.g., 5 minutes
         }
       });
     }
@@ -204,4 +216,46 @@ export class LearningTaskEnglish implements OnInit {
   }
 
   protected readonly Math = Math;
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
+  }
+  startTimer(seconds: number): void {
+    this.timerValue = seconds;
+
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
+
+    this.timerInterval = setInterval(() => {
+      if (this.timerValue > 0) {
+        this.timerValue--;
+      } else {
+        clearInterval(this.timerInterval);
+        this.onTimeUp();
+      }
+    }, 1000);
+  }
+
+  onTimeUp(): void {
+    this.examfailed = true;
+  }
+
+  get timerDisplay(): string {
+    const minutes = Math.floor(this.timerValue / 60);
+    const seconds = this.timerValue % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds
+      .toString()
+      .padStart(2, '0')}`;
+  }
+  onFinishTask(): void {
+    if (this.task && this.childId) {
+      this.isCompleted = true;
+      this.completeLearningTask();
+      alert('Aufgabe automatisch beendet, da die Zeit abgelaufen ist.');
+    }
+  }
 }

@@ -40,6 +40,11 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
   lastClickedLetter: string | null = null;
   lastClickedStatus: 'correct' | 'wrong' | null = null;
   answeredQuestions: boolean[] = [];
+
+  exam: boolean = false; // from route or service
+  timerValue: number = 0; // in seconds
+  timerInterval: any = null;
+  examfailed: boolean = false;
   private subscriptions = new Subscription();
 
   private speechSynth: SpeechSynthesis | null = null;
@@ -62,6 +67,8 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
   ngOnInit(): void {
     const taskId = this.route.snapshot.paramMap.get('id');
     const childIdParam = this.route.snapshot.paramMap.get('childId');
+    const examParam = this.route.snapshot.paramMap.get('exam');
+    this.exam = examParam === 'true';
 
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe(task => {
@@ -81,6 +88,9 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
           this.isConnectingTask = true;
         } else if (this.task.title === 'Fülle die Lücken'){
           this.isGapFillTask = true;
+        }
+        if (this.exam) {
+          this.startTimer(300); // e.g., 5 minutes
         }
       });
     }
@@ -103,6 +113,9 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
       this.speechSynth.cancel();
     }
     this.subscriptions.unsubscribe();
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
   }
 
   private setGermanVoice(): void {
@@ -317,5 +330,33 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
     utterance.rate = 1.1;
 
     this.speechSynth.speak(utterance);
+  }
+  startTimer(seconds: number): void {
+    this.timerValue = seconds;
+
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
+
+    this.timerInterval = setInterval(() => {
+      if (this.timerValue > 0) {
+        this.timerValue--;
+      } else {
+        clearInterval(this.timerInterval);
+        this.onTimeUp();
+      }
+    }, 1000);
+  }
+
+  onTimeUp(): void {
+    this.examfailed = true;
+  }
+
+  get timerDisplay(): string {
+    const minutes = Math.floor(this.timerValue / 60);
+    const seconds = this.timerValue % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds
+      .toString()
+      .padStart(2, '0')}`;
   }
 }

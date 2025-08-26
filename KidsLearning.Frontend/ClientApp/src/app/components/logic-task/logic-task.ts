@@ -41,6 +41,11 @@ export class LogicTask implements OnInit, OnDestroy {
     selectedOption: number | null = null;
     correctOptionIndex: number | null = null;
 
+    exam: boolean = false; // from route or service
+    timerValue: number = 0; // in seconds
+    timerInterval: any = null;
+    examfailed: boolean = false;
+
     constructor(
         private route: ActivatedRoute,
         private tasksService: TasksService,
@@ -53,8 +58,11 @@ export class LogicTask implements OnInit, OnDestroy {
     ngOnInit(): void {
         const taskId = this.route.snapshot.paramMap.get('id');
         const childIdParam = this.route.snapshot.paramMap.get('childId');
+        const examParam = this.route.snapshot.paramMap.get('exam');
 
         if (childIdParam) this.childId = +childIdParam;
+
+        this.exam = examParam === 'true';
 
         if (taskId) {
             this.tasksService.getTaskById(+taskId).subscribe(task => {
@@ -71,6 +79,9 @@ export class LogicTask implements OnInit, OnDestroy {
                     this.startGame();
                 }
                 this.navigationService.setTask(task);
+                if (this.exam) {
+                    this.startTimer(300); // e.g., 5 minutes
+                }
             });
         }
     }
@@ -93,6 +104,9 @@ export class LogicTask implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.subscriptions.unsubscribe();
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+        }
     }
 
     selectOption(index: number): void {
@@ -218,5 +232,33 @@ export class LogicTask implements OnInit, OnDestroy {
         this.statusMessage = '';
         this.lastClickedNumber = null;
         this.lastClickedStatus = null;
+    }
+    startTimer(seconds: number): void {
+        this.timerValue = seconds;
+
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+        }
+
+        this.timerInterval = setInterval(() => {
+            if (this.timerValue > 0) {
+                this.timerValue--;
+            } else {
+                clearInterval(this.timerInterval);
+                this.onTimeUp();
+            }
+        }, 1000);
+    }
+
+    onTimeUp(): void {
+        this.examfailed = true;
+    }
+
+    get timerDisplay(): string {
+        const minutes = Math.floor(this.timerValue / 60);
+        const seconds = this.timerValue % 60;
+        return `${minutes.toString().padStart(2, '0')}:${seconds
+            .toString()
+            .padStart(2, '0')}`;
     }
 }

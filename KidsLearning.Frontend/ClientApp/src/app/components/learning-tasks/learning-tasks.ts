@@ -18,10 +18,11 @@ export class LearningTasksComponent implements OnInit {
   tasks: LearningTask[] = [];
   subject: string = '';
   childId: number | null = null;
+  exam: boolean = false;
 
   constructor(
     private tasksService: TasksService,
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private rewardService : RewardService
   ) {}
 
@@ -29,7 +30,7 @@ export class LearningTasksComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.subject = params.get('subject') || '';
       const childIdParam = params.get('childId');
-      
+
       if (childIdParam) {
         this.childId = +childIdParam;
       }
@@ -50,5 +51,9 @@ export class LearningTasksComponent implements OnInit {
         console.error('Fehler beim Laden der Aufgaben:', err);
       }
     });
+  }
+
+  toggleExamMode(): void {
+    this.exam = !this.exam;
   }
 }
