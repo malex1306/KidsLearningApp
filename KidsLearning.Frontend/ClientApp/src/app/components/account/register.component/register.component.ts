@@ -1,9 +1,9 @@
 // src/app/components/account/register/register.component.ts
-import { Component, WritableSignal, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { NgIf } from '@angular/common';
-import { Auth } from '../../../services/auth'; 
+import {Component, WritableSignal, signal} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {Router, RouterLink} from '@angular/router';
+import {NgIf} from '@angular/common';
+import {Auth} from '../../../services/auth';
 
 @Component({
   selector: 'app-register.component',
@@ -16,10 +16,11 @@ export class RegisterComponent {
   email = '';
   password = '';
   confirmPassword = '';
-  userName = ''; 
+  userName = '';
   errorMessage: WritableSignal<string> = signal('');
 
-  constructor(private auth: Auth, private router: Router) { }
+  constructor(private auth: Auth, private router: Router) {
+  }
 
   onRegister(): void {
     this.errorMessage.set('');

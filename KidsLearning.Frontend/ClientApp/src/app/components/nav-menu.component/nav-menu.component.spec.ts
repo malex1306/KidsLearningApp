@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NavMenuComponent } from './nav-menu.component';
+import {NavMenuComponent} from './nav-menu.component';
 
 describe('NavMenuComponent', () => {
   let component: NavMenuComponent;
@@ -10,7 +10,7 @@ describe('NavMenuComponent', () => {
     await TestBed.configureTestingModule({
       imports: [NavMenuComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(NavMenuComponent);
     component = fixture.componentInstance;

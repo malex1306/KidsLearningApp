@@ -1,11 +1,11 @@
 .task-detail-container {
- display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    padding: 2rem;
-    max-width: 800px;
-    margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
 }
 
 .task-card.glass-card {
@@ -20,21 +20,23 @@
 }
 
 .default-quiz .image-card {
-    background: rgba(255, 255, 255, 0.3);
-    padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 1.5rem;
 }
+
 .default-quiz .image-card .card-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
+
 .default-image {
-   max-width: 50%;
-    height: auto;
-    border-radius: 15px;
-    margin-top: 1rem;
+  max-width: 50%;
+  height: auto;
+  border-radius: 15px;
+  margin-top: 1rem;
 }
 
 .question-card {
@@ -65,17 +67,17 @@
 }
 
 .option-button {
-    background-color: #6a1b9a;
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.5);;
-    border-radius: 12px;
-    padding: 1.5rem;
-    font-size: 1.6rem;
-    width: 100%;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 1rem;
+  background-color: #6a1b9a;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.5);;
+  border-radius: 12px;
+  padding: 1.5rem;
+  font-size: 1.6rem;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
 }
 
 .option-button:hover {
@@ -127,6 +129,7 @@
 .back-button:hover {
   background-color: #8e24aa;
 }
+
 .match-box {
   display: flex;
   justify-content: space-between;
@@ -181,6 +184,7 @@
   background-color: #fb8500;
   transform: scale(1.05);
 }
+
 .navigation-buttons {
   /* Flexbox-Eigenschaften hinzufügen */
   display: flex;
@@ -188,14 +192,16 @@
   width: 100%; /* Stellt sicher, dass der Container die volle Breite einnimmt */
   margin-top: 20px;
 }
-.navigation-buttons a{
+
+.navigation-buttons a {
   text-decoration: none;
 }
-.batch-info{
+
+.batch-info {
   color: #4CAF50;
 }
 
-.exam-timer{
+.exam-timer {
   color: red;
   font-size: 1.5rem;
   font-weight: bold;

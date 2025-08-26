@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ParentDashboard } from './parent-dashboard';
+import {ParentDashboard} from './parent-dashboard';
 
 describe('ParentDashboard', () => {
   let component: ParentDashboard;
@@ -10,7 +10,7 @@ describe('ParentDashboard', () => {
     await TestBed.configureTestingModule({
       imports: [ParentDashboard]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ParentDashboard);
     component = fixture.componentInstance;

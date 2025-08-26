@@ -1,13 +1,13 @@
 // src/app/components/start-page/start-page.ts
 
-import { Component, OnInit, OnDestroy, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { Auth } from '../../services/auth';
-import { ParentDashboardService } from '../../services/parent-dashboard.service';
-import { ParentDashboardDto, ChildDto, DailyGoal } from '../../dtos/parent-dashboard.dto';
-import { ActiveChildService, ChildInfo } from '../../services/active-child.service';
+import {Component, OnInit, OnDestroy, computed} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {RouterLink} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {Auth} from '../../services/auth';
+import {ParentDashboardService} from '../../services/parent-dashboard.service';
+import {ParentDashboardDto, ChildDto, DailyGoal} from '../../dtos/parent-dashboard.dto';
+import {ActiveChildService, ChildInfo} from '../../services/active-child.service';
 
 @Component({
   selector: 'app-start-page',
@@ -26,21 +26,21 @@ export class StartPageComponent implements OnInit, OnDestroy {
   triggerAnimation: boolean = false;
   showDuduGif: boolean = false;
   subjectIconMap: { [key: string]: string } = {
-  'Mathe-Abenteuer': 'math.png',
-  'Buchstaben-Land': 'boy.png',
-  'Spaßig-Land': 'girl.png',
-  'Englisch': 'english.png',
-  'Logik-Dschungel': 'logic.png'
-};
+    'Mathe-Abenteuer': 'math.png',
+    'Buchstaben-Land': 'boy.png',
+    'Spaßig-Land': 'girl.png',
+    'Englisch': 'english.png',
+    'Logik-Dschungel': 'logic.png'
+  };
   dailyGoals: DailyGoal[] = [];
 
-  
 
   constructor(
     private authService: Auth,
     private parentDashboardService: ParentDashboardService,
     private activeChildService: ActiveChildService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.authStatusSubscription = this.authService.isLoggedIn$.subscribe(isLoggedInStatus => {
@@ -61,18 +61,19 @@ export class StartPageComponent implements OnInit, OnDestroy {
       this.authStatusSubscription.unsubscribe();
     }
   }
+
   getSubjectIcon(subjectName: string): string {
-  if (!subjectName) return 'default.png';
+    if (!subjectName) return 'default.png';
 
-  if (subjectName.includes('Mathe')) return 'math.png';
-  if (subjectName.includes('Buchstaben')) return 'boy.png';
-  if (subjectName.includes('Spaß')) return 'girl.png';
-  if (subjectName.includes('Englisch')) return 'english.png';
-  if (subjectName.includes('Logik')) return 'logic.png';
+    if (subjectName.includes('Mathe')) return 'math.png';
+    if (subjectName.includes('Buchstaben')) return 'boy.png';
+    if (subjectName.includes('Spaß')) return 'girl.png';
+    if (subjectName.includes('Englisch')) return 'english.png';
+    if (subjectName.includes('Logik')) return 'logic.png';
 
-  return 'default.png'; // Fallback
-}
-  
+    return 'default.png'; // Fallback
+  }
+
 
   loadDashboardData(): void {
     this.parentDashboardService.getDashboardData().subscribe({
@@ -88,7 +89,7 @@ export class StartPageComponent implements OnInit, OnDestroy {
         this.retriggerAnimation();
         // Triggere das GIF, wenn Daten geladen wurden und ein Kind aktiv ist
         if (this.activeChild()) {
-            this.toggleDuduGif(true);
+          this.toggleDuduGif(true);
         }
       },
       error: (err) => console.error('Fehler beim Laden der Dashboard-Daten', err)
@@ -128,14 +129,15 @@ export class StartPageComponent implements OnInit, OnDestroy {
       }, 3000); // 5000 Millisekunden = 5 Sekunden
     }
   }
+
   speak(text: string): void {
-  if ('speechSynthesis' in window) {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'de-DE'; // Deutsch, falls du englische Lektionen hast: 'en-US'
-    speechSynthesis.cancel(); // bricht laufende Sprachausgabe ab
-    speechSynthesis.speak(utterance);
-  } else {
-    console.warn('Text-to-Speech wird in diesem Browser nicht unterstützt.');
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'de-DE'; // Deutsch, falls du englische Lektionen hast: 'en-US'
+      speechSynthesis.cancel(); // bricht laufende Sprachausgabe ab
+      speechSynthesis.speak(utterance);
+    } else {
+      console.warn('Text-to-Speech wird in diesem Browser nicht unterstützt.');
+    }
   }
-}
 }

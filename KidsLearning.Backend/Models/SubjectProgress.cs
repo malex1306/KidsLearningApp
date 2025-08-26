@@ -9,5 +9,5 @@ public class SubjectProgress
     public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
 
     public int ChildId { get; set; }
-    public Child Child { get; set; } = new Child();
+    public Child Child { get; set; } = new();
 }

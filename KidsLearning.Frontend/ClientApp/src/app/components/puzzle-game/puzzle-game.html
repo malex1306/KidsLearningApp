@@ -1,16 +1,15 @@
-
 <div class="puzzle-wrapper">
-    <div class=" glass-card">
-  <h2>Puzzle-Spiel</h2>
-  <p>Löse das Puzzle, um das Bild zu vervollständigen!</p>
+  <div class=" glass-card">
+    <h2>Puzzle-Spiel</h2>
+    <p>Löse das Puzzle, um das Bild zu vervollständigen!</p>
     @if (statusMessage) {
-    <p class="status-message">{{ statusMessage }}</p>
-  }
+      <p class="status-message">{{ statusMessage }}</p>
+    }
   </div>
   <div class="puzzle-game-area">
-    
+
     <div class="available-tiles-container">
-      @for(tile of availableTiles; track tile.id) {
+      @for (tile of availableTiles; track tile.id) {
         <div
           class="puzzle-tile"
           [style.width.px]="tileSize"
@@ -25,7 +24,7 @@
 
     <div class="puzzle-container">
       <div class="puzzle-board">
-        @for(field of boardFields; track field.id) {
+        @for (field of boardFields; track field.id) {
           <div
             class="puzzle-field"
             (dragover)="allowDrop($event)"

@@ -1,6 +1,6 @@
 <div class="dashboard-container">
-  @if(message){
-  <p class="info-message">{{ message }}</p>
+  @if (message) {
+    <p class="info-message">{{ message }}</p>
   }
   <header class="dashboard-header">
     <div class="user-info">
@@ -14,179 +14,182 @@
     </div>
   </header>
 
-  @if(showAddChildForm){
-  <div class="add-child-form">
-    <h3>Neues Kind hinzufügen</h3>
-    <form (ngSubmit)="onAddChildSubmit()">
-      <div class="form-group">
-        <label for="childName">Name des Kindes</label>
-        <input
-          type="text"
-          id="childName"
-          [(ngModel)]="newChild.name"
-          name="childName"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="childBirthday">Geburtstag</label>
-        <input
-          type="date"
-          id="childBirthday"
-          [(ngModel)]="newChild.dateOfBirth"
-          name="childBirthday"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="childDifficulty">Schwierigkeitsgrad</label>
-        <select
-          id="childDifficulty"
-          [(ngModel)]="newChild.difficulty"
-          name="childDifficulty"
-          required
-        >
-          @for (difficulty of availableDifficulties; track difficulty){
-          <option value="{{ difficulty }}">{{ difficulty }}</option>
-          }
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Avatar auswählen</label>
-        <div class="avatar-selection-container">
-          @for (avatar of availableAvatars; track avatar){
-          <img
-            [src]="avatar"
-            [alt]="'Avatar ' + $index"
-            class="avatar-thumbnail"
-            [class.selected]="newChild.avatarUrl === avatar"
-            (click)="selectNewChildAvatar(avatar)"
+  @if (showAddChildForm) {
+    <div class="add-child-form">
+      <h3>Neues Kind hinzufügen</h3>
+      <form (ngSubmit)="onAddChildSubmit()">
+        <div class="form-group">
+          <label for="childName">Name des Kindes</label>
+          <input
+            type="text"
+            id="childName"
+            [(ngModel)]="newChild.name"
+            name="childName"
+            required
           />
-          }
         </div>
-      </div>
-      <div class="d-flex gap-2">
-        <button type="submit" class="btn btn-secondary">Kind hinzufügen</button>
-        <button
-          type="button"
-          class="btn btn-light"
-          (click)="toggleAddChildForm()"
-        >
-          Abbrechen
-        </button>
-      </div>
-    </form>
-  </div>
-  } @if(showEditChildForm){
-  <div class="add-child-form">
-    <h3>Kind bearbeiten</h3>
-    <form (ngSubmit)="onEditChildSubmit()">
-      <div class="form-group">
-        <label for="editChildName">Name des Kindes</label>
-        <input
-          type="text"
-          id="editChildName"
-          [(ngModel)]="editingChild!.name"
-          name="editChildName"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="editChildBirthday">Geburtstag</label>
-        <input
-          type="date"
-          id="editChildBirthday"
-          [(ngModel)]="editingChild!.dateOfBirth"
-          name="editChildBirthday"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="childDifficulty">Schwierigkeitsgrad</label>
-        <select
-          id="childDifficulty"
-          [(ngModel)]="editingChild!.difficulty"
-          name="childDifficulty"
-          required
-        >
-          @for (difficulty of availableDifficulties; track difficulty){
-          <option value="{{ difficulty }}">{{ difficulty }}</option>
-          }
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Avatar auswählen</label>
-        <div class="avatar-selection-container">
-          @for (avatar of availableAvatars; track avatar){
-          <img
-            [src]="avatar"
-            [alt]="'Avatar ' + $index"
-            class="avatar-thumbnail"
-            [class.selected]="editingChild?.avatarUrl === avatar"
-            (click)="selectEditChildAvatar(avatar)"
+        <div class="form-group">
+          <label for="childBirthday">Geburtstag</label>
+          <input
+            type="date"
+            id="childBirthday"
+            [(ngModel)]="newChild.dateOfBirth"
+            name="childBirthday"
+            required
           />
-          }
         </div>
-      </div>
-      <div class="d-flex gap-2">
-        <button type="submit" class="btn btn-secondary">
-          Änderungen speichern
-        </button>
-        <button
-          type="button"
-          class="btn btn-light"
-          (click)="showEditChildForm = false"
-        >
-          Abbrechen
-        </button>
-      </div>
-    </form>
-  </div>
-  } @if(dashboardData.children.length > 0){
-  <div class="child-cards-container">
-    <div class="child-card" *ngFor="let child of dashboardData.children">
-      <div class="child-header">
-        <img
-          [src]="child.avatarUrl"
-          alt="Kinder-Profilbild"
-          class="child-picture"
-        />
-        <h3>{{ child.name }}</h3>
-        <p>Alter: {{ child.age }} Jahre</p>
-        <p>Lernstand: {{ child.difficulty }}</p>
-      </div>
-      <div class="progress-section">
-        <h4>Lernfortschritt</h4>
-        <div
-          class="progress-bar-container"
-          *ngFor="let progress of child.progress"
-        >
-          <div
-            class="progress-bar"
-            [style.width]="progress.progressPercentage + '%'"
-          ></div>
-          <span class="progress-text"
-            >{{ progress.subjectName }}:
-            {{ progress.progressPercentage }}%</span
+        <div class="form-group">
+          <label for="childDifficulty">Schwierigkeitsgrad</label>
+          <select
+            id="childDifficulty"
+            [(ngModel)]="newChild.difficulty"
+            name="childDifficulty"
+            required
           >
+            @for (difficulty of availableDifficulties; track difficulty) {
+              <option value="{{ difficulty }}">{{ difficulty }}</option>
+            }
+          </select>
         </div>
-      </div>
-      <div class="card-footer">
-        <p>Letzte Aktivität: {{ child.lastActivity }}</p>
-        <div class="card-actions">
-          <button class="btn btn-danger" (click)="onDeleteChild(child.childId)">
-            Entfernen
+        <div class="form-group">
+          <label>Avatar auswählen</label>
+          <div class="avatar-selection-container">
+            @for (avatar of availableAvatars; track avatar) {
+              <img
+                [src]="avatar"
+                [alt]="'Avatar ' + $index"
+                class="avatar-thumbnail"
+                [class.selected]="newChild.avatarUrl === avatar"
+                (click)="selectNewChildAvatar(avatar)"
+              />
+            }
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-secondary">Kind hinzufügen</button>
+          <button
+            type="button"
+            class="btn btn-light"
+            (click)="toggleAddChildForm()"
+          >
+            Abbrechen
           </button>
-          <button class="btn btn-secondary" (click)="onEditChild(child)">
-            Bearbeiten
+        </div>
+      </form>
+    </div>
+  }
+  @if (showEditChildForm) {
+    <div class="add-child-form">
+      <h3>Kind bearbeiten</h3>
+      <form (ngSubmit)="onEditChildSubmit()">
+        <div class="form-group">
+          <label for="editChildName">Name des Kindes</label>
+          <input
+            type="text"
+            id="editChildName"
+            [(ngModel)]="editingChild!.name"
+            name="editChildName"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="editChildBirthday">Geburtstag</label>
+          <input
+            type="date"
+            id="editChildBirthday"
+            [(ngModel)]="editingChild!.dateOfBirth"
+            name="editChildBirthday"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="childDifficulty">Schwierigkeitsgrad</label>
+          <select
+            id="childDifficulty"
+            [(ngModel)]="editingChild!.difficulty"
+            name="childDifficulty"
+            required
+          >
+            @for (difficulty of availableDifficulties; track difficulty) {
+              <option value="{{ difficulty }}">{{ difficulty }}</option>
+            }
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Avatar auswählen</label>
+          <div class="avatar-selection-container">
+            @for (avatar of availableAvatars; track avatar) {
+              <img
+                [src]="avatar"
+                [alt]="'Avatar ' + $index"
+                class="avatar-thumbnail"
+                [class.selected]="editingChild?.avatarUrl === avatar"
+                (click)="selectEditChildAvatar(avatar)"
+              />
+            }
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-secondary">
+            Änderungen speichern
           </button>
+          <button
+            type="button"
+            class="btn btn-light"
+            (click)="showEditChildForm = false"
+          >
+            Abbrechen
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+  @if (dashboardData.children.length > 0) {
+    <div class="child-cards-container">
+      <div class="child-card" *ngFor="let child of dashboardData.children">
+        <div class="child-header">
+          <img
+            [src]="child.avatarUrl"
+            alt="Kinder-Profilbild"
+            class="child-picture"
+          />
+          <h3>{{ child.name }}</h3>
+          <p>Alter: {{ child.age }} Jahre</p>
+          <p>Lernstand: {{ child.difficulty }}</p>
+        </div>
+        <div class="progress-section">
+          <h4>Lernfortschritt</h4>
+          <div
+            class="progress-bar-container"
+            *ngFor="let progress of child.progress"
+          >
+            <div
+              class="progress-bar"
+              [style.width]="progress.progressPercentage + '%'"
+            ></div>
+            <span class="progress-text"
+            >{{ progress.subjectName }}:
+              {{ progress.progressPercentage }}%</span
+            >
+          </div>
+        </div>
+        <div class="card-footer">
+          <p>Letzte Aktivität: {{ child.lastActivity }}</p>
+          <div class="card-actions">
+            <button class="btn btn-danger" (click)="onDeleteChild(child.childId)">
+              Entfernen
+            </button>
+            <button class="btn btn-secondary" (click)="onEditChild(child)">
+              Bearbeiten
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  } @if(dashboardData.children.length === 0 && !showAddChildForm &&
-  !showEditChildForm){
-  <p class="no-children-message">Du hast noch keine Kinder hinzugefügt.</p>
+  }
+  @if (dashboardData.children.length === 0 && !showAddChildForm &&
+  !showEditChildForm) {
+    <p class="no-children-message">Du hast noch keine Kinder hinzugefügt.</p>
   }
 
   <div class="dashboard-section">

@@ -1,8 +1,7 @@
-namespace KidsLearning.Backend.DTOs
+namespace KidsLearning.Backend.DTOs;
+
+public class ChildTaskCompletionDto
 {
-    public class ChildTaskCompletionDto
-    {
-        public int ChildId { get; set; }
-        public int TaskId { get; set; }
-    }
+    public int ChildId { get; set; }
+    public int TaskId { get; set; }
 }

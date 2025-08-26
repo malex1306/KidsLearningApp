@@ -11,7 +11,7 @@ html, body {
   background-position: center center; /* <--- NEU */
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: cover; 
+  background-size: cover;
 }
 
 @font-face {
@@ -19,5 +19,5 @@ html, body {
   src: url('/assets/fonts/Alessia.otf') format('opentype');
   font-weight: 400; /* Normal */
   font-style: normal;
-  font-display: swap; 
+  font-display: swap;
 }

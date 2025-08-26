@@ -1,13 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { TasksService } from '../../services/tasks.service';
-import { LearningTask } from '../../models/learning-task';
-import { CommonModule } from '@angular/common';
-import { LearningService } from '../../services/learning.service';
-import { QuestionNavigationService } from '../../services/question-navigation.service';
-import { Subscription } from 'rxjs';
-import { ActiveChildService } from '../../services/active-child.service';
-import { QuizLogic } from  '../../services/quiz-logic';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {ActivatedRoute, RouterLink} from '@angular/router';
+import {TasksService} from '../../services/tasks.service';
+import {LearningTask} from '../../models/learning-task';
+import {CommonModule} from '@angular/common';
+import {LearningService} from '../../services/learning.service';
+import {QuestionNavigationService} from '../../services/question-navigation.service';
+import {Subscription} from 'rxjs';
+import {ActiveChildService} from '../../services/active-child.service';
+import {QuizLogic} from '../../services/quiz-logic';
 
 @Component({
   selector: 'app-learning-task-detail',
@@ -41,7 +41,8 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
     public navigationService: QuestionNavigationService,
     private activeChildService: ActiveChildService,
     private quizLogic: QuizLogic
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     const taskId = this.route.snapshot.paramMap.get('id');
@@ -141,6 +142,7 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
       });
     }
   }
+
   startTimer(seconds: number): void {
     this.timerValue = seconds;
 
@@ -169,6 +171,7 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
       .toString()
       .padStart(2, '0')}`;
   }
+
   stopTimer(): void {
     if (this.timerInterval) {
       clearInterval(this.timerInterval);

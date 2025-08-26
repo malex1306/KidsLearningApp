@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit, effect } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NgClass, AsyncPipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Auth } from '../../services/auth';
-import { first, Subscription } from 'rxjs';
-import { ActiveChildService, ChildInfo } from '../../services/active-child.service';
-import { ParentDashboardService } from '../../services/parent-dashboard.service';
-import { ChildDto } from '../../dtos/parent-dashboard.dto';
+import {Component, OnDestroy, OnInit, effect} from '@angular/core';
+import {RouterLink, RouterLinkActive} from '@angular/router';
+import {NgClass, AsyncPipe} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Auth} from '../../services/auth';
+import {first, Subscription} from 'rxjs';
+import {ActiveChildService, ChildInfo} from '../../services/active-child.service';
+import {ParentDashboardService} from '../../services/parent-dashboard.service';
+import {ChildDto} from '../../dtos/parent-dashboard.dto';
 
 @Component({
   selector: 'app-nav-menu',
@@ -36,7 +36,7 @@ export class NavMenuComponent implements OnInit, OnDestroy {
     public activeChildService: ActiveChildService,
     private parentDashboardService: ParentDashboardService
   ) {
-    
+
     effect(() => {
       const child = this.activeChildService.activeChild();
       if (child && this.children) {
@@ -77,7 +77,7 @@ export class NavMenuComponent implements OnInit, OnDestroy {
 
   selectChild(child: ChildDto): void {
     this.activeChildService.setActiveChild(child);
-    this.collapse(); 
+    this.collapse();
   }
 
   toggle(): void {
@@ -101,7 +101,7 @@ export class NavMenuComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.authService.login({ email: parentEmail, password: this.passwordInput, rememberMe: false })
+    this.authService.login({email: parentEmail, password: this.passwordInput, rememberMe: false})
       .pipe(first())
       .subscribe({
         next: () => {

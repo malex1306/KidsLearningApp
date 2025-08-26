@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
-import { LearningTask } from '../models/learning-task';
-import { Question } from '../models/question';
-import { S } from '@angular/cdk/keycodes';
+import {Injectable} from '@angular/core';
+import {LearningTask} from '../models/learning-task';
+import {Question} from '../models/question';
+import {S} from '@angular/cdk/keycodes';
 
 export type AnswerStatus = 'correct' | 'wrong' | null;
+
 export interface PuzzleTile {
   id: number;
   backgroundPosition: string;
   correctPosition: number;
-  currentPosition:number;
+  currentPosition: number;
   selected: boolean;
 }
 
@@ -27,6 +28,7 @@ export class QuizLogic {
     }
     return copy;
   }
+
   // ----------------------------------------------------------------
 
   // Mathe Logik
@@ -42,16 +44,18 @@ export class QuizLogic {
       questions: filtered
     };
   }
+
   checkMathAnswer(
     question: Question,
     selectedAnswer: string
   ): { status: AnswerStatus; message: string } {
     if (selectedAnswer === question.correctAnswer) {
-      return { status: 'correct', message: 'Richtig! 🎉' };
+      return {status: 'correct', message: 'Richtig! 🎉'};
     } else {
-      return { status: 'wrong', message: 'Falsch, versuche es noch einmal.' };
+      return {status: 'wrong', message: 'Falsch, versuche es noch einmal.'};
     }
   }
+
   selectMathAnswer(task: LearningTask, currentIndex: number, answer: string, answeredQuestions: boolean[]) {
     const currentQuestion = task.questions[currentIndex];
     answeredQuestions[currentIndex] = true;
@@ -80,18 +84,20 @@ export class QuizLogic {
 
     return task;
   }
+
   checkSpelling(letter: string, spelledWord: string[], currentQuestion: Question) {
     const nextIndex = spelledWord.findIndex(l => l === '');
-    if (nextIndex === -1) return { spelledWord, correct: false, completed: false };
+    if (nextIndex === -1) return {spelledWord, correct: false, completed: false};
 
     if (letter === currentQuestion.correctAnswer.charAt(nextIndex)) {
       spelledWord[nextIndex] = letter;
       const completed = spelledWord.join('') === currentQuestion.correctAnswer;
-      return { spelledWord, correct: true, completed };
+      return {spelledWord, correct: true, completed};
     } else {
-      return { spelledWord, correct: false, completed: false };
+      return {spelledWord, correct: false, completed: false};
     }
   }
+
   checkAnswer(answer: string, currentQuestion: Question) {
     return answer === currentQuestion.correctAnswer;
   }
@@ -99,6 +105,7 @@ export class QuizLogic {
   checkGapFill(input: string, currentQuestion: Question) {
     return input.trim().toLowerCase() === currentQuestion.correctAnswer.toLowerCase();
   }
+
   selectAnswer(answer: string, currentQuestion: any) {
     const isCorrect = answer === currentQuestion.correctAnswer;
 
@@ -129,6 +136,7 @@ export class QuizLogic {
       completed: isCorrect
     };
   }
+
   selectLetter(letter: string, currentWord: string, spelledWord: string[]): {
     spelledWord: string[],
     correct: boolean,
@@ -137,7 +145,7 @@ export class QuizLogic {
   } {
     const nextLetterIndex = spelledWord.findIndex(l => l === '');
     if (nextLetterIndex === -1) {
-      return { spelledWord, correct: false, completed: false, message: '' };
+      return {spelledWord, correct: false, completed: false, message: ''};
     }
 
     if (letter === currentWord.charAt(nextLetterIndex)) {
@@ -150,7 +158,7 @@ export class QuizLogic {
         message: completed ? 'Richtig!' : ''
       };
     } else {
-      return { spelledWord, correct: false, completed: false, message: 'Falsch, versuche es nochmal. 🤔' };
+      return {spelledWord, correct: false, completed: false, message: 'Falsch, versuche es nochmal. 🤔'};
     }
   }
 
@@ -161,7 +169,7 @@ export class QuizLogic {
 
   checkEnglishAnswer(question: Question, selectedAnswer: string) {
     const correct = selectedAnswer.trim().toLowerCase() === question.correctAnswer.trim().toLowerCase();
-    return { correct, message: correct ? 'Richtig! 🎉' : 'Falsch, versuche es noch einmal. 🤔' };
+    return {correct, message: correct ? 'Richtig! 🎉' : 'Falsch, versuche es noch einmal. 🤔'};
   }
 
   selectEnglishAnswer(task: LearningTask, currentIndex: number, selectedAnswer: string, answeredQuestions: boolean[]) {
@@ -190,7 +198,7 @@ export class QuizLogic {
   shuffleBatch(batch: Question[]) {
     const german = this.shuffleArray(batch.map(q => q.text));
     const english = this.shuffleArray(batch.map(q => q.correctAnswer));
-    return { german, english };
+    return {german, english};
   }
 
   checkEnglishMatching(selectedDe: string, selectedEn: string, batch: Question[]) {
@@ -209,14 +217,14 @@ export class QuizLogic {
     selectedIndex: number
   ): { status: AnswerStatus; message: string } {
     if (!question.options || question.options.length === 0) {
-      return { status: null, message: 'Keine Optionen vorhanden' };
+      return {status: null, message: 'Keine Optionen vorhanden'};
     }
 
     const correctIndex = question.options.findIndex(opt => opt === question.correctAnswer);
     const status: AnswerStatus = selectedIndex === correctIndex ? 'correct' : 'wrong';
     const message = status === 'correct' ? 'Richtig! 🎉' : 'Leider falsch. Versuche es noch einmal.';
 
-    return { status, message };
+    return {status, message};
   }
 
   // -------------------------------------------------------------------
@@ -224,46 +232,47 @@ export class QuizLogic {
   // Spaß-Land Logik
 
   createPuzzle(rows: number, cols: number, tileSize: number): PuzzleTile[] {
-  const totalTiles = rows * cols;
-  const tiles: PuzzleTile[] = [];
+    const totalTiles = rows * cols;
+    const tiles: PuzzleTile[] = [];
 
-  for (let i = 0; i < totalTiles; i++) {
-    const row = Math.floor(i / cols);
-    const col = i % cols;
+    for (let i = 0; i < totalTiles; i++) {
+      const row = Math.floor(i / cols);
+      const col = i % cols;
 
-    tiles.push({
-      id: i,
-      backgroundPosition: `-${col * tileSize}px -${row * tileSize}px`,
-      correctPosition: i, 
-      currentPosition: i,
-      selected: false
-    });
+      tiles.push({
+        id: i,
+        backgroundPosition: `-${col * tileSize}px -${row * tileSize}px`,
+        correctPosition: i,
+        currentPosition: i,
+        selected: false
+      });
+    }
+    return tiles;
   }
-  return tiles;
-}
 
   shuffleTiles(tiles: PuzzleTile[]): PuzzleTile[] {
-  const shuffledTiles = [...tiles];
-  for (let i = shuffledTiles.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffledTiles[i], shuffledTiles[j]] = [shuffledTiles[j], shuffledTiles[i]];
-  }
- 
-  shuffledTiles.forEach((tile, index) => tile.currentPosition = index);
-  return shuffledTiles;
-}
+    const shuffledTiles = [...tiles];
+    for (let i = shuffledTiles.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledTiles[i], shuffledTiles[j]] = [shuffledTiles[j], shuffledTiles[i]];
+    }
 
-  swapTiles(tiles: PuzzleTile[], tile1: PuzzleTile, tile2: PuzzleTile): PuzzleTile[]{
+    shuffledTiles.forEach((tile, index) => tile.currentPosition = index);
+    return shuffledTiles;
+  }
+
+  swapTiles(tiles: PuzzleTile[], tile1: PuzzleTile, tile2: PuzzleTile): PuzzleTile[] {
     const index1 = tiles.indexOf(tile1);
     const index2 = tiles.indexOf(tile2);
 
-    if (index1 !== -1 && index2 !== -1){
+    if (index1 !== -1 && index2 !== -1) {
       [tiles[index1], tiles[index2]] = [tiles[index2], tiles[index1]];
     }
     tiles.forEach((tile, index) => tile.currentPosition = index);
     return tiles;
   }
-  checkPuzzleCompletion(tiles: PuzzleTile[]): boolean{
+
+  checkPuzzleCompletion(tiles: PuzzleTile[]): boolean {
     return tiles.every(tile => tile.correctPosition === tile.currentPosition);
   }
 }

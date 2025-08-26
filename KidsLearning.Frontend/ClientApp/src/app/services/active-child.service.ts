@@ -1,7 +1,7 @@
 // src/app/services/active-child.service.ts
 
-import { Injectable, signal, Signal } from '@angular/core';
-import { ChildDto } from '../dtos/parent-dashboard.dto';
+import {Injectable, signal, Signal} from '@angular/core';
+import {ChildDto} from '../dtos/parent-dashboard.dto';
 
 export interface ChildInfo {
   id: number;
@@ -56,8 +56,8 @@ export class ActiveChildService {
   }
 
   updateAvatar(childInfo: ChildInfo): void {
-      this.activeChildSignal.set(childInfo);
-      localStorage.setItem('activeChild', JSON.stringify(childInfo));
+    this.activeChildSignal.set(childInfo);
+    localStorage.setItem('activeChild', JSON.stringify(childInfo));
   }
 
   clearActiveChild(): void {

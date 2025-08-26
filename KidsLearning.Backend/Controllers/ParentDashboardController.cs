@@ -14,8 +14,8 @@ namespace KidsLearning.Backend.Controllers;
 [Route("api/[controller]")]
 public class ParentDashboardController : ControllerBase
 {
-    private readonly UserManager<IdentityUser> _userManager;
     private readonly AppDbContext _context;
+    private readonly UserManager<IdentityUser> _userManager;
 
     public ParentDashboardController(UserManager<IdentityUser> userManager, AppDbContext context)
     {
@@ -27,10 +27,7 @@ public class ParentDashboardController : ControllerBase
     public async Task<IActionResult> GetDashboardData()
     {
         var parentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (parentId == null)
-        {
-            return Unauthorized(new { Message = "User not authenticated." });
-        }
+        if (parentId == null) return Unauthorized(new { Message = "User not authenticated." });
 
         var parent = await _userManager.FindByIdAsync(parentId);
 
@@ -55,8 +52,8 @@ public class ParentDashboardController : ControllerBase
                                       _context.LearningTasks.Any(lt =>
                                           lt.Id == ct.LearningTaskId && lt.Subject == subject));
 
-                int progressPercentage =
-                    (totalTasks > 0) ? (int)Math.Round((double)completedTasks * 100 / totalTasks) : 0;
+                var progressPercentage =
+                    totalTasks > 0 ? (int)Math.Round((double)completedTasks * 100 / totalTasks) : 0;
 
                 childProgressList.Add(new SubjectProgressDto
                 {
@@ -71,7 +68,7 @@ public class ParentDashboardController : ControllerBase
                 .OrderByDescending(ct => ct.CompletedAt)
                 .FirstOrDefaultAsync();
 
-            string lastActivityMessage = "Keine Aktivitäten";
+            var lastActivityMessage = "Keine Aktivitäten";
             if (latestCompletion != null)
             {
                 lastActivityMessage = latestCompletion.CompletedAt.ToString("dd.MM.yyyy HH:mm");
@@ -136,10 +133,7 @@ public class ParentDashboardController : ControllerBase
     public async Task<IActionResult> AddChild([FromBody] AddChildDto addChildDto)
     {
         var parentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (parentId == null)
-        {
-            return Unauthorized(new { Message = "Parent ID claim missing." });
-        }
+        if (parentId == null) return Unauthorized(new { Message = "Parent ID claim missing." });
 
         Console.WriteLine($"AddChild: ParentId = {parentId}, ChildName = {addChildDto.Name}");
 
@@ -149,7 +143,7 @@ public class ParentDashboardController : ControllerBase
             AvatarUrl = addChildDto.AvatarUrl ?? "/assets/images/smarty-bear.png",
             ParentId = parentId,
             DateOfBirth = addChildDto.DateOfBirth,
-            Difficulty = addChildDto.Difficulty,
+            Difficulty = addChildDto.Difficulty
         };
 
         _context.Children.Add(newChild);
@@ -164,16 +158,10 @@ public class ParentDashboardController : ControllerBase
     public async Task<IActionResult> RemoveChild(int childId)
     {
         var parentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (parentId == null)
-        {
-            return Unauthorized(new { Message = "Parent ID claim missing." });
-        }
+        if (parentId == null) return Unauthorized(new { Message = "Parent ID claim missing." });
 
         var child = await _context.Children.FirstOrDefaultAsync(c => c.Id == childId && c.ParentId == parentId);
-        if (child == null)
-        {
-            return NotFound(new { Message = "Kind nicht gefunden oder nicht zugeordnet." });
-        }
+        if (child == null) return NotFound(new { Message = "Kind nicht gefunden oder nicht zugeordnet." });
 
         _context.Children.Remove(child);
         await _context.SaveChangesAsync();
@@ -185,16 +173,10 @@ public class ParentDashboardController : ControllerBase
     public async Task<IActionResult> EditChild(int childId, [FromBody] EditChildDto editChildDto)
     {
         var parentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (parentId == null)
-        {
-            return Unauthorized(new { Message = "Parent ID claim missing." });
-        }
+        if (parentId == null) return Unauthorized(new { Message = "Parent ID claim missing." });
 
         var child = await _context.Children.FirstOrDefaultAsync(c => c.Id == childId && c.ParentId == parentId);
-        if (child == null)
-        {
-            return NotFound(new { Message = "Kind nicht gefunden oder nicht zugeordnet." });
-        }
+        if (child == null) return NotFound(new { Message = "Kind nicht gefunden oder nicht zugeordnet." });
 
         child.Name = editChildDto.Name;
         child.DateOfBirth = editChildDto.DateOfBirth;

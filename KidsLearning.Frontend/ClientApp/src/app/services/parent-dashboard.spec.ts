@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ParentDashboard } from './parent-dashboard';
+import {ParentDashboard} from './parent-dashboard';
 
 describe('ParentDashboard', () => {
   let service: ParentDashboard;

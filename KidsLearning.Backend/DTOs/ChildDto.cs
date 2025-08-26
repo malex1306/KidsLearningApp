@@ -1,6 +1,6 @@
-namespace KidsLearning.Backend.DTOs;
-
 using KidsLearning.Backend.Models;
+
+namespace KidsLearning.Backend.DTOs;
 
 public class SubjectProgressDto
 {

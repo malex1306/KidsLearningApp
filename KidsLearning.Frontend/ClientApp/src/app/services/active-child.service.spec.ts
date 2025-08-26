@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ActiveChildService } from './active-child.service';
+import {ActiveChildService} from './active-child.service';
 
 describe('ActiveChildService', () => {
   let service: ActiveChildService;
