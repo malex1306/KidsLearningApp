@@ -79,7 +79,7 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
         if (childDifficulty) {
           task.questions = task.questions.filter(q => q.difficulty === childDifficulty);
         }
-        task.questions = this.shuffleArray(task.questions);
+        task.questions = this.quizLogic.shuffleArray(task.questions);
         this.task = task;
         this.navigationService.setTask(task);
         this.answeredQuestions = new Array(task.questions.length).fill(false);
@@ -144,16 +144,6 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
     ) || null;
   }
 
-  private shuffleArray(array: any[]): any[] {
-    let currentIndex = array.length, randomIndex;
-    while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
-    }
-    return array;
-  }
 
   initializeSpellingTask(): void {
     if (this.task && this.task.questions.length > 0) {
