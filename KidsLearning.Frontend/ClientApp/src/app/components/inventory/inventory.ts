@@ -1,12 +1,12 @@
 // src/app/components/inventory/inventory.component.ts
 
-import { Component, OnInit, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ActiveChildService } from '../../services/active-child.service';
-import { AvatarDto, BadgeDto, EditChildDto } from '../../dtos/parent-dashboard.dto';
-import { HttpClient } from '@angular/common/http';
-import { ParentDashboardService } from '../../services/parent-dashboard.service';
+import {Component, OnInit, computed} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ActiveChildService} from '../../services/active-child.service';
+import {AvatarDto, BadgeDto, EditChildDto} from '../../dtos/parent-dashboard.dto';
+import {HttpClient} from '@angular/common/http';
+import {ParentDashboardService} from '../../services/parent-dashboard.service';
 
 @Component({
   selector: 'app-inventory',
@@ -27,7 +27,8 @@ export class InventoryComponent implements OnInit {
     private http: HttpClient,
     private dashboardService: ParentDashboardService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     const child = this.activeChild();

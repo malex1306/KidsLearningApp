@@ -10,11 +10,11 @@
           <p class="question-text">{{ task.questions[currentQuestionIndex].text }}</p>
           <img [src]="task.questions[currentQuestionIndex].imageUrl || 'assets/questImg/cloud.png'"
                alt="Frage Bild" class="default-image">
-                @if(exam){
-      <div class="exam-timer">
-        Zeit übrig: {{ timerDisplay }}
-      </div>
-    }
+          @if (exam) {
+            <div class="exam-timer">
+              Zeit übrig: {{ timerDisplay }}
+            </div>
+          }
         </div>
 
         <div class="options-grid" [class.disabled]="isWaitingForNext">
@@ -34,12 +34,12 @@
           @if (currentQuestionIndex === 0) {
             <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Zurück </a>
           } @else {
-            <button class="fun-button" (click)="prevQuestion()"> Zurück </button>
+            <button class="fun-button" (click)="prevQuestion()"> Zurück</button>
           }
           @if (currentQuestionIndex === task.questions.length - 1) {
             <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Beenden</a>
           } @else {
-            <button class="fun-button" (click)="nextQuestion()"> Weiter </button>
+            <button class="fun-button" (click)="nextQuestion()"> Weiter</button>
           }
         </div>
       </div>
@@ -61,27 +61,27 @@
           <div class="match-box">
             <div class="match-column">
               @for (de of shuffledGerman; track de) {
-                @if (!isGermanConnected(de)){
-                <button class="option-button"
-                        [class.selected]="selectedGerman === de"
-                        [class.correct-flash]="flashGerman === de && flashStatus === 'correct'"
-                        [class.wrong-flash]="flashGerman === de && flashStatus === 'wrong'"
-                        (click)="selectGerman(de)">
-                  {{ de }}
-                </button>
+                @if (!isGermanConnected(de)) {
+                  <button class="option-button"
+                          [class.selected]="selectedGerman === de"
+                          [class.correct-flash]="flashGerman === de && flashStatus === 'correct'"
+                          [class.wrong-flash]="flashGerman === de && flashStatus === 'wrong'"
+                          (click)="selectGerman(de)">
+                    {{ de }}
+                  </button>
                 }
               }
             </div>
             <div class="match-column">
               @for (en of shuffledEnglish; track en) {
-                @if (!isEnglishConnected(en)){
-                <button class="option-button"
-                        [class.selected]="selectedEnglish === en"
-                        [class.correct-flash]="flashEnglish === en && flashStatus === 'correct'"
-                        [class.wrong-flash]="flashEnglish === en && flashStatus === 'wrong'"
-                        (click)="selectEnglish(en)">
-                  {{ en }}
-                </button>
+                @if (!isEnglishConnected(en)) {
+                  <button class="option-button"
+                          [class.selected]="selectedEnglish === en"
+                          [class.correct-flash]="flashEnglish === en && flashStatus === 'correct'"
+                          [class.wrong-flash]="flashEnglish === en && flashStatus === 'wrong'"
+                          (click)="selectEnglish(en)">
+                    {{ en }}
+                  </button>
                 }
               }
             </div>
@@ -91,28 +91,29 @@
           @if (currentBatchIndex === 0) {
             <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Zurück </a>
           } @else {
-            <button class="fun-button" (click)="prevBatch()">  Zurück </button>
+            <button class="fun-button" (click)="prevBatch()"> Zurück</button>
           }
-          <span class="batch-info">Batch {{ currentBatchIndex + 1 }} von {{ Math.ceil(task.questions.length / batchSize) }} </span>
+          <span class="batch-info">Batch {{ currentBatchIndex + 1 }}
+            von {{ Math.ceil(task.questions.length / batchSize) }} </span>
           @if (currentBatchIndex >= Math.ceil(task.questions.length / batchSize) - 1) {
             <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Beenden </a>
           } @else {
-            <button class="fun-button" (click)="nextBatch()"> Weiter </button>
+            <button class="fun-button" (click)="nextBatch()"> Weiter</button>
           }
         </div>
       </div>
-    } @else if (!isCompleted && task.title === 'Finde den Imposter' && !examfailed){
+    } @else if (!isCompleted && task.title === 'Finde den Imposter' && !examfailed) {
       <div class="quiz-area default-quiz">
         <div class="task-card glass-card question-card" style="text-align: center; margin: 1rem 0;">
           <h2 class="question-title">
             Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}
           </h2>
           <p class="question-text">{{ task.questions[currentQuestionIndex].text }}</p>
-           @if(exam){
-      <div class="exam-timer">
-        Zeit übrig: {{ timerDisplay }}
-      </div>
-    }
+          @if (exam) {
+            <div class="exam-timer">
+              Zeit übrig: {{ timerDisplay }}
+            </div>
+          }
         </div>
 
         <div class="options-grid" [class.disabled]="isWaitingForNext">
@@ -135,7 +136,7 @@
               Zurück
             </a>
           } @else {
-            <button class="fun-button" (click)="prevQuestion()"> Zurück </button>
+            <button class="fun-button" (click)="prevQuestion()"> Zurück</button>
           }
 
           @if (currentQuestionIndex === task.questions.length - 1) {
@@ -143,7 +144,7 @@
               Beenden
             </a>
           } @else {
-            <button class="fun-button" (click)="nextQuestion()"> Nächste  </button>
+            <button class="fun-button" (click)="nextQuestion()"> Nächste</button>
           }
         </div>
         @if (answerStatus) {
@@ -162,7 +163,7 @@
           <h2>
             {{ task.title === 'Deutsch/Englisch verbinden' ? 'Alle Paare gefunden! 🎉' : 'Aufgabe abgeschlossen! 🎉' }}
           </h2>
-          @if(task.title !== 'Deutsch/Englisch verbinden') {
+          @if (task.title !== 'Deutsch/Englisch verbinden') {
             <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>
           }
           <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">

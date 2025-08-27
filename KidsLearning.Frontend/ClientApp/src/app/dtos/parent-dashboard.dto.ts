@@ -11,7 +11,7 @@ export interface BadgeDto {
 }
 
 export interface AvatarDto {
-   id: number;
+  id: number;
   name: string;
   imageUrl: string;
   description: string;
@@ -56,8 +56,9 @@ export interface EditChildDto {
   avatarUrl?: string;
   difficulty: string;
 }
+
 export interface DailyGoal {
-    day: string;
-    completed: boolean;
-    tasksCompleted: number;
+  day: string;
+  completed: boolean;
+  tasksCompleted: number;
 }

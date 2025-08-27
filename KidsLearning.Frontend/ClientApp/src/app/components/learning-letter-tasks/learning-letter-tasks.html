@@ -5,15 +5,15 @@
       <div class="quiz-area spelling-quiz">
         <div class="task-card glass-card image-card">
           <div class="card-content">
-   
+
             <h2 class="question-title">Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}</h2>
             <img [src]="task.questions[currentQuestionIndex].imageUrl || 'assets/questImg/cloud.png'" alt="Katze Bild"
                  class="spelling-image">
-                  @if(exam){
-      <div class="exam-timer">
-        Zeit übrig: {{ timerDisplay }}
-      </div>
-    }
+            @if (exam) {
+              <div class="exam-timer">
+                Zeit übrig: {{ timerDisplay }}
+              </div>
+            }
           </div>
         </div>
 
@@ -48,11 +48,11 @@
           <div class="card-content">
             <h2 class="question-title">Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}</h2>
             <p class="question-text">{{ task.questions[currentQuestionIndex].text }}</p>
-             @if(exam){
-      <div class="exam-timer">
-        Zeit übrig: {{ timerDisplay }}
-      </div>
-    }
+            @if (exam) {
+              <div class="exam-timer">
+                Zeit übrig: {{ timerDisplay }}
+              </div>
+            }
           </div>
         </div>
 
@@ -71,7 +71,7 @@
 
     @if (isGapFillTask && !isCompleted && !examfailed) {
       <div class="quiz-area gap-fill-quiz">
-        
+
 
         <input type="text"
                [(ngModel)]="typedAnswer"

@@ -1,18 +1,18 @@
 // src/app/components/learning-letter-tasks/learning-letter-tasks.ts
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {ActivatedRoute, RouterLink} from '@angular/router';
+import {CommonModule} from '@angular/common';
 
-import { TasksService } from '../../services/tasks.service';
-import { LearningService } from '../../services/learning.service';
-import { LearningTask } from '../../models/learning-task';
-import { RewardService } from '../../services/reward.service';
-import { QuestionNavigationService } from '../../services/question-navigation.service';
-import { Subscription } from 'rxjs';
-import { FormsModule } from '@angular/forms';
-import { ActiveChildService } from '../../services/active-child.service';
-import { QuizLogic } from '../../services/quiz-logic';
+import {TasksService} from '../../services/tasks.service';
+import {LearningService} from '../../services/learning.service';
+import {LearningTask} from '../../models/learning-task';
+import {RewardService} from '../../services/reward.service';
+import {QuestionNavigationService} from '../../services/question-navigation.service';
+import {Subscription} from 'rxjs';
+import {FormsModule} from '@angular/forms';
+import {ActiveChildService} from '../../services/active-child.service';
+import {QuizLogic} from '../../services/quiz-logic';
 
 @Component({
   selector: 'app-learning-letter-tasks',
@@ -88,7 +88,7 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
           this.initializeSpellingTask();
         } else if (this.task.title === 'Buchstaben verbinden') {
           this.isConnectingTask = true;
-        } else if (this.task.title === 'Fülle die Lücken'){
+        } else if (this.task.title === 'Fülle die Lücken') {
           this.isGapFillTask = true;
         }
         if (this.exam) {
@@ -228,7 +228,7 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
     this.answerStatus = null;
     this.statusMessage = '';
     this.isWaitingForNext = false;
-    if(this.isGapFillTask){
+    if (this.isGapFillTask) {
       this.typedAnswer = '';
     }
     if (this.isSpellingTask) {
@@ -321,6 +321,7 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
 
     this.speechSynth.speak(utterance);
   }
+
   startTimer(seconds: number): void {
     this.timerValue = seconds;
 
@@ -349,6 +350,7 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
       .toString()
       .padStart(2, '0')}`;
   }
+
   stopTimer(): void {
     if (this.timerInterval) {
       clearInterval(this.timerInterval);

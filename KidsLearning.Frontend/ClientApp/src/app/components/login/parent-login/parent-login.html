@@ -11,7 +11,8 @@
         </div>
         <div class="form-group password-group">
           <label for="password" class="form-label">Passwort</label>
-          <input [type]="showPassword() ? 'text' : 'password'" class="form-input" id="password" name="password" [(ngModel)]="password" required>
+          <input [type]="showPassword() ? 'text' : 'password'" class="form-input" id="password" name="password"
+                 [(ngModel)]="password" required>
           <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
             @if (showPassword()) {
               <span>👁️</span>
@@ -22,7 +23,7 @@
         </div>
         <button type="submit" class="fun-button">Anmelden</button>
       </form>
-      
+
       <div *ngIf="errorMessage()" class="alert-message">
         {{ errorMessage() }}
       </div>

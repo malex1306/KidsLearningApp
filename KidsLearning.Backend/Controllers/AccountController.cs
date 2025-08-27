@@ -1,11 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using KidsLearning.Backend.DTOs;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
 
 namespace KidsLearning.Backend.Controllers;
 
@@ -13,9 +12,9 @@ namespace KidsLearning.Backend.Controllers;
 [Route("api/[controller]")]
 public class AccountController : ControllerBase
 {
-    private readonly UserManager<IdentityUser> _userManager;
-    private readonly SignInManager<IdentityUser> _signInManager;
     private readonly IConfiguration _configuration;
+    private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly UserManager<IdentityUser> _userManager;
 
     public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,
         IConfiguration configuration)
@@ -37,10 +36,7 @@ public class AccountController : ControllerBase
 
         var result = await _userManager.CreateAsync(user, registerDto.Password);
 
-        if (result.Succeeded)
-        {
-            return Ok(new { Message = "User registered successfully." });
-        }
+        if (result.Succeeded) return Ok(new { Message = "User registered successfully." });
 
         return BadRequest(new { Errors = result.Errors.Select(e => e.Description) });
     }
@@ -84,9 +80,9 @@ public class AccountController : ControllerBase
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
-            issuer: _configuration["Jwt:Issuer"],
-            audience: _configuration["Jwt:Audience"],
-            claims: claims,
+            _configuration["Jwt:Issuer"],
+            _configuration["Jwt:Audience"],
+            claims,
             expires: DateTime.UtcNow.AddHours(1),
             signingCredentials: creds
         );

@@ -3,7 +3,7 @@
   padding: 2rem;
   margin-top: 2rem;
   font-family: 'Comic Neue', 'Poppins', sans-serif;
- /* Bild als Hintergrund festlegen */
+  /* Bild als Hintergrund festlegen */
   background-image: url('/src/assets/images/10456302.jpg');
 
   /* Bildeigenschaften anpassen */
@@ -35,8 +35,8 @@
 
 /* Glass-Card */
 .task-card.glass-card {
- display: flex;
-  flex-direction: column;   /* Inhalte untereinander */
+  display: flex;
+  flex-direction: column; /* Inhalte untereinander */
   justify-content: space-between; /* Platz zwischen Content & Buttons */
   background: rgba(255, 255, 255, 0.25);
   border-radius: 20px;
@@ -54,11 +54,12 @@
 }
 
 .card-icon img {
-    width: 90px; /* Breite des Bildes festlegen */
-    height: auto; /* Höhe automatisch anpassen, um das Seitenverhältnis zu erhalten */
-    display: block; /* Zentrierung ermöglichen */
-    margin: 0 auto; /* Bild zentrieren */
+  width: 90px; /* Breite des Bildes festlegen */
+  height: auto; /* Höhe automatisch anpassen, um das Seitenverhältnis zu erhalten */
+  display: block; /* Zentrierung ermöglichen */
+  margin: 0 auto; /* Bild zentrieren */
 }
+
 /* Icon */
 .card-icon {
   font-size: 1.5rem;
@@ -66,7 +67,7 @@
 }
 
 .card-content {
-  flex-grow: 1;   /* nimmt den "Restplatz" ein */
+  flex-grow: 1; /* nimmt den "Restplatz" ein */
 }
 
 /* Inhalt */
@@ -171,7 +172,8 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-.slider:after{
+
+.slider:after {
   content: "Off";
   color: black;
   position: absolute;
@@ -179,11 +181,13 @@ input:checked + .slider:before {
   top: 7px;
   font-size: 12px;
 }
+
 input:checked + .slider:after {
   content: "ON";
   left: 10px;
   right: auto;
 }
+
 .switch-container {
   display: flex;
   align-items: center;

@@ -1,10 +1,11 @@
+using System.Text;
+using System.Text.Json.Serialization;
 using KidsLearning.Backend.Data;
+using KidsLearning.Backend.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using KidsLearning.Backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,7 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler =
-            System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+            ReferenceHandler.IgnoreCycles;
 
 
         options.JsonSerializerOptions.WriteIndented = true;
@@ -79,10 +80,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+if (app.Environment.IsDevelopment()) app.MapOpenApi();
 
 // app.UseHttpsRedirection();
 app.UseCors("AllowSpecificOrigin");

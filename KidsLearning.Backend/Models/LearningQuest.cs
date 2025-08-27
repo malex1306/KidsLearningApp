@@ -1,6 +1,6 @@
-namespace KidsLearning.Backend.Models;
-
 using KidsLearning.Backend.Enums;
+
+namespace KidsLearning.Backend.Models;
 
 public class LearningQuest
 {

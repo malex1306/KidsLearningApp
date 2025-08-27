@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { TasksService } from '../../services/tasks.service';
-import { LearningService } from '../../services/learning.service';
-import { LearningTask } from '../../models/learning-task';
-import { CommonModule } from '@angular/common';
-import { ActiveChildService } from '../../services/active-child.service';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {ActivatedRoute, RouterLink} from '@angular/router';
+import {TasksService} from '../../services/tasks.service';
+import {LearningService} from '../../services/learning.service';
+import {LearningTask} from '../../models/learning-task';
+import {CommonModule} from '@angular/common';
+import {ActiveChildService} from '../../services/active-child.service';
 import {Subscription} from 'rxjs';
-import { QuizLogic, AnswerStatus} from '../../services/quiz-logic';
+import {QuizLogic, AnswerStatus} from '../../services/quiz-logic';
 
 @Component({
   selector: 'app-learning-task-english',
@@ -52,7 +52,8 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
     private learningService: LearningService,
     private activeChildService: ActiveChildService,
     private quizLogic: QuizLogic
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     const taskId = this.route.snapshot.paramMap.get('id');
@@ -169,41 +170,42 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
   }
 
   checkMatch() {
-     if (!this.selectedGerman || !this.selectedEnglish || !this.task) return;
+    if (!this.selectedGerman || !this.selectedEnglish || !this.task) return;
 
-  const isCorrect = this.quizLogic.checkEnglishMatching(
-    this.selectedGerman,
-    this.selectedEnglish,
-    this.currentBatch
-  );
+    const isCorrect = this.quizLogic.checkEnglishMatching(
+      this.selectedGerman,
+      this.selectedEnglish,
+      this.currentBatch
+    );
 
-  // Flash setzen
-  this.flashGerman = this.selectedGerman;
-  this.flashEnglish = this.selectedEnglish;
-  this.flashStatus = isCorrect ? 'correct' : 'wrong';
+    // Flash setzen
+    this.flashGerman = this.selectedGerman;
+    this.flashEnglish = this.selectedEnglish;
+    this.flashStatus = isCorrect ? 'correct' : 'wrong';
 
-  if (isCorrect) {
-    setTimeout(() => {
-      this.connectedPairs.add({ de: this.selectedGerman!, en: this.selectedEnglish! });
-      this.resetSelection();
+    if (isCorrect) {
+      setTimeout(() => {
+        this.connectedPairs.add({de: this.selectedGerman!, en: this.selectedEnglish!});
+        this.resetSelection();
 
-      if (this.connectedPairs.size === this.currentBatch.length) {
-        this.nextBatch();
-      }
-    }, 800);
-  } else {
-    setTimeout(() => {
-      this.resetSelection();
-    }, 800);
+        if (this.connectedPairs.size === this.currentBatch.length) {
+          this.nextBatch();
+        }
+      }, 800);
+    } else {
+      setTimeout(() => {
+        this.resetSelection();
+      }, 800);
+    }
   }
-  }
+
   resetSelection() {
-  this.selectedGerman = null;
-  this.selectedEnglish = null;
-  this.flashGerman = null;
-  this.flashEnglish = null;
-  this.flashStatus = null;
-}
+    this.selectedGerman = null;
+    this.selectedEnglish = null;
+    this.flashGerman = null;
+    this.flashEnglish = null;
+    this.flashStatus = null;
+  }
 
   isGermanConnected(word: string) {
     return [...this.connectedPairs].some(pair => pair.de === word);
@@ -228,6 +230,7 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
     this.stopTimer();
   }
+
   startTimer(seconds: number): void {
     this.timerValue = seconds;
 
@@ -256,6 +259,7 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
       .toString()
       .padStart(2, '0')}`;
   }
+
   onFinishTask(): void {
     if (this.task && this.childId) {
       this.isCompleted = true;
@@ -264,6 +268,7 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
       alert('Aufgabe automatisch beendet, da die Zeit abgelaufen ist.');
     }
   }
+
   stopTimer(): void {
     if (this.timerInterval) {
       clearInterval(this.timerInterval);

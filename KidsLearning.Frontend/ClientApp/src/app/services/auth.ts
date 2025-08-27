@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap, catchError, throwError } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject, Observable, tap, catchError, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,7 @@ export class Auth {
 
   logout(): void {
     sessionStorage.removeItem('jwt_token');
-    sessionStorage.removeItem('parent_email'); 
+    sessionStorage.removeItem('parent_email');
     this.isLoggedInSubject.next(false);
   }
 

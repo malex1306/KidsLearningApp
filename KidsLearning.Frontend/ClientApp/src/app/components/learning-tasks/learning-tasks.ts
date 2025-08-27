@@ -1,11 +1,11 @@
 // src/app/components/learning-tasks/learning-tasks.component.ts
 
-import { Component, OnInit } from '@angular/core';
-import { TasksService } from '../../services/tasks.service';
-import { LearningTask } from '../../models/learning-task';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { RewardService } from '../../services/reward.service';
+import {Component, OnInit} from '@angular/core';
+import {TasksService} from '../../services/tasks.service';
+import {LearningTask} from '../../models/learning-task';
+import {CommonModule} from '@angular/common';
+import {ActivatedRoute, RouterLink} from '@angular/router';
+import {RewardService} from '../../services/reward.service';
 
 @Component({
   selector: 'app-learning-tasks',
@@ -23,8 +23,9 @@ export class LearningTasksComponent implements OnInit {
   constructor(
     private tasksService: TasksService,
     private route: ActivatedRoute,
-    private rewardService : RewardService
-  ) {}
+    private rewardService: RewardService
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {

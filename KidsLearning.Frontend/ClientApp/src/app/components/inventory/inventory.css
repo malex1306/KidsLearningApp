@@ -1,115 +1,115 @@
 /* src/app/components/inventory/inventory.component.css */
 
 .inventory-container {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: transparent;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    color: #333;
-    border-radius: 2rem;
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    padding: 1.5rem;
-    transition: transform 0.3s ease;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: transparent;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: #333;
+  border-radius: 2rem;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
 }
 
 .avatars-section, .badges-section {
-    /* Glassmorphism-Effekt hinzugefügt */
-    background: rgba(255, 255, 255, 0.25);
-    border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  /* Glassmorphism-Effekt hinzugefügt */
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h2, h3 {
-    text-align: center;
-    color: #ffb703;
-    margin-bottom: 1rem;
-    font-family: 'Comic Sans MS', 'Arial', sans-serif;;
+  text-align: center;
+  color: #ffb703;
+  margin-bottom: 1rem;
+  font-family: 'Comic Sans MS', 'Arial', sans-serif;;
 }
 
 /* Avatare-Sektion */
 .avatars-grid {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
 
 .avatar-item {
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    border-radius: 50%;
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    border: 4px solid transparent; /* Transparenter Rahmen für alle Avatare */
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border: 4px solid transparent; /* Transparenter Rahmen für alle Avatare */
 }
 
 .avatar-item:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .avatar-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Neue Klasse für den ausgewählten Avatar */
 .avatar-item.selected {
-    border-color: #4CAF50; /* Grüner Rahmen für den ausgewählten Avatar */
+  border-color: #4CAF50; /* Grüner Rahmen für den ausgewählten Avatar */
 }
 
 /* Abzeichen-Sektion */
 .badges-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 2rem;
-    justify-items: center;
-    text-align: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+  text-align: center;
 }
 
 .badge-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-weight: bold;
-    color: #555;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  color: #555;
 }
 
 .badge-icon {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
 }
 
 .fun-button {
-    margin-top: 1rem;
-    background-color: #ffb703;
-    color: black;
-    padding: 0.6rem 1.2rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-decoration: none;
+  margin-top: 1rem;
+  background-color: #ffb703;
+  color: black;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
 }
 
 .fun-button:hover {
-    background-color: #fb8500;
-    transform: scale(1.05);
+  background-color: #fb8500;
+  transform: scale(1.05);
 }

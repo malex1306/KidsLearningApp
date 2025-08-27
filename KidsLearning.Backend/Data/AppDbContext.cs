@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using KidsLearning.Backend.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace KidsLearning.Backend.Data;
 
@@ -10,6 +10,15 @@ public class AppDbContext : IdentityDbContext
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
+
+    public DbSet<LearningQuest> LearningQuests { get; set; } = null!;
+    public DbSet<Child> Children { get; set; } = null!;
+    public DbSet<SubjectProgress> SubjectProgresses { get; set; } = null!;
+    public DbSet<LearningTask> LearningTasks { get; set; } = null!;
+    public DbSet<Questions> Questions { get; set; } = null!;
+    public DbSet<ChildCompletedTask> ChildCompletedTasks { get; set; } = null!;
+    public DbSet<Avatar> Avatars { get; set; } = null!;
+    public DbSet<Badge> Badges { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -34,13 +43,4 @@ public class AppDbContext : IdentityDbContext
             .IsRequired()
             .OnDelete(DeleteBehavior.Cascade);
     }
-
-    public DbSet<LearningQuest> LearningQuests { get; set; } = null!;
-    public DbSet<Child> Children { get; set; } = null!;
-    public DbSet<SubjectProgress> SubjectProgresses { get; set; } = null!;
-    public DbSet<LearningTask> LearningTasks { get; set; } = null!;
-    public DbSet<Questions> Questions { get; set; } = null!;
-    public DbSet<ChildCompletedTask> ChildCompletedTasks { get; set; } = null!;
-    public DbSet<Avatar> Avatars { get; set; } = null!;
-    public DbSet<Badge> Badges { get; set; } = null!;
 }

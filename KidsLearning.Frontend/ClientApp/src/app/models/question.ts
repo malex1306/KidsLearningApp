@@ -1,9 +1,9 @@
 export interface Question {
-    id: number;
-    text: string;
-    correctAnswer: string;
-    options: string[];
-    imageUrl?: string;
-    difficulty?: string;
-    learningTaskId: number;
+  id: number;
+  text: string;
+  correctAnswer: string;
+  options: string[];
+  imageUrl?: string;
+  difficulty?: string;
+  learningTaskId: number;
 }

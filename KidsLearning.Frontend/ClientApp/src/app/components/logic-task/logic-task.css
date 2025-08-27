@@ -31,11 +31,13 @@
 .question-card {
   width: 100%;
 }
-.question-title{
+
+.question-title {
   font-size: 1.8rem;
   color: #4CAF50;
 }
-p{
+
+p {
   font-size: 1.5rem;
   color: black;
 }
@@ -97,36 +99,40 @@ p{
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
-.options-grid-two{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* immer zwei Buttons nebeneinander */
-    gap: 2rem;  /* etwas mehr Abstand für den „Kachel-Effekt“ */
-    margin-bottom: 2rem;
-    width: 100%;
+
+.options-grid-two {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* immer zwei Buttons nebeneinander */
+  gap: 2rem; /* etwas mehr Abstand für den „Kachel-Effekt“ */
+  margin-bottom: 2rem;
+  width: 100%;
 }
-.option-button-two{
-    background-color: #6a1b9a;
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.5);;
-    border-radius: 12px;
-    padding: 1.5rem;
-    font-size: 1.6rem;
-    width: 100%;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+.option-button-two {
+  background-color: #6a1b9a;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.5);;
+  border-radius: 12px;
+  padding: 1.5rem;
+  font-size: 1.6rem;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 .option-button-two:hover {
-     background-color: #8e24aa;
-    transform: translateY(-2px);
+  background-color: #8e24aa;
+  transform: translateY(-2px);
 }
+
 .option-button-two.correct-answer {
-    background-color: #4CAF50;
-    transform: scale(1.05);
+  background-color: #4CAF50;
+  transform: scale(1.05);
 }
 
 .option-button-two.wrong-answer {
-    background-color: #f44336;
+  background-color: #f44336;
 }
 
 .option-button:hover:not([disabled]) {
@@ -149,7 +155,7 @@ p{
 }
 
 .fun-button {
- margin-top: 1rem;
+  margin-top: 1rem;
   background-color: #ffb703;
   color: black;
   padding: 0.6rem 1.2rem;
@@ -233,30 +239,49 @@ p{
 }
 
 @keyframes correct-pulse {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
-  50% { transform: scale(1.1); box-shadow: 0 0 20px 5px rgba(76, 175, 80, 0.9); }
-  100% { transform: scale(1.05); box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px 5px rgba(76, 175, 80, 0.9);
+  }
+  100% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+  }
 }
 
 @keyframes wrong-pulse {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-  50% { transform: scale(1.1); box-shadow: 0 0 20px 5px rgba(239, 68, 68, 0.9); }
-  100% { transform: scale(1.05); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px 5px rgba(239, 68, 68, 0.9);
+  }
+  100% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
 }
 
 .form-image {
-   max-width: 50%;
-    height: auto;
-    border-radius: 15px;
-    margin-top: 1rem;
+  max-width: 50%;
+  height: auto;
+  border-radius: 15px;
+  margin-top: 1rem;
 }
+
 .option-img {
   width: 100%;
   max-width: 60px;
 
 }
 
-.exam-timer{
+.exam-timer {
   color: #4CAF50;
   font-size: 1.5rem;
   font-weight: bold;

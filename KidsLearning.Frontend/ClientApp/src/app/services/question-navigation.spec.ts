@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { QuestionNavigation } from './question-navigation';
+import {QuestionNavigation} from './question-navigation';
 
 describe('QuestionNavigation', () => {
   let service: QuestionNavigation;
