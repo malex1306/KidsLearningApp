@@ -43,8 +43,18 @@
               } @else if (task.title === 'Finde den Imposter') {
                 <img src="assets/images/understanding.png" alt="English-Wrong-Icon">
               }
-            } @else {
-              <img src="assets/images/goofy.png" alt="Standard-Icon">
+            } @else if (task.subject === 'Logik-Dschungel') {
+              @if (task.title === 'Zahlenkombinationen') {
+                <img src="assets/images/number-blocks.png" alt="Logic-Icon">
+              } @else if (task.title === 'Fülle die Form') {
+                <img src="assets/images/brick.png" alt="Logic-Icon">
+              }
+            } @else if (task.subject === 'Spaß-Paradise') {
+              @if (task.title === 'Puzzle') {
+                <img src="assets/images/contribution.png" alt="Puzzle-Icon">
+              } @else {
+                <img src="assets/images/goofy.png" alt="Standard-Icon">
+              }
             }
 
           </div>
