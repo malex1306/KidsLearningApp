@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {LearningTask} from '../models/learning-task';
 import {Question} from '../models/question';
-import {S} from '@angular/cdk/keycodes';
 
 export type AnswerStatus = 'correct' | 'wrong' | null;
 

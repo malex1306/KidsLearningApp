@@ -1,9 +1,6 @@
-// src/app/components/learning-letter-tasks/learning-letter-tasks.ts
-
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {CommonModule} from '@angular/common';
-
 import {TasksService} from '../../services/tasks.service';
 import {LearningService} from '../../services/learning.service';
 import {LearningTask} from '../../models/learning-task';
@@ -42,8 +39,8 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
   lastClickedStatus: 'correct' | 'wrong' | null = null;
   answeredQuestions: boolean[] = [];
 
-  exam: boolean = false; // from route or service
-  timerValue: number = 0; // in seconds
+  exam: boolean = false;
+  timerValue: number = 0;
   timerInterval: any = null;
   examfailed: boolean = false;
   private subscriptions = new Subscription();
@@ -92,7 +89,7 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
           this.isGapFillTask = true;
         }
         if (this.exam) {
-          this.startTimer(300); // e.g., 5 minutes
+          this.startTimer(300); // Test Zeit in Sekunden können hier geändert werden! ✅✅✅
         }
       });
     }
@@ -300,12 +297,10 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
     const utterance = new SpeechSynthesisUtterance(textToRead);
     utterance.lang = 'de-DE';
 
-    // Verwenden Sie die ausgewählte Stimme, falls vorhanden
     if (this.germanVoice) {
       utterance.voice = this.germanVoice;
     }
 
-    // Passen Sie Tonhöhe und Geschwindigkeit für einen kindlicheren Klang an
     utterance.pitch = 4;
     utterance.rate = 1.1;
 

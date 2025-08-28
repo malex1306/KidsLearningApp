@@ -17,8 +17,6 @@ import {QuizLogic, AnswerStatus} from '../../services/quiz-logic';
 export class LearningTaskEnglish implements OnInit, OnDestroy {
   task: LearningTask | null = null;
   childId: number | null = null;
-
-  // Multiple Choice / Bilder
   currentQuestionIndex = 0;
   answerStatus: AnswerStatus = null;
   statusMessage = '';
@@ -39,8 +37,8 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
 
   isCompleted = false;
 
-  exam: boolean = false; // from route or service
-  timerValue: number = 0; // in seconds
+  exam: boolean = false;
+  timerValue: number = 0;
   timerInterval: any = null;
   examfailed: boolean = false;
 
@@ -66,7 +64,6 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
 
     if (taskId) {
       this.tasksService.getTaskById(+taskId).subscribe(task => {
-        // Filter nach Schwierigkeit
         const difficulty = this.activeChildService.activeChild()?.difficulty ?? 'Vorschule';
         if (difficulty) task.questions = task.questions.filter(q => q.difficulty === difficulty);
 
@@ -83,7 +80,7 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
           this.task = task;
         }
         if (this.exam) {
-          this.startTimer(300);
+          this.startTimer(300); // Test Zeit in Sekunden können hier geändert werden! ✅✅✅
         }
       });
     }

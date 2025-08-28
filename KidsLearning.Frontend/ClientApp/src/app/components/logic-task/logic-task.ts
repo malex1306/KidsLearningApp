@@ -82,7 +82,7 @@ export class LogicTask implements OnInit, OnDestroy {
         }
         this.navigationService.setTask(task);
         if (this.exam) {
-          this.startTimer(300); // e.g., 5 minutes
+          this.startTimer(300); // Test Zeit in Sekunden können hier geändert werden! ✅✅✅
         }
       });
     }

@@ -8,18 +8,16 @@ import {Question} from '../models/question';
   providedIn: 'root'
 })
 export class TasksService {
-  private apiUrl = 'http://localhost:5207/api/Tasks'; // Beachte die Großschreibung "Tasks"
+  private apiUrl = 'http://localhost:5207/api/Tasks';
 
   constructor(private http: HttpClient) {
   }
 
   getTasksBySubject(subject: string): Observable<LearningTask[]> {
-    // Korrigiert: Ruft direkt den Endpunkt auf
     return this.http.get<LearningTask[]>(`${this.apiUrl}/by-subject/${subject}`)
   }
 
   getTaskById(taskId: number): Observable<LearningTask> {
-    // Korrigiert: Ruft direkt den Endpunkt auf
     return this.http.get<LearningTask>(`${this.apiUrl}/${taskId}`);
   }
 

@@ -5,7 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Auth} from '../../services/auth';
 import {first, Subscription} from 'rxjs';
-import {ActiveChildService, ChildInfo} from '../../services/active-child.service';
+import {ActiveChildService} from '../../services/active-child.service';
 import {ParentDashboardService} from '../../services/parent-dashboard.service';
 import {ChildDto} from '../../dtos/parent-dashboard.dto';
 

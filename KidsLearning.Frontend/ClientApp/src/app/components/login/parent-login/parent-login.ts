@@ -1,7 +1,5 @@
 import {Component, signal, Signal, WritableSignal} from '@angular/core';
 import {Auth} from '../../../services/auth';
-
-;
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 

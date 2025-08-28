@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KidsLearning.Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250822074109_initial")]
+    [Migration("20250828064311_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -153,34 +153,6 @@ namespace KidsLearning.Backend.Migrations
                     b.HasIndex("LearningTaskId");
 
                     b.ToTable("ChildCompletedTasks");
-                });
-
-            modelBuilder.Entity("KidsLearning.Backend.Models.LearningQuest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Difficulty")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Question")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightAnswer")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.PrimitiveCollection<string>("WrongAnswers")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LearningQuests");
                 });
 
             modelBuilder.Entity("KidsLearning.Backend.Models.LearningTask", b =>

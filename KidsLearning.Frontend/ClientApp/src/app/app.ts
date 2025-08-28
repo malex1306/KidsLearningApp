@@ -1,4 +1,3 @@
-// src/app/app.ts
 import {Component, signal} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {NavMenuComponent} from './components/nav-menu.component/nav-menu.component';

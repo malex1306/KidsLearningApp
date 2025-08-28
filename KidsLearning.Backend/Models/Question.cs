@@ -1,5 +1,3 @@
-// src/KidsLearning.Backend.Models/Questions.cs
-
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
