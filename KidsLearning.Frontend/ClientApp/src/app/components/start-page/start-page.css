@@ -1,10 +1,9 @@
 .dashboard-container {
-  flex-grow: 1;
+  flex-grow: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
-  min-height: 100vh;
+  padding: 2rem;max-width: none;
   font-family: 'Poppins', sans-serif;
   color: #333;
   border-radius: 2rem;
@@ -84,14 +83,13 @@
 
 .main-page-layout {
   display: flex;
-  justify-content: center;
+  justify-content: center;      
   align-items: flex-start;
-  gap: 20px;
+  gap: 10px;
+  width: 100%;
+  max-width: 1800px;
+  margin: 2 auto;              
   padding: 1rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  flex-wrap: wrap;
-
 }
 
 
@@ -438,35 +436,35 @@
 
 /* Tablet (von 601px bis 1024px) */
 @media (max-width: 1024px) and (min-width: 601px) {
-  /* Das Haupt-Layout in eine Spalte umwandeln */
   .main-page-layout {
     flex-direction: column;
-    align-items: center; /* Zentriert die Sidecards unter der Hauptlektionskarte */
+    transform: none; /* Transformation entfernen */
+    margin: 0 auto;  /* zentrieren */
+    gap: 1rem;
   }
 
-  /* Der Dashboard-Container (Lektionen) soll an erster Stelle stehen */
   .dashboard-container {
     order: 1;
     width: 100%;
     max-width: none;
   }
 
-  /* Die linken und rechten Sidecards sollen an zweiter und dritter Stelle stehen */
   .main-card {
     order: 2;
     width: 100%;
     height: auto;
-    margin-top: 1rem; /* Fügt einen Abstand zwischen den Karten hinzu */
+    margin-top: 1rem;
   }
 
-  /* Sicherstellen, dass die Sidecards selbst die volle Breite nutzen */
-  .left-side-container,
+  .left-sidebar-container,
   .right-sidebar-container {
-    flex-direction: column;
     width: 100%;
   }
+ .goal-header{
+  width: 100%;
+  height: auto;
+ }
 
-  /* Die Sidecards und ihre Inhalte anpassen */
   .side-card,
   .side-card-two,
   .side-card-three,
@@ -478,19 +476,23 @@
 
 /* Smartphone */
 @media (max-width: 600px) {
-  .left-sidebar {
-    display: none;
+  .main-page-layout {
+   flex-direction: column;
+    transform: none; /* Transformation entfernen */
+    margin: 0 auto;  /* zentrieren */
+    gap: 1rem;
   }
 
-  .right-sidebar {
-    display: none;
+  .left-sidebar-container,
+  .right-sidebar-container {
+    display: none; /* Sidecards ausblenden */
   }
 
   .main-card {
-    display: none;
+    display: none; /* Hauptkarte optional ausblenden */
   }
 
-
+  /* Child-Side Header */
   .child-side-header-flex {
     flex-direction: column;
     align-items: center;

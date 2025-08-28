@@ -52,9 +52,19 @@ export class ActiveChildService {
     localStorage.setItem('activeChild', JSON.stringify(childInfo));
   }
 
-  updateAvatar(childInfo: ChildInfo): void {
-    this.activeChildSignal.set(childInfo);
-    localStorage.setItem('activeChild', JSON.stringify(childInfo));
+  /**
+   * Aktualisiert spezifische Informationen des aktiven Kindes.
+   * @param updatedInfo Ein Objekt mit den zu ändernden Eigenschaften.
+   */
+  updateChildInfo(updatedInfo: Partial<ChildInfo>): void {
+    this.activeChildSignal.update(child => {
+      if (child) {
+        const updatedChild = {...child, ...updatedInfo};
+        localStorage.setItem('activeChild', JSON.stringify(updatedChild));
+        return updatedChild;
+      }
+      return child;
+    });
   }
 
   clearActiveChild(): void {
