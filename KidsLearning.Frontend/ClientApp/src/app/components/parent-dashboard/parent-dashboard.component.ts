@@ -21,6 +21,8 @@ export class ParentDashboardComponent implements OnInit {
   showAddChildForm = false;
   showEditChildForm = false;
   editingChild: ChildDto | null = null;
+  minDate: string = '';
+  maxDate: string = '';
   message = '';
   availableAvatars: string[] = [
     'assets/images/bat.png',
@@ -57,6 +59,7 @@ export class ParentDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.setDateLimits();
     this.loadDashboardData();
   }
 
@@ -86,7 +89,8 @@ export class ParentDashboardComponent implements OnInit {
           this.loadDashboardData();
         },
         error: (err: any) => {
-          this.showMessage('Fehler beim Hinzufügen des Kindes.', 5000);
+          const errorMessage = err?.error?.message || 'Fehler beim Hinzufügen des Kindes.';
+          this.showMessage(errorMessage, 5000);
           console.error(err);
         }
       });
@@ -127,7 +131,8 @@ export class ParentDashboardComponent implements OnInit {
           this.editingChild = null;
         },
         error: (err: any) => {
-          this.showMessage('Fehler beim Bearbeiten des Kindes.', 5000);
+          const errorMessage = err?.error?.message || 'Fehler beim Hinzufügen des Kindes.';
+          this.showMessage(errorMessage, 5000);
           console.error(err);
         }
       });
@@ -149,5 +154,14 @@ export class ParentDashboardComponent implements OnInit {
     setTimeout(() => {
       this.message = '';
     }, duration);
+  }
+  private setDateLimits(): void {
+    const today = new Date();
+
+    const min = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+    const max = new Date(today.getFullYear() - 3, today.getMonth(), today.getDate());
+
+    this.minDate = min.toISOString().split('T')[0];
+    this.maxDate = max.toISOString().split('T')[0];
   }
 }
