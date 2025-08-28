@@ -14,7 +14,7 @@
 }
 
 .task-card.glass-card {
-  background: #98f5e1;
+  background: linear-gradient(to top, #ffb4a2, #ffccb7);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.3);

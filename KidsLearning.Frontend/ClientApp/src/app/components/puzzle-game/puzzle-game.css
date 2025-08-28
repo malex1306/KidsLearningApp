@@ -115,7 +115,7 @@
 }
 
 .glass-card {
-  background: #cdb4db;
+  background: linear-gradient(to top, #ffcde6, #bfe9f7);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.3);

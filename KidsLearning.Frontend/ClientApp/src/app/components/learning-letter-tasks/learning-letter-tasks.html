@@ -1,142 +1,134 @@
 @if (task) {
-  <div class="task-detail-container">
+<div class="task-detail-container">
 
-    @if (isSpellingTask && !isCompleted && !examfailed) {
-      <div class="quiz-area spelling-quiz">
-        <div class="task-card glass-card image-card">
-          <div class="card-content">
+  @if (isSpellingTask && !isCompleted && !examfailed) {
+  <div class="quiz-area spelling-quiz">
+    <div class="task-card glass-card image-card">
+      <div class="card-content">
 
-            <h2 class="question-title">Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}</h2>
-            <img [src]="task.questions[currentQuestionIndex].imageUrl || 'assets/questImg/cloud.png'" alt="Katze Bild"
-                 class="spelling-image">
-            @if (exam) {
-              <div class="exam-timer">
-                Zeit übrig: {{ timerDisplay }}
-              </div>
-            }
-          </div>
+        <h2 class="question-title">Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}</h2>
+        <img [src]="task.questions[currentQuestionIndex].imageUrl || 'assets/questImg/cloud.png'" alt="Katze Bild"
+          class="spelling-image">
+        @if (exam) {
+        <div class="exam-timer">
+          Zeit übrig: {{ timerDisplay }}
         </div>
-
-        <div class="word-display-area">
-          @for (letter of task.questions[currentQuestionIndex].correctAnswer.split(''); track $index) {
-            <span class="letter-placeholder">
-                        {{ spelledWord[$index] || '_' }}
-                    </span>
-          }
-        </div>
-
-        @if (answerStatus) {
-          <div class="status-message-container">
-            <p
-              [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">{{ statusMessage }}</p>
-          </div>
-        }
-
-        <div class="options-grid">
-          @for (option of task.questions[currentQuestionIndex].options; track $index) {
-            <button class="option-button letter-button"
-                    [ngClass]="{'correct-letter-button': option === lastClickedLetter && lastClickedStatus === 'correct', 'wrong-letter-button': option === lastClickedLetter && lastClickedStatus === 'wrong'}"
-                    (click)="selectLetter(option)">
-              {{ option }}
-            </button>
-          }
-        </div>
-      </div>
-    } @else if (!isCompleted) {
-      <div class="quiz-area default-quiz">
-        <div class="task-card glass-card question-card">
-          <div class="card-content">
-            <h2 class="question-title">Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}</h2>
-            <p class="question-text">{{ task.questions[currentQuestionIndex].text }}</p>
-            @if (exam) {
-              <div class="exam-timer">
-                Zeit übrig: {{ timerDisplay }}
-              </div>
-            }
-          </div>
-        </div>
-
-        <div class="options-grid-two" [class.disabled]="isWaitingForNext">
-          @for (option of task.questions[currentQuestionIndex].options; track option) {
-            <button class="option-button-two"
-                    [ngClass]="{'correct-answer': answerStatus === 'correct' && option === task.questions[currentQuestionIndex].correctAnswer, 'wrong-answer': answerStatus === 'wrong' && option !== task.questions[currentQuestionIndex].correctAnswer}"
-                    (click)="selectAnswer(option)">
-              {{ option }}
-            </button>
-          }
-        </div>
-
-      </div>
-    }
-
-    @if (isGapFillTask && !isCompleted && !examfailed) {
-      <div class="quiz-area gap-fill-quiz">
-
-
-        <input type="text"
-               [(ngModel)]="typedAnswer"
-               placeholder="Antwort hier eingeben"
-               class="answer-input"/>
-
-        <button class="fun-button" (click)="checkTypedAnswer()">Überprüfen</button>
-
-
-      </div>
-
-    }
-
-    @if (isCompleted) {
-      <div class="completion-message-card glass-card">
-        <div class="card-content">
-          <h2>Aufgabe abgeschlossen! 🎉</h2>
-          <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>
-          <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">Zurück zu den Aufgaben</a>
-        </div>
-      </div>
-    }
-
-    @if (!(isCompleted)) {
-      <div class="navigation-buttons">
-        @if (currentQuestionIndex > 0) {
-          <button class="fun-button"
-                  (click)="goToPreviousQuestion()">
-            Zurück
-          </button>
-        }
-
-        @if (currentQuestionIndex < task.questions.length - 1) {
-          <button class="fun-button"
-                  (click)="goToNextQuestion()"
-          >
-            Weiter
-          </button>
-        }
-
-        @if (currentQuestionIndex === task.questions.length - 1) {
-          <button class="fun-button"
-                  (click)="onFinishTask()">
-            Beenden
-          </button>
         }
       </div>
-    }
+    </div>
+
+    <div class="word-display-area">
+      @for (letter of task.questions[currentQuestionIndex].correctAnswer.split(''); track $index) {
+      <span class="letter-placeholder">
+        {{ spelledWord[$index] || '_' }}
+      </span>
+      }
+    </div>
+
     @if (answerStatus) {
-      <div class="status-message-container">
-        <p
-          [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">{{ statusMessage }}</p>
-      </div>
+    <div class="status-message-container">
+      <p [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">{{
+        statusMessage }}</p>
+    </div>
     }
-    @if (examfailed) {
-      <div class="completion-message-card glass-card">
-        <div class="card-content">
-          <h2>Aufgabe gescheitert 💥</h2>
-          <p>Versuchs nochmal!</p>
-          <a [routerLink]="['/tasks', task!.subject, 'child', childId]" class="back-button">
-            Zurück zu den Aufgaben
-          </a>
+
+    <div class="options-grid">
+      @for (option of task.questions[currentQuestionIndex].options; track $index) {
+      <button class="option-button letter-button"
+        [ngClass]="{'correct-letter-button': option === lastClickedLetter && lastClickedStatus === 'correct', 'wrong-letter-button': option === lastClickedLetter && lastClickedStatus === 'wrong'}"
+        (click)="selectLetter(option)">
+        {{ option }}
+      </button>
+      }
+    </div>
+  </div>
+  } @else if (!isCompleted) {
+  <div class="quiz-area default-quiz">
+    <div class="task-card glass-card question-card">
+      <div class="card-content">
+        <h2 class="question-title">Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}</h2>
+        <p class="question-text">{{ task.questions[currentQuestionIndex].text }}</p>
+        @if (exam) {
+        <div class="exam-timer">
+          Zeit übrig: {{ timerDisplay }}
         </div>
+        }
       </div>
-    }
+    </div>
+
+    <div class="options-grid-two" [class.disabled]="isWaitingForNext">
+      @for (option of task.questions[currentQuestionIndex].options; track option) {
+      <button class="option-button-two"
+        [ngClass]="{'correct-answer': answerStatus === 'correct' && option === task.questions[currentQuestionIndex].correctAnswer, 'wrong-answer': answerStatus === 'wrong' && option !== task.questions[currentQuestionIndex].correctAnswer}"
+        (click)="selectAnswer(option)">
+        {{ option }}
+      </button>
+      }
+    </div>
 
   </div>
+  }
+
+  @if (isGapFillTask && !isCompleted && !examfailed) {
+  <div class="quiz-area gap-fill-quiz">
+
+
+    <input type="text" [(ngModel)]="typedAnswer" placeholder="Antwort hier eingeben" class="answer-input" />
+
+    <button class="fun-button" (click)="checkTypedAnswer()">Überprüfen</button>
+
+
+  </div>
+
+  }
+
+  @if (isCompleted) {
+  <div class="completion-message-card glass-card">
+    <div class="card-content">
+      <h2>Aufgabe abgeschlossen! 🎉</h2>
+      <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>
+      <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">Zurück zu den Aufgaben</a>
+    </div>
+  </div>
+  }
+
+  @if (!(isCompleted)) {
+  <div class="navigation-buttons">
+    @if (currentQuestionIndex > 0) {
+    <button class="fun-button" (click)="goToPreviousQuestion()">
+      Zurück
+    </button>
+    }
+
+    @if (currentQuestionIndex < task.questions.length - 1) { <button class="fun-button" (click)="goToNextQuestion()">
+      Weiter
+      </button>
+      }
+
+      @if (currentQuestionIndex === task.questions.length - 1) {
+      <button class="fun-button" (click)="onFinishTask()">
+        Beenden
+      </button>
+      }
+  </div>
+  }
+  @if (answerStatus) {
+  <div class="status-message-container">
+    <p [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">{{ statusMessage
+      }}</p>
+  </div>
+  }
+  @if (examfailed) {
+  <div class="completion-message-card glass-card">
+    <div class="card-content">
+      <h2>Aufgabe gescheitert 💥</h2>
+      <p>Versuchs nochmal!</p>
+      <a [routerLink]="['/tasks', task!.subject, 'child', childId]" class="back-button">
+        Zurück zu den Aufgaben
+      </a>
+    </div>
+  </div>
+  }
+
+</div>
 }

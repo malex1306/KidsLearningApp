@@ -40,7 +40,7 @@
   width: 250px;
   height: 10vh;
   padding: 1rem;
-  background-color: #f7f9fc;
+  background: linear-gradient(to top, #f7f9fc, #ffffff);
   border-radius: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -55,7 +55,7 @@
   width: 250px;
   height: 40vh;
   padding: 1rem;
-  background-color: #caf0f8;
+  background: linear-gradient(to top, #f7f9fc, #ffffff);
   border-radius: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -70,7 +70,7 @@
   width: 250px;
   height: 40vh;
   padding: 1rem;
-  background-color: #caf0f8;
+  background: linear-gradient(to top, #f7f9fc, #ffffff);
   border-radius: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -260,7 +260,7 @@
 
 
 .child-card-one {
-  background: #98f5e1;
+  background: linear-gradient(to top, #ffb4a2, #ffccb7);
   border-radius: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   padding: 1rem;
@@ -275,7 +275,7 @@
 }
 
 .child-card-two {
-  background: #fbf8cc;
+  background: linear-gradient(to top, #fbf8cc, #caffbf);
   border-radius: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   padding: 1rem;
@@ -290,7 +290,7 @@
 }
 
 .child-card-three {
-  background: #cdb4db;
+ background: linear-gradient(to top, #ffcde6, #bfe9f7);
   border-radius: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   padding: 1rem;
@@ -305,7 +305,7 @@
 }
 
 .child-card-four {
-  background: #9bf6ff;
+  background: linear-gradient(to top, #9bf6ff, #ccfbf1);
   border-radius: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   padding: 1rem;
@@ -320,7 +320,7 @@
 }
 
 .child-card-five {
-  background: #caffbf;
+  background: linear-gradient(to top, #92a4f4, #b4a8e8);
   border-radius: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   padding: 1rem;
@@ -522,7 +522,7 @@
 
 .lessons-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin-top: 2rem;
 }
@@ -771,7 +771,7 @@
   width: 250px;
   height: 10vh;
   padding: 1rem;
-  background-color: #f7f9fc;
+  background: linear-gradient(to top, #f7f9fc, #ffffff);
   border-radius: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   text-align: center;

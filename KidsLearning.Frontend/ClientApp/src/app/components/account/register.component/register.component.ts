@@ -1,13 +1,12 @@
 import {Component, WritableSignal, signal} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Router, RouterLink} from '@angular/router';
-import {NgIf} from '@angular/common';
 import {Auth} from '../../../services/auth';
 
 @Component({
   selector: 'app-register.component',
   standalone: true,
-  imports: [FormsModule, NgIf, RouterLink],
+  imports: [FormsModule, RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })

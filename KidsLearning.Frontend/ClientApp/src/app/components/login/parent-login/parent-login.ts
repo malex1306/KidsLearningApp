@@ -2,12 +2,12 @@ import {Component, signal, Signal, WritableSignal} from '@angular/core';
 import {Auth} from '../../../services/auth';
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
-import {NgIf} from '@angular/common';
+
 
 @Component({
   selector: 'app-parent-login',
   standalone: true,
-  imports: [FormsModule, NgIf],
+  imports: [FormsModule],
   templateUrl: './parent-login.html',
   styleUrl: './parent-login.css'
 })
