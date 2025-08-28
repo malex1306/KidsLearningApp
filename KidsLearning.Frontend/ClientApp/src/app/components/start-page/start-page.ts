@@ -1,5 +1,3 @@
-// src/app/components/start-page/start-page.ts
-
 import {Component, OnInit, OnDestroy, computed} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterLink} from '@angular/router';
@@ -7,7 +5,7 @@ import {Subscription} from 'rxjs';
 import {Auth} from '../../services/auth';
 import {ParentDashboardService} from '../../services/parent-dashboard.service';
 import {ParentDashboardDto, ChildDto, DailyGoal} from '../../dtos/parent-dashboard.dto';
-import {ActiveChildService, ChildInfo} from '../../services/active-child.service';
+import {ActiveChildService} from '../../services/active-child.service';
 
 @Component({
   selector: 'app-start-page',
@@ -71,7 +69,7 @@ export class StartPageComponent implements OnInit, OnDestroy {
     if (subjectName.includes('Englisch')) return 'english.png';
     if (subjectName.includes('Logik')) return 'logic.png';
 
-    return 'default.png'; // Fallback
+    return 'default.png';
   }
 
 
@@ -87,7 +85,6 @@ export class StartPageComponent implements OnInit, OnDestroy {
           this.activeChildService.clearActiveChild();
         }
         this.retriggerAnimation();
-        // Triggere das GIF, wenn Daten geladen wurden und ein Kind aktiv ist
         if (this.activeChild()) {
           this.toggleDuduGif(true);
         }
@@ -99,7 +96,6 @@ export class StartPageComponent implements OnInit, OnDestroy {
   selectChild(child: ChildDto): void {
     this.activeChildService.setActiveChild(child);
     this.retriggerAnimation();
-    // Triggere das GIF bei der Auswahl eines Kindes
     this.toggleDuduGif(true);
   }
 
@@ -126,15 +122,15 @@ export class StartPageComponent implements OnInit, OnDestroy {
     if (show) {
       setTimeout(() => {
         this.showDuduGif = false;
-      }, 3000); // 5000 Millisekunden = 5 Sekunden
+      }, 3000);
     }
   }
 
   speak(text: string): void {
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'de-DE'; // Deutsch, falls du englische Lektionen hast: 'en-US'
-      speechSynthesis.cancel(); // bricht laufende Sprachausgabe ab
+      utterance.lang = 'de-DE';
+      speechSynthesis.cancel();
       speechSynthesis.speak(utterance);
     } else {
       console.warn('Text-to-Speech wird in diesem Browser nicht unterstützt.');

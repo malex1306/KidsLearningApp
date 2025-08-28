@@ -23,11 +23,9 @@ builder.Services.AddControllers()
 
 builder.Services.AddOpenApi();
 
-// Verbindung zur Datenbank
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Konfiguration von ASP.NET Core Identity
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<AppDbContext>();
 
@@ -39,7 +37,6 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod());
 });
 
-// Konfiguration der JWT-Authentifizierung
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -79,13 +76,9 @@ using (var scope = app.Services.CreateScope())
     EnsureDatabase.Seed(dbContext, userManager);
 }
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) app.MapOpenApi();
 
-// app.UseHttpsRedirection();
 app.UseCors("AllowSpecificOrigin");
-// Die Middleware für Authentifizierung und Autorisierung in der richtigen Reihenfolge
-// Authentication muss vor Authorization kommen!
 app.UseAuthentication();
 app.UseAuthorization();
 

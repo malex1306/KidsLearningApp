@@ -27,6 +27,6 @@ public class InventoryController : ControllerBase
         var allAvatars = await _context.Avatars.ToListAsync();
         var unlockedAvatars = allAvatars.Where(a => child.StarCount >= a.UnlockStarRequirement).ToList();
 
-        return Ok(unlockedAvatars); // Gibt die Liste der Avatar-Modelle zurück
+        return Ok(unlockedAvatars);
     }
 }

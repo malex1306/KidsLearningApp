@@ -18,7 +18,7 @@ public class TasksController : ControllerBase
         _context = context;
     }
 
-    [HttpGet("by-subject/{subject}")] // Route eindeutig machen
+    [HttpGet("by-subject/{subject}")]
     public async Task<ActionResult<List<LearningTask>>> GetTasksBySubject(string subject)
     {
         if (string.IsNullOrWhiteSpace(subject)) return BadRequest("Fachname muss angegeben werden.");
@@ -45,7 +45,7 @@ public class TasksController : ControllerBase
     }
 
     [HttpGet("all-questions")]
-    [AllowAnonymous] // <-- erlaubt Zugriff ohne Login
+    [AllowAnonymous]
     public async Task<ActionResult<List<Questions>>> GetAllQuestions()
     {
         var questions = await _context.Questions.ToListAsync();

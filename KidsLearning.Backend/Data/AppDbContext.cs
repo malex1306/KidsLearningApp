@@ -11,7 +11,6 @@ public class AppDbContext : IdentityDbContext
     {
     }
 
-    public DbSet<LearningQuest> LearningQuests { get; set; } = null!;
     public DbSet<Child> Children { get; set; } = null!;
     public DbSet<SubjectProgress> SubjectProgresses { get; set; } = null!;
     public DbSet<LearningTask> LearningTasks { get; set; } = null!;
@@ -27,8 +26,8 @@ public class AppDbContext : IdentityDbContext
         modelBuilder.Entity<Questions>()
             .Property(q => q.Options)
             .HasConversion(
-                v => string.Join(';', v), // In einen String umwandeln beim Speichern
-                v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList() // In eine Liste umwandeln beim Laden
+                v => string.Join(';', v),
+                v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList()
             );
 
         modelBuilder.Entity<LearningTask>()

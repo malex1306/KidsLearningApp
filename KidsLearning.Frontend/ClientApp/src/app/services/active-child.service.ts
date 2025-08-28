@@ -1,5 +1,3 @@
-// src/app/services/active-child.service.ts
-
 import {Injectable, signal, Signal} from '@angular/core';
 import {ChildDto} from '../dtos/parent-dashboard.dto';
 
@@ -28,7 +26,6 @@ export class ActiveChildService {
   constructor() {
     const storedChild = localStorage.getItem('activeChild');
     if (storedChild) {
-      // Hinzufügen der Geburtsdatums-Wiederherstellung aus localStorage
       const parsedChild = JSON.parse(storedChild);
       if (parsedChild.dateOfBirth) {
         parsedChild.dateOfBirth = new Date(parsedChild.dateOfBirth);
@@ -47,7 +44,7 @@ export class ActiveChildService {
       totalStarsEarned: childDto.starCount,
       badges: childDto.badges,
       unlockedAvatars: childDto.unlockedAvatars,
-      dateOfBirth: childDto.dateOfBirth, // Fügen Sie hier die Eigenschaft hinzu
+      dateOfBirth: childDto.dateOfBirth,
       difficulty: childDto.difficulty,
       progress: childDto.progress
     };

@@ -1,5 +1,3 @@
-// src/app/components/learning-tasks/learning-tasks.component.ts
-
 import {Component, OnInit} from '@angular/core';
 import {TasksService} from '../../services/tasks.service';
 import {LearningTask} from '../../models/learning-task';
