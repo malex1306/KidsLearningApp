@@ -67,22 +67,6 @@ namespace KidsLearning.Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LearningQuests",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Question = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RightAnswer = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WrongAnswers = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Difficulty = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LearningQuests", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "LearningTasks",
                 columns: table => new
                 {
@@ -422,9 +406,6 @@ namespace KidsLearning.Backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "ChildCompletedTasks");
-
-            migrationBuilder.DropTable(
-                name: "LearningQuests");
 
             migrationBuilder.DropTable(
                 name: "Questions");

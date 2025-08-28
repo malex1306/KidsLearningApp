@@ -1,4 +1,3 @@
-// src/app/components/account/register/register.component.ts
 import {Component, WritableSignal, signal} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Router, RouterLink} from '@angular/router';
@@ -30,7 +29,7 @@ export class RegisterComponent {
       return;
     }
 
-    if (!this.email || !this.password || !this.userName) { // <-- userName-Prüfung
+    if (!this.email || !this.password || !this.userName) {
       this.errorMessage.set('E-Mail, Benutzername und Passwort sind erforderlich.');
       return;
     }

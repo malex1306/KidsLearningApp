@@ -14,13 +14,11 @@ public class Child
 
     public ICollection<SubjectProgress> Progress { get; set; } = new List<SubjectProgress>();
 
-    // Belohnungssystem Eigenschaften
     public int StarCount { get; set; } = 0;
     public int DailyLearningMinutes { get; set; } = 0;
     public DateTime? LastLearningDay { get; set; }
     public int ConsecutiveLearningDays { get; set; } = 0;
 
-    // Navigationseigenschaften für Belohnungen
     public ICollection<Badge> Badges { get; set; } = new List<Badge>();
 
     public string Difficulty { get; set; } = string.Empty;

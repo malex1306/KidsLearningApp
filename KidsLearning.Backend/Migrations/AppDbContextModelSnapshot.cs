@@ -152,34 +152,6 @@ namespace KidsLearning.Backend.Migrations
                     b.ToTable("ChildCompletedTasks");
                 });
 
-            modelBuilder.Entity("KidsLearning.Backend.Models.LearningQuest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Difficulty")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Question")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightAnswer")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.PrimitiveCollection<string>("WrongAnswers")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LearningQuests");
-                });
-
             modelBuilder.Entity("KidsLearning.Backend.Models.LearningTask", b =>
                 {
                     b.Property<int>("Id")

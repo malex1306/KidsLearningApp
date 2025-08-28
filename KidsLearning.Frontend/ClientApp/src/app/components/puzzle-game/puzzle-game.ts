@@ -16,7 +16,7 @@ interface BoardField {
   templateUrl: './puzzle-game.html',
   styleUrl: './puzzle-game.css',
 })
-export class PuzzleGame implements OnInit { // Stellen Sie sicher, dass der Klassenname 'PuzzleGameComponent' ist.
+export class PuzzleGame implements OnInit {
   imageUrl = 'assets/images/boy.png';
   rows = 3;
   cols = 3;
@@ -72,10 +72,8 @@ export class PuzzleGame implements OnInit { // Stellen Sie sicher, dass der Klas
     const sourceField = this.boardFields.find(field => field.tile?.id === this.draggedTile!.id);
 
     if (sourceField) {
-// Wenn von einem Feld gezogen wird
       sourceField.tile = null;
     } else {
-// Wenn von den verfügbaren Kacheln gezogen wird
       this.availableTiles = this.availableTiles.filter(t => t.id !== this.draggedTile!.id);
     }
 

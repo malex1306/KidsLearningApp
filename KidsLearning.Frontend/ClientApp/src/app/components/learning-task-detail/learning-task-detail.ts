@@ -26,8 +26,8 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
   childId: number | null = null;
   selectedAnswer: string | null = null;
   answeredQuestions: boolean[] = [];
-  exam: boolean = false; // from route or service
-  timerValue: number = 0; // in seconds
+  exam: boolean = false;
+  timerValue: number = 0;
   timerInterval: any = null;
 
   examfailed: boolean = false;
@@ -66,7 +66,7 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
         this.navigationService.setTask(this.task);
         this.answeredQuestions = new Array(this.task.questions.length).fill(false);
         if (this.exam) {
-          this.startTimer(60); // e.g., 5 minutes
+          this.startTimer(300); // Test Zeit in Sekunden können hier geändert werden! ✅✅✅
         }
       });
     }

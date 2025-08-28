@@ -56,7 +56,6 @@ public class AccountController : ControllerBase
         if (!result.Succeeded)
             return Unauthorized(new { Message = "Invalid login attempt." });
 
-        // JWT erstellen
         var token = GenerateJwtToken(user);
 
         return Ok(new

@@ -1,5 +1,3 @@
-// src/app/dtos/parent-dashboard.dto.ts
-
 export interface SubjectProgressDto {
   subjectName: string;
   progressPercentage: number;

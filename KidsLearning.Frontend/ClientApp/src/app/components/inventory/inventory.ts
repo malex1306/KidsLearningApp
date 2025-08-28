@@ -1,5 +1,3 @@
-// src/app/components/inventory/inventory.component.ts
-
 import {Component, OnInit, computed} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';

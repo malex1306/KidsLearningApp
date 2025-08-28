@@ -34,6 +34,6 @@ export const routes: Routes = [
   },
   {path: 'logic-task/:subject/:id/child/:childId/:exam', component: LogicTask, canActivate: [authGuard]},
   {path: 'puzzle-game/:subject/:id/child/:childId', component: PuzzleGame, canActivate: [authGuard]},
-  // Fallback
+
   {path: '**', redirectTo: ''}
 ];
