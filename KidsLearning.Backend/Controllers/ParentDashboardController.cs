@@ -132,24 +132,33 @@ public class ParentDashboardController : ControllerBase
         var parentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (parentId == null) return Unauthorized(new { Message = "Parent ID claim missing." });
 
-        Console.WriteLine($"AddChild: ParentId = {parentId}, ChildName = {addChildDto.Name}");
+        if (string.IsNullOrWhiteSpace(addChildDto.Name) || addChildDto.Name.Length > 50)
+        {
+            return BadRequest(new { Message = "Der Name ist erforderlich und darf maximal 50 Zeichen haben." });
+        }
 
         var newChild = new Child
         {
-            Name = addChildDto.Name,
-            AvatarUrl = addChildDto.AvatarUrl ?? "/assets/images/smarty-bear.png",
+            Name = addChildDto.Name.Trim(),
+            AvatarUrl = string.IsNullOrWhiteSpace(addChildDto.AvatarUrl)
+                ? "/assets/images/smarty-bear.png"
+                : addChildDto.AvatarUrl,
             ParentId = parentId,
             DateOfBirth = addChildDto.DateOfBirth,
             Difficulty = addChildDto.Difficulty
         };
 
+        if (newChild.Age < 3 || newChild.Age > 18)
+        {
+            return BadRequest(new { Message = "Das Kind muss zwischen 3 und 18 Jahre alt sein." });
+        }
+
         _context.Children.Add(newChild);
         await _context.SaveChangesAsync();
-        Console.WriteLine(
-            $"Neues Kind gespeichert: Id={newChild.Id}, Name={newChild.Name}, ParentId={newChild.ParentId}");
 
         return Ok(new { Message = $"Kind '{newChild.Name}' wurde erfolgreich hinzugefügt." });
     }
+
 
     [HttpDelete("remove-child/{childId}")]
     public async Task<IActionResult> RemoveChild(int childId)
@@ -175,10 +184,22 @@ public class ParentDashboardController : ControllerBase
         var child = await _context.Children.FirstOrDefaultAsync(c => c.Id == childId && c.ParentId == parentId);
         if (child == null) return NotFound(new { Message = "Kind nicht gefunden oder nicht zugeordnet." });
 
-        child.Name = editChildDto.Name;
+        if (string.IsNullOrWhiteSpace(editChildDto.Name) || editChildDto.Name.Length > 50)
+        {
+            return BadRequest(new { Message = "Der Name ist erforderlich und darf maximal 50 Zeichen haben." });
+        }
+
+        child.Name = editChildDto.Name.Trim();
         child.DateOfBirth = editChildDto.DateOfBirth;
-        child.AvatarUrl = editChildDto.AvatarUrl ?? "/assets/images/smarty-bear.png";
+        child.AvatarUrl = string.IsNullOrWhiteSpace(editChildDto.AvatarUrl)
+            ? "/assets/images/smarty-bear.png"
+            : editChildDto.AvatarUrl;
         child.Difficulty = editChildDto.Difficulty;
+
+        if (child.Age < 3 || child.Age > 18)
+        {
+            return BadRequest(new { Message = "Das Kind muss zwischen 3 und 18 Jahre alt sein." });
+        }
 
         _context.Children.Update(child);
         await _context.SaveChangesAsync();

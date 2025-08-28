@@ -193,7 +193,7 @@ namespace KidsLearning.Backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ParentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -297,7 +297,8 @@ namespace KidsLearning.Backend.Migrations
                     SubjectName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProgressPercentage = table.Column<int>(type: "int", nullable: false),
                     LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ChildId = table.Column<int>(type: "int", nullable: false)
+                    ChildId = table.Column<int>(type: "int", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

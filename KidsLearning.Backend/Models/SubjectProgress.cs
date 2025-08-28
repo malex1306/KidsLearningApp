@@ -10,4 +10,5 @@ public class SubjectProgress
 
     public int ChildId { get; set; }
     public Child Child { get; set; } = new();
+    public bool IsCompleted { get; set; }
 }
