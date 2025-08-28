@@ -1,187 +1,184 @@
 @if (task) {
-  <div class="task-detail-container">
+<div class="task-detail-container">
 
-    @if (!isCompleted && task.title === 'Englische Bilder' && !examfailed) {
-      <div class="quiz-area default-quiz">
-        <div class="task-card glass-card image-card">
-          <h2 class="question-title">
-            Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}
-          </h2>
-          <p class="question-text">{{ task.questions[currentQuestionIndex].text }}</p>
-          <img [src]="task.questions[currentQuestionIndex].imageUrl || 'assets/questImg/cloud.png'"
-               alt="Frage Bild" class="default-image">
-          @if (exam) {
-            <div class="exam-timer">
-              Zeit übrig: {{ timerDisplay }}
-            </div>
-          }
-        </div>
+  @if (!isCompleted && task.title === 'Englische Bilder' && !examfailed) {
+  <div class="quiz-area default-quiz">
+    <div class="task-card glass-card image-card">
+      <h2 class="question-title">
+        Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}
+      </h2>
+      <p class="question-text">{{ task.questions[currentQuestionIndex].text }}</p>
+      <img [src]="task.questions[currentQuestionIndex].imageUrl || 'assets/questImg/cloud.png'" alt="Frage Bild"
+        class="default-image">
+      @if (exam) {
+      <div class="exam-timer">
+        Zeit übrig: {{ timerDisplay }}
+      </div>
+      }
+    </div>
 
-        <div class="options-grid" [class.disabled]="isWaitingForNext">
-          @for (option of task.questions[currentQuestionIndex].options; track option) {
-            <button class="option-button"
-                    [ngClass]="{
+    <div class="options-grid" [class.disabled]="isWaitingForNext">
+      @for (option of task.questions[currentQuestionIndex].options; track option) {
+      <button class="option-button" [ngClass]="{
                       'correct-answer': answerStatus === 'correct' && option === task.questions[currentQuestionIndex].correctAnswer,
                       'wrong-answer': answerStatus === 'wrong' && option !== task.questions[currentQuestionIndex].correctAnswer
-                    }"
-                    (click)="selectAnswer(option)">
-              {{ option }}
-            </button>
-          }
-        </div>
-
-        <div class="navigation-buttons">
-          @if (currentQuestionIndex === 0) {
-            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Zurück </a>
-          } @else {
-            <button class="fun-button" (click)="prevQuestion()"> Zurück</button>
-          }
-          @if (currentQuestionIndex === task.questions.length - 1) {
-            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Beenden</a>
-          } @else {
-            <button class="fun-button" (click)="nextQuestion()"> Weiter</button>
-          }
-        </div>
-      </div>
-      @if (answerStatus) {
-        <div class="status-message-container">
-          <p [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">
-            {{ statusMessage }}
-          </p>
-        </div>
+                    }" (click)="selectAnswer(option)">
+        {{ option }}
+      </button>
       }
-    } @else if (!isCompleted && task.title === 'Deutsch/Englisch verbinden' && !examfailed) {
-      <div class="quiz-area default-quiz">
-        <div class="task-card glass-card question-card">
-          <div class="card-content">
-            <h2 class="question-title">Verbinde die Wörter</h2>
-            <p class="question-text">Klicke ein deutsches und das passende englische Wort.</p>
-          </div>
+    </div>
 
-          <div class="match-box">
-            <div class="match-column">
-              @for (de of shuffledGerman; track de) {
-                @if (!isGermanConnected(de)) {
-                  <button class="option-button"
-                          [class.selected]="selectedGerman === de"
-                          [class.correct-flash]="flashGerman === de && flashStatus === 'correct'"
-                          [class.wrong-flash]="flashGerman === de && flashStatus === 'wrong'"
-                          (click)="selectGerman(de)">
-                    {{ de }}
-                  </button>
-                }
-              }
-            </div>
-            <div class="match-column">
-              @for (en of shuffledEnglish; track en) {
-                @if (!isEnglishConnected(en)) {
-                  <button class="option-button"
-                          [class.selected]="selectedEnglish === en"
-                          [class.correct-flash]="flashEnglish === en && flashStatus === 'correct'"
-                          [class.wrong-flash]="flashEnglish === en && flashStatus === 'wrong'"
-                          (click)="selectEnglish(en)">
-                    {{ en }}
-                  </button>
-                }
-              }
-            </div>
-          </div>
+    <div class="navigation-buttons">
+      @if (currentQuestionIndex === 0) {
+      <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Zurück </a>
+      } @else {
+      <button class="fun-button" (click)="prevQuestion()"> Zurück</button>
+      }
+      @if (currentQuestionIndex === task.questions.length - 1) {
+      <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Beenden</a>
+      } @else {
+      <button class="fun-button" (click)="nextQuestion()"> Weiter</button>
+      }
+    </div>
+  </div>
+  @if (answerStatus) {
+  <div class="status-message-container">
+    <p [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">
+      {{ statusMessage }}
+    </p>
+  </div>
+  }
+  } @else if (!isCompleted && task.title === 'Deutsch/Englisch verbinden' && !examfailed) {
+  <div class="quiz-area default-quiz">
+    <div class="task-card glass-card question-card">
+      <div class="card-content">
+        <h2 class="question-title">Verbinde die Wörter</h2>
+        <p class="question-text">Klicke ein deutsches und das passende englische Wort.</p>
+        @if (exam) {
+        <div class="exam-timer">
+          Zeit übrig: {{ timerDisplay }}
         </div>
-        <div class="navigation-buttons">
-          @if (currentBatchIndex === 0) {
-            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Zurück </a>
-          } @else {
-            <button class="fun-button" (click)="prevBatch()"> Zurück</button>
-          }
-          <span class="batch-info">Batch {{ currentBatchIndex + 1 }}
-            von {{ Math.ceil(task.questions.length / batchSize) }} </span>
-          @if (currentBatchIndex >= Math.ceil(task.questions.length / batchSize) - 1) {
-            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Beenden </a>
-          } @else {
-            <button class="fun-button" (click)="nextBatch()"> Weiter</button>
-          }
-        </div>
-      </div>
-    } @else if (!isCompleted && task.title === 'Finde den Imposter' && !examfailed) {
-      <div class="quiz-area default-quiz">
-        <div class="task-card glass-card question-card" style="text-align: center; margin: 1rem 0;">
-          <h2 class="question-title">
-            Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}
-          </h2>
-          <p class="question-text">{{ task.questions[currentQuestionIndex].text }}</p>
-          @if (exam) {
-            <div class="exam-timer">
-              Zeit übrig: {{ timerDisplay }}
-            </div>
-          }
-        </div>
-
-        <div class="options-grid" [class.disabled]="isWaitingForNext">
-          @for (option of task.questions[currentQuestionIndex].options; track option) {
-            <button class="option-button"
-                    [ngClass]="{
-                  'correct-answer': answerStatus === 'correct' && option === task.questions[currentQuestionIndex].correctAnswer,
-                  'wrong-answer': answerStatus === 'wrong' && option !== task.questions[currentQuestionIndex].correctAnswer
-                }"
-                    (click)="selectAnswer(option)">
-              {{ option }}
-            </button>
-          }
-        </div>
-
-
-        <div class="navigation-buttons">
-          @if (currentQuestionIndex === 0) {
-            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button">
-              Zurück
-            </a>
-          } @else {
-            <button class="fun-button" (click)="prevQuestion()"> Zurück</button>
-          }
-
-          @if (currentQuestionIndex === task.questions.length - 1) {
-            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button">
-              Beenden
-            </a>
-          } @else {
-            <button class="fun-button" (click)="nextQuestion()"> Nächste</button>
-          }
-        </div>
-        @if (answerStatus) {
-          <div class="status-message-container">
-            <p [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">
-              {{ statusMessage }}
-            </p>
-          </div>
         }
       </div>
-    }
 
-    @if (isCompleted) {
-      <div class="completion-message-card glass-card">
-        <div class="card-content">
-          <h2>
-            {{ task.title === 'Deutsch/Englisch verbinden' ? 'Alle Paare gefunden! 🎉' : 'Aufgabe abgeschlossen! 🎉' }}
-          </h2>
-          @if (task.title !== 'Deutsch/Englisch verbinden') {
-            <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>
+      <div class="match-box">
+        <div class="match-column">
+          @for (de of shuffledGerman; track de) {
+          @if (!isGermanConnected(de)) {
+          <button class="option-button" [class.selected]="selectedGerman === de"
+            [class.correct-flash]="flashGerman === de && flashStatus === 'correct'"
+            [class.wrong-flash]="flashGerman === de && flashStatus === 'wrong'" (click)="selectGerman(de)">
+            {{ de }}
+          </button>
           }
-          <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">
-            Weiter zur nächsten Seite
-          </a>
+          }
+        </div>
+        <div class="match-column">
+          @for (en of shuffledEnglish; track en) {
+          @if (!isEnglishConnected(en)) {
+          <button class="option-button" [class.selected]="selectedEnglish === en"
+            [class.correct-flash]="flashEnglish === en && flashStatus === 'correct'"
+            [class.wrong-flash]="flashEnglish === en && flashStatus === 'wrong'" (click)="selectEnglish(en)">
+            {{ en }}
+          </button>
+          }
+          }
         </div>
       </div>
-    }
-    @if (examfailed) {
-      <div class="completion-message-card glass-card">
-        <div class="card-content">
-          <h2>Aufgabe gescheitert 💥</h2>
-          <p>Versuchs nochmal!</p>
-          <a [routerLink]="['/tasks', task!.subject, 'child', childId]" class="back-button">
-            Zurück zu den Aufgaben
-          </a>
-        </div>
+    </div>
+    <div class="navigation-buttons">
+      @if (currentBatchIndex === 0) {
+      <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Zurück </a>
+      } @else {
+      <button class="fun-button" (click)="prevBatch()"> Zurück</button>
+      }
+      <span class="batch-info">Batch {{ currentBatchIndex + 1 }}
+        von {{ Math.ceil(task.questions.length / batchSize) }} </span>
+      @if (currentBatchIndex >= Math.ceil(task.questions.length / batchSize) - 1) {
+      <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Beenden </a>
+      } @else {
+      <button class="fun-button" (click)="nextBatch()"> Weiter</button>
+      }
+    </div>
+  </div>
+  } @else if (!isCompleted && task.title === 'Finde den Imposter' && !examfailed) {
+  <div class="quiz-area default-quiz">
+    <div class="task-card glass-card question-card" style="text-align: center; margin: 1rem 0;">
+      <h2 class="question-title">
+        Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}
+      </h2>
+      <p class="question-text">{{ task.questions[currentQuestionIndex].text }}</p>
+      @if (exam) {
+      <div class="exam-timer">
+        Zeit übrig: {{ timerDisplay }}
       </div>
+      }
+    </div>
+
+    <div class="options-grid" [class.disabled]="isWaitingForNext">
+      @for (option of task.questions[currentQuestionIndex].options; track option) {
+      <button class="option-button" [ngClass]="{
+                  'correct-answer': answerStatus === 'correct' && option === task.questions[currentQuestionIndex].correctAnswer,
+                  'wrong-answer': answerStatus === 'wrong' && option !== task.questions[currentQuestionIndex].correctAnswer
+                }" (click)="selectAnswer(option)">
+        {{ option }}
+      </button>
+      }
+    </div>
+
+
+    <div class="navigation-buttons">
+      @if (currentQuestionIndex === 0) {
+      <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button">
+        Zurück
+      </a>
+      } @else {
+      <button class="fun-button" (click)="prevQuestion()"> Zurück</button>
+      }
+
+      @if (currentQuestionIndex === task.questions.length - 1) {
+      <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button">
+        Beenden
+      </a>
+      } @else {
+      <button class="fun-button" (click)="nextQuestion()"> Nächste</button>
+      }
+    </div>
+    @if (answerStatus) {
+    <div class="status-message-container">
+      <p [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">
+        {{ statusMessage }}
+      </p>
+    </div>
     }
   </div>
+  }
+
+  @if (isCompleted) {
+  <div class="completion-message-card glass-card">
+    <div class="card-content">
+      <h2>
+        {{ task.title === 'Deutsch/Englisch verbinden' ? 'Alle Paare gefunden! 🎉' : 'Aufgabe abgeschlossen! 🎉' }}
+      </h2>
+      @if (task.title !== 'Deutsch/Englisch verbinden') {
+      <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>
+      }
+      <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">
+        Weiter zur nächsten Seite
+      </a>
+    </div>
+  </div>
+  }
+  @if (examfailed) {
+  <div class="completion-message-card glass-card">
+    <div class="card-content">
+      <h2>Aufgabe gescheitert 💥</h2>
+      <p>Versuchs nochmal!</p>
+      <a [routerLink]="['/tasks', task!.subject, 'child', childId]" class="back-button">
+        Zurück zu den Aufgaben
+      </a>
+    </div>
+  </div>
+  }
+</div>
 }

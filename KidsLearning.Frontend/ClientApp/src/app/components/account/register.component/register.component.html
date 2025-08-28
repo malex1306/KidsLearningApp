@@ -3,9 +3,11 @@
     <div class="card-body">
       <h2 class="card-title text-center">Registrieren</h2>
 
-      <div *ngIf="errorMessage()" class="alert-message">
+      @if(errorMessage()){
+      <div class="alert-message">
         {{ errorMessage() }}
       </div>
+    }
 
       <form (ngSubmit)="onRegister()">
         <div class="form-group">
@@ -26,7 +28,7 @@
         <div class="form-group">
           <label for="confirmPassword" class="form-label">Passwort bestätigen</label>
           <input type="password" class="form-input" id="confirmPassword" [(ngModel)]="confirmPassword"
-                 name="confirmPassword" required>
+            name="confirmPassword" required>
         </div>
 
         <button type="submit" class="fun-button">Registrieren</button>
