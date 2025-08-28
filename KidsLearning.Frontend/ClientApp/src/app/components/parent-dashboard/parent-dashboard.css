@@ -229,7 +229,7 @@
   gap: 60px;
 }
 
-/* Style for all select boxes inside .form-group */
+
 .form-group select {
   width: 100%;
   padding: 10px;
@@ -238,14 +238,14 @@
   background-color: #fff;
   font-size: 14px;
   font-family: inherit;
-  appearance: none; /* removes the default browser arrow */
+  appearance: none; 
   -webkit-appearance: none;
   -moz-appearance: none;
   cursor: pointer;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Add a custom arrow using background image */
+
 .form-group select {
   background-image: url("data:image/svg+xml;utf8,<svg fill='%23333' height='16' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M4 6l4 4 4-4z'/></svg>");
   background-repeat: no-repeat;
@@ -253,7 +253,7 @@
   background-size: 16px;
 }
 
-/* Hover / focus styles */
+
 .form-group select:hover {
   border-color: #007bff;
 }
@@ -264,7 +264,7 @@
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
 }
 
-/* Optional: style the options */
+
 .form-group select option {
   padding: 10px;
 }

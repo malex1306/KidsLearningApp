@@ -16,9 +16,8 @@ import {ParentDashboardService} from '../../services/parent-dashboard.service';
 export class InventoryComponent implements OnInit {
   activeChild = computed(() => this.activeChildService.activeChild());
   
-  // ✅ Diese Zeile wurde geändert: Die Avatare werden jetzt reaktiv aus dem Service bezogen.
+  // hier
   unlockedAvatars = computed(() => this.activeChild()?.unlockedAvatars ?? []);
-  // ✅ Diese Zeile wurde geändert: Die Badges werden ebenfalls reaktiv aus dem Service bezogen.
   badges = computed(() => this.activeChild()?.badges ?? []);
   
   selectedAvatar: AvatarDto | null = null;
@@ -35,7 +34,6 @@ export class InventoryComponent implements OnInit {
   ngOnInit(): void {
     const child = this.activeChild();
     if (child) {
-      // ✅ Diese Zeile wurde geändert: Wir suchen jetzt im reaktiven Array nach dem Avatar.
       const currentAvatar = this.unlockedAvatars().find(a => a.imageUrl === child.avatarUrl);
       if (currentAvatar) {
         this.selectedAvatar = currentAvatar;

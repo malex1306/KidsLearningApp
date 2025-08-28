@@ -1,6 +1,4 @@
-/* ========================================================================= */
-/* Basiskomponenten & Layout-Anpassungen */
-/* ========================================================================= */
+
 
 .task-detail-container {
   display: flex;
@@ -70,9 +68,7 @@
   color: #4CAF50;
 }
 
-/* ========================================================================= */
-/* Spezifische Anpassungen für die Buchstabieraufgabe */
-/* ========================================================================= */
+
 
 .spelling-quiz .image-card {
   background: rgba(255, 255, 255, 0.3);
@@ -114,9 +110,7 @@
 
 }
 
-/* ========================================================================= */
-/* Buttons und Statusmeldungen */
-/* ========================================================================= */
+
 
 .options-grid {
   display: grid;
@@ -140,8 +134,8 @@
 
 .options-grid-two {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* immer zwei Buttons nebeneinander */
-  gap: 2rem; /* etwas mehr Abstand für den „Kachel-Effekt“ */
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 2rem; 
   margin-bottom: 2rem;
   width: 100%;
 }
@@ -182,18 +176,18 @@
   background-color: rgba(144, 202, 249, 0.5);
 }
 
-/* Neue Stile für korrektes/falsches Feedback */
+
 .correct-letter-button {
-  background-color: #04ff7e; /* Leuchtendes Grün */
+  background-color: #04ff7e; 
   color: white;
   transform: scale(1.05);
   border-color: #04ff7e;
 }
 
 .wrong-letter-button {
-  background-color: #ff5252; /* Leuchtendes Rot */
+  background-color: #ff5252; 
   color: white;
-  animation: shake 0.5s ease-in-out; /* Schüttel-Animation */
+  animation: shake 0.5s ease-in-out; 
   border-color: #ff5252;
 }
 
@@ -240,9 +234,7 @@
   margin-top: 20px;
 }
 
-/* ========================================================================= */
-/* Animationen */
-/* ========================================================================= */
+
 
 @keyframes fadeIn {
   from {
@@ -265,9 +257,7 @@
   }
 }
 
-/* ========================================================================= */
-/* Gap-Fill Input Feld */
-/* ========================================================================= */
+
 
 .gap-fill-quiz {
   display: flex;

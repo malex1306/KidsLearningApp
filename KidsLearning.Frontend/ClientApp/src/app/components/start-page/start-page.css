@@ -434,12 +434,12 @@
 }
 
 
-/* Tablet (von 601px bis 1024px) */
+
 @media (max-width: 1024px) and (min-width: 601px) {
   .main-page-layout {
     flex-direction: column;
-    transform: none; /* Transformation entfernen */
-    margin: 0 auto;  /* zentrieren */
+    transform: none; 
+    margin: 0 auto;  
     gap: 1rem;
   }
 
@@ -478,21 +478,21 @@
 @media (max-width: 600px) {
   .main-page-layout {
    flex-direction: column;
-    transform: none; /* Transformation entfernen */
-    margin: 0 auto;  /* zentrieren */
+    transform: none; 
+    margin: 0 auto;  
     gap: 1rem;
   }
 
   .left-sidebar-container,
   .right-sidebar-container {
-    display: none; /* Sidecards ausblenden */
+    display: none; 
   }
 
   .main-card {
-    display: none; /* Hauptkarte optional ausblenden */
+    display: none; 
   }
 
-  /* Child-Side Header */
+  
   .child-side-header-flex {
     flex-direction: column;
     align-items: center;

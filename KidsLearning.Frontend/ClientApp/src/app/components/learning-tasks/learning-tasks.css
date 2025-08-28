@@ -3,28 +3,28 @@
   padding: 2rem;
   margin-top: 2rem;
   font-family: 'Comic Neue', 'Poppins', sans-serif;
-  /* Bild als Hintergrund festlegen */
+  
   background-image: url('/src/assets/images/10456302.jpg');
 
-  /* Bildeigenschaften anpassen */
+ 
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
 
-  /* Höhe des Containers sicherstellen */
+  
   min-height: 100vh;
   color: #ff9900;
   text-align: center;
 }
 
-/* Überschrift */
+
 .tasks-container h1 {
   font-size: 2.5rem;
   margin-bottom: 2rem;
   color: #ff9900;
 }
 
-/* Grid */
+
 .task-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -33,11 +33,11 @@
   margin-top: 2rem;
 }
 
-/* Glass-Card */
+
 .task-card.glass-card {
   display: flex;
-  flex-direction: column; /* Inhalte untereinander */
-  justify-content: space-between; /* Platz zwischen Content & Buttons */
+  flex-direction: column; 
+  justify-content: space-between; 
   background: rgba(255, 255, 255, 0.25);
   border-radius: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
@@ -46,7 +46,7 @@
   border: 2px solid rgba(255, 255, 255, 0.3);
   padding: 1.5rem;
   transition: transform 0.3s ease;
-  min-height: 350px; /* sorgt dafür, dass alle Karten gleich hoch bleiben */
+  min-height: 350px; 
 }
 
 .task-card:hover {
@@ -54,23 +54,23 @@
 }
 
 .card-icon img {
-  width: 90px; /* Breite des Bildes festlegen */
-  height: auto; /* Höhe automatisch anpassen, um das Seitenverhältnis zu erhalten */
-  display: block; /* Zentrierung ermöglichen */
-  margin: 0 auto; /* Bild zentrieren */
+  width: 90px; 
+  height: auto; 
+  display: block; 
+  margin: 0 auto; 
 }
 
-/* Icon */
+
 .card-icon {
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 
 .card-content {
-  flex-grow: 1; /* nimmt den "Restplatz" ein */
+  flex-grow: 1; 
 }
 
-/* Inhalt */
+
 .card-content h3 {
   font-size: 1.9rem;
   color: #fb8500;
@@ -83,7 +83,7 @@
   color: black;
 }
 
-/* Button */
+
 .fun-button {
   margin-top: 1rem;
   background-color: #ffb703;
@@ -103,7 +103,7 @@
   transform: scale(1.05);
 }
 
-/* Kein Aufgaben-Text */
+
 .no-tasks-message {
   font-size: 1.2rem;
   color: #fb8500;
@@ -125,7 +125,7 @@
   height: 0;
 }
 
-/* The slider */
+
 .slider {
   position: absolute;
   cursor: pointer;
@@ -164,7 +164,7 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-/* Rounded sliders */
+
 .slider.round {
   border-radius: 34px;
 }
@@ -191,8 +191,8 @@ input:checked + .slider:after {
 .switch-container {
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* sorgt dafür, dass es nach rechts rutscht */
-  gap: 0.5rem; /* Abstand zwischen Switch und Text */
+  justify-content: flex-end; 
+  gap: 0.5rem; 
   margin-bottom: 1rem;
 }
 

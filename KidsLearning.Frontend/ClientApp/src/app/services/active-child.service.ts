@@ -53,8 +53,8 @@ export class ActiveChildService {
   }
 
   /**
-   * Aktualisiert spezifische Informationen des aktiven Kindes.
-   * @param updatedInfo Ein Objekt mit den zu ändernden Eigenschaften.
+   * 
+   * @param updatedInfo 
    */
   updateChildInfo(updatedInfo: Partial<ChildInfo>): void {
     this.activeChildSignal.update(child => {
