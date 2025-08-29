@@ -102,8 +102,8 @@ p {
 
 .options-grid-two {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* immer zwei Buttons nebeneinander */
-  gap: 2rem; /* etwas mehr Abstand für den „Kachel-Effekt“ */
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 2rem; 
   margin-bottom: 2rem;
   width: 100%;
 }
@@ -224,7 +224,7 @@ p {
 
 
 .option-button.correct-answer-highlight {
-  background-color: #4CAF50; /* Hellgrün */
+  background-color: #4CAF50; 
   color: white;
   transform: scale(1.05);
   animation: correct-pulse 0.5s ease-out;
@@ -232,7 +232,7 @@ p {
 
 
 .option-button.wrong-answer-highlight {
-  background-color: #ef4444; /* Hellrot */
+  background-color: #ef4444; 
   color: white;
   transform: scale(1.05);
   animation: wrong-pulse 0.5s ease-out;

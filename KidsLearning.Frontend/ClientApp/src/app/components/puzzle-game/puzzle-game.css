@@ -20,7 +20,7 @@
 }
 
 .puzzle-container {
-  /* Dieses Element ist nur ein Container, um das Puzzle-Board zu zentrieren */
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,7 +30,7 @@
 }
 
 .puzzle-board {
-  /* Dieses Element ist der eigentliche Grid-Container */
+  
   display: grid;
   grid-template-columns: repeat(3, 150px);
   grid-template-rows: repeat(3, 150px);
@@ -40,7 +40,6 @@
 .puzzle-field {
   width: 150px;
   height: 150px;
-  /* border: 1px solid #ccc; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,12 +85,12 @@
   margin-top: 1rem;
   font-size: 1.2em;
   font-weight: bold;
-  color: #ff0000; /* Leuchtend roter Text für Fehlermeldungen */
+  color: #ff0000; 
   text-align: center;
 }
 
 .success-message {
-  color: green; /* Behält die Farbe für die Erfolgsmeldung */
+  color: green; 
 }
 
 .fun-button {

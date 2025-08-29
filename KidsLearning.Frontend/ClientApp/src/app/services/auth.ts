@@ -22,7 +22,7 @@ export class Auth {
     return this.http.post(this.apiUrl + 'login', credentials).pipe(
       tap((response: any) => {
         if (response.token) {
-          sessionStorage.setItem(this.tokenKey, response.token); // Token speichern
+          sessionStorage.setItem(this.tokenKey, response.token); 
           sessionStorage.setItem('parent_email', credentials.email);
           this.isLoggedInSubject.next(true);
         }

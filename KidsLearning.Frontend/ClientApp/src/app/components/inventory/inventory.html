@@ -5,7 +5,7 @@
   <div class="avatars-section card mb-4 p-4">
     <h3>Deine Avatare</h3>
     <div class="avatars-grid">
-      @for (avatar of unlockedAvatars; track avatar.id) {
+      @for (avatar of unlockedAvatars(); track avatar.id) {
       <div class="avatar-item clickable" (click)="selectAvatar(avatar)"
         [class.selected]="selectedAvatar?.id === avatar.id">
         <img [src]="avatar.imageUrl" alt="Avatar" class="avatar-image">
@@ -22,7 +22,7 @@
   <div class="badges-section card p-4">
     <h3>Deine Abzeichen</h3>
     <div class="badges-grid">
-      @for (badge of badges; track badge.name) {
+      @for (badge of badges(); track badge.name) {
       <div class="badge-item">
         <img [src]="badge.iconUrl" alt="{{ badge.name }}" class="badge-icon">
         <p>{{ badge.name }}</p>

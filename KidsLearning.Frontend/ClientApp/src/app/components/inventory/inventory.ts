@@ -15,8 +15,11 @@ import {ParentDashboardService} from '../../services/parent-dashboard.service';
 })
 export class InventoryComponent implements OnInit {
   activeChild = computed(() => this.activeChildService.activeChild());
-  unlockedAvatars: AvatarDto[] = [];
-  badges: BadgeDto[] = [];
+  
+  // hier
+  unlockedAvatars = computed(() => this.activeChild()?.unlockedAvatars ?? []);
+  badges = computed(() => this.activeChild()?.badges ?? []);
+  
   selectedAvatar: AvatarDto | null = null;
 
   constructor(
@@ -31,21 +34,11 @@ export class InventoryComponent implements OnInit {
   ngOnInit(): void {
     const child = this.activeChild();
     if (child) {
-      this.getUnlockedAvatars(Number(child.id));
-      this.badges = child.badges;
-      const currentAvatar = this.unlockedAvatars.find(a => a.imageUrl === child.avatarUrl);
+      const currentAvatar = this.unlockedAvatars().find(a => a.imageUrl === child.avatarUrl);
       if (currentAvatar) {
         this.selectedAvatar = currentAvatar;
       }
     }
-  }
-
-  getUnlockedAvatars(childId: number): void {
-    this.http.get<AvatarDto[]>(`api/Inventory/avatars/${childId}`)
-      .subscribe(avatars => {
-        this.unlockedAvatars = avatars;
-        console.log('Freigeschaltete Avatare:', this.unlockedAvatars);
-      });
   }
 
   selectAvatar(avatar: AvatarDto): void {
@@ -68,12 +61,10 @@ export class InventoryComponent implements OnInit {
       this.dashboardService.editChild(Number(child.id), editChildDto).subscribe({
         next: () => {
           console.log('✅ API-Aufruf erfolgreich! Aktualisiere Frontend-Status und navigiere...');
-
-          const updatedChild = {
-            ...child,
+          
+          this.activeChildService.updateChildInfo({
             avatarUrl: this.selectedAvatar!.imageUrl
-          };
-          this.activeChildService.updateAvatar(updatedChild);
+          });
 
           this.router.navigate(['/start-page']);
         },

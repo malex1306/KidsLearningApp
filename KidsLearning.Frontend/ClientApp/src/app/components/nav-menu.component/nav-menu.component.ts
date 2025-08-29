@@ -28,7 +28,7 @@ export class NavMenuComponent implements OnInit, OnDestroy {
   children: ChildDto[] | null = null;
 
   private authStatusSubscription!: Subscription;
-  private dashboardDataSubscription!: Subscription;
+  private childrenSubscription!: Subscription;
 
   constructor(
     private router: Router,
@@ -36,7 +36,6 @@ export class NavMenuComponent implements OnInit, OnDestroy {
     public activeChildService: ActiveChildService,
     private parentDashboardService: ParentDashboardService
   ) {
-
     effect(() => {
       const child = this.activeChildService.activeChild();
       if (child && this.children) {
@@ -56,18 +55,29 @@ export class NavMenuComponent implements OnInit, OnDestroy {
         this.children = null;
       }
     });
+
+   
+    this.childrenSubscription = this.parentDashboardService.children$.subscribe(
+      children => {
+        this.children = children;
+        const currentActiveChild = this.activeChildService.activeChild();
+        if (currentActiveChild && this.children) {
+          const updatedChild = this.children.find(c => c.childId === currentActiveChild.id);
+          if (updatedChild) {
+            this.activeChildService.setActiveChild(updatedChild);
+          }
+        }
+      }
+    );
   }
 
   ngOnDestroy(): void {
     if (this.authStatusSubscription) this.authStatusSubscription.unsubscribe();
-    if (this.dashboardDataSubscription) this.dashboardDataSubscription.unsubscribe();
+    if (this.childrenSubscription) this.childrenSubscription.unsubscribe();
   }
 
   loadChildren(): void {
-    this.dashboardDataSubscription = this.parentDashboardService.getDashboardData().subscribe({
-      next: (data) => {
-        this.children = data.children;
-      },
+    this.parentDashboardService.getDashboardData().subscribe({
       error: (err) => {
         console.error('Fehler beim Laden der Kinderdaten:', err);
         this.children = null;
@@ -107,6 +117,7 @@ export class NavMenuComponent implements OnInit, OnDestroy {
         next: () => {
           this.showDashboardModal = false;
           this.router.navigate(['/parent-dashboard']);
+          this.loadChildren();
         },
         error: () => this.errorMessage = 'Falsches Passwort. Zugriff verweigert.'
       });

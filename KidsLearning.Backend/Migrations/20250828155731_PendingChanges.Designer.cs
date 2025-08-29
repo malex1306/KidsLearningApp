@@ -4,6 +4,7 @@ using KidsLearning.Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KidsLearning.Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250828155731_PendingChanges")]
+    partial class PendingChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +32,6 @@ namespace KidsLearning.Backend.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("ChildId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -49,8 +49,6 @@ namespace KidsLearning.Backend.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ChildId");
 
                     b.ToTable("Avatars");
                 });
@@ -451,13 +449,6 @@ namespace KidsLearning.Backend.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("KidsLearning.Backend.Models.Avatar", b =>
-                {
-                    b.HasOne("KidsLearning.Backend.Models.Child", null)
-                        .WithMany("UnlockedAvatars")
-                        .HasForeignKey("ChildId");
-                });
-
             modelBuilder.Entity("KidsLearning.Backend.Models.Badge", b =>
                 {
                     b.HasOne("KidsLearning.Backend.Models.Child", "Child")
@@ -577,8 +568,6 @@ namespace KidsLearning.Backend.Migrations
                     b.Navigation("Badges");
 
                     b.Navigation("Progress");
-
-                    b.Navigation("UnlockedAvatars");
                 });
 
             modelBuilder.Entity("KidsLearning.Backend.Models.LearningTask", b =>

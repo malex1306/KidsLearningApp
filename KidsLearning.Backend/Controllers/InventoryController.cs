@@ -25,7 +25,7 @@ public class InventoryController : ControllerBase
         if (child == null) return NotFound("Kind nicht gefunden.");
 
         var allAvatars = await _context.Avatars.ToListAsync();
-        var unlockedAvatars = allAvatars.Where(a => child.StarCount >= a.UnlockStarRequirement).ToList();
+        var unlockedAvatars = allAvatars.Where(a => child.StarCount >= a.UnlockStarRequirement).ToList();//hier
 
         return Ok(unlockedAvatars);
     }

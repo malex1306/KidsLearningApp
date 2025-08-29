@@ -29,6 +29,9 @@ public class Child
     [Required]
     public string Difficulty { get; set; } = string.Empty;
     
+    
+    public ICollection<Avatar> UnlockedAvatars { get; set; } = new List<Avatar>();
+
     public int Age => DateTime.Today.Year - DateOfBirth.Year
-                                          - (DateTime.Today.DayOfYear < DateOfBirth.DayOfYear ? 1 : 0);
+                                         - (DateTime.Today.DayOfYear < DateOfBirth.DayOfYear ? 1 : 0);
 }
