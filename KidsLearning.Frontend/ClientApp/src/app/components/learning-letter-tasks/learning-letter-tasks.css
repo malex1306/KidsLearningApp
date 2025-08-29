@@ -42,8 +42,8 @@
 }
 
 .completion-message-card {
-  background: rgba(4, 255, 126, 0.2);
-  border: 1px solid rgba(4, 255, 126, 0.3);
+  text-align: center;
+  padding: 3rem;
 }
 
 .back-button {
@@ -303,6 +303,16 @@
   font-weight: bold;
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+.p-tag{
+ color: blanchedalmond;
+ font-size: 1.5rem;
+ font-family: MilkyWay, sans-serif;
+ margin-top: 0.5rem;
+}
+.task-ready{
+  font-size: 2rem;
+  color: #fb8500;
 }
 
 

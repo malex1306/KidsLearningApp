@@ -56,8 +56,8 @@ public class EnsureDatabase
                 // Task 2
                 new()
                 {
-                    Title = "Addition bis 10",
-                    Description = "Addiere zwei einstellige Zahlen.",
+                    Title = "Mathe Aufgaben",
+                    Description = "Löse Rechenaufgaben mit verschiedenen Operationen.",
                     Subject = "Mathe-Abenteuer"
                 },
                 // Task 3

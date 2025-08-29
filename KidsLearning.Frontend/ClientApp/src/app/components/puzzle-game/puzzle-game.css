@@ -123,3 +123,7 @@
   text-align: center;
   width: 80%;
 }
+.completion-message-card {
+  text-align: center;
+  padding: 3rem;
+}
