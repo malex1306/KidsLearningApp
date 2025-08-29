@@ -110,11 +110,13 @@
           <div class="progress-section">
             <h4>Lernfortschritt</h4>
             @for (progress of child.progress; track $index) {
-              <div class="progress-bar-container">
-                <div class="progress-bar" [style.width]="progress.progressPercentage + '%'"></div>
-                <span class="progress-text">{{ progress.subjectName }}:
-                  {{ progress.progressPercentage }}%</span>
-              </div>
+              @if (progress.subjectName != 'Quiz-Ozean' && progress.subjectName != 'Spaß-Paradise') {
+                <div class="progress-bar-container">
+                  <div class="progress-bar" [style.width]="progress.progressPercentage + '%'"></div>
+                  <span class="progress-text">{{ progress.subjectName }}:
+                    {{ progress.progressPercentage }}%</span>
+                </div>
+              }
             }
           </div>
           <div class="card-footer">
