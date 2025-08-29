@@ -15,11 +15,10 @@ import {ParentDashboardService} from '../../services/parent-dashboard.service';
 })
 export class InventoryComponent implements OnInit {
   activeChild = computed(() => this.activeChildService.activeChild());
-  
-  // hier
+
   unlockedAvatars = computed(() => this.activeChild()?.unlockedAvatars ?? []);
   badges = computed(() => this.activeChild()?.badges ?? []);
-  
+
   selectedAvatar: AvatarDto | null = null;
 
   constructor(
@@ -61,7 +60,7 @@ export class InventoryComponent implements OnInit {
       this.dashboardService.editChild(Number(child.id), editChildDto).subscribe({
         next: () => {
           console.log('✅ API-Aufruf erfolgreich! Aktualisiere Frontend-Status und navigiere...');
-          
+
           this.activeChildService.updateChildInfo({
             avatarUrl: this.selectedAvatar!.imageUrl
           });

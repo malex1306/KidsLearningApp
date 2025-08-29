@@ -66,7 +66,7 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
         this.navigationService.setTask(this.task);
         this.answeredQuestions = new Array(this.task.questions.length).fill(false);
         if (this.exam) {
-          this.startTimer(300); 
+          this.startTimer(300);  // Test Zeit in Sekunden können hier geändert werden! 💥💥💥💥💥💥💥💥💥💥
         }
       });
     }

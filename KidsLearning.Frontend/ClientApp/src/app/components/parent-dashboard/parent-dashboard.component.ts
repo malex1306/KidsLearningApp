@@ -155,6 +155,7 @@ export class ParentDashboardComponent implements OnInit {
       this.message = '';
     }, duration);
   }
+
   private setDateLimits(): void {
     const today = new Date();
 

@@ -89,7 +89,7 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
           this.isGapFillTask = true;
         }
         if (this.exam) {
-          this.startTimer(300); // Test Zeit in Sekunden können hier geändert werden! ✅✅✅
+          this.startTimer(300); // Test Zeit in Sekunden können hier geändert werden! 💥💥💥💥💥💥💥💥💥💥
         }
       });
     }
@@ -190,42 +190,37 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
   }
 
   checkCompletion(): void {
-  if (this.currentQuestionIndex === (this.task?.questions.length ?? 0) - 1) {
-    this.isCompleted = true;
-    this.stopTimer();
+    if (this.currentQuestionIndex === (this.task?.questions.length ?? 0) - 1) {
+      this.isCompleted = true;
+      this.stopTimer();
 
-    if (this.childId && this.task) {
-      // 1. Aufgabe als abgeschlossen markieren
-      this.learningService.completeTask(this.childId, this.task.id).subscribe({
-        next: () => {
-          console.log('Aufgabe erfolgreich als abgeschlossen markiert!');
+      if (this.childId && this.task) {
+        this.learningService.completeTask(this.childId, this.task.id).subscribe({
+          next: () => {
+            console.log('Aufgabe erfolgreich als abgeschlossen markiert!');
 
-          // 2. Belohnung vergeben und die aktualisierten Daten abrufen
-          this.rewardService.rewardChild(this.childId!, this.task!.id).subscribe({
-            next: (updatedChildData) => {
-              // Hier ist der entscheidende Teil:
-              // Die API-Antwort (die die aktualisierten Daten des Kindes enthält)
-              // wird jetzt verwendet, um den ActiveChildService zu aktualisieren.
-              this.activeChildService.updateChildInfo({
-                starCount: updatedChildData.starCount,
-                totalStarsEarned: updatedChildData.totalStarsEarned,
-                avatarUrl: updatedChildData.avatarUrl,
-                unlockedAvatars: updatedChildData.unlockedAvatars,
-                progress: updatedChildData.progress
-              });
+            this.rewardService.rewardChild(this.childId!, this.task!.id).subscribe({
+              next: (updatedChildData) => {
+                this.activeChildService.updateChildInfo({
+                  starCount: updatedChildData.starCount,
+                  totalStarsEarned: updatedChildData.totalStarsEarned,
+                  avatarUrl: updatedChildData.avatarUrl,
+                  unlockedAvatars: updatedChildData.unlockedAvatars,
+                  progress: updatedChildData.progress
+                });
 
-              console.log('Belohnung erfolgreich vergeben und Daten aktualisiert.');
-            },
-            error: (err) => console.error('Fehler beim Vergeben der Belohnung', err)
-          });
-        },
-        error: (err) => console.error('Fehler beim Markieren der Aufgabe als abgeschlossen', err)
-      });
+                console.log('Belohnung erfolgreich vergeben und Daten aktualisiert.');
+              },
+              error: (err) => console.error('Fehler beim Vergeben der Belohnung', err)
+            });
+          },
+          error: (err) => console.error('Fehler beim Markieren der Aufgabe als abgeschlossen', err)
+        });
+      }
+    } else {
+      setTimeout(() => this.navigationService.nextQuestion(), 1000);
     }
-  } else {
-    setTimeout(() => this.navigationService.nextQuestion(), 1000);
   }
-}
 
   resetAnswerState(): void {
     this.answerStatus = null;

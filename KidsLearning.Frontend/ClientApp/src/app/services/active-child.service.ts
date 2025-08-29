@@ -53,8 +53,8 @@ export class ActiveChildService {
   }
 
   /**
-   * 
-   * @param updatedInfo 
+   *
+   * @param updatedInfo
    */
   updateChildInfo(updatedInfo: Partial<ChildInfo>): void {
     this.activeChildSignal.update(child => {

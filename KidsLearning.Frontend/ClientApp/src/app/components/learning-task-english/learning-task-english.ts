@@ -80,7 +80,7 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
           this.task = task;
         }
         if (this.exam) {
-          this.startTimer(300); 
+          this.startTimer(300);  // Test Zeit in Sekunden können hier geändert werden! 💥💥💥💥💥💥💥💥💥💥
         }
       });
     }

@@ -42,8 +42,8 @@ export class LogicTask implements OnInit, OnDestroy {
   selectedOption: number | null = null;
   correctOptionIndex: number | null = null;
 
-  exam: boolean = false; 
-  timerValue: number = 0; 
+  exam: boolean = false;
+  timerValue: number = 0;
   timerInterval: any = null;
   examfailed: boolean = false;
 
@@ -82,7 +82,7 @@ export class LogicTask implements OnInit, OnDestroy {
         }
         this.navigationService.setTask(task);
         if (this.exam) {
-          this.startTimer(300); 
+          this.startTimer(300);  // Test Zeit in Sekunden können hier geändert werden! 💥💥💥💥💥💥💥💥💥💥
         }
       });
     }

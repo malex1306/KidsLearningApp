@@ -4,7 +4,7 @@
       <a class="navbar-brand" [routerLink]="['/']"><img src="assets/images/smarty-bear.png" class="nav-item-logo">Smarty
         Bear</a>
       <button class="navbar-toggler" type="button" aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded"
-        (click)="toggle()">
+              (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -17,71 +17,71 @@
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-dark" [routerLink]="['/']" (click)="collapse()"><img src="assets/images/home.png"
-                class="nav-item-img">Home</a>
+                                                                                         class="nav-item-img">Home</a>
           </li>
 
           @if (!(authService.isLoggedIn$ | async)) {
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/login']" (click)="collapse()"><img
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/login']" (click)="collapse()"><img
                 src="assets/images/user.png" class="nav-item-img">Login</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/register']" (click)="collapse()"><img
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/register']" (click)="collapse()"><img
                 src="assets/images/clipboard.png" class="nav-item-img">Register</a>
-          </li>
+            </li>
           }
 
           @if (authService.isLoggedIn$ | async) {
-          <li class="nav-item">
-            <a class="nav-link text-dark" (click)="openDashboardModal()">
-              <img src="assets/images/parental-control.png" class="nav-item-img">
-              Für Eltern
-            </a>
-          </li>
-
-          <li class="nav-item child-menu-container">
-            <a class="nav-link text-dark">
-              <img src="assets/images/replacement.png" class="nav-item-img">Kind
-            </a>
-            @if (children) {
-            <div class="child-dropdown-menu">
-              @for (child of children; track child.childId) {
-              <a class="child-menu-item" (click)="selectChild(child)">
-                <img [src]="child.avatarUrl" alt="Profilbild von {{child.name}}" class="child-menu-avatar">
-                <span>{{ child.name }}</span>
+            <li class="nav-item">
+              <a class="nav-link text-dark" (click)="openDashboardModal()">
+                <img src="assets/images/parental-control.png" class="nav-item-img">
+                Für Eltern
               </a>
-              }
-            </div>
-            }
-          </li>
+            </li>
 
-          <li class="nav-item">
-            <a class="nav-link text-dark" (click)="submitLogout()">
-              <img src="assets/images/exit.png" class="nav-item-img">
-              Logout
-            </a>
-          </li>
+            <li class="nav-item child-menu-container">
+              <a class="nav-link text-dark">
+                <img src="assets/images/replacement.png" class="nav-item-img">Kind
+              </a>
+              @if (children) {
+                <div class="child-dropdown-menu">
+                  @for (child of children; track child.childId) {
+                    <a class="child-menu-item" (click)="selectChild(child)">
+                      <img [src]="child.avatarUrl" alt="Profilbild von {{child.name}}" class="child-menu-avatar">
+                      <span>{{ child.name }}</span>
+                    </a>
+                  }
+                </div>
+              }
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link text-dark" (click)="submitLogout()">
+                <img src="assets/images/exit.png" class="nav-item-img">
+                Logout
+              </a>
+            </li>
           }
 
           <li [routerLink]="['/inventory', activeChildService.activeChild()]" class="star-item-container">
             @if (activeChildService.activeChild()) {
-            <img src="assets/images/star.png" class="nav-item-star">
-            <span class="star-count-badge">{{ activeChildService.activeChild()?.starCount }}</span>
-            <div class="hover-info-box">
-              <h4 class="info-title">Sterne verdient</h4>
-              <div class="star-grid">
-                <div class="star-section">
-                  <img src="assets/images/star.png" class="info-star-img">
-                  <span class="info-count-text">{{ activeChildService.activeChild()?.starCount }}</span>
-                  <span class="info-label">Zum Ausgeben</span>
-                </div>
-                <div class="star-section">
-                  <img src="assets/images/star.png" class="info-star-img">
-                  <span class="info-count-text">{{ activeChildService.activeChild()?.totalStarsEarned }}</span>
-                  <span class="info-label">Insgesamt</span>
+              <img src="assets/images/star.png" class="nav-item-star">
+              <span class="star-count-badge">{{ activeChildService.activeChild()?.starCount }}</span>
+              <div class="hover-info-box">
+                <h4 class="info-title">Sterne verdient</h4>
+                <div class="star-grid">
+                  <div class="star-section">
+                    <img src="assets/images/star.png" class="info-star-img">
+                    <span class="info-count-text">{{ activeChildService.activeChild()?.starCount }}</span>
+                    <span class="info-label">Zum Ausgeben</span>
+                  </div>
+                  <div class="star-section">
+                    <img src="assets/images/star.png" class="info-star-img">
+                    <span class="info-count-text">{{ activeChildService.activeChild()?.totalStarsEarned }}</span>
+                    <span class="info-label">Insgesamt</span>
+                  </div>
                 </div>
               </div>
-            </div>
             }
           </li>
           <li>
@@ -95,20 +95,20 @@
   </nav>
 
   @if (showDashboardModal) {
-  <div class="modal-overlay">
-    <div class="glass-card modal-card">
-      <h4>Eltern-Passwort eingeben</h4>
-      <form (ngSubmit)="submitDashboard()">
-        <input type="password" [(ngModel)]="passwordInput" name="password" placeholder="Passwort" class="form-input">
-        <div class="modal-buttons">
-          <button type="submit" class="fun-button">Einloggen</button>
-          <button type="button" class="fun-button cancel" (click)="cancelModal()">Abbrechen</button>
-        </div>
-      </form>
-      @if (errorMessage) {
-      <div class="alert-message">{{ errorMessage }}</div>
-      }
+    <div class="modal-overlay">
+      <div class="glass-card modal-card">
+        <h4>Eltern-Passwort eingeben</h4>
+        <form (ngSubmit)="submitDashboard()">
+          <input type="password" [(ngModel)]="passwordInput" name="password" placeholder="Passwort" class="form-input">
+          <div class="modal-buttons">
+            <button type="submit" class="fun-button">Einloggen</button>
+            <button type="button" class="fun-button cancel" (click)="cancelModal()">Abbrechen</button>
+          </div>
+        </form>
+        @if (errorMessage) {
+          <div class="alert-message">{{ errorMessage }}</div>
+        }
+      </div>
     </div>
-  </div>
   }
 </header>

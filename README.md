@@ -13,14 +13,13 @@ Stelle sicher, dass folgende Tools installiert sind:
 
 - [.NET SDK](https://dotnet.microsoft.com/en-us/download)
 - [Node.js & npm](https://nodejs.org/)
-- Angular CLI (global installieren, falls noch nicht vorhanden)  
-  ```bash
+- Angular CLI (global installieren, falls noch nicht vorhanden)
   npm install -g @angular/cli
 
 
 
 1️⃣ Repository klonen
-git clone <Ihr-Repository-URL>
+git clone https://github.com/malex1306/KidsLearningApp.git
 cd KidsLearningApp
 
 2️⃣ Backend einrichten & starten
@@ -34,11 +33,6 @@ dotnet ef database update
 
 # Backend starten
 dotnet run
-
-➡ Backend läuft nun typischerweise unter:
-http://localhost:5000
-
-oder http://localhost:5001
 
 3️⃣ Frontend einrichten & starten
 

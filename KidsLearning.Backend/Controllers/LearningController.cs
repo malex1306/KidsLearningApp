@@ -59,7 +59,7 @@ namespace KidsLearning.Backend.Controllers
 
                 _context.ChildCompletedTasks.Add(completedTask);
                 await _context.SaveChangesAsync();
-                await _rewardService.RewardChildForCompletedTask(child.Id);//hier
+                await _rewardService.RewardChildForCompletedTask(child.Id); //hier
             }
 
             return Ok(new { Message = "Aufgabe erfolgreich als erledigt markiert." });

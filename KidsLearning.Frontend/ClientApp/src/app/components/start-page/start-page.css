@@ -3,7 +3,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;max-width: none;
+  padding: 2rem;
+  max-width: none;
   font-family: 'Poppins', sans-serif;
   color: #333;
   border-radius: 2rem;
@@ -83,12 +84,12 @@
 
 .main-page-layout {
   display: flex;
-  justify-content: center;      
+  justify-content: center;
   align-items: flex-start;
   gap: 10px;
   width: 100%;
   max-width: 1800px;
-  margin: 2 auto;              
+  margin: 2 auto;
   padding: 1rem;
 }
 
@@ -288,7 +289,7 @@
 }
 
 .child-card-three {
- background: linear-gradient(to top, #ffcde6, #bfe9f7);
+  background: linear-gradient(to top, #ffcde6, #bfe9f7);
   border-radius: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   padding: 1rem;
@@ -434,12 +435,11 @@
 }
 
 
-
 @media (max-width: 1024px) and (min-width: 601px) {
   .main-page-layout {
     flex-direction: column;
-    transform: none; 
-    margin: 0 auto;  
+    transform: none;
+    margin: 0 auto;
     gap: 1rem;
   }
 
@@ -460,10 +460,11 @@
   .right-sidebar-container {
     width: 100%;
   }
- .goal-header{
-  width: 100%;
-  height: auto;
- }
+
+  .goal-header {
+    width: 100%;
+    height: auto;
+  }
 
   .side-card,
   .side-card-two,
@@ -477,22 +478,22 @@
 /* Smartphone */
 @media (max-width: 600px) {
   .main-page-layout {
-   flex-direction: column;
-    transform: none; 
-    margin: 0 auto;  
+    flex-direction: column;
+    transform: none;
+    margin: 0 auto;
     gap: 1rem;
   }
 
   .left-sidebar-container,
   .right-sidebar-container {
-    display: none; 
+    display: none;
   }
 
   .main-card {
-    display: none; 
+    display: none;
   }
 
-  
+
   .child-side-header-flex {
     flex-direction: column;
     align-items: center;

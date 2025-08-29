@@ -56,7 +56,7 @@ export class NavMenuComponent implements OnInit, OnDestroy {
       }
     });
 
-   
+
     this.childrenSubscription = this.parentDashboardService.children$.subscribe(
       children => {
         this.children = children;

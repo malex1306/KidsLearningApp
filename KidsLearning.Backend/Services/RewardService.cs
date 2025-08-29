@@ -51,14 +51,12 @@ public class RewardService
             child.Badges.Add(newBadge);
         }
 
-        // ✅ Neue Logik zum Freischalten von Avataren
         await CheckAndUnlockAvatars(child);
 
         await _context.SaveChangesAsync();
         return true;
     }
-    
-    // ✅ Neue private Methode zur Avatar-Verwaltung
+
     private async Task CheckAndUnlockAvatars(Child child)
     {
         var allAvatars = await _context.Avatars.ToListAsync();
@@ -68,7 +66,6 @@ public class RewardService
             // hier
             if (!child.UnlockedAvatars.Any(a => a.Id == avatar.Id))
             {
-                
                 if (child.StarCount >= avatar.UnlockStarRequirement)
                 {
                     child.UnlockedAvatars.Add(avatar);

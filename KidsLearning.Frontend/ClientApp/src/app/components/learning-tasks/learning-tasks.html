@@ -1,96 +1,96 @@
 <div class="tasks-container">
   <h1>{{ subject }} Aufgaben</h1>
   @if (subject != 'Spaß-Paradise') {
-  <div class="switch-container">
-    <label class="switch">
-      <input type="checkbox" (click)="toggleExamMode()">
-      <span class="slider round"></span>
-    </label>
-    <span class="switch-label">Test-Modus</span>
-  </div>
+    <div class="switch-container">
+      <label class="switch">
+        <input type="checkbox" (click)="toggleExamMode()">
+        <span class="slider round"></span>
+      </label>
+      <span class="switch-label">Test-Modus</span>
+    </div>
   }
   @if (tasks.length > 0) {
-  <div class="task-grid">
-    @for (task of tasks; track task.id) {
-    <div class="task-card glass-card">
-      <div class="card-icon">
-        @if (task.subject === 'Buchstaben-land') {
-        @if (task.title === 'Alphabet lernen') {
-        <img src="assets/images/abc-block.png" alt="Addition-Icon">
-        } @else if (task.title === 'Buchstaben verbinden') {
-        <img src="assets/images/a.png" alt="Zahlen finden-Icon">
-        } @else if (task.title === 'Wörter buchstabieren') {
-        <img src="assets/images/open-book.png" alt="Formen-Icon">
-        } @else if (task.title === 'Fülle die Lücken') {
-        <img src="assets/images/study.png" alt="Formen-Icon">
-        }
+    <div class="task-grid">
+      @for (task of tasks; track task.id) {
+        <div class="task-card glass-card">
+          <div class="card-icon">
+            @if (task.subject === 'Buchstaben-land') {
+              @if (task.title === 'Alphabet lernen') {
+                <img src="assets/images/abc-block.png" alt="Addition-Icon">
+              } @else if (task.title === 'Buchstaben verbinden') {
+                <img src="assets/images/a.png" alt="Zahlen finden-Icon">
+              } @else if (task.title === 'Wörter buchstabieren') {
+                <img src="assets/images/open-book.png" alt="Formen-Icon">
+              } @else if (task.title === 'Fülle die Lücken') {
+                <img src="assets/images/study.png" alt="Formen-Icon">
+              }
 
-        } @else if (task.subject === 'Mathe-Abenteuer') {
-        @if (task.title === 'Addition bis 10') {
-        <img src="assets/images/abacus.png" alt="Addition-Icon">
-        } @else if (task.title === 'Zahlen finden') {
-        <img src="assets/images/blocks.png" alt="Zahlen finden-Icon">
-        } @else if (task.title === 'Formen erkennen') {
-        <img src="assets/images/block.png" alt="Formen-Icon">
-        }
-        } @else if (task.subject === 'Englisch') {
-        @if (task.title === 'Englische Bilder') {
-        <img src="assets/images/eng.png" alt="English-Icon">
+            } @else if (task.subject === 'Mathe-Abenteuer') {
+              @if (task.title === 'Addition bis 10') {
+                <img src="assets/images/abacus.png" alt="Addition-Icon">
+              } @else if (task.title === 'Zahlen finden') {
+                <img src="assets/images/blocks.png" alt="Zahlen finden-Icon">
+              } @else if (task.title === 'Formen erkennen') {
+                <img src="assets/images/block.png" alt="Formen-Icon">
+              }
+            } @else if (task.subject === 'Englisch') {
+              @if (task.title === 'Englische Bilder') {
+                <img src="assets/images/eng.png" alt="English-Icon">
 
-        } @else if (task.title === 'Deutsch/Englisch verbinden') {
-        <img src="assets/images/literature.png" alt="English-Connect-Icon">
+              } @else if (task.title === 'Deutsch/Englisch verbinden') {
+                <img src="assets/images/literature.png" alt="English-Connect-Icon">
 
-        } @else if (task.title === 'Finde den Imposter') {
-        <img src="assets/images/understanding.png" alt="English-Wrong-Icon">
-        }
-        } @else if (task.subject === 'Logik-Dschungel') {
-        @if (task.title === 'Zahlenkombinationen') {
-        <img src="assets/images/number-blocks.png" alt="Logic-Icon">
-        } @else if (task.title === 'Fülle die Form') {
-        <img src="assets/images/brick.png" alt="Logic-Icon">
-        }
-        } @else if (task.subject === 'Spaß-Paradise') {
-        @if (task.title === 'Puzzle') {
-        <img src="assets/images/contribution.png" alt="Puzzle-Icon">
-        } @else {
-        <img src="assets/images/goofy.png" alt="Standard-Icon">
-        }
-        }
+              } @else if (task.title === 'Finde den Imposter') {
+                <img src="assets/images/understanding.png" alt="English-Wrong-Icon">
+              }
+            } @else if (task.subject === 'Logik-Dschungel') {
+              @if (task.title === 'Zahlenkombinationen') {
+                <img src="assets/images/number-blocks.png" alt="Logic-Icon">
+              } @else if (task.title === 'Fülle die Form') {
+                <img src="assets/images/brick.png" alt="Logic-Icon">
+              }
+            } @else if (task.subject === 'Spaß-Paradise') {
+              @if (task.title === 'Puzzle') {
+                <img src="assets/images/contribution.png" alt="Puzzle-Icon">
+              } @else {
+                <img src="assets/images/goofy.png" alt="Standard-Icon">
+              }
+            }
 
-      </div>
-      <div class="card-content">
-        <h3>{{ task.title }}</h3>
-        <p>{{ task.description }}</p>
-      </div>
-      <div class="card-actions">
-        @if (task.subject === 'Buchstaben-land') {
-        <button class="fun-button"
-          [routerLink]="['/learning-letter-tasks', task.subject, task.id, 'child', childId, exam]">Starten
-        </button>
-        } @else if (task.subject === 'Englisch') {
-        <button class="fun-button"
-          [routerLink]="['/learning-task-english', task.subject, task.id, 'child', childId, exam]">Starten
-        </button>
-        } @else if (task.subject === 'Logik-Dschungel') {
-        <button class="fun-button" [routerLink]="['/logic-task', task.subject, task.id, 'child', childId, exam]">
-          Starten
-        </button>
-        } @else if (task.subject === 'Quiz-Ozean') {
-        <button class="fun-button"
-          [routerLink]="['/learning-task-quiz', task.subject, task.id, 'child', childId]">Starten
-        </button>
-        } @else if (task.subject === 'Spaß-Paradise') {
-        <button class="fun-button" [routerLink]="['/puzzle-game', task.subject, task.id, 'child', childId]">
-          Starten
-        </button>
-        } @else {
-        <button class="fun-button" [routerLink]="['/task', task.id, 'child', childId, exam]">Starten</button>
-        }
-      </div>
+          </div>
+          <div class="card-content">
+            <h3>{{ task.title }}</h3>
+            <p>{{ task.description }}</p>
+          </div>
+          <div class="card-actions">
+            @if (task.subject === 'Buchstaben-land') {
+              <button class="fun-button"
+                      [routerLink]="['/learning-letter-tasks', task.subject, task.id, 'child', childId, exam]">Starten
+              </button>
+            } @else if (task.subject === 'Englisch') {
+              <button class="fun-button"
+                      [routerLink]="['/learning-task-english', task.subject, task.id, 'child', childId, exam]">Starten
+              </button>
+            } @else if (task.subject === 'Logik-Dschungel') {
+              <button class="fun-button" [routerLink]="['/logic-task', task.subject, task.id, 'child', childId, exam]">
+                Starten
+              </button>
+            } @else if (task.subject === 'Quiz-Ozean') {
+              <button class="fun-button"
+                      [routerLink]="['/learning-task-quiz', task.subject, task.id, 'child', childId]">Starten
+              </button>
+            } @else if (task.subject === 'Spaß-Paradise') {
+              <button class="fun-button" [routerLink]="['/puzzle-game', task.subject, task.id, 'child', childId]">
+                Starten
+              </button>
+            } @else {
+              <button class="fun-button" [routerLink]="['/task', task.id, 'child', childId, exam]">Starten</button>
+            }
+          </div>
+        </div>
+      }
     </div>
-    }
-  </div>
   } @else {
-  <p class="no-tasks-message">Keine Aufgaben für {{ subject }} gefunden. Schau später wieder vorbei! 😊</p>
+    <p class="no-tasks-message">Keine Aufgaben für {{ subject }} gefunden. Schau später wieder vorbei! 😊</p>
   }
 </div>

@@ -1,88 +1,89 @@
 <div class="task-detail-container">@if (task) {
 
   @if (!isCompleted && task.questions.length > 0 && !examfailed) {
-  <div class="quiz-area">
-    <div class="task-card glass-card question-card">
-      <div class="card-content">
-        <h2 class="question-title">
-          Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}
-        </h2>
-        <p class="question-text">
-          {{ task.questions[currentQuestionIndex].text }}
-        </p>
-        @if (exam) {
-        <div class="exam-timer">
-          Zeit übrig: {{ timerDisplay }}
+    <div class="quiz-area">
+      <div class="task-card glass-card question-card">
+        <div class="card-content">
+          <h2 class="question-title">
+            Frage {{ currentQuestionIndex + 1 }} von {{ task.questions.length }}
+          </h2>
+          <p class="question-text">
+            {{ task.questions[currentQuestionIndex].text }}
+          </p>
+          @if (exam) {
+            <div class="exam-timer">
+              Zeit übrig: {{ timerDisplay }}
+            </div>
+          }
         </div>
-        }
       </div>
-    </div>
 
-    <div class="options-grid" [class.disabled]="isWaitingForNext">
-      @for (option of task.questions[currentQuestionIndex].options; track
-      option) {
-      <button class="option-button" [ngClass]="{
+      <div class="options-grid" [class.disabled]="isWaitingForNext">
+        @for (option of task.questions[currentQuestionIndex].options; track
+          option) {
+          <button class="option-button" [ngClass]="{
  'correct-answer':
  answerStatus === 'correct' &&
  option === task.questions[currentQuestionIndex].correctAnswer,
  'wrong-answer': answerStatus === 'wrong' && option === selectedAnswer
  }" (click)="selectAnswer(option)">
-        {{ option }}
-      </button>
-      }
-    </div>
-
-
-    <div class="navigation-buttons">
-      @if (currentQuestionIndex > 0) {
-      <button class="fun-button" (click)="navigationService.previousQuestion()">
-        Zurück
-      </button>
-      }
-      @if (currentQuestionIndex < task.questions.length - 1) { <button class="fun-button"
-        (click)="navigationService.nextQuestion()">
-        Weiter
-        </button>
-        } @else {
-        <button class="fun-button" (click)="onFinishTask()">
-          Beenden
-        </button>
+            {{ option }}
+          </button>
         }
+      </div>
+
+
+      <div class="navigation-buttons">
+        @if (currentQuestionIndex > 0) {
+          <button class="fun-button" (click)="navigationService.previousQuestion()">
+            Zurück
+          </button>
+        }
+        @if (currentQuestionIndex < task.questions.length - 1) {
+          <button class="fun-button"
+                  (click)="navigationService.nextQuestion()">
+            Weiter
+          </button>
+        } @else {
+          <button class="fun-button" (click)="onFinishTask()">
+            Beenden
+          </button>
+        }
+      </div>
     </div>
-  </div>
   }
   @if (answerStatus) {
-  <div class="status-message-container">
-    <p [ngClass]="{
+    <div class="status-message-container">
+      <p [ngClass]="{
 'correct-text': answerStatus === 'correct',
 'wrong-text': answerStatus === 'wrong'
 }">
-      {{ statusMessage }}
-    </p>
-  </div>
+        {{ statusMessage }}
+      </p>
+    </div>
   }
 
   @if (isCompleted) {
-  <div class="completion-message-card glass-card">
-    <div class="card-content">
-      <h2>Aufgabe abgeschlossen! 🎉</h2>
-      <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>
-      <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">
-        Zurück zu den Aufgaben
-      </a>
+    <div class="completion-message-card glass-card">
+      <div class="card-content">
+        <h2>Aufgabe abgeschlossen! 🎉</h2>
+        <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>
+        <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">
+          Zurück zu den Aufgaben
+        </a>
+      </div>
     </div>
-  </div>
   }
   @if (examfailed) {
-  <div class="completion-message-card glass-card">
-    <div class="card-content">
-      <h2>Aufgabe gescheitert 💥</h2>
-      <p>Versuchs nochmal!</p>
-      <a [routerLink]="['/tasks', task!.subject, 'child', childId]" class="back-button">
-        Zurück zu den Aufgaben
-      </a>
+    <div class="completion-message-card glass-card">
+      <div class="card-content">
+        <h2>Aufgabe gescheitert 💥</h2>
+        <p>Versuchs nochmal!</p>
+        <a [routerLink]="['/tasks', task!.subject, 'child', childId]" class="back-button">
+          Zurück zu den Aufgaben
+        </a>
+      </div>
     </div>
-  </div>
   }
-  }
+}
 </div>

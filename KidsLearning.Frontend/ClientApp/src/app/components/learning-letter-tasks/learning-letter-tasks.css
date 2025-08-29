@@ -1,5 +1,4 @@
 
-
 .task-detail-container {
   display: flex;
   flex-direction: column;
@@ -69,7 +68,6 @@
 }
 
 
-
 .spelling-quiz .image-card {
   background: rgba(255, 255, 255, 0.3);
   padding: 1.5rem;
@@ -111,7 +109,6 @@
 }
 
 
-
 .options-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
@@ -134,8 +131,8 @@
 
 .options-grid-two {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 2rem; 
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
   margin-bottom: 2rem;
   width: 100%;
 }
@@ -178,16 +175,16 @@
 
 
 .correct-letter-button {
-  background-color: #04ff7e; 
+  background-color: #04ff7e;
   color: white;
   transform: scale(1.05);
   border-color: #04ff7e;
 }
 
 .wrong-letter-button {
-  background-color: #ff5252; 
+  background-color: #ff5252;
   color: white;
-  animation: shake 0.5s ease-in-out; 
+  animation: shake 0.5s ease-in-out;
   border-color: #ff5252;
 }
 
@@ -235,7 +232,6 @@
 }
 
 
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -256,7 +252,6 @@
     transform: translateX(5px);
   }
 }
-
 
 
 .gap-fill-quiz {
