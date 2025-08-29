@@ -25,13 +25,13 @@
           }
         </div>
 
-        @if (answerStatus) {
+        <!-- @if (answerStatus) {
           <div class="status-message-container">
             <p [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">{{
                 statusMessage
               }}</p>
           </div>
-        }
+        } -->
 
         <div class="options-grid">
           @for (option of task.questions[currentQuestionIndex].options; track $index) {
@@ -84,14 +84,23 @@
     }
 
     @if (isCompleted) {
-      <div class="completion-message-card glass-card">
-        <div class="card-content">
-          <h2>Aufgabe abgeschlossen! 🎉</h2>
-          <p>Gut gemacht! Du hast alle Fragen beantwortet.</p>
-          <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">Zurück zu den Aufgaben</a>
-        </div>
-      </div>
-    }
+  <div class="completion-message-card glass-card">
+    <div class="card-content">
+      @if (!hasSkippedQuestions) {
+        <h2 class="task-ready">Aufgabe abgeschlossen!</h2>
+        <img src="assets/gifs/finish-bear.gif" alt="Freudiger comic Bär" class="finish">
+        <p class="p-tag">Mach weiter so!</p>
+      } @else {
+        <h2>Aufgabe nicht abgeschlossen</h2>
+        <img src="assets/gifs/notfinisch-bear.gif" alt="Freudiger comic Bär" class="finish">
+        <p>Du hast nicht alle Fragen beantwortet. Versuchs nochmal!</p>
+      }
+      <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button">
+        Zurück zu den Aufgaben
+      </a>
+    </div>
+  </div>
+}
 
     @if (!(isCompleted)) {
       <div class="navigation-buttons">
@@ -114,13 +123,13 @@
         }
       </div>
     }
-    @if (answerStatus) {
+    <!-- @if (answerStatus) {
       <div class="status-message-container">
         <p [ngClass]="{'correct-text': answerStatus === 'correct', 'wrong-text': answerStatus === 'wrong'}">{{
             statusMessage
           }}</p>
       </div>
-    }
+    } -->
     @if (examfailed) {
       <div class="completion-message-card glass-card">
         <div class="card-content">

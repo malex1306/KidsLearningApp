@@ -27,6 +27,7 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
   selectedAnswer: string | null = null;
   currentQuestionIndex = 0;
   isCompleted = false;
+  hasSkippedQuestions = false;
 
   spelledWord: string[] = [];
   statusMessage: string = '';
@@ -260,16 +261,17 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
   }
 
   onFinishTask(): void {
-    const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
-    this.isCompleted = true;
-    this.stopTimer();
-    if (allQuestionsAnswered) {
-      this.statusMessage = 'Gut gemacht! Du hast alle Fragen beantwortet. Das Ergebnis wurde gespeichert.';
-      this.completeLearningTask();
-    } else {
-      this.statusMessage = 'Du hast nicht alle Fragen beantwortet. Das Ergebnis wird nicht gespeichert.';
-    }
+  const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
+  this.isCompleted = true; 
+  this.stopTimer();
+
+  if (allQuestionsAnswered) {
+    this.hasSkippedQuestions = false; 
+    this.completeLearningTask();
+  } else {
+    this.hasSkippedQuestions = true; 
   }
+}
 
   checkTypedAnswer(): void {
     if (!this.task) return;

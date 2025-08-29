@@ -18,7 +18,7 @@ public class RewardService
     {
         var child = await _context.Children
             .Include(c => c.Badges)
-            .Include(c => c.UnlockedAvatars) // Wichtig: Lade die freigeschalteten Avatare
+            .Include(c => c.UnlockedAvatars) 
             .FirstOrDefaultAsync(c => c.Id == childId);
 
         if (child == null) return false;

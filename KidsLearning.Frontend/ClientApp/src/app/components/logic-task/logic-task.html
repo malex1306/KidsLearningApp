@@ -75,15 +75,18 @@
     }
 
 
-    @if (isCompleted) {
-      <div class="completion-message-card glass-card">
-        <div class="card-content">
-          <h2>Aufgabe abgeschlossen! 🎉</h2>
-          <p>{{ statusMessage }}</p>
-          <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="back-button">Zurück zu den Aufgaben</a>
-        </div>
+     @if (isCompleted) {
+    <div class="completion-message-card glass-card">
+      <div class="card-content">
+        <h2 class="task-ready">Aufgabe abgeschlossen!</h2>
+        <img src="assets/gifs/finish-bear.gif" alt="Freudiger comic Bär" class="finish">
+        <p class="p-tag">Mach weiter so!</p>
+        <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button">
+          Zurück zu den Aufgaben
+        </a>
       </div>
-    }
+    </div>
+  }
     @if (examfailed) {
       <div class="completion-message-card glass-card">
         <div class="card-content">
