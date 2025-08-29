@@ -304,13 +304,15 @@
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
-.p-tag{
- color: blanchedalmond;
- font-size: 1.5rem;
- font-family: MilkyWay, sans-serif;
- margin-top: 0.5rem;
+
+.p-tag {
+  color: blanchedalmond;
+  font-size: 1.5rem;
+  font-family: MilkyWay, sans-serif;
+  margin-top: 0.5rem;
 }
-.task-ready{
+
+.task-ready {
   font-size: 2rem;
   color: #fb8500;
 }

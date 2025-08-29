@@ -20,7 +20,7 @@
 }
 
 .puzzle-container {
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,7 +30,7 @@
 }
 
 .puzzle-board {
-  
+
   display: grid;
   grid-template-columns: repeat(3, 150px);
   grid-template-rows: repeat(3, 150px);
@@ -85,12 +85,12 @@
   margin-top: 1rem;
   font-size: 1.2em;
   font-weight: bold;
-  color: #ff0000; 
+  color: #ff0000;
   text-align: center;
 }
 
 .success-message {
-  color: green; 
+  color: green;
 }
 
 .fun-button {
@@ -123,6 +123,7 @@
   text-align: center;
   width: 80%;
 }
+
 .completion-message-card {
   text-align: center;
   padding: 3rem;

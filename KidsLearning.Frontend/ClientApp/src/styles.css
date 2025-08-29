@@ -1,14 +1,13 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
-/* Damit der Hintergrund die gesamte Höhe einnimmt */
 html, body {
   height: 100%;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  padding-top: 70px; /* Beibehalten, falls es für Ihr Layout wichtig ist */
+  padding-top: 70px;
 
   background-image: url(assets/images/background-purple.jpg);
-  background-position: center center; /* <--- NEU */
+  background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -17,7 +16,7 @@ html, body {
 @font-face {
   font-family: 'Milkyway';
   src: url('/assets/fonts/Alessia.otf') format('opentype');
-  font-weight: 400; /* Normal */
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }

@@ -30,7 +30,7 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
   exam: boolean = false;
   timerValue: number = 0;
   timerInterval: any = null;
-  
+
 
   examfailed: boolean = false;
 
@@ -86,43 +86,43 @@ export class LearningTaskDetail implements OnInit, OnDestroy {
     this.stopTimer();
   }
 
- 
-selectAnswer(answer: string): void {
-  if (!this.task || this.childId === null || this.isWaitingForNext) return;
-  this.selectedAnswer = answer;
 
-  const result = this.quizLogic.selectMathAnswer(
-    this.task,
-    this.currentQuestionIndex,
-    answer,
-    this.answeredQuestions
-  );
+  selectAnswer(answer: string): void {
+    if (!this.task || this.childId === null || this.isWaitingForNext) return;
+    this.selectedAnswer = answer;
 
-  
-  this.answerStatus = result.answerStatus;
-  this.statusMessage = result.statusMessage;
-  this.answeredQuestions = result.answeredQuestions;
+    const result = this.quizLogic.selectMathAnswer(
+      this.task,
+      this.currentQuestionIndex,
+      answer,
+      this.answeredQuestions
+    );
 
-  if (result.completed) {
-    this.isWaitingForNext = true;
-    setTimeout(() => {
-      this.navigationService.nextQuestion();
-    }, 1500);
+
+    this.answerStatus = result.answerStatus;
+    this.statusMessage = result.statusMessage;
+    this.answeredQuestions = result.answeredQuestions;
+
+    if (result.completed) {
+      this.isWaitingForNext = true;
+      setTimeout(() => {
+        this.navigationService.nextQuestion();
+      }, 1500);
+    }
   }
-}
 
-onFinishTask(): void {
-  const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
-  this.isCompleted = true; 
-  this.stopTimer();
+  onFinishTask(): void {
+    const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
+    this.isCompleted = true;
+    this.stopTimer();
 
-  if (allQuestionsAnswered) {
-    this.hasSkippedQuestions = false; 
-    this.completeLearningTask();
-  } else {
-    this.hasSkippedQuestions = true; 
+    if (allQuestionsAnswered) {
+      this.hasSkippedQuestions = false;
+      this.completeLearningTask();
+    } else {
+      this.hasSkippedQuestions = true;
+    }
   }
-}
 
   resetAnswerState(): void {
     this.answerStatus = null;

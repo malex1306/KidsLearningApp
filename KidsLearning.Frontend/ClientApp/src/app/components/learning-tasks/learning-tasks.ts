@@ -17,7 +17,7 @@ export class LearningTasksComponent implements OnInit {
   subject: string = '';
   childId: number | null = null;
   exam: boolean = false;
-  
+
 
   constructor(
     private tasksService: TasksService,

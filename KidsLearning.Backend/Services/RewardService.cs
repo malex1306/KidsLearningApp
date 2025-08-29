@@ -1,7 +1,6 @@
 using KidsLearning.Backend.Data;
 using KidsLearning.Backend.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace KidsLearning.Backend.Services;
 
@@ -18,7 +17,7 @@ public class RewardService
     {
         var child = await _context.Children
             .Include(c => c.Badges)
-            .Include(c => c.UnlockedAvatars) 
+            .Include(c => c.UnlockedAvatars)
             .FirstOrDefaultAsync(c => c.Id == childId);
 
         if (child == null) return false;
@@ -63,7 +62,6 @@ public class RewardService
 
         foreach (var avatar in allAvatars)
         {
-            // hier
             if (!child.UnlockedAvatars.Any(a => a.Id == avatar.Id))
             {
                 if (child.StarCount >= avatar.UnlockStarRequirement)

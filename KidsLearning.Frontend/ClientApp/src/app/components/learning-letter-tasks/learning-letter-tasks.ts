@@ -261,17 +261,17 @@ export class LearningLetterTasks implements OnInit, OnDestroy {
   }
 
   onFinishTask(): void {
-  const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
-  this.isCompleted = true; 
-  this.stopTimer();
+    const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
+    this.isCompleted = true;
+    this.stopTimer();
 
-  if (allQuestionsAnswered) {
-    this.hasSkippedQuestions = false; 
-    this.completeLearningTask();
-  } else {
-    this.hasSkippedQuestions = true; 
+    if (allQuestionsAnswered) {
+      this.hasSkippedQuestions = false;
+      this.completeLearningTask();
+    } else {
+      this.hasSkippedQuestions = true;
+    }
   }
-}
 
   checkTypedAnswer(): void {
     if (!this.task) return;
