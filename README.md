@@ -45,3 +45,8 @@ npm install
 # Angular-Entwicklungsserver starten
 ng serve
 
+# Testkind:
+
+Email = "parent1@test.com"
+Passwort: Passwort123!
+
