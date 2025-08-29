@@ -42,6 +42,9 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
   timerInterval: any = null;
   examfailed: boolean = false;
 
+  hasSkippedQuestions = false;
+  answeredQuestions: boolean[] = [];
+
   private subscriptions = new Subscription();
 
   constructor(
@@ -66,6 +69,8 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
       this.tasksService.getTaskById(+taskId).subscribe(task => {
         const difficulty = this.activeChildService.activeChild()?.difficulty ?? 'Vorschule';
         if (difficulty) task.questions = task.questions.filter(q => q.difficulty === difficulty);
+
+        this.answeredQuestions = task.questions.map(() => false);
 
         if (task.title === 'Deutsch/Englisch verbinden') {
           this.task = task;
@@ -94,6 +99,8 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
     this.answerStatus = result.answerStatus;
     this.statusMessage = result.statusMessage;
     this.isWaitingForNext = result.answerStatus === 'correct';
+
+    this.answeredQuestions[this.currentQuestionIndex] = true;
 
     if (this.isWaitingForNext) {
       setTimeout(() => this.nextQuestion(), 1500);
@@ -175,7 +182,6 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
       this.currentBatch
     );
 
-    // Flash setzen
     this.flashGerman = this.selectedGerman;
     this.flashEnglish = this.selectedEnglish;
     this.flashStatus = isCorrect ? 'correct' : 'wrong';
@@ -259,10 +265,16 @@ export class LearningTaskEnglish implements OnInit, OnDestroy {
 
   onFinishTask(): void {
     if (this.task && this.childId) {
+      const allQuestionsAnswered = this.answeredQuestions.every(answered => answered);
       this.isCompleted = true;
       this.stopTimer();
-      this.completeTask();
-      alert('Aufgabe automatisch beendet, da die Zeit abgelaufen ist.');
+
+      if (allQuestionsAnswered) {
+        this.hasSkippedQuestions = false;
+        this.completeTask();
+      } else {
+        this.hasSkippedQuestions = true;
+      }
     }
   }
 

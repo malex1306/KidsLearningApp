@@ -72,9 +72,9 @@
           <img src="assets/gifs/finish-bear.gif" alt="Freudiger comic Bär" class="finish">
           <p class="p-tag">Mach weiter so!</p>
         } @else {
-          <h2>Aufgabe nicht abgeschlossen</h2>
+          <h2 class="task-ready">Aufgabe nicht abgeschlossen</h2>
           <img src="assets/gifs/notfinisch-bear.gif" alt="Freudiger comic Bär" class="finish">
-          <p>Du hast nicht alle Fragen beantwortet. Versuchs nochmal!</p>
+          <p class="p-tag">Du hast nicht alle Fragen beantwortet. Versuchs nochmal!</p>
         }
         <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button">
           Zurück zu den Aufgaben

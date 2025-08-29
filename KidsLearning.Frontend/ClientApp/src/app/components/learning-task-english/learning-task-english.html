@@ -35,7 +35,9 @@
             <button class="fun-button" (click)="prevQuestion()"> Zurück</button>
           }
           @if (currentQuestionIndex === task.questions.length - 1) {
-            <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button"> Beenden</a>
+            <button class="fun-button" (click)="onFinishTask()">
+              Beenden
+            </button>
           } @else {
             <button class="fun-button" (click)="nextQuestion()"> Weiter</button>
           }
@@ -159,9 +161,15 @@
     @if (isCompleted) {
       <div class="completion-message-card glass-card">
         <div class="card-content">
-          <h2 class="task-ready">Aufgabe abgeschlossen!</h2>
-          <img src="assets/gifs/finish-bear.gif" alt="Freudiger comic Bär" class="finish">
-          <p class="p-tag">Mach weiter so!</p>
+          @if (!hasSkippedQuestions) {
+            <h2 class="task-ready">Aufgabe abgeschlossen!</h2>
+            <img src="assets/gifs/finish-bear.gif" alt="Freudiger comic Bär" class="finish">
+            <p class="p-tag">Mach weiter so!</p>
+          } @else {
+            <h2 class="task-ready">Aufgabe nicht abgeschlossen</h2>
+            <img src="assets/gifs/notfinisch-bear.gif" alt="Freudiger comic Bär" class="finish">
+            <p class="p-tag">Du hast nicht alle Fragen beantwortet. Versuchs nochmal!</p>
+          }
           <a [routerLink]="['/tasks', task.subject, 'child', childId]" class="fun-button">
             Zurück zu den Aufgaben
           </a>
